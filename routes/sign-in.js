@@ -21,7 +21,7 @@ const loginUser = (req, res, user) => {
 
 router.get('/', csrfProtection, (req, res) => {
     res.render('sign-in', {
-        title: 'Sign-in',
+        title: 'Sign In',
         csrfToken: req.csrfToken(),
     });
 });
@@ -60,14 +60,14 @@ router.post('/', csrfProtection, loginValidators,
         }
       }
 
-      errors.push('Sign-in failed for the provided email and password');
+      errors.push('Sign In failed for the provided email and password');
 
     } else {
       errors = validatorErrors.array().map((error) => error.msg);
     }
 
     res.render('sign-in', {
-      title: 'Sign-in',
+      title: 'Sign In',
       email,
       errors,
       csrfToken: req.csrfToken(),
