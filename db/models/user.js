@@ -29,9 +29,25 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   User.associate = function (models) {
+    const columnMappingOne = {
+      // User -> User, through Follow as follower
+      through: "Follow",
+      otherKey: "userId",
+      foreignKey: "followerId",
+      as: "followings",
+    };
+    const columnMappingTwo = {
+      // User -> User, through Follow as following
+      through: "Follow",
+      otherKey: "followerId",
+      foreignKey: "userId",
+      as: "followers",
+    };
+
+    User.belongsToMany(models.User, columnMappingOne);
+    User.belongsToMany(models.User, columnMappingTwo);
     User.hasMany(models.Meme, { foreignKey: "userId" });
     User.hasMany(models.Like, { foreignKey: "userId" });
-    User.hasMany(models.Follow, { foreignKey: "userId" });
     User.hasMany(models.Comment, { foreignKey: "userId" });
   };
   return User;

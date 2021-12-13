@@ -5,20 +5,20 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: { model: "Users" },
       },
       memeId: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: { model: "Memes" },
       },
     },
     {}
   );
   Like.associate = function (models) {
-    Like.belongsTo(models.User, { foreignKey: "userId" });
     Like.belongsTo(models.Meme, { foreignKey: "memeId" });
+    Like.belongsTo(models.User, { foreignKey: "userId" });
   };
   return Like;
 };
