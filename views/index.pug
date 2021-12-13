@@ -7,5 +7,55 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  h1= title
-  p Welcome to your Project Skeleton
+  .root
+    header
+      nav.header-nav
+        ul
+          li: a(href="/")
+          li: a(href="/sign-in") Sign In
+          li: a(href="/users/new") Get Started
+        .dropdown
+          include dropdown.pug
+      .header-main
+        img(src="#").header-background
+        h2 Memehub is a place to post, laugh, and connect
+        p It's easy and free to post your thinking on any topic and connect with millions of readers.
+        button(onclick="location.href='/users/new'" type=button) Get Started
+    .trending-memes
+      h2 TRENDING ON MEMEHUB
+        .trending-meme
+          p.trending-rank 01
+          img.trending-user-logo(src=`#`)
+          a.trending-username(href=`#`) @demo
+          a.trending-title(href=`#`) Check Out This Fat Cat
+          p.trending-date Dec 8
+        .trending-meme
+          p.trending-rank 02
+          img.trending-user-logo(src=`#`)
+          a.trending-username(href=`#`) @davidlee
+          a.trending-title(href=`#`) Check Out This Fat Cat
+          p.trending-date Dec 8
+        .trending-meme
+          p.trending-rank 03
+          img.trending-user-logo(src=`#`)
+          a.trending-username(href=`#`) @willduffy
+          a.trending-title(href=`#`) Check Out This Fat Cat
+          p.trending-date Dec 8
+        .trending-meme
+          p.trending-rank 04
+          img.trending-user-logo(src=`#`)
+          a.trending-username(href=`#`) @anthonyadams
+          a.trending-title(href=`#`) Check Out This Fat Cat
+          p.trending-date Dec 8
+        .trending-meme
+          p.trending-rank 05
+          img.trending-user-logo(src=`#`)
+          a.trending-username(href=`#`) @minukim
+          a.trending-title(href=`#`) Check Out This Fat Cat
+          p.trending-date Dec 8
+        .trending-meme
+          p.trending-rank 06
+          img.trending-user-logo(src=`#`)
+          a.trending-username(href=`#`) @demo
+          a.trending-title(href=`#`) Check Out This Fat Cat
+          p.trending-date Dec 8
