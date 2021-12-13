@@ -10,6 +10,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const signInRouter = require('./routes/sign-in');
 
+
 const app = express();
 
 // view engine setup
@@ -39,6 +40,7 @@ store.sync();
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/sign-in', signInRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
