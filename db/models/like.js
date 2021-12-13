@@ -3,11 +3,16 @@ module.exports = (sequelize, DataTypes) => {
   const Like = sequelize.define(
     "Like",
     {
-      id: DataTypes.INTEGER,
-      userId: DataTypes.INTEGER,
-      memeId: DataTypes.INTEGER,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "Users" },
+      },
+      memeId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "Memes" },
+      },
     },
     {}
   );

@@ -3,12 +3,20 @@ module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define(
     "Comment",
     {
-      id: DataTypes.INTEGER,
-      body: DataTypes.TEXT,
-      userId: DataTypes.INTEGER,
-      memeId: DataTypes.INTEGER,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      body: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "Users" },
+      },
+      memeId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "Memes" },
+      },
     },
     {}
   );

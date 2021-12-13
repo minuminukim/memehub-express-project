@@ -3,12 +3,21 @@ module.exports = (sequelize, DataTypes) => {
   const Meme = sequelize.define(
     "Meme",
     {
-      id: DataTypes.INTEGER,
-      body: DataTypes.TEXT,
-      userId: DataTypes.INTEGER,
-      memeId: DataTypes.INTEGER,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "Users" },
+      },
+      headline: {
+        type: Sequelize.STRING(125),
+      },
+      caption: {
+        type: Sequelize.STRING(255),
+      },
+      link: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
     },
     {}
   );
