@@ -5,23 +5,23 @@ module.exports = (sequelize, DataTypes) => {
     {
       body: {
         allowNull: false,
-        type: Sequelize.TEXT,
+        type: DataTypes.TEXT,
       },
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: { model: "Users" },
       },
       memeId: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: { model: "Memes" },
       },
     },
     {}
   );
   Comment.associate = function (models) {
-    Comment.hasMany(models.User, { foreignKey: "userId" });
+    Comment.belongsTo(models.User, { foreignKey: "userId" });
     Comment.belongsTo(models.Meme, { foreignKey: "memeId" });
   };
   return Comment;

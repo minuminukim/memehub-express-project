@@ -5,12 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: { model: "Users" },
       },
       followerId: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: { model: "Users" },
       },
     },
