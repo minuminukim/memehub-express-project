@@ -1,46 +1,45 @@
-const express = require('express');
-const { check, validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
+const express = require("express");
+const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
 
-const db = require('../db/models');
+const db = require("../db/models");
 
 //Possibly dry up the three below into Utils.js
-const csrf = require('csurf');
+const csrf = require("csurf");
 const csrfProtection = csrf({ cookie: true });
-const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next);
-
+const asyncHandler = (handler) => (req, res, next) =>
+  handler(req, res, next).catch(next);
 
 const router = express.Router();
 
 const loginUser = (req, res, user) => {
-    req.session.auth = {
-      userId: user.id,
-    };
+  req.session.auth = {
+    userId: user.id,
   };
+};
 
-
-router.get('/', csrfProtection, (req, res) => {
-    res.render('sign-in', {
-        title: 'Sign In',
-        csrfToken: req.csrfToken(),
-    });
+router.get("/", csrfProtection, (req, res) => {
+  res.render("sign-in", {
+    title: "Sign In",
+    csrfToken: req.csrfToken(),
+  });
 });
 
 const loginValidators = [
-    check('email')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide a value for Email'),
-    check('password')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide a value for Password'),
+  check("email")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a value for Email"),
+  check("password")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a value for Password"),
 ];
 
-router.post('/', csrfProtection, loginValidators,
+router.post(
+  "/",
+  csrfProtection,
+  loginValidators,
   asyncHandler(async (req, res) => {
-    const {
-      email,
-      password,
-    } = req.body;
+    const { email, password } = req.body;
 
     let errors = [];
     const validatorErrors = validationResult(req);
@@ -55,23 +54,25 @@ router.post('/', csrfProtection, loginValidators,
       if (user !== null) {
         // const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
         if (password === user.hashedPassword.toString()) {
+          console.log("user", user.id);
+          console.log(req.session.auth);
           loginUser(req, res, user);
-          return res.redirect('/');
+          return res.redirect("/");
         }
       }
 
-      errors.push('Sign In failed for the provided email and password');
-
+      errors.push("Sign In failed for the provided email and password");
     } else {
       errors = validatorErrors.array().map((error) => error.msg);
     }
 
-    res.render('sign-in', {
-      title: 'Sign In',
+    res.render("sign-in", {
+      title: "Sign In",
       email,
       errors,
       csrfToken: req.csrfToken(),
     });
-}));
+  })
+);
 
 module.exports = router;
