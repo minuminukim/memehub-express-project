@@ -1,16 +1,25 @@
 
-button {
-  margin-top:15px;
+.header-main button {
+  margin-top:25px;
   padding: 5px;
   border-radius: 99em;
+  margin-left: -465px;
 }
 
-
-
-.trending-memes {
-  font-size:70px;
+.header-main h2{
+  font-size: 55px;
+  text-align: left;
 }
 
-.header-main {
-  font-size:70px;
+.header-main{
+  color:black;
+  justify-content: flex-start;
+  padding-bottom: none;
+  margin-left: 150px;
+  width: 37%;
+}
+
+.header-main p{
+  margin-top:8px;
+  text-align: left;
 }

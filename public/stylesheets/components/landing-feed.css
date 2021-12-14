@@ -1,0 +1,18 @@
+.trending-memes h2{
+    text-align: left;
+    margin-left: 150px;
+    margin-top: 85px;
+}
+
+.trending-memes div {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+
+.landing-feed {
+    text-align: left;
+    margin-left: 150px;
+    margin-top: 85px;
+}

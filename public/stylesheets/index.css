@@ -16,14 +16,11 @@ html {
 }
 
 
-
-/* header{
-  justify-content:center;
+header {
   background-color: rgb(182, 219, 253);
-} */
-/*
-makes navbar inline and to the right
-*/
+}
+
+
 /* nav {
   display:flex;
   align-items:flex-start;
