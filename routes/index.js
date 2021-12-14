@@ -2,17 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 const { User, Meme } = require("../db/models");
+const { logoutUser } = require("../auth");
 
 const asyncHandler = (handler) => (req, res, next) => {
   return handler(req, res, next).catch(next);
 };
 
-const signoutUser = (req, res) => delete req.session.auth;
-
 /* GET home page -- default sorted by likes. */
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
+    console.log("Hello from index router");
     // fetch memes by most comments
     // const trendingMemes = Meme.findAll();
 
@@ -36,11 +36,6 @@ router.get("/hot", (req, res, next) => {
 // GET following feed
 router.get("/you", (req, res, next) => {
   res.render("index", { title: "Memehub" });
-});
-
-router.post("/sign-out", (req, res) => {
-  signoutUser(req, res);
-  res.redirect("/");
 });
 
 module.exports = router;
