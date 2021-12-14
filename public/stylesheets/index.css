@@ -15,17 +15,23 @@ html {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+
+
+header{
+  justify-content:center;
+}
 /*
 makes navbar inline and to the right
 */
 nav {
   display:flex;
   align-items:flex-start;
-  justify-content: space-between;
+  justify-content: flex-end;
+  width:80%;
 }
 
 nav > ul {
-  margin-left:80%;
+
 
 }
 
@@ -44,8 +50,35 @@ h2.beginning-header{
 
 .header-main{
   color:black;
-  text-align: left;
+  justify-content: flex-start;
   padding-bottom: none;
-  margin-left: 50px;
+  margin-left: 200px;
   width: 30%;
+}
+
+.header-main button{
+  margin-top:15px;
+  padding: 5px;
+  border-radius: 99em;
+}
+
+.header-main p{
+  margin-top:8px;
+}
+
+/*displays trending memes in a grid format
+*/
+.trending-meme{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+
+
+.trending-memes {
+  /* grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; */
+  margin-left: 200px;
+  margin-top: 30px;
 }
