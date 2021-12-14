@@ -19,6 +19,7 @@ html {
 
 header{
   justify-content:center;
+  background-color: rgb(182, 219, 253);
 }
 /*
 makes navbar inline and to the right
@@ -30,10 +31,6 @@ nav {
   width:80%;
 }
 
-nav > ul {
-
-
-}
 
 ul > li {
   display:inline;
@@ -73,7 +70,6 @@ h2.beginning-header{
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
 }
-
 
 
 .trending-memes {
