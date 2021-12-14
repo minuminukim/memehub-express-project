@@ -1,16 +1,16 @@
 const memesByComments = (a, b) => {
-  if (a.comments.length < b.comments.length) {
+  if (a.Comments.length < b.Comments.length) {
     return 1;
-  } else if (a.comments.length > b.comments.length) {
+  } else if (a.Comments.length > b.Comments.length) {
     return -1;
   }
   return 0;
 };
 
 const memesByLikes = (a, b) => {
-  if (a.likes.length < b.likes.length) {
+  if (a.Likes.length < b.Likes.length) {
     return 1;
-  } else if (a.likes.length > b.likes.length) {
+  } else if (a.Likes.length > b.Likes.length) {
     return -1;
   }
   return 0;

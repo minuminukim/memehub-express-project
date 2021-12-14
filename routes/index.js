@@ -11,16 +11,12 @@ router.get(
   "/",
   asyncHandler(async (req, res, next) => {
     const memes = await Meme.findAll({
-      include: [
-        { model: Comment, as: "comments" },
-        { model: Like, as: "likes" },
-        User,
-      ],
+      include: [Comment, Like, User],
     });
 
     // fetch memes by most comments
     const trendingMemes = memes
-      .filter((meme) => meme.comments.length)
+      .filter((meme) => meme.Comments.length)
       .sort((a, b) => memesByComments(a, b))
       .slice(0, 6);
 
@@ -28,7 +24,7 @@ router.get(
 
     // // fetch memes by likes
     const bestMemes = memes
-      .filter((meme) => meme.likes.length)
+      .filter((meme) => meme.Likes.length)
       .sort((a, b) => memesByLikes(a, b))
       .slice(0, 10);
 
@@ -59,7 +55,7 @@ router.get(
   "/hot",
   asyncHandler(async (req, res, next) => {
     const memes = await Meme.findAll({
-      include: [{ model: Like, as: "likes" }, User],
+      include: [Like, User],
     });
 
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b));
@@ -72,7 +68,7 @@ router.get(
   "/trending",
   asyncHandler(async (req, res, next) => {
     const memes = await Meme.findAll({
-      include: [{ model: Comment, as: "comments" }, User],
+      include: [Comment, User],
     });
 
     const feedMemes = memes.sort((a, b) => memesByComments(a, b));
