@@ -46,7 +46,10 @@ router.get(
 router.get(
   "/recent",
   asyncHandler(async (req, res, next) => {
-    const feedMemes = await Meme.findAll({ order: [["id", "DESC"]] });
+    const feedMemes = await Meme.findAll({
+      order: [["id", "DESC"]],
+      include: User,
+    });
     res.render("index", { title: "Memehub", feedMemes });
   })
 );
@@ -85,7 +88,7 @@ router.get(
     const { userId } = req.session.auth;
 
     // get logged in user & the users they're following
-    const user = await User.findByPk(parseInt(userId), {
+    const user = await User.findByPk(parseInt(userId, 10), {
       include: [
         {
           model: User,
@@ -94,8 +97,9 @@ router.get(
         },
       ],
     });
-
+    // console.log(user.followings);
     // get followings memes
+    // TODO: fix -- get usernames
     const feedMemes = user.followings.map((following) => following.Memes);
 
     // console.log(JSON.stringify(followMemes, null, 2));
