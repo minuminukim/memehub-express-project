@@ -23,16 +23,18 @@ router.get(
     // // console.log("hello", JSON.stringify(trendingMemes, null, 2));
 
     // // fetch memes by likes
-    const bestMemes = memes
+    const feedMemes = memes
       .filter((meme) => meme.Likes.length)
-      .sort((a, b) => memesByLikes(a, b))
-      .slice(0, 10);
+      .sort((a, b) => memesByLikes(a, b));
+
+    const bestMemes = feedMemes.slice(0, 10);
 
     // if user logged in, render landing-page, else render index
     res.render(isLoggedIn(req) ? "landing-page" : "index", {
       title: "Memehub",
       trendingMemes,
       bestMemes,
+      feedMemes,
       i: 1,
     });
   })
