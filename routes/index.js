@@ -12,14 +12,19 @@ const asyncHandler = (handler) => (req, res, next) => {
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    console.log("Hello from index router");
+    const trendingMemes = Meme.findAll();
     // fetch memes by most comments
     // const trendingMemes = Meme.findAll();
 
     // fetch memes by likes
     // const bestMemes = Meme.findAll();
-
-    res.render("index", { title: "Memehub" });
+    if (req.session.auth === undefined) {
+      console.log("test");
+      res.render("landing-page", { title: "Memehub" });
+    } else {
+      console.log("hello");
+      res.render("index", { title: "Memehub" });
+    }
   })
 );
 
