@@ -24,18 +24,18 @@ header{
 /*
 makes navbar inline and to the right
 */
-nav {
+/* nav {
   display:flex;
   align-items:flex-start;
   justify-content: flex-end;
   width:80%;
-}
+} */
 
 
-ul > li {
+/* ul > li {
   display:inline;
   margin: 15px;
-}
+} */
 
 
 /*
@@ -51,21 +51,21 @@ h2.beginning-header{
   padding-bottom: none;
   margin-left: 200px;
   width: 30%;
-}
+} */
 
 .header-main button{
   margin-top:15px;
   padding: 5px;
   border-radius: 99em;
-}
+} 
 
 .header-main p{
   margin-top:8px;
-}
+} */
 
 /*displays trending memes in a grid format
 */
-.trending-meme{
+/* .trending-meme{
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -75,6 +75,6 @@ h2.beginning-header{
 .trending-memes {
   /* grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr; */
-  margin-left: 200px;
+  /* margin-left: 200px;
   margin-top: 30px;
-}
+/* }
