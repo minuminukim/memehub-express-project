@@ -1,0 +1,13 @@
+.root {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 20px;
+}
+
+.feed-container {
+  grid-column: 2 / 9;
+}
+
+.right-container {
+  grid-column: 9 / 12;
+}

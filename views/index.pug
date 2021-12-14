@@ -5,9 +5,24 @@ include utils.pug
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/main-styles.css")
+  link(rel="stylesheet" href="/stylesheets/components/home.css")
+  link(rel="stylesheet" href="/stylesheets/components/feed-block.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
   .root
-  p test
+    .feed-container
+      .feed-toggles
+        .feed-toggles-left
+          a(href="/you") Following
+        .feed-toggles-right
+          a(href="/hot") Hot
+          a(href="/trending") Trending
+          a(href="/recent") Recent
+      .feed-memes
+        h2 "main feed goes here"
+        each meme in hotMemes
+          +memeBlock("#", meme.User.username, meme.link,`/users/${meme.userId}`, meme.headline, "#", "Dec 8", meme.caption)
+    .right-container
+      p test

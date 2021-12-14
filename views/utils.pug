@@ -13,3 +13,31 @@ mixin field(labelText, fieldName, fieldValue, fieldType = 'text', placeholder = 
       textarea(id=fieldName name=fieldName class='form-control' rows='5')= fieldValue
     else
       input(type=fieldType id=fieldName name=fieldName value=fieldValue placeholder=placeholder class='form-control')
+
+mixin trendingMeme(rank, meme, logo, profile, username, memeHfref, headline, date)
+  .trending-meme
+    p.trending-rank #{rank}
+    img.trending-meme(src=meme)
+    img.trending-user-logo(src=logo)
+    a.trending-username(href=profile) @#{username}
+    a.trending-title(href=memeHref) #{headline}
+    p.trending-date #{date}
+
+mixin bestMeme(logo, username, meme, profile, headline, memeHref, date, caption = null)
+  .best-meme
+    img.user-logo(src=logo)
+    a.user-link(href=profile) @#{username}
+    a.meme-title(href=memeHref) #{headline}
+    p.meme-caption #{caption}
+    p.meme-date #{date}
+    img.meme-image(src=meme)
+
+mixin memeBlock(logo, username, meme, profile, headline, memeHref, date, caption = null)
+  .meme-block
+    .meme-signature
+      img.user-logo(src=logo)
+      a.user-link(href=profile) @#{username}
+    a.meme-title(href=memeHref) #{headline}
+    p.meme-caption #{caption}
+    img.meme-image(src=meme)
+    p.meme-date #{date}

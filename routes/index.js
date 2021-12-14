@@ -51,42 +51,28 @@ router.get(
   })
 );
 
+// GET home page sorted by most likes
 router.get(
-  "/best",
+  "/hot",
   asyncHandler(async (req, res, next) => {
     const memes = await Meme.findAll({
-      include: [
-        { model: Comment, as: "comments" },
-        { model: Like, as: "likes" },
-        User,
-      ],
+      include: [{ model: Like, as: "likes" }, User],
     });
 
-    const bestMemes = memes
-      .filter((meme) => meme.likes.length)
-      .sort((a, b) => memesByLikes(a, b))
-      .slice(0, 10);
-
-    res.render("index", { title: "Memehub", bestMemes });
+    const hotMemes = memes.sort((a, b) => memesByLikes(a, b));
+    res.render("index", { title: "Memehub", hotMemes });
   })
 );
 
 // GET home page sorted by most comments
 router.get(
-  "/hot",
+  "/trending",
   asyncHandler(async (req, res, next) => {
     const memes = await Meme.findAll({
-      include: [
-        { model: Comment, as: "comments" },
-        { model: Like, as: "likes" },
-        User,
-      ],
+      include: [{ model: Comment, as: "comments" }, User],
     });
 
-    const trendingMemes = memes
-      .filter((meme) => meme.comments.length)
-      .sort((a, b) => memesByComments(a, b))
-      .slice(0, 6);
+    const trendingMemes = memes.sort((a, b) => memesByComments(a, b));
 
     res.render("index", { title: "Memehub", trendingMemes });
   })
