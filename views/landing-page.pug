@@ -1,19 +1,19 @@
 include layout.pug
 
-mixin trendingMeme(rank, meme, logo, profile, username, memeLink, title, date)
+mixin trendingMeme(rank, meme, logo, profile, username, memeHfref, headline, date)
   .trending-meme
     p.trending-rank #{rank}
     img.trending-meme(src=meme)
     img.trending-user-logo(src=logo)
     a.trending-username(href=profile) @#{username}
-    a.trending-title(href=memeLink) #{title}
+    a.trending-title(href=memeHref) #{headline}
     p.trending-date #{date}
 
-mixin memeBlock(logo, username, meme, profile, title, memeLink, date, caption = null)
-  .meme-block
+mixin bestMeme(logo, username, meme, profile, headline, memeHref, date, caption = null)
+  .best-meme
     img.user-logo(src=logo)
     a.user-link(href=profile) @#{username}
-    a.meme-title(href=memeLink) #{title}
+    a.meme-title(href=memeHref) #{headline}
     p.meme-caption #{caption}
     p.meme-date #{date}
     img.meme-image(src=meme)
@@ -22,27 +22,15 @@ block content
   .root
     include landing-nav.pug
     .header-main
-    img(src="#").header-background
-    h2 Memehub is a place to post, laugh, and connect
-    p It's easy and free to post your thinking on any topic and connect with millions of readers.
-    button(onclick="location.href='/users/new'" type=button) Get Started
+      img(src="#").header-background
+      h2 Memehub is a place to post, laugh, and connect
+      p It's easy and free to post your thinking on any topic and connect with millions of readers.
+      button(onclick="location.href='/users/new'" type=button) Get Started
     .trending-memes
       h2 TRENDING ON MEMEHUB
-        +trendingMeme("01", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("02", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("03", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("04", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("05", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("06", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
+      each meme in trendingMemes
+        +trendingMeme(`0${i++}`, meme.link, "#", `/users/${meme.userId}`, meme.User.username, "#", meme.headline, "Dec 8")
     .landing-feed
       h2 "main feed goes here"
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
-      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      each meme in bestMemes
+        +bestMeme("#", meme.User.username, meme.link,`/users/${meme.userId}`, meme.headline, "#", "Dec 8", meme.caption)
