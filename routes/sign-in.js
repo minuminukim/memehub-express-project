@@ -3,20 +3,10 @@ const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 const db = require("../db/models");
-
-//Possibly dry up the three below into Utils.js
-const csrf = require("csurf");
-const csrfProtection = csrf({ cookie: true });
-const asyncHandler = (handler) => (req, res, next) =>
-  handler(req, res, next).catch(next);
+const { csrfProtection, asyncHandler } = require("../utils");
+const { loginUser } = require("../auth");
 
 const router = express.Router();
-
-const loginUser = (req, res, user) => {
-  req.session.auth = {
-    userId: user.id,
-  };
-};
 
 router.get("/", csrfProtection, (req, res) => {
   res.render("sign-in", {
@@ -52,11 +42,12 @@ router.post(
       //When we begin hashing password we will need to comment in the passwordMatch function below
 
       if (user !== null) {
-        const passwordMatch = await bcrypt.compare(
+        const isPassword = await bcrypt.compare(
           password,
           user.hashedPassword.toString()
         );
-        if (passwordMatch) {
+
+        if (isPassword) {
           loginUser(req, res, user);
           return res.redirect("/");
         }
