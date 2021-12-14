@@ -3,11 +3,16 @@ const router = express.Router();
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { logoutUser } = require("../auth");
+const { asyncHandler } = require("../utils");
 
-const asyncHandler = (handler) => (req, res, next) => {
-  return handler(req, res, next).catch(next);
+const memesByComments = (a, b) => {
+  if (a.Comments.length < b.Comments.length) {
+    return 1;
+  } else if (b.Comments.length > a.Comments.length) {
+    return -1;
+  }
+  return 0;
 };
-
 /* GET home page -- default sorted by likes. */
 router.get(
   "/",
@@ -17,13 +22,7 @@ router.get(
     // fetch memes by most comments
     const trendingMemes = memes
       .filter((meme) => meme.Comments.length)
-      .sort((a, b) =>
-        a.Comments.length < b.Comments.length
-          ? 1
-          : a.Comments.length > b.Comments.length
-          ? -1
-          : 0
-      )
+      .sort((a, b) => memesByComments(a, b))
       .slice(0, 6);
     // console.log("hello", JSON.stringify(trendingMemes, null, 2));
     // fetch memes by likes
