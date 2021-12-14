@@ -52,7 +52,10 @@ router.post(
       //When we begin hashing password we will need to comment in the passwordMatch function below
 
       if (user !== null) {
-        const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
+        const passwordMatch = await bcrypt.compare(
+          password,
+          user.hashedPassword.toString()
+        );
         if (passwordMatch) {
           loginUser(req, res, user);
           return res.redirect("/");
