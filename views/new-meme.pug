@@ -1,0 +1,17 @@
+extends layout.pug
+
+include utils.pug
+
+block content
+  +validationErrorSummary(errors)
+  form(action='/memes/new' method='post')
+    input(type='hidden' name='_csrf' value=csrfToken)
+    +field('Headline', 'headline', headline)
+    +field('Caption', 'caption', caption)
+    +field('Link', 'link', link)
+    div
+      button(type='submit') Post Meme
+      a(href='/') Cancel
+  div
+    p: a(href='/sign-in') Sign In Here Before Posting
+    p: a(href='/users/new') Sign Up Here Before Posting
