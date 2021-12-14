@@ -14,3 +14,38 @@ html {
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+/*
+makes navbar inline and to the right
+*/
+nav {
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+}
+
+nav > ul {
+  margin-left:80%;
+
+}
+
+ul > li {
+  display:inline;
+  margin: 15px;
+}
+
+
+/*
+formats and positions header 2
+*/
+h2.beginning-header{
+  font-size: 35px;
+}
+
+.header-main{
+  color:black;
+  text-align: left;
+  padding-bottom: none;
+  margin-left: 50px;
+  width: 30%;
+}
