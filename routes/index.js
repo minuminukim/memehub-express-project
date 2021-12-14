@@ -3,21 +3,21 @@ const router = express.Router();
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { logoutUser } = require("../auth");
-const { asyncHandler } = require("../utils");
+const { asyncHandler, isLoggedIn } = require("../utils");
 
 const memesByComments = (a, b) => {
-  if (a.Comments.length < b.Comments.length) {
+  if (a.comments.length < b.comments.length) {
     return 1;
-  } else if (a.Comments.length > b.Comments.length) {
+  } else if (a.comments.length > b.comments.length) {
     return -1;
   }
   return 0;
 };
 
 const memesByLikes = (a, b) => {
-  if (a.Likes.length < b.Comments.length) {
+  if (a.likes.length < b.likes.length) {
     return 1;
-  } else if (a.Comments.length < b.Comments.length) {
+  } else if (a.likes.length > b.likes.length) {
     return -1;
   }
   return 0;
@@ -26,28 +26,37 @@ const memesByLikes = (a, b) => {
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    const memes = await Meme.findAll({ include: [Comment, Like, User] });
+    const memes = await Meme.findAll({
+      include: [
+        { model: Comment, as: "comments" },
+        { model: Like, as: "likes" },
+        User,
+      ],
+    });
 
     // fetch memes by most comments
     const trendingMemes = memes
-      .filter((meme) => meme.Comments.length)
+      .filter((meme) => meme.comments.length)
       .sort((a, b) => memesByComments(a, b))
       .slice(0, 6);
 
-    // console.log("hello", JSON.stringify(trendingMemes, null, 2));
+    // // console.log("hello", JSON.stringify(trendingMemes, null, 2));
 
-    // fetch memes by likes
+    // // fetch memes by likes
     const bestMemes = memes
-      .filter((meme) => meme.Likes.length)
+      .filter((meme) => meme.likes.length)
       .sort((a, b) => memesByLikes(a, b))
       .slice(0, 10);
 
+    const isLoggedIn = (req) => req.session.auth === undefined;
     // if user logged in, render landing-page, else render index
-    if (req.session.auth === undefined) {
-      res.render("landing-page", { title: "Memehub", trendingMemes, i: 1 });
-    } else {
-      res.render("index", { title: "Memehub" });
-    }
+    res.render(isLoggedIn(req) ? "landing-page" : "index", {
+      title: "Memehub",
+      trendingMemes,
+      bestMemes,
+      i: 1,
+      j: 1,
+    });
   })
 );
 
