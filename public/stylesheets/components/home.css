@@ -1,7 +1,14 @@
+/* general layout */
+
 .root {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: 20px;
+}
+
+.feed-toggles {
+  grid-column: 2 / 9;
+  display: flex;
 }
 
 .feed-container {
@@ -10,4 +17,14 @@
 
 .right-container {
   grid-column: 9 / 12;
+}
+
+.feed-toggles a {
+  text-transform: uppercase;
+  font-size: 13px;
+  color: #757575;
+}
+
+.feed-container a {
+  text-decoration: none;
 }

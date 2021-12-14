@@ -21,7 +21,6 @@ block content
           a(href="/trending") Trending
           a(href="/recent") Recent
       .feed-memes
-        h2 "main feed goes here"
         each meme in hotMemes
           +memeBlock("#", meme.User.username, meme.link,`/users/${meme.userId}`, meme.headline, "#", "Dec 8", meme.caption)
     .right-container

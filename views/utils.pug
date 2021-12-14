@@ -37,7 +37,7 @@ mixin memeBlock(logo, username, meme, profile, headline, memeHref, date, caption
     .meme-signature
       img.user-logo(src=logo)
       a.user-link(href=profile) @#{username}
-    a.meme-title(href=memeHref) #{headline}
-    p.meme-caption #{caption}
+    h2: a.meme-title(href=memeHref) #{headline}
+    h3.meme-caption #{caption}
     img.meme-image(src=meme)
     p.meme-date #{date}
