@@ -12,8 +12,7 @@ const asyncHandler = (handler) => (req, res, next) => {
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    console.log(req.session.auth);
-    console.log("Hello from index router");
+    const trendingMemes = Meme.findAll();
     // fetch memes by most comments
     // const trendingMemes = Meme.findAll();
 
