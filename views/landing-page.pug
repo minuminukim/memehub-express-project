@@ -28,8 +28,9 @@ block content
       button(onclick="location.href='/users/new'" type=button) Get Started
     .trending-memes
       h2 TRENDING ON MEMEHUB
-      each meme in trendingMemes
-        +trendingMeme(`0${i++}`, meme.link, "#", `/users/${meme.userId}`, meme.User.username, "#", meme.headline, "Dec 8")
+      div
+        each meme in trendingMemes
+          +trendingMeme(`0${i++}`, meme.link, "#", `/users/${meme.userId}`, meme.User.username, "#", meme.headline, "Dec 8")
     .landing-feed
       h2 "main feed goes here"
       each meme in bestMemes

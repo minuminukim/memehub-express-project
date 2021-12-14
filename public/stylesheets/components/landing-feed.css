@@ -16,3 +16,20 @@
     margin-left: 150px;
     margin-top: 85px;
 }
+.trending-memes{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+
+
+div.trending-memes{
+    display:flex;
+    width:150px;
+    height:150px;
+}
+
+img.trending-meme{
+    height: 150px;
+    width:150px;
+}
