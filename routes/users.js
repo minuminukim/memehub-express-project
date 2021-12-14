@@ -166,7 +166,7 @@ router.post(
 
 router.post("/sign-out", (req, res) => {
   logoutUser(req, res);
-  res.redirect("/");
+  res.redirect("/users/sign-in");
 });
 
 module.exports = router;
