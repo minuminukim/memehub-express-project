@@ -46,4 +46,11 @@ router.post('/new', csrfProtection, requireAuth, memesValidators,
           }
 }));
 
+router.get('/:memeId(\\d+)', asyncHandler(async (req, res) =>{
+    const memeId = parseInt(req.params.id, 10);
+    const meme = await db.Meme.findByPk(memeId, { include: [{ model: db.Comment, as: 'comments'}, { model: db.Like, as: 'likes'}]})
+    res.render('individual-meme', {title: 'Meme', meme})
+}));
+
+
 module.exports = router;

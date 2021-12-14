@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Meme.associate = function (models) {
-    Meme.hasMany(models.Comment, { foreignKey: "memeId" });
-    Meme.hasMany(models.Like, { foreignKey: "memeId" });
+    Meme.hasMany(models.Comment, { as: 'comments', foreignKey: "memeId" });
+    Meme.hasMany(models.Like, { as: 'likes', foreignKey: "memeId" });
     Meme.belongsTo(models.User, { foreignKey: "userId" });
   };
   return Meme;
