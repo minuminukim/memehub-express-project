@@ -38,9 +38,4 @@ router.get("/you", (req, res, next) => {
   res.render("index", { title: "Memehub" });
 });
 
-router.post("/sign-out", (req, res) => {
-  logoutUser(req, res);
-  res.redirect("/");
-});
-
 module.exports = router;
