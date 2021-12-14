@@ -17,10 +17,10 @@ html {
 
 
 
-header{
+/* header{
   justify-content:center;
   background-color: rgb(182, 219, 253);
-}
+} */
 /*
 makes navbar inline and to the right
 */
@@ -41,7 +41,7 @@ makes navbar inline and to the right
 /*
 formats and positions header 2
 */
-h2.beginning-header{
+/* h2.beginning-header{
   font-size: 35px;
 }
 
@@ -53,15 +53,15 @@ h2.beginning-header{
   width: 30%;
 } */
 
-.header-main button{
+/* .header-main button{
   margin-top:15px;
   padding: 5px;
   border-radius: 99em;
-} 
+}
 
 .header-main p{
   margin-top:8px;
-} */
+}  */
 
 /*displays trending memes in a grid format
 */
