@@ -8,7 +8,16 @@ const { asyncHandler } = require("../utils");
 const memesByComments = (a, b) => {
   if (a.Comments.length < b.Comments.length) {
     return 1;
-  } else if (b.Comments.length > a.Comments.length) {
+  } else if (a.Comments.length > b.Comments.length) {
+    return -1;
+  }
+  return 0;
+};
+
+const memesByLikes = (a, b) => {
+  if (a.Likes.length < b.Comments.length) {
+    return 1;
+  } else if (a.Comments.length < b.Comments.length) {
     return -1;
   }
   return 0;
@@ -24,9 +33,16 @@ router.get(
       .filter((meme) => meme.Comments.length)
       .sort((a, b) => memesByComments(a, b))
       .slice(0, 6);
+
     // console.log("hello", JSON.stringify(trendingMemes, null, 2));
+
     // fetch memes by likes
-    // const bestMemes = Meme.findAll();
+    const bestMemes = memes
+      .filter((meme) => meme.Likes.length)
+      .sort((a, b) => memesByLikes(a, b))
+      .slice(0, 10);
+
+    // if user logged in, render landing-page, else render index
     if (req.session.auth === undefined) {
       res.render("landing-page", { title: "Memehub", trendingMemes, i: 1 });
     } else {
