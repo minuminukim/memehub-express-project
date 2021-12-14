@@ -47,6 +47,10 @@ app.use(
 // create Session table if it doesn't already exist
 store.sync();
 
+app.use((req, res, next) => {
+  console.log("Hello World");
+  next();
+});
 app.use(restoreUser);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
