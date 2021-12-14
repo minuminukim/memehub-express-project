@@ -4,6 +4,7 @@ include utils.pug
 
 block content
   +validationErrorSummary(errors)
+  p Please Sign In Below
   form(action='/users/sign-in' method='post')
     input(type='hidden' name='_csrf' value=csrfToken)
     +field('Email', 'email', email)
@@ -12,4 +13,4 @@ block content
       button(type='submit') Sign In
       a(href='/') Cancel
   div
-    p: a(href='/users/new') Sign Up Here
+    p: a(href='/users/new') New User? Sign Up Here
