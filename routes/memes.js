@@ -48,13 +48,51 @@ router.post(
 );
 
 router.get(
-  '/:id(\\d+)',
+  "/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const memeId = parseInt(req.params.id, 10);
-    const meme = await db.Meme.findByPk(memeId, {include: [{model: db.User}, {model: db.Comment, include: [{model: db.User}]}, {model: db.Like}]})
-    let comments = meme.Comments
-    let likes = meme.Likes.length
+    const meme = await db.Meme.findByPk(memeId, {
+      include: [
+        { model: db.User },
+        { model: db.Comment, include: [{ model: db.User }] },
+        { model: db.Like },
+      ],
+    });
+    let comments = meme.Comments;
+    let likes = meme.Likes.length;
     res.render("individual-meme", { title: "Meme", meme, comments, likes });
+  })
+);
+
+router.get(
+  "/:id(\\d+)/delete",
+  csrfProtection,
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const memeId = parseInt(req.params.id, 10);
+    const meme = await db.Meme.findByPk(memeId, {
+      include: [
+        { model: db.User },
+        { model: db.Comment, include: [{ model: db.User }] },
+        { model: db.Like },
+      ],
+    });
+    res.render("meme-delete", {
+      title: "Delete Meme",
+      meme,
+      csrfToken: req.csrfToken(),
+    });
+  })
+);
+
+router.post(
+  "/:id(\\d+)/delete",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const memeId = parseInt(req.params.id, 10);
+    const meme = await db.Meme.findByPk(memeId);
+    await meme.destroy();
+    res.redirect(`/`);
   })
 );
 
