@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { User, Meme } = require("../db/models");
+const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { logoutUser } = require("../auth");
 
 const asyncHandler = (handler) => (req, res, next) => {
@@ -12,17 +12,25 @@ const asyncHandler = (handler) => (req, res, next) => {
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    const trendingMemes = Meme.findAll();
-    // fetch memes by most comments
-    // const trendingMemes = Meme.findAll();
+    const memes = await Meme.findAll({ include: [Comment, Like, User] });
 
+    // fetch memes by most comments
+    const trendingMemes = memes
+      .filter((meme) => meme.Comments.length)
+      .sort((a, b) =>
+        a.Comments.length < b.Comments.length
+          ? 1
+          : a.Comments.length > b.Comments.length
+          ? -1
+          : 0
+      )
+      .slice(0, 6);
+    // console.log("hello", JSON.stringify(trendingMemes, null, 2));
     // fetch memes by likes
     // const bestMemes = Meme.findAll();
     if (req.session.auth === undefined) {
-      console.log("test");
-      res.render("landing-page", { title: "Memehub" });
+      res.render("landing-page", { title: "Memehub", trendingMemes, i: 1 });
     } else {
-      console.log("hello");
       res.render("index", { title: "Memehub" });
     }
   })

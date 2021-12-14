@@ -28,14 +28,12 @@ block content
     button(onclick="location.href='/users/new'" type=button) Get Started
     .trending-memes
       h2 TRENDING ON MEMEHUB
-        +trendingMeme("01", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("02", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("03", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("04", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("05", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
-        +trendingMeme("06", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
+      each meme in trendingMemes
+        +trendingMeme(`0${i++}`, meme.link, "#", `/users/${meme.userId}`, meme.User.username, "#", meme.headline, "Dec 8")
     .landing-feed
       h2 "main feed goes here"
+      //- each meme in memes
+      //-   +memeBlock("#", ${})
       +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
       +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
       +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
