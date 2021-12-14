@@ -1,0 +1,9 @@
+header
+  nav.header-nav
+    .nav-left
+      a(href="/") Memehub
+    .nav-right
+      a(href="#") Search
+      button.dropdown-button Dropdown
+      if locals.authenticated
+        include dropdown.pug

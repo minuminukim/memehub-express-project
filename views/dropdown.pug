@@ -1,10 +1,11 @@
-.dropdown-section
-  a(href=`/users/${user.id}`): img.dropdown-user-photo(src="#", alt="#")
-  a.dropdown-user-name(href=`/users/${user.id}`) #{user.firstName} #{user.lastName}
-  a.dropdown-user-handle(href=`/users/${user.id}`) #{user.username}
-.dropdown-section
-  .dropdown-links
-    a(class="dropdown-link" href=`/memes/new`) Share a meme
-    a(class="dropdown-link" href=`/users/${user.id}/memes`) Memes
-    form(action="/users/sign-out" method="post")
-      button(class="dropdown-link" type="submit") Sign out
+.dropdown
+  .dropdown-section
+    a(href=`/users/${user.id}`): img.dropdown-user-photo(src="#", alt="#")
+    a.dropdown-user-name(href=`/users/${user.id}`) #{user.firstName} #{user.lastName}
+    a.dropdown-user-handle(href=`/users/${user.id}`) #{user.username}
+  .dropdown-section
+    .dropdown-links
+      a(class="dropdown-link" href=`/memes/new`) Share a meme
+      a(class="dropdown-link" href=`/users/${user.id}/memes`) Memes
+      form(action="/users/sign-out" method="post")
+        button(class="dropdown-link" type="submit") Sign out
