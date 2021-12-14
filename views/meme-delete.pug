@@ -1,0 +1,12 @@
+extends layout.pug
+
+block content
+  h3= `${meme.headline}`
+  img(src=`${meme.link}` alt='meme')
+  div
+    p Are you sure you want to delete this meme?
+  div
+    form(action=`/memes/${meme.id}/delete` method='post')
+      input(type='hidden' name='_csrf' value=csrfToken)
+      button(type='submit') Delete Meme
+      a(href=`/memes/${meme.id}` role='button') Cancel
