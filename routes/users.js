@@ -3,10 +3,14 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 const db = require("../db/models");
-const { csrfProtection, asyncHandler } = require("../utils");
+// const { csrfProtection, asyncHandler } = require("../utils");
 const { loginUser, logoutUser } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
+const csrf = require("csurf");
+const csrfProtection = csrf({ cookie: true });
+const asyncHandler = (handler) => (req, res, next) =>
+  handler(req, res, next).catch(next);
 
 const router = express.Router();
 
@@ -103,9 +107,17 @@ router.post(
   })
 );
 
+// router.post("/sign-out", (req, res) => {
+//   logoutUser(req, res);
+//   res.redirect("/users/sign-in");
+// });
+
 router.post("/sign-out", (req, res) => {
   logoutUser(req, res);
-  res.redirect("/users/sign-in");
+  req.session.destroy(() => {
+    res.clearCookie("connect.sid");
+    res.redirect("/users/sign-in");
+  });
 });
 
 module.exports = router;
