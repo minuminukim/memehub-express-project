@@ -46,8 +46,8 @@ router.get(
 router.get(
   "/recent",
   asyncHandler(async (req, res, next) => {
-    const latestMemes = await Meme.findAll({ order: [["id", "DESC"]] });
-    res.render("index", { title: "Memehub", latestMemes });
+    const feedMemes = await Meme.findAll({ order: [["id", "DESC"]] });
+    res.render("index", { title: "Memehub", feedMemes });
   })
 );
 
@@ -59,8 +59,8 @@ router.get(
       include: [{ model: Like, as: "likes" }, User],
     });
 
-    const hotMemes = memes.sort((a, b) => memesByLikes(a, b));
-    res.render("index", { title: "Memehub", hotMemes });
+    const feedMemes = memes.sort((a, b) => memesByLikes(a, b));
+    res.render("index", { title: "Memehub", feedMemes });
   })
 );
 
@@ -72,9 +72,9 @@ router.get(
       include: [{ model: Comment, as: "comments" }, User],
     });
 
-    const trendingMemes = memes.sort((a, b) => memesByComments(a, b));
+    const feedMemes = memes.sort((a, b) => memesByComments(a, b));
 
-    res.render("index", { title: "Memehub", trendingMemes });
+    res.render("index", { title: "Memehub", feedMemes });
   })
 );
 
@@ -96,11 +96,11 @@ router.get(
     });
 
     // get followings memes
-    const followMemes = user.followings.map((following) => following.Memes);
+    const feedMemes = user.followings.map((following) => following.Memes);
 
     // console.log(JSON.stringify(followMemes, null, 2));
 
-    res.render("index", { title: "Memehub", followMemes });
+    res.render("index", { title: "Memehub", feedMemes });
   })
 );
 
