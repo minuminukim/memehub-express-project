@@ -51,21 +51,10 @@ router.get(
   '/:id(\\d+)',
   asyncHandler(async (req, res) => {
     const memeId = parseInt(req.params.id, 10);
-    const meme = await db.Meme.findByPk(memeId, {include: [db.User, db.Comment, db.Like]})
+    const meme = await db.Meme.findByPk(memeId, {include: [{model: db.User}, {model: db.Comment, include: [{model: db.User}]}, {model: db.Like}]})
     let comments = meme.Comments
-    console.log(comments[0])
-    let bodyArr = [];
-    comments.forEach(comment => {
-        bodyArr.push(comment.dataValues.body, comment.dataValues.userId)
-    });
-
-    // console.log(meme.Comments[0].dataValues.body);
-    //     {
-    //   include: [
-    //     { model: db.Comment, as: "comments" },
-    //     { model: db.Like, as: "likes" },
-    //   ],}
-    res.render("individual-meme", { title: "Meme", meme, comments });
+    let likes = meme.Likes.length
+    res.render("individual-meme", { title: "Meme", meme, comments, likes });
   })
 );
 
