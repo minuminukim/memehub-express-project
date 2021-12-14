@@ -5,5 +5,6 @@ html
         title="Express Starter App"
         link(rel='stylesheet' href='/stylesheets/main-styles.css')
   body
-    //- include nav.pug
+    if locals.authenticated
+      include main-nav.pug
     block content

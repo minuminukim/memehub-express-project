@@ -1,5 +1,23 @@
 include layout.pug
 
+mixin trendingMeme(rank, meme, logo, profile, username, memeLink, title, date)
+  .trending-meme
+    p.trending-rank #{rank}
+    img.trending-meme(src=meme)
+    img.trending-user-logo(src=logo)
+    a.trending-username(href=profile) @#{username}
+    a.trending-title(href=memeLink) #{title}
+    p.trending-date #{date}
+
+mixin memeBlock(logo, username, meme, profile, title, memeLink, date, caption = null)
+  .meme-block
+    img.user-logo(src=logo)
+    a.user-link(href=profile) @#{username}
+    a.meme-title(href=memeLink) #{title}
+    p.meme-caption #{caption}
+    p.meme-date #{date}
+    img.meme-image(src=meme)
+
 block content
   .root
     include landing-nav.pug
@@ -10,39 +28,21 @@ block content
     button(onclick="location.href='/users/new'" type=button) Get Started
     .trending-memes
       h2 TRENDING ON MEMEHUB
-        .trending-meme
-          p.trending-rank 01
-          img.trending-user-logo(src=`#`)
-          a.trending-username(href=`#`) @demo
-          a.trending-title(href=`#`) Check Out This Fat Cat
-          p.trending-date Dec 8
-        .trending-meme
-          p.trending-rank 02
-          img.trending-user-logo(src=`#`)
-          a.trending-username(href=`#`) @davidlee
-          a.trending-title(href=`#`) Check Out This Fat Cat
-          p.trending-date Dec 8
-        .trending-meme
-          p.trending-rank 03
-          img.trending-user-logo(src=`#`)
-          a.trending-username(href=`#`) @willduffy
-          a.trending-title(href=`#`) Check Out This Fat Cat
-          p.trending-date Dec 8
-        .trending-meme
-          p.trending-rank 04
-          img.trending-user-logo(src=`#`)
-          a.trending-username(href=`#`) @anthonyadams
-          a.trending-title(href=`#`) Check Out This Fat Cat
-          p.trending-date Dec 8
-        .trending-meme
-          p.trending-rank 05
-          img.trending-user-logo(src=`#`)
-          a.trending-username(href=`#`) @minukim
-          a.trending-title(href=`#`) Check Out This Fat Cat
-          p.trending-date Dec 8
-        .trending-meme
-          p.trending-rank 06
-          img.trending-user-logo(src=`#`)
-          a.trending-username(href=`#`) @demo
-          a.trending-title(href=`#`) Check Out This Fat Cat
-          p.trending-date Dec 8
+        +trendingMeme("01", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
+        +trendingMeme("02", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
+        +trendingMeme("03", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
+        +trendingMeme("04", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
+        +trendingMeme("05", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
+        +trendingMeme("06", "#", "#", "#", "demotest", "#", "Check Out This Fat Cat", "Dec 8")
+    .landing-feed
+      h2 "main feed goes here"
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
+      +memeBlock("#", "demotest", "#", "#", "Hello World", "#", "Dec 14", "testing caption")
