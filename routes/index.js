@@ -51,14 +51,71 @@ router.get(
   })
 );
 
+router.get(
+  "/best",
+  asyncHandler(async (req, res, next) => {
+    const memes = await Meme.findAll({
+      include: [
+        { model: Comment, as: "comments" },
+        { model: Like, as: "likes" },
+        User,
+      ],
+    });
+
+    const bestMemes = memes
+      .filter((meme) => meme.likes.length)
+      .sort((a, b) => memesByLikes(a, b))
+      .slice(0, 10);
+
+    res.render("index", { title: "Memehub", bestMemes });
+  })
+);
+
 // GET home page sorted by most comments
-router.get("/hot", (req, res, next) => {
-  res.render("index", { title: "Memehub" });
-});
+router.get(
+  "/hot",
+  asyncHandler(async (req, res, next) => {
+    const memes = await Meme.findAll({
+      include: [
+        { model: Comment, as: "comments" },
+        { model: Like, as: "likes" },
+        User,
+      ],
+    });
+
+    const trendingMemes = memes
+      .filter((meme) => meme.comments.length)
+      .sort((a, b) => memesByComments(a, b))
+      .slice(0, 6);
+
+    res.render("index", { title: "Memehub", trendingMemes });
+  })
+);
 
 // GET following feed
-router.get("/you", (req, res, next) => {
-  res.render("index", { title: "Memehub" });
-});
+router.get(
+  "/you",
+  asyncHandler(async (req, res, next) => {
+    const { userId } = req.session.auth;
+
+    // get logged in user & the users they're following
+    const user = await User.findByPk(parseInt(userId), {
+      include: [
+        {
+          model: User,
+          as: "followings",
+          include: Meme,
+        },
+      ],
+    });
+
+    // get followings memes
+    const followMemes = user.followings.map((following) => following.Memes);
+
+    // console.log(JSON.stringify(followMemes, null, 2));
+
+    res.render("index", { title: "Memehub", followMemes });
+  })
+);
 
 module.exports = router;
