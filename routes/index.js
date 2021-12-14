@@ -2,12 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const { User, Meme } = require("../db/models");
+const { logoutUser } = require("../auth");
 
 const asyncHandler = (handler) => (req, res, next) => {
   return handler(req, res, next).catch(next);
 };
-
-const signoutUser = (req, res) => delete req.session.auth;
 
 /* GET home page -- default sorted by likes. */
 router.get(
@@ -39,7 +38,7 @@ router.get("/you", (req, res, next) => {
 });
 
 router.post("/sign-out", (req, res) => {
-  signoutUser(req, res);
+  logoutUser(req, res);
   res.redirect("/");
 });
 
