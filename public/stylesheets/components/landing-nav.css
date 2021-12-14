@@ -1,7 +1,10 @@
-.header-nav-container {
+.header-nav {
   display: flex;
+  width: 100vw;
+  justify-content: space-between;
 }
 
-.header-nav-list {
+.nav-left,
+.nav-right {
   display: flex;
 }

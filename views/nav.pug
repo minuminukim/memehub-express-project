@@ -1,15 +1,11 @@
 header
   nav.header-nav
-    ul
-      li: a(href="/")
+    .nav-left
+      a(href="/") Memehub
       if !locals.authenticated
-        li: a(href="/users/sign-in") Sign In
-        li: a(href="/users/new") Get Started
+        .nav-right
+          a(href="/users/sign-in") Sign In
+          a(href="/users/new") Get Started
     .dropdown
       if locals.authenticated
         include dropdown.pug
-  .header-main
-    img(src="#").header-background
-    h2 Memehub is a place to post, laugh, and connect
-    p It's easy and free to post your thinking on any topic and connect with millions of readers.
-    button(onclick="location.href='/users/new'" type=button) Get Started
