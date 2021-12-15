@@ -45,7 +45,6 @@ app.use(restoreUser);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/memes", memesRouter);
-app.use("/sign-in", signInRouter);
 app.use("/api", apiRouter);
 
 // catch 404 and forward to error handler
