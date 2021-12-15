@@ -4,7 +4,7 @@ include utils.pug
 
 block content
   +validationErrorSummary(errors)
-  p Please Sign In Below
+  p Please Sign Before Proceeding
   form(action='/users/sign-in' method='post')
     input(type='hidden' name='_csrf' value=csrfToken)
     +field('Email', 'email', email)
