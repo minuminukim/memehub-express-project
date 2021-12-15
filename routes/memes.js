@@ -15,6 +15,8 @@ router.get("/new", csrfProtection, requireAuth, (req, res) => {
   });
 });
 
+
+
 router.post(
   "/new",
   csrfProtection,

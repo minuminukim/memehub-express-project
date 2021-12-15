@@ -10,7 +10,10 @@ block content
       div
       a(href=`/` role='button')= `Likes: ${likes}`
       div
-      a(href=`/` role='button') Add a Comment
+      a(href=`/comments` role='button') Add a Comment
+      form(method="post" action="/api/comments")
+      input(type="message" name="comment" placeholder="Write a comment.")
+      input(type="submit" id="comment-button" class="add-button" value="Add Comment")
       h3 Comments:
       each comment in comments
         li= `${comment.dataValues.User.username}: ${comment.dataValues.body} `
