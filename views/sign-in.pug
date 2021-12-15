@@ -11,5 +11,6 @@ block content
       input(type='hidden' name='_csrf' value=csrfToken)
       +field('Email', 'email', email)
       +field('Password', 'password', null, 'password')
+      button(type='submit') Sign In
       div
         p: a(href='/users/new') New User? Sign Up Here
