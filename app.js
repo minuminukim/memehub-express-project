@@ -11,7 +11,6 @@ const { restoreUser } = require("./auth");
 const { sequelize } = require("./db/models");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const signInRouter = require("./routes/sign-in");
 const memesRouter = require("./routes/memes");
 const apiRouter = require("./routes/api");
 
