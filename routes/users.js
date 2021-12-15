@@ -78,10 +78,6 @@ router.post(
     if (validatorErrors.isEmpty()) {
       const user = await db.User.findOne({ where: { email } });
 
-      //For the demo I had to ignore the hashed password auth
-      //because we did not seed the database with hashed passwords
-      //When we begin hashing password we will need to comment in the passwordMatch function below
-
       if (user !== null) {
         const isPassword = await bcrypt.compare(
           password,
