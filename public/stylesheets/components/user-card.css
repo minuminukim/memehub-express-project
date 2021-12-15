@@ -1,0 +1,7 @@
+.user-card-container .user-card {
+  display: none;
+}
+
+.user-card-container:hover .user-card {
+  display: block;
+}
