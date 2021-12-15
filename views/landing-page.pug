@@ -21,16 +21,18 @@ mixin bestMeme(logo, username, meme, profile, headline, memeHref, date, caption 
 block content
   .root
     include landing-nav.pug
-    .header-main
+    div.header-main
       img(src="#").header-background
       h2 Memehub is a place to post, laugh, and connect
       p It's easy and free to post your thinking on any topic and connect with millions of readers.
       button(onclick="location.href='/users/new'" type=button) Get Started
     .trending-memes
-      h2 TRENDING ON MEMEHUB
       div
-        each meme in trendingMemes
-          +trendingMeme(`0${i++}`, meme.link, "#", `/users/${meme.userId}`, meme.User.username, "#", meme.headline, "Dec 8")
+        h2 TRENDING ON MEMEHUB
+        div.container
+          div
+            each meme in trendingMemes
+              +trendingMeme(`0${i++}`, meme.link, "#", `/users/${meme.userId}`, meme.User.username, "#", meme.headline, "Dec 8")
     .landing-feed
       h2 "main feed goes here"
       each meme in bestMemes

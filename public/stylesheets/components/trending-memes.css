@@ -1,0 +1,64 @@
+.trending-memes > div > h2{
+    text-align: left;
+    margin-left: 150px;
+    margin-top: 85px;
+    width:200px;
+    font-weight: bold;
+}
+
+div.trending-meme{
+    display:flex;
+    flex-wrap:wrap;
+    padding-right: 16px;
+    padding-left: 16px;
+    flex-grow: 0;
+    text-align: center;
+    border: 1.5px solid grey;
+    border-radius: 5px;
+    flex-direction:row;
+}
+
+div.container{
+    display: block;
+}
+
+div.container div{
+    display:flex;
+    align-items:flex-start;
+    flex-direction:row;
+    width:80%;
+}
+/* .trending-memes div {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+} */
+
+
+.landing-feed {
+    text-align: left;
+    margin-left: 150px;
+    margin-top: 85px;
+}
+/* .trending-memes{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+} */
+
+
+div.trending-memes{
+    display:flex;
+    flex-wrap:wrap;
+    /* width:150px;
+    height:150px; */
+}
+
+img.trending-meme{
+    height: 250px;
+    width:250px;
+}
+
+p.trending-rank{
+    border: 1.5px solid grey;
+}

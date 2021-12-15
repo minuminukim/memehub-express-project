@@ -1,17 +1,17 @@
 
-.header-main button {
+div.header-main button {
   margin-top:25px;
   padding: 5px;
   border-radius: 99em;
   margin-left: -465px;
 }
 
-.header-main h2{
+div.header-main h2{
   font-size: 55px;
   text-align: left;
 }
 
-.header-main{
+div.header-main{
   color:black;
   justify-content: flex-start;
   padding-bottom: none;
@@ -19,7 +19,7 @@
   width: 37%;
 }
 
-.header-main p{
+div.header-main p{
   margin-top:8px;
   text-align: left;
 }
