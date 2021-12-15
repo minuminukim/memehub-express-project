@@ -70,8 +70,16 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const memeId = parseInt(req.params.id, 10);
-    const meme = await db.Meme.findByPk(memeId);
-    res.render("meme-edit", {
+    const meme = await db.Meme.findByPk(memeId, { include: [db.User]} );
+
+    if (meme.User.id !== req.session.auth.userId) {
+        const err = new Error("Unauthorized");
+        err.status = 401;
+        err.message = "You are not authorized to edit this meme.";
+        err.title = "Unauthorized";
+        throw err;
+    }
+      res.render("meme-edit", {
       title: "Edit Meme",
       meme,
       csrfToken: req.csrfToken(),
@@ -119,7 +127,16 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const memeId = parseInt(req.params.id, 10);
-    const meme = await db.Meme.findByPk(memeId);
+    const meme = await db.Meme.findByPk(memeId, { include: [db.User]});
+
+    if (meme.User.id !== req.session.auth.userId) {
+        const err = new Error("Unauthorized");
+        err.status = 401;
+        err.message = "You are not authorized to delete this meme.";
+        err.title = "Unauthorized";
+        throw err;
+    }
+
     res.render("meme-delete", {
       title: "Delete Meme",
       meme,
