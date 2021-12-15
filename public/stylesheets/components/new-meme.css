@@ -1,11 +1,16 @@
 .root-new-meme {
-    padding-left: 50px;
+    display: flex;
+    padding-left: 70px;
     padding-top: 25px;
     color: gray;
 }
 
 .small-font {
     font-size: 14px;
+}
+
+.username {
+    padding-left: 35px;
 }
 
 
@@ -85,7 +90,7 @@ div.post-cancel {
     height: calc(100% + 4px);
     animation: glowing 15s linear infinite;
     opacity: 0;
-    transition: opacity .4s ease-in-out;
+    transition: opacity .3s ease-in-out;
     border-radius: 15px;
 }
 
