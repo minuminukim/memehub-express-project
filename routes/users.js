@@ -2,21 +2,16 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
-const db = require("../db/models");
-// const { csrfProtection, asyncHandler } = require("../utils");
+const { User, Follow } = require("../db/models");
+const { csrfProtection, asyncHandler } = require("../utils");
 const { loginUser, logoutUser } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
-const csrf = require("csurf");
-const e = require("express");
-const csrfProtection = csrf({ cookie: true });
-const asyncHandler = (handler) => (req, res, next) =>
-  handler(req, res, next).catch(next);
 
 const router = express.Router();
 
 router.get("/new", csrfProtection, (req, res) => {
-  const user = db.User.build();
+  const user = User.build();
   res.render("sign-up", {
     title: "Sign Up",
     user,
@@ -31,7 +26,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { username, email, firstName, lastName, password } = req.body;
 
-    const user = db.User.build({
+    const user = User.build({
       username,
       email,
       firstName,
@@ -76,7 +71,7 @@ router.post(
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
-      const user = await db.User.findOne({ where: { email } });
+      const user = await User.findOne({ where: { email } });
 
       if (user !== null) {
         const isPassword = await bcrypt.compare(
@@ -121,13 +116,61 @@ router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const user = await db.User.findByPk(userId, {
+    const user = await User.findByPk(userId, {
       include: [
-        { model: db.Meme, include: [{model: db.Comment, include: [{model: db.User}]}, {model: db.Like}] },
+        {
+          model: db.Meme,
+          include: [
+            { model: db.Comment, include: [{ model: db.User }] },
+            { model: db.Like },
+          ],
+        },
       ],
     });
     let memes = user.Memes;
     res.render("user-page", { title: "User", memes, user });
+  })
+);
+
+// follows
+// get user followers
+router.get(
+  "/:id/followers",
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const currentUser = await User.findByPk(userId, {
+      include: [{ model: User, as: "followers" }],
+      order: [["id", "DESC"]],
+    });
+
+    const followers = currentUser.followers.map(
+      ({ dataValues: { id, username, firstName, lastName } }) => {
+        const userData = { id, username, firstName, lastName };
+        return userData;
+      }
+    );
+
+    res.render("followers", { followers });
+  })
+);
+
+router.get(
+  "/:id/following",
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const currentUser = await User.findByPk(userId, {
+      include: [{ model: User, as: "followings" }],
+      order: [["id", "DESC"]],
+    });
+
+    const followings = currentUser.followings.map(
+      ({ dataValues: { id, username, firstName, lastName } }) => {
+        const userData = { id, username, firstName, lastName };
+        return userData;
+      }
+    );
+    // TODO: create a view for following
+    res.render("following", { followings, count: followings.length });
   })
 );
 

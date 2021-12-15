@@ -1,0 +1,8 @@
+mixin followBlock(userLogo, userId, username, userBio)
+  .follow-block
+    .follow-block-top
+      img.follow-user-logo(src=userLogo)
+      h3.follow-username: a(href=`/users/${userId}`) @#{username}
+      button.follow-button Follow
+    .follow-block-bottom
+      p.follow-user-bio #{userBio}
