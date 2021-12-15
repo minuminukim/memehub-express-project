@@ -87,39 +87,28 @@ router.get(
     const { userId } = req.session.auth;
 
     // get logged in user & the users they're following
-    const user = await User.findByPk(parseInt(userId, 10), {
-      include: [
-        {
-          model: User,
-          as: "followings",
-          // include: Meme,
-        },
-      ],
-    });
-    // console.log(JSON.stringify(user.followings, null, 2));
-
-    const feedMemes = user.followings.map(async (following) => {
-      const { id } = following;
-      const memes = await Meme.findAll({
-        where: { userId: id },
-        include: User,
-      });
-      return memes;
-      // console.log(JSON.stringify(memes, null, 2));
+    const currentUser = await User.findByPk(parseInt(userId, 10), {
+      include: [{ model: User, as: "followings" }],
     });
 
-    console.log(JSON.stringify(feedMemes, null, 2));
-    // console.log(feedMemes);
-    // iterate through followings array
-    // for each user, Meme.findAll(include: User), map to array
-    // flatten array
+    // returns an array of promises of following memes
+    const memePromises = currentUser.followings.map(
+      asyncHandler(async ({ id }) => {
+        const memes = await Meme.findAll({
+          where: { userId: id },
+          include: User,
+          order: [["id", "DESC"]],
+        });
 
-    // get followings memes
-    // TODO: fix -- get usernames
-    // const feedMemes = user.followings.map((following) => following.Memes);
+        return memes;
+      })
+    );
 
-    // console.log(JSON.stringify(followMemes, null, 2));
+    // resolve promises and flatten
+    const resolvedMemes = await Promise.all(memePromises);
+    const feedMemes = resolvedMemes.flat();
 
+    // TODO: re-factor
     res.render("index", { title: "Memehub", feedMemes });
   })
 );
