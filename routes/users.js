@@ -8,6 +8,7 @@ const { loginUser, logoutUser } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const csrf = require("csurf");
+const e = require("express");
 const csrfProtection = csrf({ cookie: true });
 const asyncHandler = (handler) => (req, res, next) =>
   handler(req, res, next).catch(next);
@@ -119,5 +120,19 @@ router.post("/sign-out", (req, res) => {
     res.redirect("/users/sign-in");
   });
 });
+
+router.get(
+  "/:id(\\d+)",
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const user = await db.User.findByPk(userId, {
+      include: [
+        { model: db.Meme, include: [{model: db.Comment, include: [{model: db.User}]}, {model: db.Like}] },
+      ],
+    });
+    let memes = user.Memes;
+    res.render("user-page", { title: "User", memes, user });
+  })
+);
 
 module.exports = router;

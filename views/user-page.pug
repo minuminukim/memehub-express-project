@@ -1,0 +1,18 @@
+extends layout.pug
+
+block content
+  h1= `${user.username}'s Memes`
+  div
+    ul
+      each meme in memes
+        li= `Headline: ${meme.dataValues.headline}`
+        li= `Caption: ${meme.dataValues.caption}`
+        img(src=`${meme.dataValues.link}` alt='meme')
+        div
+        a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+        div Comments:
+        each comment in meme.dataValues.Comments
+          li= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
+        div
+//- TODO: ensure comment and like features are working.
+//- Add any additional styles to the page
