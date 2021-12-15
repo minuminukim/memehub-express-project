@@ -41,3 +41,16 @@ mixin memeBlock(logo, username, meme, profile, headline, memeHref, date, caption
     h3.meme-caption #{caption}
     img.meme-image(src=meme)
     p.meme-date #{date}
+
+mixin userCard(logo, profile, username, bio, followers, userId)
+  .user-card-container
+    .user-card
+      .user-card-top
+        img.user-logo(src=logo)
+        a.user-link(href=profile) @#{username}
+      .user-card-middle
+        p.user-bio #{bio}
+      .user-card-bottom
+        #{followers} followers
+        form(action=`/api/${userId}/follows` method="post")
+          button(class="follow-btn" type="submit") Follow
