@@ -11,6 +11,7 @@
 
 .username {
     padding-left: 35px;
+    color: gray;
 }
 
 
@@ -31,6 +32,7 @@ input.remove-text-box:focus {
 
 .head-color {
     color: gray;
+    font-weight: bolder;
     padding-bottom: 10px;
     font-size: 40px;
 }
