@@ -1,5 +1,7 @@
 @import url("reset.css");
 @import url("index.css");
-
 @import url("components/landing-nav.css");
 @import url("components/dropdown.css");
+@import url("components/sign-in.css");
+@import url("components/landing-header.css");
+@import url("components/trending-memes.css");

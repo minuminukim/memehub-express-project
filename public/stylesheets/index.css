@@ -14,3 +14,64 @@ html {
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+
+header {
+  background-color: rgb(182, 219, 253);
+}
+
+
+/* nav {
+  display:flex;
+  align-items:flex-start;
+  justify-content: flex-end;
+  width:80%;
+} */
+
+
+/* ul > li {
+  display:inline;
+  margin: 15px;
+} */
+
+
+/*
+formats and positions header 2
+*/
+/* h2.beginning-header{
+  font-size: 35px;
+}
+
+.header-main{
+  color:black;
+  justify-content: flex-start;
+  padding-bottom: none;
+  margin-left: 200px;
+  width: 30%;
+} */
+
+/* .header-main button{
+  margin-top:15px;
+  padding: 5px;
+  border-radius: 99em;
+}
+
+.header-main p{
+  margin-top:8px;
+}  */
+
+/*displays trending memes in a grid format
+*/
+/* .trending-meme{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+
+.trending-memes {
+  /* grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; */
+  /* margin-left: 200px;
+  margin-top: 30px;
+/* }
