@@ -2,9 +2,9 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
-const { User, Follow } = require("../db/models");
+const { User, Meme, Comment, Like } = require("../db/models");
 const { csrfProtection, asyncHandler } = require("../utils");
-const { loginUser, logoutUser } = require("../auth");
+const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 
@@ -119,10 +119,10 @@ router.get(
     const user = await User.findByPk(userId, {
       include: [
         {
-          model: db.Meme,
+          model: Meme,
           include: [
-            { model: db.Comment, include: [{ model: db.User }] },
-            { model: db.Like },
+            { model: Comment, include: [{ model: User }] },
+            { model: Like },
           ],
         },
       ],
@@ -132,8 +132,9 @@ router.get(
   })
 );
 
-// follows
-// get user followers
+/*****************************FOLLOWS*************************/
+
+// GET followers by userId
 router.get(
   "/:id/followers",
   asyncHandler(async (req, res) => {
@@ -154,6 +155,7 @@ router.get(
   })
 );
 
+// GET following by userId
 router.get(
   "/:id/following",
   asyncHandler(async (req, res) => {
@@ -171,6 +173,30 @@ router.get(
     );
     // TODO: create a view for following
     res.render("following", { followings, count: followings.length });
+  })
+);
+
+// add a follow record
+router.post(
+  "/:id/follows",
+  csrfProtection,
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const currentUser = await User.findByPk(userId, {
+      include: [{ model: User, as: "followings" }],
+      order: [["id", "DESC"]],
+    });
+
+    // check if already following user
+    const followings = currentUser.followings.map(
+      ({ dataValues: { id, username, firstName, lastName } }) => {
+        const userData = { id, username, firstName, lastName };
+        return userData;
+      }
+    );
+
+    console.log(followings);
   })
 );
 

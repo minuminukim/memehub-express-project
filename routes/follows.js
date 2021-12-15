@@ -3,13 +3,18 @@ const { check, validationResult } = require("express-validator");
 
 const { Follow } = require("../db/models");
 const usersRouter = require("./users");
-const { asyncHandler } = require("../utils");
+const {
+  asyncHandler,
+  csrfProtection,
+  handleValidationErrors,
+} = require("../utils");
 const { requireAuth } = require("../auth");
+const followValidators = require("../validators/follow-validators");
 
 const router = express.Router();
 
-router.use("/users", usersRouter);
-router.use(requireAuth);
+// router.use("/users", usersRouter);
+// router.use(requireAuth);
 
 // get all follows
 router.get(
@@ -20,15 +25,41 @@ router.get(
   })
 );
 
-// router.get(
-//   // mount usersRouter
-//   "/(//d+)"
-// )
-// const validateFollow = [
-//   check("")
-// ]
+// fetch("http://localhost:8080/follows", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+//   body: JSON.stringify({ userId: 2, followerId: 1 }),
+// });
 
-// create a follow
-router.post("/", (req, res) => {});
+router.post(
+  "/",
+  // csrfProtection,
+  // requireAuth,
+  // followValidators,
+  // handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    console.log(userId);
+    // const currentUser = await User.findByPk(userId, {
+    //   include: [{ model: User, as: "followings" }],
+    // });
+    console.log(userId);
+    // check if already following user
+    // const followings = currentUser.followings.map(
+    //   ({ dataValues: { id, username, firstName, lastName } }) => {
+    //     const userData = { id, username, firstName, lastName };
+    //     return userData;
+    //   }
+    // );
+
+    // for (const following of followings) {
+    //   if ()
+    // }
+
+    // console.log(followings);
+  })
+);
 
 module.exports = router;

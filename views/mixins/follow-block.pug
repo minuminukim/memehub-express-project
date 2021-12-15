@@ -3,6 +3,7 @@ mixin followBlock(userLogo, userId, username, userBio)
     .follow-block-top
       img.follow-user-logo(src=userLogo)
       h3.follow-username: a(href=`/users/${userId}`) @#{username}
-      button.follow-button Follow
+      form(action="/follows" method="post")
+        button(class="follow-button" type="submit") Follow
     .follow-block-bottom
       p.follow-user-bio #{userBio}
