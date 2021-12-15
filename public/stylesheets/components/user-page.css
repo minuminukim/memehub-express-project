@@ -1,0 +1,19 @@
+div.userpage-header {
+    padding: 10px;
+    display: flex;
+    width: 100vw;
+    justify-content: space-evenly;
+    background-color: rgb(200, 234, 245);
+    align-items: center;
+}
+
+img.user-meme{
+    height: 400px;
+    width: 400px;
+}
+
+div.userPosts {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+}
