@@ -4,6 +4,26 @@
     color: gray;
 }
 
+.small-font {
+    font-size: 14px;
+}
+
+
+.field-no-outline {
+    outline: none;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.field-no-outline:focus {
+    outline: none;
+}
+
+
+input.remove-text-box:focus {
+    outline: none;
+}
+
 .head-color {
     color: gray;
     padding-bottom: 10px;
@@ -19,12 +39,12 @@ div.signinup {
 }
 
 div.form {
-    padding-top: 20px;
+    padding-top: 5px;
     margin-left: 100px;
 }
 
 div.post-cancel {
-    padding-top: 20px;
+    padding-top: 15px;
 }
 
 .spacing {
@@ -32,7 +52,7 @@ div.post-cancel {
 }
 
 .spacing-more {
-    padding-top: 10px;
+    padding-top: 15px;
 }
 
 .header {

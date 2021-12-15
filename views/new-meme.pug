@@ -5,17 +5,17 @@ include utils.pug
 block content
   .root-new-meme
     h1.head-color Meme
-    button.post-glow(type='submit') Post Meme
     div.form
     +validationErrorSummary(errors)
     form(action='/memes/new' method='post')
       input(type='hidden' name='_csrf' value=csrfToken)
       div.spacing
-      +field(null, 'headline', headline, 'text', 'Enter your headline here...')
-      div.spacing
       +field(null, 'headline', headline, 'text', 'Enter your caption here...')
       div.spacing
-      +field(null, 'headline', headline, 'text', 'Enter your link here...')
+      +field(null, 'caption', caption, 'text', 'Enter your caption here...')
+      div.spacing
+      +field(null, 'link', link, 'text', 'Enter your link here...')
       div.post-cancel
+        button.post-glow(type='submit') Post Meme
         div.spacing-more
-        a.cancel.small-font(href='/') Click Here To Cancel
+        a.small-font(href='/') Click Here To Cancel
