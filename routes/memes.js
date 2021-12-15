@@ -43,7 +43,7 @@ router.post(
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render("new-meme", {
         title: "New Meme",
-        meme,
+        meme: { ...meme},
         errors,
         csrfToken: req.csrfToken(),
       });
