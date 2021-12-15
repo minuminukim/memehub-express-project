@@ -74,6 +74,7 @@ router.get(
     });
 
     const feedMemes = memes.sort((a, b) => memesByComments(a, b));
+    // console.log(JSON.stringify(feedMemes, null, 2))
 
     res.render("index", { title: "Memehub", feedMemes });
   })
@@ -91,14 +92,31 @@ router.get(
         {
           model: User,
           as: "followings",
-          include: Meme,
+          // include: Meme,
         },
       ],
     });
-    // console.log(user.followings);
+    // console.log(JSON.stringify(user.followings, null, 2));
+
+    const feedMemes = user.followings.map(async (following) => {
+      const { id } = following;
+      const memes = await Meme.findAll({
+        where: { userId: id },
+        include: User,
+      });
+      return memes;
+      // console.log(JSON.stringify(memes, null, 2));
+    });
+
+    console.log(JSON.stringify(feedMemes, null, 2));
+    // console.log(feedMemes);
+    // iterate through followings array
+    // for each user, Meme.findAll(include: User), map to array
+    // flatten array
+
     // get followings memes
     // TODO: fix -- get usernames
-    const feedMemes = user.followings.map((following) => following.Memes);
+    // const feedMemes = user.followings.map((following) => following.Memes);
 
     // console.log(JSON.stringify(followMemes, null, 2));
 
