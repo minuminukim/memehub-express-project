@@ -18,10 +18,8 @@ module.exports = {
     dialectOptions: {
       ssl: {
         require: true,
+        rejectUnauthorized: false,
       },
     },
-  },
-  "KEY:VALUE PAIRS": {
-    rejectUnauthorized: false,
   },
 };
