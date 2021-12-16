@@ -60,14 +60,16 @@ router.get(
         { model: db.Like },
       ],
     });
+    let date = meme.dataValues.updatedAt
+    let dateFormat = date.toLocaleDateString("en-US")
     let isLoggedIn = req.session.auth
     let comments = meme.Comments;
     let likes = meme.Likes.length;
     if (req.session.auth){
       let currentUser = req.session.auth.userId
-      res.render("individual-meme", { title: "Meme", meme, comments, likes, currentUser, isLoggedIn });
+      res.render("individual-meme", { title: "Meme", meme, comments, likes, currentUser, isLoggedIn, dateFormat });
     } else {
-    res.render("individual-meme", { title: "Meme", meme, comments, likes, isLoggedIn });
+    res.render("individual-meme", { title: "Meme", meme, comments, likes, isLoggedIn, dateFormat });
     }
   })
 );

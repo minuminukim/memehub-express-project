@@ -128,6 +128,7 @@ router.get(
       ],
     });
     let memes = user.Memes;
+    console.log(memes)
     res.render("user-page", { title: "User", memes, user });
   })
 );
