@@ -54,4 +54,4 @@ mixin userCard(logo, profile, username, bio, followers, userId)
       .user-card-bottom
         #{followers} followers
         form(action=`/api/${userId}/follows` method="post")
-          button(class="follow-btn" type="submit") Follow
+          button(class="follow-button" type="submit") Follow
