@@ -8,12 +8,16 @@ const { requireAuth } = require("../auth");
 
 const router = express.Router();
 
-router.get("/new", csrfProtection, requireAuth, (req, res) => {
+router.get("/new", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
+  console.log(req.session.auth.userId)
+  const user = await db.User.findByPk(req.session.auth.userId)
+  console.log(user.dataValues.username)
   res.render("new-meme", {
     title: "New Meme",
+    user,
     csrfToken: req.csrfToken(),
   });
-});
+}));
 
 
 
@@ -41,7 +45,7 @@ router.post(
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render("new-meme", {
         title: "New Meme",
-        meme,
+        meme: { ...meme},
         errors,
         csrfToken: req.csrfToken(),
       });

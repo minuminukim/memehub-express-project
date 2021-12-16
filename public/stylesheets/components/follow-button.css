@@ -1,0 +1,15 @@
+.follow-button {
+  background-color: #848583;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: 0;
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+.follow-button:hover {
+  background-color: rgba(0, 0, 0, 0.55);
+}

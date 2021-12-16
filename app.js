@@ -13,6 +13,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const memesRouter = require("./routes/memes");
 const apiRouter = require("./routes/api");
+const followsRouter = require("./routes/follows");
 
 
 const app = express();
@@ -47,6 +48,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/memes", memesRouter);
 app.use("/api", apiRouter);
+app.use("/follows", followsRouter);
 
 
 // catch 404 and forward to error handler

@@ -1,0 +1,32 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 5% 15%;
+  flex-wrap: none;
+}
+
+.followers-title-container {
+  align-self: flex-start;
+}
+
+.followers-container {
+  width: 100%;
+}
+.followers-title {
+  font-size: 30px;
+  color: #000000;
+  font-weight: 500;
+}
+
+.followers-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 0;
+  border-top: 1px solid #e6e6e6;
+}
+
+.follow-button {
+  align-self: flex-start;
+}
