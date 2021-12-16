@@ -107,7 +107,7 @@ router.post(
 router.post("/sign-out", (req, res) => {
   logoutUser(req, res);
   req.session.destroy(() => {
-    res.clearCookie("connect.sid");
+    res.clearCookie("memehub.sid");
     res.redirect("/users/sign-in");
   });
 });

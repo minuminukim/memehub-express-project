@@ -6,6 +6,8 @@ block content
       //-this anchor should take you to the user's followers page.
     a(href='/follows' alt='followers')= "Followers"
     button.follow-button Follow
+    form(action='/users/sign-out' method="post")
+      button(type='submit') Sign Out
   hr
   div.userPosts
     ul
