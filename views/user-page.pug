@@ -4,8 +4,8 @@ block content
   div.userpage-header
     h1= `${user.username}'s Memes`
       //-this anchor should take you to the user's followers page.
-    a(href='/' alt='followers')= "Followers"
-    button Follow
+    a(href='/follows' alt='followers')= "Followers"
+    button.follow-button Follow
   div.userPosts
     ul
       each meme in memes
