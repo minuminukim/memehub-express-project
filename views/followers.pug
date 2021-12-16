@@ -5,6 +5,9 @@ include ./mixins/follows.pug
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/main-styles.css")
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
+  link(rel="stylesheet" href="/stylesheets/components/followers.css")
+  link(rel="stylesheet" href="/stylesheets/components/follow-block.css")
   //- add page specific js
   script(src="/javascripts/follow-button.js" type="module" defer)
 //- TODO: replace header with user-profile header
@@ -14,5 +17,6 @@ block content
       h2.followers-title #{count} Followers
     .followers-container
       each follower in followers
-        +followBlock("#", follower.id, follower.username, "bio")
-        +followButton(follower.id, userId)
+        .followers-block
+          +followBlock("#", follower.id, follower.username, "bio")
+          +followButton(follower.id, userId)
