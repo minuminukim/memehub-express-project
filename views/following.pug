@@ -2,12 +2,22 @@ extends layout.pug
 
 include ./mixins/follows.pug
 //- TODO: replace header with user-profile header
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/main-styles.css")
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
+  link(rel="stylesheet" href="/stylesheets/components/following.css")
+  link(rel="stylesheet" href="/stylesheets/components/follow-block.css")
+  //- add page specific js
+  script(src="/javascripts/follow-button.js" type="module" defer)
+
 block content
   .root
     .following-title-container
       h2.following-title #{count} Following
       p.following-caption Ordered by most recently followed
-    .followers-container
-      each user in followings
-        +followBlock("#", user.id, user.username, "bio")
-          +followButton("#", user.id, followerId)
+    .following-container
+      each following in followings
+        .following-block
+          +followBlock("#", following.id, following.username, "bio")
+          +followButton("#", following.id, userId)
