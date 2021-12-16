@@ -151,7 +151,7 @@ router.get(
       }
     );
 
-    res.render("followers", { followers });
+    res.render("followers", { followers, userId });
   })
 );
 

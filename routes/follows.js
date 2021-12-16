@@ -35,30 +35,12 @@ router.get(
 
 router.post(
   "/",
-  // csrfProtection,
-  // requireAuth,
-  // followValidators,
-  // handleValidationErrors,
+  requireAuth,
   asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    console.log(userId);
-    // const currentUser = await User.findByPk(userId, {
-    //   include: [{ model: User, as: "followings" }],
-    // });
-    console.log(userId);
-    // check if already following user
-    // const followings = currentUser.followings.map(
-    //   ({ dataValues: { id, username, firstName, lastName } }) => {
-    //     const userData = { id, username, firstName, lastName };
-    //     return userData;
-    //   }
-    // );
-
-    // for (const following of followings) {
-    //   if ()
-    // }
-
-    // console.log(followings);
+    const { userId, followerId } = req.body;
+    console.log(req.body);
+    // await Follow.create({ userId, followerId });
+    // res.end();
   })
 );
 

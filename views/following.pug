@@ -1,6 +1,6 @@
 extends layout.pug
 
-include ./mixins/follow-block.pug
+include ./mixins/follows.pug
 //- TODO: replace header with user-profile header
 block content
   .root
@@ -10,3 +10,4 @@ block content
     .followers-container
       each user in followings
         +followBlock("#", user.id, user.username, "bio")
+          +followButton("#", user.id, followerId)
