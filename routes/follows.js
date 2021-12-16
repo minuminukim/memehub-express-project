@@ -17,7 +17,10 @@ const router = express.Router();
 
 // router.use("/users", usersRouter);
 // router.use(requireAuth);
-
+// const isFollowing = async (userId, followerId) => {
+//   const follow = await Follow.findOne({ where: { userId, followerId } });
+//   return follow !== null;
+// };
 // get all follows
 router.get(
   "/",
@@ -30,13 +33,20 @@ router.get(
 router.post(
   "/",
   requireAuth,
-  followValidators,
-  handleValidationErrors,
+  // followValidators,
+  // handleValidationErrors,
   asyncHandler(async (req, res) => {
     console.log("hello world");
     const { userId, followerId } = req.body;
-    const follow = await Follow.create({ userId, followerId });
-    res.json({ follow });
+
+    const follow = await Follow.findOne({ where: { userId, followerId } });
+    if (follow) {
+      await follow.destroy();
+      res.end();
+    } else {
+      const follow = await Follow.create({ userId, followerId });
+      res.json({ follow });
+    }
   })
 );
 

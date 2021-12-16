@@ -2,11 +2,12 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
-const { User, Meme, Comment, Like } = require("../db/models");
+const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { csrfProtection, asyncHandler } = require("../utils");
 const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
+const { isFollowing } = require("./utils/follows-helpers");
 
 const router = express.Router();
 
@@ -140,18 +141,44 @@ router.get(
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId, {
-      include: [{ model: User, as: "followers" }],
+      include: [
+        { model: User, as: "followers" },
+        { model: User, as: "followings" },
+      ],
       order: [["id", "DESC"]],
     });
-
-    const followers = currentUser.followers.map(
-      ({ dataValues: { id, username, firstName, lastName } }) => {
-        const userData = { id, username, firstName, lastName };
-        return userData;
+    console.log(currentUser);
+    const promises = await Follow.findAll({ where: { followerId: userId } });
+    const follows = await Promise.all(promises);
+    const ids = follows.reduce((acc, { userId }) => {
+      if (acc.includes(userId)) {
+        return acc;
+      } else {
+        acc.push(userId);
+        return acc;
       }
-    );
+    }, []);
+    // const ids = follows.map((follow) => follow.userId);
 
-    res.render("followers", { followers, userId, count: followers.length });
+    console.log(ids);
+    // console.log(JSON.stringify(follows, null, 2));
+    // const values = Object.values(object);
+    // const followers = currentUser.followers.map(
+    //   ({ dataValues: { id, username, firstName, lastName } }) => {
+    //     const userData = {
+    //       id,
+    //       username,
+    //       firstName,
+    //       lastName,
+    //       exists: isFollowing(userId, id).then((a) => Promise.resolve(a)),
+    //     };
+    //     return userData;
+    //   }
+    // );
+    // console.log(followers);
+    // const exists = await isFollowing(userId, )
+
+    // res.render("followers", { followers, userId, count: followers.length });
   })
 );
 
@@ -161,7 +188,10 @@ router.get(
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId, {
-      include: [{ model: User, as: "followings" }],
+      include: [
+        { model: User, as: "followings" },
+        { model: User, as: "followers" },
+      ],
       order: [["id", "DESC"]],
     });
 
@@ -171,6 +201,7 @@ router.get(
         return userData;
       }
     );
+    // iterate through this to see if
     // TODO: create a view for following
     res.render("following", { followings, count: followings.length });
   })
