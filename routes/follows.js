@@ -12,7 +12,6 @@ const {
 } = require("../utils");
 const { requireAuth } = require("../auth");
 const followValidators = require("../validators/follow-validators");
-const { noExtendLeft } = require("sequelize/types/lib/operators");
 
 const router = express.Router();
 
@@ -34,6 +33,7 @@ router.post(
   followValidators,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
+    console.log("hello world");
     const { userId, followerId } = req.body;
     const follow = await Follow.create({ userId, followerId });
     res.json({ follow });

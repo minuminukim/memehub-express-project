@@ -1,33 +1,35 @@
 export const follow = () => {
   // const container = document.querySelector(".followers-container");
-  const button = document.querySelector(".follow-button");
+  const buttons = document.querySelectorAll(".follow-button");
 
-  button.addEventListener("click", (event) => {
-    // const isButton = event.target.tagName === "BUTTON";
-    // if (!isButton) return;
+  buttons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      // const isButton = event.target.tagName === "BUTTON";
+      // if (!isButton) return;
+      // event.stopPropagation();
+      const userId = parseInt(button.getAttribute("user"));
+      const followerId = parseInt(button.getAttribute("follower"));
 
-    const userId = parseInt(button.getAttribute("user"));
-    const followerId = parseInt(button.getAttribute("follower"));
+      const request = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, followerId }),
+      };
 
-    const request = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, followerId }),
-    };
-
-    fetch("http://localhost:8080/follows", request)
-      .then((response) => {
-        if (!response.ok) {
-          console.log(response);
-          throw response;
-        } else {
-          button.innerText = "Following";
-          return response.json();
-        }
-      })
-      .catch((err) => {
-        Promise.reject("You are already following this user");
-      });
+      fetch("http://localhost:8080/follows", request)
+        .then((response) => {
+          if (!response.ok) {
+            console.log(response);
+            throw response;
+          } else {
+            button.innerText = "Following";
+            return response.json();
+          }
+        })
+        .catch((err) => {
+          Promise.reject("You are already following this user");
+        });
+    });
   });
 };
 
