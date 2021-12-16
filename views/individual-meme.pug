@@ -1,5 +1,8 @@
 extends layout.pug
 
+append head
+  script(src="/javascripts/comment.js" type="module" defer)
+
 block content
   h1= `${meme.User.username}'s Meme`
   div
@@ -13,14 +16,16 @@ block content
       form(method="post" id=`${meme.id}` class="add-button" action="/api/comments")
       input(type="message" name="content" id="content" class="content" placeholder="Write a comment.")
       input(type="submit" name="button" value="Add Comment")
+      p(class="hello") hello
       h3 Comments:
       each comment in comments
-
 
         li= `${comment.dataValues.User.username}: ${comment.dataValues.body} `
         if comment.userId === userId
         form(action= "/api/comments/:id(\\d+)/delete" method="post" class="delete-button")
-          button(class="delete-button" id= `${comment.id}`) Delete Comment
+          button(id= `${comment.id}`) Delete Comment
+        form(action= "/api/comments/:id(\\d+)edit" method="post" class="edit-button")
+          button(id=`${comment.id}`) Edit Comment
       div
       p: a(href='/users/new') New User? Sign Up Here
       p: a(href='/users/sign-in') Sign In to Like and Comment

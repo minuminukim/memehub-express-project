@@ -10,13 +10,23 @@ const router = express.Router();
 
 
 router.post("/api/comments"), csrfProtection, requireAuth, asyncHandler(async (req, res)=>{
-  const comment = db.Comment.build({
-    body: body,
-    memeId: parseInt(req.params.id, 10),
-    userId: res.locals.user.id,
+
+  let comment = await Comment.create({
+    body: req.body.body,
+    userId: req.body.userId,
+    memeId: req.body.memeId,
   })
 
-  res.json({comment})
+
+  comment.save(function(err){
+    if(err){
+      console.log(err);
+      return;
+    } else {
+      res.json({comment})
+    }
+  });
+
 });
 
 
