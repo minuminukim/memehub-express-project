@@ -23,5 +23,6 @@ block content
               p= `${comment.dataValues.User.username}: ${comment.dataValues.body}`
       p: a(href='/users/new') New User? Sign Up Here
       p: a(href='/users/sign-in') Sign In to Like and Comment
-      p: a(href=`/memes/${meme.id}/edit`) Edit Your Meme
-      p: a(href=`/memes/${meme.id}/delete`) Delete Your Meme?
+      if currentUser === meme.userId
+        p: a(href=`/memes/${meme.id}/edit`) Edit Your Meme
+        p: a(href=`/memes/${meme.id}/delete`) Delete Your Meme?
