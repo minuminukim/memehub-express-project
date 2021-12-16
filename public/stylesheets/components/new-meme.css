@@ -1,0 +1,120 @@
+.root-new-meme {
+    display: flex;
+    padding-left: 70px;
+    padding-top: 25px;
+    color: gray;
+}
+
+.small-font {
+    font-size: 14px;
+}
+
+.username {
+    padding-left: 35px;
+    color: gray;
+}
+
+
+.field-no-outline {
+    outline: none;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.field-no-outline:focus {
+    outline: none;
+}
+
+
+input.remove-text-box:focus {
+    outline: none;
+}
+
+.head-color {
+    color: gray;
+    font-weight: bolder;
+    padding-bottom: 10px;
+    font-size: 40px;
+}
+
+div.signinup {
+    margin-right: 100px;
+    padding-left: 100px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+div.form {
+    padding-top: 5px;
+    margin-left: 100px;
+}
+
+div.post-cancel {
+    padding-top: 15px;
+}
+
+.spacing {
+    padding-bottom: 3px;
+}
+
+.spacing-more {
+    padding-top: 15px;
+}
+
+.header {
+    display: inline-flex
+}
+
+.post-glow {
+    width: 100px;
+    height: 25px;
+    border: none;
+    outline: none;
+    color: rgb(252, 247, 247);
+    background: rgb(145, 142, 142);
+    cursor: pointer;
+    position: relative;
+    border-radius: 15px;
+    justify-content: center;
+}
+
+.post-glow:before {
+    content: '';
+    background: linear-gradient(45deg, #0b07e9, #eb1010, #fffb12, #5cfd1c, #20fad6, #1b41fd, #6103c5, #eb21bf, #ff2020);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 300%;
+    z-index: -1;
+    filter: blur(4px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 15s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 15px;
+}
+
+.post-glow:active {
+    color: rgb(167, 161, 161)
+}
+
+.post-glow:active:after {
+    background: transparent;
+}
+
+.post-glow:hover:before {
+    opacity: 1;
+}
+
+.post-glow:after {
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgb(2, 2, 2);
+    left: 0;
+    top: 0;
+    border-radius: 15px;
+}
