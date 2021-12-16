@@ -77,3 +77,9 @@ p.posted-on {
 hr.bottom {
     margin-top: 5px;
 }
+
+div.delete-meme {
+    display: flex;
+    justify-content: center;
+
+}
