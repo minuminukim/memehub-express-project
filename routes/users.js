@@ -139,46 +139,43 @@ router.get(
 router.get(
   "/:id(\\d+)/followers",
   asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const currentUser = await User.findByPk(userId, {
-      include: [
-        { model: User, as: "followers" },
-        { model: User, as: "followings" },
-      ],
+    // find user and their followers
+    const id = parseInt(req.params.id, 10);
+    const user = await User.findByPk(id, {
+      include: [{ model: User, as: "followers" }],
       order: [["id", "DESC"]],
     });
-    console.log(currentUser);
-    const promises = await Follow.findAll({ where: { followerId: userId } });
+
+    // find current user's followings
+    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const promises = await Follow.findAll({
+      where: { followerId: currentUserId },
+    });
     const follows = await Promise.all(promises);
-    const ids = follows.reduce((acc, { userId }) => {
-      if (acc.includes(userId)) {
-        return acc;
-      } else {
-        acc.push(userId);
-        return acc;
-      }
+    const followIds = follows.reduce((acc, { userId }) => {
+      return acc.includes(userId) ? acc : acc.concat(userId);
     }, []);
-    // const ids = follows.map((follow) => follow.userId);
 
-    console.log(ids);
-    // console.log(JSON.stringify(follows, null, 2));
-    // const values = Object.values(object);
-    // const followers = currentUser.followers.map(
-    //   ({ dataValues: { id, username, firstName, lastName } }) => {
-    //     const userData = {
-    //       id,
-    //       username,
-    //       firstName,
-    //       lastName,
-    //       exists: isFollowing(userId, id).then((a) => Promise.resolve(a)),
-    //     };
-    //     return userData;
-    //   }
-    // );
-    // console.log(followers);
-    // const exists = await isFollowing(userId, )
+    // then check for intersection with the fetched followers
+    const followers = user.followers.map(
+      ({ dataValues: { id, username, firstName, lastName } }) => {
+        const userData = {
+          id,
+          username,
+          firstName,
+          lastName,
+          mutual: followIds.includes(id),
+        };
 
-    // res.render("followers", { followers, userId, count: followers.length });
+        return userData;
+      }
+    );
+
+    res.render("followers", {
+      followers,
+      currentUserId,
+      count: followers.length,
+    });
   })
 );
 
@@ -186,24 +183,40 @@ router.get(
 router.get(
   "/:id(\\d+)/following",
   asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const currentUser = await User.findByPk(userId, {
-      include: [
-        { model: User, as: "followings" },
-        { model: User, as: "followers" },
-      ],
+    const id = parseInt(req.params.id, 10);
+    const user = await User.findByPk(id, {
+      include: [{ model: User, as: "followings" }],
       order: [["id", "DESC"]],
     });
 
-    const followings = currentUser.followings.map(
+    const currentUserId = parseInt(req.session.auth.userId, 10);
+    // find mutual relationship here, where current user also follows
+    const promises = await Follow.findAll({
+      where: { followerId: currentUserId },
+    });
+    const follows = await Promise.all(promises);
+    const followIds = follows.reduce((acc, { userId }) => {
+      return acc.includes(userId) ? acc : acc.concat(userId);
+    }, []);
+    const followings = user.followings.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
-        const userData = { id, username, firstName, lastName };
+        const userData = {
+          id,
+          username,
+          firstName,
+          lastName,
+          mutual: followIds.includes(id),
+        };
+
         return userData;
       }
     );
-    // iterate through this to see if
-    // TODO: create a view for following
-    res.render("following", { followings, count: followings.length });
+
+    res.render("following", {
+      followings,
+      count: followings.length,
+      currentUserId,
+    });
   })
 );
 
