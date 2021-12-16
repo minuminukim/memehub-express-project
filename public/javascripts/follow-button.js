@@ -1,8 +1,10 @@
-const follow = () => {
+export const follow = () => {
+  // const container = document.querySelector(".followers-container");
   const button = document.querySelector(".follow-button");
 
   button.addEventListener("click", (event) => {
-    event.preventDefault();
+    // const isButton = event.target.tagName === "BUTTON";
+    // if (!isButton) return;
 
     const userId = parseInt(button.getAttribute("user"));
     const followerId = parseInt(button.getAttribute("follower"));
