@@ -1,33 +1,23 @@
 const follow = () => {
   const button = document.querySelector(".follow-button");
 
-  button.addEventListener("click", async (event) => {
+  button.addEventListener("click", (event) => {
     event.preventDefault();
 
     const userId = parseInt(button.getAttribute("user"));
     const followerId = parseInt(button.getAttribute("follower"));
     // const formData = new FormData(form);
     // console.log(formData);
+    const request = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, followerId }),
+    };
 
-    try {
-      const response = await fetch("http://localhost:8080/follows", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, followerId }),
-      });
+    fetch("http://localhost:8080/follows", request)
+      .then((res) => console.log("it worked"))
+      .catch(() => console.log("it broke"));
 
-      // if (!response.ok) {
-      //   throw response;
-      // }.
-
-      // console.log(await response.json());
-    } catch (error) {
-      console.log(error);
-    }
-
-    console.log(response);
-
-    // console.log(Promise.resolve(response));
     button.innerText = "Following";
   });
 };

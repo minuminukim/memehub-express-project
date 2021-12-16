@@ -33,9 +33,9 @@ router.post(
   followValidators,
   asyncHandler(async (req, res) => {
     const { userId, followerId } = req.body;
-    console.log(req.body);
-    await Follow.create({ userId, followerId });
-    res.end();
+    const follow = await Follow.create({ userId, followerId });
+    console.log("follow", follow);
+    res.json({ follow });
   })
 );
 
