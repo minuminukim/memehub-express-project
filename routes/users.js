@@ -198,6 +198,7 @@ router.get(
     const followIds = follows.reduce((acc, { userId }) => {
       return acc.includes(userId) ? acc : acc.concat(userId);
     }, []);
+
     const followings = user.followings.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
         const userData = {
@@ -217,30 +218,6 @@ router.get(
       count: followings.length,
       currentUserId,
     });
-  })
-);
-
-// add a follow record
-router.post(
-  "/:id/follows",
-  csrfProtection,
-  requireAuth,
-  asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const currentUser = await User.findByPk(userId, {
-      include: [{ model: User, as: "followings" }],
-      order: [["id", "DESC"]],
-    });
-
-    // check if already following user
-    const followings = currentUser.followings.map(
-      ({ dataValues: { id, username, firstName, lastName } }) => {
-        const userData = { id, username, firstName, lastName };
-        return userData;
-      }
-    );
-
-    console.log(followings);
   })
 );
 
