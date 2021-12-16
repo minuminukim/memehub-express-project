@@ -1,7 +1,10 @@
 .meme-block {
   display: flex;
   flex-direction: column;
-  max-height: 100vh;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  max-width: 480px;
 }
 
 .meme-signature {
@@ -30,6 +33,8 @@
   font-size: 13px;
   color: #757575;
 }
-/* .meme-image {
-  max-width: 60vw;
-} */
+.meme-image {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}

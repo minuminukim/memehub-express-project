@@ -1,13 +1,15 @@
 extends layout
 
 include utils.pug
+include ./mixins/recommended.pug
 
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/main-styles.css")
   link(rel="stylesheet" href="/stylesheets/components/home.css")
   link(rel="stylesheet" href="/stylesheets/components/feed-block.css")
-  link(rel="stylesheet" href="/stylesheets/components/user-card.css")
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
+  link(rel="stylesheet" href="/stylesheets/components/recommended-followers.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 
@@ -24,7 +26,12 @@ block content
       .feed-memes
         each meme in feedMemes
           +memeBlock("#", meme.User.username, meme.link,`/users/${meme.userId}`, meme.headline, "#", "Dec 8", meme.caption)
-          +userCard("#", "#", "lebron james", "hahahaha", "201", "1")
     .right-container
-      p test
-      +userCard("#", "#", "lebron james", "hahahaha", "201", "1")
+      .recommended-follows-container
+        .recommended-title-container
+          h3.recommended-title Who to follow
+        .recommended-blocks-container
+          +recommended(2, "to be filled", "David Lee", 0)
+          +recommended(3, "to be filled", "Will Duffy", 0)
+          +recommended(4, "to be filled", "Anthony Adams", 0)
+          +recommended(5, "to be filled", "Minu Kim", 0)

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
-const { logoutUser } = require("../auth");
+const { requireAuth } = require("../auth");
 const { asyncHandler, isLoggedIn } = require("../utils");
 const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
 
@@ -20,9 +20,7 @@ router.get(
       .sort((a, b) => memesByComments(a, b))
       .slice(0, 6);
 
-    // // console.log("hello", JSON.stringify(trendingMemes, null, 2));
-
-    // // fetch memes by likes
+    // fetch memes by likes
     const feedMemes = memes
       .filter((meme) => meme.Likes.length)
       .sort((a, b) => memesByLikes(a, b));
@@ -43,6 +41,7 @@ router.get(
 // GET home page sorted by recent
 router.get(
   "/recent",
+  requireAuth,
   asyncHandler(async (req, res, next) => {
     const feedMemes = await Meme.findAll({
       order: [["id", "DESC"]],
@@ -55,6 +54,7 @@ router.get(
 // GET home page sorted by most likes
 router.get(
   "/hot",
+  requireAuth,
   asyncHandler(async (req, res, next) => {
     const memes = await Meme.findAll({
       include: [Like, User],
@@ -68,6 +68,7 @@ router.get(
 // GET home page sorted by most comments
 router.get(
   "/trending",
+  requireAuth,
   asyncHandler(async (req, res, next) => {
     const memes = await Meme.findAll({
       include: [Comment, User],
@@ -82,26 +83,33 @@ router.get(
 // GET following feed
 router.get(
   "/you",
+  requireAuth,
   asyncHandler(async (req, res, next) => {
     const { userId } = req.session.auth;
 
     // get logged in user & the users they're following
-    const user = await User.findByPk(parseInt(userId, 10), {
-      include: [
-        {
-          model: User,
-          as: "followings",
-          include: Meme,
-        },
-      ],
+    const currentUser = await User.findByPk(parseInt(userId, 10), {
+      include: [{ model: User, as: "followings" }],
     });
-    // console.log(user.followings);
-    // get followings memes
-    // TODO: fix -- get usernames
-    const feedMemes = user.followings.map((following) => following.Memes);
 
-    // console.log(JSON.stringify(followMemes, null, 2));
+    // returns an array of promises of following memes
+    const memePromises = currentUser.followings.map(
+      asyncHandler(async ({ id }) => {
+        const memes = await Meme.findAll({
+          where: { userId: id },
+          include: User,
+          order: [["id", "DESC"]],
+        });
 
+        return memes;
+      })
+    );
+
+    // resolve promises and flatten
+    const resolvedMemes = await Promise.all(memePromises);
+    const feedMemes = resolvedMemes.flat();
+
+    // TODO: re-factor
     res.render("index", { title: "Memehub", feedMemes });
   })
 );

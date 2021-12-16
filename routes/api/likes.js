@@ -14,16 +14,16 @@ router.post("/api/likes"),
   requireAuth,
   asyncHandler(async (req, res) => {
     const likeMeme = await db.Like.findOne({
-      where: {
-      userId: {
-      [Op.]: <value>
-      }
-      },
-     });
-if (db.)
-    const like = db.Like.build({
-      userId: res.locals.user.id,
-      memeId: memeId,
+//       where: {
+//       userId: {
+//       [Op.]: <value>
+//       }
+//       },
+//      });
+// if (db.)
+//     const like = db.Like.build({
+//       userId: res.locals.user.id,
+//       memeId: memeId,
       // like++
     });
 

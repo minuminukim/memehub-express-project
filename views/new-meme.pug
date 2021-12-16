@@ -3,15 +3,21 @@ extends layout.pug
 include utils.pug
 
 block content
-  +validationErrorSummary(errors)
-  form(action='/memes/new' method='post')
-    input(type='hidden' name='_csrf' value=csrfToken)
-    +field('Headline', 'headline', headline)
-    +field('Caption', 'caption', caption)
-    +field('Link', 'link', link)
-    div
-      button(type='submit') Post Meme
-      a(href='/') Cancel
-  div
-    p: a(href='/users/sign-in') Sign In Here Before Posting
-    p: a(href='/users/new') Sign Up Here Before Posting
+  div.spacing-more
+  p.username= `Draft meme for ${user.dataValues.username}`
+  .root-new-meme
+    h1.head-color Meme
+      div.form
+      +validationErrorSummary(errors)
+      form(action='/memes/new' method='post')
+        input(type='hidden' name='_csrf' value=csrfToken)
+        div.spacing
+        +field(null, 'headline', headline, 'text', 'Enter your headline here...')
+        div.spacing
+        +field(null, 'caption', caption, 'text', 'Enter your caption here...')
+        div.spacing
+        +field(null, 'link', link, 'text', 'Enter your link here...')
+        div.post-cancel
+          button.post-glow(type='submit') Post Meme
+          div.spacing-more
+          a.small-font(href='/') Click Here To Cancel
