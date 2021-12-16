@@ -1,6 +1,6 @@
 include follows.pug
 
-mixin recommended(id, bio, username, followerId, image = "#")
+mixin recommended(id, bio, username, followerId, image = "/images/user-profile.png")
   .recommended-block
     .rec-left
       a(href=`/users/${id}`): img.user-photo(src=image)

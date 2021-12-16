@@ -1,7 +1,6 @@
 .right-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 .recommended-follows-container {
   display: flex;
@@ -37,4 +36,9 @@
 .follow-button:hover {
   background-color: #fff;
   border-color: rgba(0, 0, 0, 0.9);
+}
+
+.user-photo {
+  max-height: 30px;
+  max-width: 30px;
 }
