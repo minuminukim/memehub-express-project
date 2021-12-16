@@ -16,13 +16,16 @@ const follow = () => {
     fetch("http://localhost:8080/follows", request)
       .then((response) => {
         if (!response.ok) {
+          console.log(response);
           throw response;
         } else {
           button.innerText = "Following";
           return response.json();
         }
       })
-      .catch((err) => console.log("hello9"));
+      .catch((err) => {
+        Promise.reject("You are already following this user");
+      });
   });
 };
 

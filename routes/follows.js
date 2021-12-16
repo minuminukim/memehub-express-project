@@ -35,7 +35,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { userId, followerId } = req.body;
     const follow = await Follow.create({ userId, followerId });
-    res.status(201).json({ follow });
+    res.json({ follow });
   })
 );
 
