@@ -19,18 +19,15 @@ addCommentButton.addEventListener("submit", async (e)=> {
         throw res;
       }
     }
-//     grab element, save into variabe, change inner html
 
 });
 
 
-addCommentButton.addEventListener("submit", async (e)=> {
+deleteCommentButton.addEventListener("submit", async (e)=> {
   e.preventDefault();
-  const fd = new FormData(myForm);
-  const content = formData.get("content")
-  const body = {content}
+
   try {
-    const res = await fetch("http://localhost:8080/api/comments", {
+    const res = await fetch("http://localhost:8080/api/comments/:id(\\d+)/delete", {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
@@ -41,6 +38,5 @@ addCommentButton.addEventListener("submit", async (e)=> {
       throw res;
     }
   }
-//     grab element, save into variabe, change inner html
-
+  
 });
