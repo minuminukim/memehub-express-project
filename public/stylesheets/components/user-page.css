@@ -3,7 +3,8 @@ div.userpage-header {
     display: flex;
     width: 100vw;
     justify-content: space-evenly;
-    background-color: rgb(200, 234, 245);
+    background: rgb(59,185,184);
+    background: linear-gradient(180deg, rgba(59,185,184,1) 40%, rgba(11,236,234,0.9976798143851509) 69%);
     align-items: center;
 }
 
@@ -16,4 +17,18 @@ div.userPosts {
     display: flex;
     justify-content: center;
     padding-top: 25px;
+}
+
+div.end-of-post {
+    padding-top: 50px;
+}
+
+div.likes-and-comments {
+    display: flex;
+    justify-content: space-between;
+}
+
+div.user-comment {
+    display: flex;
+    justify-content: flex-end;
 }

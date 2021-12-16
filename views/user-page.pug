@@ -12,11 +12,12 @@ block content
         h1= `${meme.dataValues.headline}`
         h2= `${meme.dataValues.caption}`
         img.user-meme(src=`${meme.dataValues.link}` alt='meme')
-        div
-        a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
-        div Comments:
-        each comment in meme.dataValues.Comments
-          li= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
-        div
+        div.likes-and-comments
+          a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+          div Comments:
+            each comment in meme.dataValues.Comments
+              div.user-comment
+                p= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
+            div.end-of-post
 //- TODO: ensure comment and like features are working.
 //- Add any additional styles to the page
