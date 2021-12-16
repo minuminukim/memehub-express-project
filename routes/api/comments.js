@@ -1,5 +1,5 @@
 const express = require("express");
-const { validationResult } = require("express-validator");
+// const { validationResult, buildCheckFunction } = require("express-validator");
 
 const db = require("../../db/models");
 const { csrfProtection, asyncHandler } = require("../utils");
@@ -8,36 +8,36 @@ const { requireAuth } = require("../auth");
 const router = express.Router();
 
 
-const addComment = document.querySelector(".add-button");
+router.post("/api/comments"), csrfProtection, requireAuth, asyncHandler(async (req, res)=>{
 
-addComment.addEventListener("click", async (e)=> {
-  e.preventDefault();
+  const usersComment = await db.Comment.findOne({
+    where: {
+      userId: {
+        [Op]:
+      }
+    }
+  })
 
-  const {body,userId,memeId} = req.body;
 
-  const comment = await Comment.create({body, userId: req.user.id, memeId: req.meme.id})
+  const comment = db.Comment.build({
+    userId: res.locals.user.id,
+    memeId,
+  });
 
-  const newComment = new Comment(comment);
-  const message = newComment.get("")
 
 })
 
 
-
-
-// router.post("api/comments"), csrfProtection, requireAuth, memesValidators, asyncHandler(async (req, res) => {
-//   const { body, userId, memeId } = req.body;
-
-//   const comment = db.Comment.build({
-//     username,
-//     email,
-//     firstName,
-//     lastName,
-//   });
-// })
+// if(!like){
+//   build a like
+// }else if (like){
+//   destroy
+// }
 
 
 
+router.post("/api/comments", csrfProtection, requireAuth, asyncHandler(async(req,res)={
 
+});
 
 module.exports = router;
