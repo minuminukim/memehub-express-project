@@ -3,9 +3,9 @@ div.userpage-header {
     width: 100vw;
     justify-content: space-evenly;
     align-items: center;
-    margin: 25px;
     padding-top: 17px;
     padding-bottom: 17px;
+    margin: 25px
 }
 
 img.user-meme{
@@ -41,7 +41,7 @@ hr {
 div.userPosts {
     display: flex;
     justify-content: center;
-    padding-top: 25px;
+    padding-top: 50px;
 }
 
 div.end-of-post {
