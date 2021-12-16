@@ -9,9 +9,7 @@ const { requireAuth } = require("../auth");
 const router = express.Router();
 
 router.get("/new", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
-  console.log(req.session.auth.userId)
   const user = await db.User.findByPk(req.session.auth.userId)
-  console.log(user.dataValues.username)
   res.render("new-meme", {
     title: "New Meme",
     user,
@@ -65,7 +63,6 @@ router.get(
     let isLoggedIn = req.session.auth
     let comments = meme.Comments;
     let likes = meme.Likes.length;
-    console.log(isLoggedIn)
     if (req.session.auth){
       let currentUser = req.session.auth.userId
       res.render("individual-meme", { title: "Meme", meme, comments, likes, currentUser, isLoggedIn });
