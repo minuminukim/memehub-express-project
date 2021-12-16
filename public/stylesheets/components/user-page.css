@@ -1,11 +1,11 @@
 div.userpage-header {
-    padding: 10px;
     display: flex;
     width: 100vw;
     justify-content: space-evenly;
-    background: rgb(59,185,184);
-    background: linear-gradient(180deg, rgba(59,185,184,1) 40%, rgba(11,236,234,0.9976798143851509) 69%);
     align-items: center;
+    margin: 25px;
+    padding-top: 17px;
+    padding-bottom: 17px;
 }
 
 img.user-meme{
@@ -15,7 +15,13 @@ img.user-meme{
 }
 
 h1.user-page {
+    color: black;
     font-weight: bolder;
+}
+
+h1.user-title {
+    color: black;
+    font-weight: bold;
 }
 
 h2.user-page {
@@ -27,7 +33,7 @@ hr {
     height: 1px;
     margin-left: auto;
     margin-right: auto;
-    background-color: gray;
+    background-color: rgb(209, 200, 200);
     border: 0 none;
     margin-top: 20px;
 }

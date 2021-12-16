@@ -2,10 +2,11 @@ extends layout.pug
 
 block content
   div.userpage-header
-    h1= `${user.username}'s Memes`
+    h1.user-title= `${user.username}'s Memes`
       //-this anchor should take you to the user's followers page.
     a(href='/follows' alt='followers')= "Followers"
     button.follow-button Follow
+  hr
   div.userPosts
     ul
       each meme in memes
