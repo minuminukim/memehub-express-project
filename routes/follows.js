@@ -3,6 +3,8 @@ const { check, validationResult } = require("express-validator");
 
 const { Follow } = require("../db/models");
 const usersRouter = require("./users");
+const { isFollowing } = require("./utils/follows-helpers");
+
 const {
   asyncHandler,
   csrfProtection,
@@ -25,22 +27,15 @@ router.get(
   })
 );
 
-// fetch("http://localhost:8080/follows", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-//   body: JSON.stringify({ userId: 2, followerId: 1 }),
-// });
-
 router.post(
   "/",
   requireAuth,
+  followValidators,
   asyncHandler(async (req, res) => {
     const { userId, followerId } = req.body;
     console.log(req.body);
-    // await Follow.create({ userId, followerId });
-    // res.end();
+    await Follow.create({ userId, followerId });
+    res.end();
   })
 );
 
