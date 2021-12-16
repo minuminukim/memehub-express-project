@@ -1,0 +1,40 @@
+.right-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.recommended-follows-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.recommended-blocks-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.recommended-block {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recommended-username {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.recommended-title {
+  font-weight: 500;
+}
+.follow-button {
+  border: 1px solid #848583;
+  background-color: #fff;
+  color: #000;
+  height: 2rem;
+  padding: 0 0.8rem;
+}
+
+.follow-button:hover {
+  background-color: #fff;
+  border-color: rgba(0, 0, 0, 0.9);
+}

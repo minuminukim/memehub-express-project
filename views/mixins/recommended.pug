@@ -1,0 +1,11 @@
+include follows.pug
+
+mixin recommended(id, bio, username, followerId, image = "#")
+  .recommended-block
+    .rec-left
+      a(href=`/users/${id}`): img.user-photo(src=image)
+    .rec-mid
+      a(class="recommended-username" href=`/users/${id}`) #{username}
+      p.recommended-bio #{bio}
+    .rec-right
+      +followButton(id, followerId)
