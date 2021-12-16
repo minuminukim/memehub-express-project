@@ -9,8 +9,13 @@ div.userpage-header {
 }
 
 img.user-meme{
+    padding-top: 10px;
     height: 400px;
     width: 400px;
+}
+
+h2.user-page {
+    padding-top: 5px;
 }
 
 div.userPosts {
@@ -26,6 +31,7 @@ div.end-of-post {
 div.likes-and-comments {
     display: flex;
     justify-content: space-between;
+    padding-top: 10px;
 }
 
 div.user-comment {
