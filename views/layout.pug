@@ -4,6 +4,7 @@ html
       block head
         title="Express Starter App"
         link(rel='stylesheet' href='/stylesheets/main-styles.css')
+        script(src="./javascripts/likes.js" type='module')
   body
     if locals.authenticated
       include main-nav.pug
