@@ -136,7 +136,7 @@ router.get(
 
 // GET followers by userId
 router.get(
-  "/:id/followers",
+  "/:id(\\d+)/followers",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId, {
@@ -157,7 +157,7 @@ router.get(
 
 // GET following by userId
 router.get(
-  "/:id/following",
+  "/:id(\\d+)/following",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId, {

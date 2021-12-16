@@ -12,6 +12,7 @@ const {
 } = require("../utils");
 const { requireAuth } = require("../auth");
 const followValidators = require("../validators/follow-validators");
+const { noExtendLeft } = require("sequelize/types/lib/operators");
 
 const router = express.Router();
 
@@ -36,6 +37,24 @@ router.post(
     const { userId, followerId } = req.body;
     const follow = await Follow.create({ userId, followerId });
     res.json({ follow });
+  })
+);
+
+router.delete(
+  "/:id(\\d+)",
+  requireAuth,
+  followValidators,
+  handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    const followId = parseInt(req.params.id, 10);
+    const follow = await Follow.findByPk(followId);
+
+    if (follow) {
+      await follow.destroy();
+      res.status(204).end();
+    } else {
+      next(new Error("test"));
+    }
   })
 );
 
