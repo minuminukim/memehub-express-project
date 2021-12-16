@@ -58,3 +58,13 @@ div.user-comment {
     display: flex;
     justify-content: flex-end;
 }
+
+div.edit-delete {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+hr.edit-delete {
+    margin-top: 40px;
+}

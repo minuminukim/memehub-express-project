@@ -63,10 +63,15 @@ router.get(
       ],
     });
     let isLoggedIn = req.session.auth
-    let currentUser = req.session.auth.userId
     let comments = meme.Comments;
     let likes = meme.Likes.length;
-    res.render("individual-meme", { title: "Meme", meme, comments, likes, currentUser, isLoggedIn });
+    console.log(isLoggedIn)
+    if (req.session.auth){
+      let currentUser = req.session.auth.userId
+      res.render("individual-meme", { title: "Meme", meme, comments, likes, currentUser, isLoggedIn });
+    } else {
+    res.render("individual-meme", { title: "Meme", meme, comments, likes, isLoggedIn });
+    }
   })
 );
 

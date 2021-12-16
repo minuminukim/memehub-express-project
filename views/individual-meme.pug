@@ -21,9 +21,11 @@ block content
           each comment in meme.dataValues.Comments
             div.user-comment
               p= `${comment.dataValues.User.username}: ${comment.dataValues.body}`
-      if isLoggedIn === false
+      hr.edit-delete
+      if isLoggedIn === undefined
         p: a(href='/users/new') New User? Sign Up Here
         p: a(href='/users/sign-in') Sign In to Like and Comment
       if currentUser === meme.userId
-        p: a(href=`/memes/${meme.id}/edit`) Edit Your Meme
-        p: a(href=`/memes/${meme.id}/delete`) Delete Your Meme?
+        div.edit-delete
+          a(href=`/memes/${meme.id}/edit`) Edit Your Meme
+          a(href=`/memes/${meme.id}/delete`) Delete Your Meme
