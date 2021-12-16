@@ -31,11 +31,11 @@ router.post(
   "/",
   requireAuth,
   followValidators,
+  handleValidationErrors,
   asyncHandler(async (req, res) => {
     const { userId, followerId } = req.body;
     const follow = await Follow.create({ userId, followerId });
-    console.log("follow", follow);
-    res.json({ follow });
+    res.status(201).json({ follow });
   })
 );
 

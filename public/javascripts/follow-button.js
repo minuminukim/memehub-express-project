@@ -6,8 +6,7 @@ const follow = () => {
 
     const userId = parseInt(button.getAttribute("user"));
     const followerId = parseInt(button.getAttribute("follower"));
-    // const formData = new FormData(form);
-    // console.log(formData);
+
     const request = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -15,10 +14,15 @@ const follow = () => {
     };
 
     fetch("http://localhost:8080/follows", request)
-      .then((res) => console.log("it worked"))
-      .catch(() => console.log("it broke"));
-
-    button.innerText = "Following";
+      .then((response) => {
+        if (!response.ok) {
+          throw response;
+        } else {
+          button.innerText = "Following";
+          return response.json();
+        }
+      })
+      .catch((err) => console.log("hello9"));
   });
 };
 
