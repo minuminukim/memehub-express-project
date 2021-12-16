@@ -62,13 +62,11 @@ router.get(
         { model: db.Like },
       ],
     });
-    // console.log(meme)
-    console.log(meme.User.dataValues.id)
-    console.log(meme.dataValues.userId)
+    let isLoggedIn = req.session.auth
     let currentUser = req.session.auth.userId
     let comments = meme.Comments;
     let likes = meme.Likes.length;
-    res.render("individual-meme", { title: "Meme", meme, comments, likes, currentUser });
+    res.render("individual-meme", { title: "Meme", meme, comments, likes, currentUser, isLoggedIn });
   })
 );
 
