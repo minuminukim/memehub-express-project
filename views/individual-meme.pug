@@ -7,7 +7,11 @@ block content
     a(href='/follows' alt='followers')= "Followers"
     button.follow-button Follow
     form(action='/users/sign-out' method="post")
-      button(type='submit') Sign Out
+      if isLoggedIn
+        button(type='submit') Sign Out
+    if isLoggedIn === undefined
+      p: a(href='/users/new') Sign-Up
+      p: a(href='/users/sign-in') Sign In
     p: a(href='/') Home
   hr
   div.userPosts
@@ -22,9 +26,6 @@ block content
             div.user-comment
               p= `${comment.dataValues.User.username}: ${comment.dataValues.body}`
       hr.edit-delete
-      if isLoggedIn === undefined
-        p: a(href='/users/new') New User? Sign Up Here
-        p: a(href='/users/sign-in') Sign In to Like and Comment
       if currentUser === meme.userId
         div.edit-delete
           a(href=`/memes/${meme.id}/edit`) Edit Your Meme
