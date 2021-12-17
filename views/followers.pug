@@ -17,7 +17,7 @@ block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
   .root
     .followers-title-container
-      h2.followers-title #{count} Follower(s)
+      h2.followers-count #{count} Follower(s)
     if followers
       .followers-container
         each follower in followers
