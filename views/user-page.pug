@@ -1,14 +1,14 @@
 extends layout.pug
 
+include ./mixins/follows.pug
+include ./mixins/userpage-header.pug
+
+append head
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
+  script(src="/javascripts/index.js" type="module" defer)
+
 block content
-  div.userpage-header
-    h1.user-title= `${user.username}'s Memes`
-      //-this anchor should take you to the user's followers page.
-    a(href=`/followers` alt='followers')= "Followers"
-    a(href= `/users/${user.id}/following` alt='following')= "Following"
-    button.follow-button Follow
-    form(action='/users/sign-out' method="post")
-      button(type='submit') Sign Out
+  +userpageHeader(user.username, user.id, isCurrentUser, isFollowing, currentUserId)
   hr.user-page
   div.userPosts
     ul
