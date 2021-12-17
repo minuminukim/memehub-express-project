@@ -31,8 +31,9 @@ block content
             button(id=`${comment.id}`) Delete Comment
             button(id=`${comment.id}`) Edit Comment
       p.posted-on= `Posted on: ${dateFormat}`
-      hr.bottom
+      hr.bottom-meme-page
       if currentUserId === meme.userId
         div.edit-delete
           a(href=`/memes/${meme.id}/edit`) Edit Your Meme
           a(href=`/memes/${meme.id}/delete`) Delete Your Meme
+      div.bottom-of-page

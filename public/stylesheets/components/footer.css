@@ -38,3 +38,16 @@ a.footer-content{
 a.footer-logo{
     text-decoration: none;
 }
+
+img.footer-img {
+    height: 30px;
+    width: 30px;
+    filter: invert(100%);
+    margin-right: 10px;
+}
+
+img.footer-img.aa {
+    height: 30px;
+    width: 125px;
+    filter: opacity(1) drop-shadow(0 0 0 rgb(247, 247, 247));
+}
