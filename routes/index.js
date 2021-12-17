@@ -23,8 +23,6 @@ router.get(
     // fetch memes by likes
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b)).slice(0, 20);
 
-    console.log(feedMemes.length);
-
     // if user logged in, render landing-page, else render index
     res.render(isntLoggedIn(req) ? "landing-page" : "index", {
       title: "Memehub",

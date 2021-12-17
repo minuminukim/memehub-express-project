@@ -14,13 +14,15 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 //- TODO: replace header with user-profile header
 block content
+  +userpageHeader(user.username, user.id, isCurrentUser, isFollowing, currentUserId)
   .root
     .followers-title-container
-      h2.followers-title #{count} Followers
-    .followers-container
-      each user in followers
-        .followers-block
-          if user.mutual
-            +followBlock("#", user.id, user.username, "bio", currentUserId, "Following")
-          else
-            +followBlock(user.id, currentUserId, "Follow")
+      h2.followers-title #{count} Follower(s)
+    if followers
+      .followers-container
+        each follower in followers
+          .followers-block
+            if follower.isMutual
+              +followBlock("#", follower.id, follower.username, "bio", currentUserId, "Following")
+            else
+              +followBlock("#", follower.id, follower.username, "bio", currentUserId, "Follow")

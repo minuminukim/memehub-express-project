@@ -4,7 +4,10 @@ export const follow = () => {
   forms.forEach((form) => {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const button = document.querySelector(".follow-button");
+      // const button = document.querySelector(".follow-button");
+      console.log(event.target);
+      const button = form.children[0];
+      console.log(button);
       const userId = parseInt(button.getAttribute("user"));
       const followerId = parseInt(button.getAttribute("follower"));
 
@@ -33,7 +36,7 @@ export const unfollow = () => {
   forms.forEach((form) => {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const button = document.querySelector(".follow-button");
+      const button = form.children[0];
       const userId = parseInt(button.getAttribute("user"));
       const followerId = parseInt(button.getAttribute("follower"));
 

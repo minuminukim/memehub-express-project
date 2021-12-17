@@ -159,10 +159,14 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    // find current user's followings
     const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+
+    const isCurrentUser = currentUserId === user.id;
+    const isFollowing = await checkFollow(user.id, currentUserId);
+
+    // find current user's followings
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });
@@ -179,17 +183,22 @@ router.get(
           username,
           firstName,
           lastName,
-          mutual: followIds.includes(id),
+          isMutual: followIds.includes(id),
         };
 
         return userData;
       }
     );
 
+    console.log(followers);
+
     res.render("followers", {
       followers,
+      user,
       currentUserId,
       count: followers.length,
+      isCurrentUser,
+      isFollowing,
     });
   })
 );
@@ -204,13 +213,18 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    // find mutual relationship here, where current user also follows
     const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+
+    const isCurrentUser = currentUserId === user.id;
+    const isFollowing = await checkFollow(user.id, currentUserId);
+
+    // find mutual relationship here, where current user also follows
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });
+
     const follows = await Promise.all(promises);
     const followIds = follows.reduce((acc, { userId }) => {
       return acc.includes(userId) ? acc : acc.concat(userId);
@@ -223,7 +237,7 @@ router.get(
           username,
           firstName,
           lastName,
-          mutual: followIds.includes(id),
+          isMutual: followIds.includes(id),
         };
 
         return userData;
@@ -232,8 +246,11 @@ router.get(
 
     res.render("following", {
       followings,
+      user,
       count: followings.length,
       currentUserId,
+      isCurrentUser,
+      isFollowing,
     });
   })
 );
