@@ -34,9 +34,9 @@ block content
         each comment in comments
           li= `${comment.User.username}: ${comment.body} `
           if comment.userId === locals.user.id
-          li= `${comment.User.username}: ${comment.body} `
-            button(id=`${comment.id}`) Delete Comment
-            button(id=`${comment.id}`) Edit Comment
+           li= `${comment.User.username}: ${comment.body} `
+             button(id=`${comment.id}` class="delete-button") Delete Comment
+             button(id=`${comment.id}`) Edit Comment
       p.posted-on= `Posted on: ${dateFormat}`
       hr.bottom
       if currentUser === meme.userId
