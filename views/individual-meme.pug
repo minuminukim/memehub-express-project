@@ -4,18 +4,14 @@ include ./mixins/follows.pug
 
 block content
   div.userpage-header
-    h1.user-title= `${meme.User.username}'s Meme`
-      //-this anchor should take you to the user's followers page.
-    a(href= `/users/${meme.User.id}/following` alt='following')= "Following"
-    form(action=`/users/${meme.User.userId}/following` method="post")
-      button(type='submit') Follow
-    form(action='/users/sign-out' method="post")
-      if isLoggedIn
-        button(type='submit') Sign Out
-    if isLoggedIn === undefined
-      p: a(href='/users/new') Sign-Up
-      p: a(href='/users/sign-in') Sign In
-    p: a(href='/') Home
+    h1.user-title= `${meme.User.username}`
+    a.userpage-header-link(href=`/users/${meme.userId}/followers` alt='followers')= "Followers"
+    a.userpage-header-link(href= `/users/${meme.userId}/following` alt='following')= "Following"
+    if !isCurrentUser
+      if isFollowing
+        +followButton(meme.userId, currentUserId, "Following")
+      else
+        +followButton(meme.userId, currentUserId, "Follow")
   hr.user-page
   div.userPosts
     ul
@@ -31,7 +27,7 @@ block content
               p= `${comment.dataValues.User.username}: ${comment.dataValues.body}`
       p.posted-on= `Posted on: ${dateFormat}`
       hr.bottom
-      if currentUser === meme.userId
+      if currentUserId === meme.userId
         div.edit-delete
           a(href=`/memes/${meme.id}/edit`) Edit Your Meme
           a(href=`/memes/${meme.id}/delete`) Delete Your Meme

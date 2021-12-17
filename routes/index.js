@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { requireAuth } = require("../auth");
-const { asyncHandler, isLoggedIn } = require("../utils");
+const { asyncHandler, isntLoggedIn } = require("../utils");
 const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
 
 /* GET home page -- default sorted by likes. */
@@ -26,7 +26,7 @@ router.get(
     console.log(feedMemes.length);
 
     // if user logged in, render landing-page, else render index
-    res.render(isLoggedIn(req) ? "landing-page" : "index", {
+    res.render(isntLoggedIn(req) ? "landing-page" : "index", {
       title: "Memehub",
       trendingMemes,
       feedMemes,

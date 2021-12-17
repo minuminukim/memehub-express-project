@@ -7,18 +7,15 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  div.userpage-header
-    h1.user-title= `${user.username}'s Memes`
-      //-this anchor should take you to the user's followers page.
-    a(href=`/users/${user.id}/followers` alt='followers')= "Followers"
-    a(href= `/users/${user.id}/following` alt='following')= "Following"
+  .userpage-header
+    h1.user-title= `${user.username}`
+    a.userpage-header-link(href=`/users/${user.id}/followers` alt='followers')= "Followers"
+    a.userpage-header-link(href= `/users/${user.id}/following` alt='following')= "Following"
     if !isCurrentUser
       if isFollowing
         +followButton(user.id, currentUserId, "Following")
       else
         +followButton(user.id, currentUserId, "Follow")
-    form(action='/users/sign-out' method="post")
-      button(type='submit') Sign Out
   hr.user-page
   div.userPosts
     ul

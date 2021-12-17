@@ -3,7 +3,7 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
-const { csrfProtection, asyncHandler } = require("../utils");
+const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
 const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
@@ -158,7 +158,9 @@ router.get(
     });
 
     // find current user's followings
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn
+      ? null
+      : parseInt(req.session.auth.userId, 10);
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });
@@ -201,7 +203,9 @@ router.get(
     });
 
     // find mutual relationship here, where current user also follows
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn
+      ? null
+      : parseInt(req.session.auth.userId, 10);
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });

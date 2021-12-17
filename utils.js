@@ -5,7 +5,7 @@ const csrfProtection = csrf({ cookie: true });
 const asyncHandler = (handler) => (req, res, next) =>
   handler(req, res, next).catch(next);
 
-const isLoggedIn = (req) => req.session.auth === undefined;
+const isntLoggedIn = (req) => req.session.auth === undefined;
 
 const handleValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
@@ -26,6 +26,6 @@ const handleValidationErrors = (req, res, next) => {
 module.exports = {
   csrfProtection,
   asyncHandler,
-  isLoggedIn,
+  isntLoggedIn,
   handleValidationErrors,
 };
