@@ -11,19 +11,22 @@ block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
   hr.user-page
   div.userPosts
-    ul
-      each meme in memes
-        h1.user-page= `${meme.dataValues.headline}`
-        h2.user-page= `${meme.dataValues.caption}`
-        img.user-meme(src=`${meme.dataValues.link}` alt='meme')
-        div.likes-and-comments
-          a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
-          div Comments:
-            each comment in meme.dataValues.Comments
-              div.user-comment
-                p= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
-        p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
-        hr.bottom
-        div.end-of-post
+    div.userPosts.p
+      p testtasdgasdgasdgasdgasddgasdg
+    div.user-feed
+      ul
+        each meme in memes
+          h1.user-page= `${meme.dataValues.headline}`
+          h2.user-page= `${meme.dataValues.caption}`
+          img.user-meme(src=`${meme.dataValues.link}` alt='meme')
+          div.likes-and-comments
+            a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+            div Comments:
+              each comment in meme.dataValues.Comments
+                div.user-comment
+                  p= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
+          p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
+            r.bottom
+          div.end-of-post
 //- TODO: ensure comment and like features are working.
 //- Add any additional styles to the page

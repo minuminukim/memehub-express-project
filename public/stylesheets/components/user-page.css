@@ -40,9 +40,32 @@ hr.user-page {
 }
 
 div.userPosts {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas:
+    "p feed .";
+}
+
+div.userPosts.p {
+    grid-area: p;
     display: flex;
-    justify-content: center;
     padding-top: 50px;
+    justify-content: center;
+    grid-column: 1 / 2;
+}
+
+div.user-feed{
+    grid-area: feed;
+    display: flex;
+    margin-left: 50px;
+    justify-content: center;
+    grid-column: 2 / 3;
+}
+
+
+div.user-info{
+    display: flex;
+    justify-content: flex-start;
 }
 
 div.end-of-post {
