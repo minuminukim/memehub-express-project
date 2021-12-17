@@ -35,5 +35,5 @@ block content
               +trendingMeme(`0${i++}`, meme.link, "#", `/users/${meme.userId}`, meme.User.username, "#", meme.headline, "Dec 8")
     .landing-feed
       h2 "main feed goes here"
-      each meme in bestMemes
+      each meme in feedMemes
         +bestMeme("#", meme.User.username, meme.link,`/users/${meme.userId}`, meme.headline, "#", "Dec 8", meme.caption)
