@@ -2,11 +2,12 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
-const { User, Meme, Comment, Like } = require("../db/models");
+const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { csrfProtection, asyncHandler } = require("../utils");
 const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
+const { isFollowing } = require("./utils/follows-helpers");
 
 const router = express.Router();
 
@@ -99,16 +100,11 @@ router.post(
   })
 );
 
-// router.post("/sign-out", (req, res) => {
-//   logoutUser(req, res);
-//   res.redirect("/users/sign-in");
-// });
-
 router.post("/sign-out", (req, res) => {
   logoutUser(req, res);
   req.session.destroy(() => {
-    res.clearCookie("connect.sid");
-    res.redirect("/users/sign-in");
+    res.clearCookie("memehub.sid");
+    res.redirect("/");
   });
 });
 
@@ -136,67 +132,119 @@ router.get(
 
 // GET followers by userId
 router.get(
-  "/:id/followers",
+  "/:id(\\d+)/followers",
   asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const currentUser = await User.findByPk(userId, {
+    // find user and their followers
+    const id = parseInt(req.params.id, 10);
+    const user = await User.findByPk(id, {
       include: [{ model: User, as: "followers" }],
       order: [["id", "DESC"]],
     });
 
-    const followers = currentUser.followers.map(
+    // find current user's followings
+    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const promises = await Follow.findAll({
+      where: { followerId: currentUserId },
+    });
+    const follows = await Promise.all(promises);
+    const followIds = follows.reduce((acc, { userId }) => {
+      return acc.includes(userId) ? acc : acc.concat(userId);
+    }, []);
+
+    // then check for intersection with the fetched followers
+    const followers = user.followers.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
-        const userData = { id, username, firstName, lastName };
+        const userData = {
+          id,
+          username,
+          firstName,
+          lastName,
+          mutual: followIds.includes(id),
+        };
+
         return userData;
       }
     );
 
-    res.render("followers", { followers, userId, count: followers.length });
+    res.render("followers", {
+      followers,
+      currentUserId,
+      count: followers.length,
+    });
   })
 );
 
 // GET following by userId
 router.get(
-  "/:id/following",
+  "/:id(\\d+)/following",
   asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const currentUser = await User.findByPk(userId, {
+    const id = parseInt(req.params.id, 10);
+    const user = await User.findByPk(id, {
       include: [{ model: User, as: "followings" }],
       order: [["id", "DESC"]],
     });
+    const currentUserId = parseInt(req.session.auth.userId, 10);
+    // find mutual relationship here, where current user also follows
+    const promises = await Follow.findAll({
+      where: { followerId: currentUserId },
+    });
+    const follows = await Promise.all(promises);
+    const followIds = follows.reduce((acc, { userId }) => {
+      return acc.includes(userId) ? acc : acc.concat(userId);
+    }, []);
 
-    const followings = currentUser.followings.map(
+    const followings = user.followings.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
-        const userData = { id, username, firstName, lastName };
+        const userData = {
+          id,
+          username,
+          firstName,
+          lastName,
+          mutual: followIds.includes(id),
+        };
+
         return userData;
       }
     );
-    // TODO: create a view for following
-    res.render("following", { followings, count: followings.length });
+    
+    res.render("following", {
+      followings,
+      count: followings.length,
+      currentUserId,
+    });
   })
 );
 
-// add a follow record
+// follow a user
 router.post(
-  "/:id/follows",
-  csrfProtection,
+  "/:id(\\d+)/following",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const currentUser = await User.findByPk(userId, {
-      include: [{ model: User, as: "followings" }],
-      order: [["id", "DESC"]],
-    });
+    const { userId, followerId } = req.body;
+    const follow = await Follow.findOne({ where: { userId, followerId } });
+    if (follow) {
+      res.status(400).json({ message: "You are already following this user." });
+    } else {
+      const newFollow = await Follow.create({ userId, followerId });
+      res.json({ newFollow });
+    }
+  })
+);
 
-    // check if already following user
-    const followings = currentUser.followings.map(
-      ({ dataValues: { id, username, firstName, lastName } }) => {
-        const userData = { id, username, firstName, lastName };
-        return userData;
-      }
-    );
-
-    console.log(followings);
+router.delete(
+  "/:id(\\d+)/following",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const { userId, followerId } = req.body;
+    const follow = await Follow.findOne({ where: { userId, followerId } });
+    if (follow) {
+      await follow.destroy();
+      res
+        .status(204)
+        .json({ message: "You have successfully unfollowed this user." });
+    } else {
+      res.status(404).json({ message: "Follow does not exist" });
+    }
   })
 );
 

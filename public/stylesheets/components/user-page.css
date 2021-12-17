@@ -1,11 +1,11 @@
 div.userpage-header {
-    padding: 10px;
     display: flex;
     width: 100vw;
     justify-content: space-evenly;
-    background: rgb(59,185,184);
-    background: linear-gradient(180deg, rgba(59,185,184,1) 40%, rgba(11,236,234,0.9976798143851509) 69%);
     align-items: center;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    margin: 25px;
 }
 
 img.user-meme{
@@ -15,19 +15,26 @@ img.user-meme{
 }
 
 h1.user-page {
+    color: black;
     font-weight: bolder;
+}
+
+h1.user-title {
+    color: black;
+    font-weight: bold;
 }
 
 h2.user-page {
     padding-top: 5px;
+    font-size: 20px;
 }
 
-hr {
+hr.user-page {
     width: 100%;
     height: 1px;
     margin-left: auto;
     margin-right: auto;
-    background-color: gray;
+    background-color: rgb(201, 201, 201);
     border: 0 none;
     margin-top: 20px;
 }
@@ -35,11 +42,11 @@ hr {
 div.userPosts {
     display: flex;
     justify-content: center;
-    padding-top: 25px;
+    padding-top: 50px;
 }
 
 div.end-of-post {
-    padding-top: 40px;
+    padding-top: 50px;
 }
 
 div.likes-and-comments {
@@ -51,4 +58,37 @@ div.likes-and-comments {
 div.user-comment {
     display: flex;
     justify-content: flex-end;
+}
+
+div.edit-delete {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+hr.edit-delete {
+    margin-top: 40px;
+}
+
+p.posted-on {
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+hr.bottom {
+    margin-top: 5px;
+    width: 100%;
+    height: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(201, 201, 201);
+    border: 0 nones
+}
+
+div.delete-meme {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
 }

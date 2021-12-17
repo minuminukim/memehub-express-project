@@ -3,6 +3,12 @@ const { User, Follow } = require("../db/models");
 const { asyncHandler } = require("../utils");
 const { isFollowing } = require("../routes/utils/follows-helpers");
 
+// values exist
+// follow doesn't already exist
+// not trying to follow yourself
+
+
+
 const followValidators = [
   check("userId").custom(async (userId, { req }) => {
     const followerId = req.body.followerId;
