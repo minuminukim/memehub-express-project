@@ -59,7 +59,7 @@ h1.sign-in {
 }
 
 .sign-in-button:focus {
-  border-color: #e77600;
-  box-shadow: rgba(228, 121, 17, .5) 0 0 3px 2px;
+  border-color: #5bb6f3;
+  box-shadow: rgba(42, 184, 240, 0.5) 0 0 3px 2px;
   outline: 0;
 }
