@@ -76,7 +76,7 @@ div.profile-name-bar{
 div.user-bio-description{
     margin-top: 15px;
     font-size: 14px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 p.user-profile-name-bar{
@@ -91,6 +91,7 @@ div.user-page-content {
     justify-content: flex-end;
     align-items: center;
     grid-column: 1 / 2;
+    padding-left: 50px;
 }
 
 div.user-feed{
