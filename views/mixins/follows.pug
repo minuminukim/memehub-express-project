@@ -1,10 +1,11 @@
-mixin followBlock(userLogo, userId, username, userBio, followerId)
-  .follow-block
-    .follow-block-left
-      img.follow-user-logo(src=userLogo)
-    .follow-block-right
-      h3.follow-username: a(href=`/users/${userId}`) @#{username}
-      p.follow-user-bio #{userBio}
+mixin followBlock(userLogo, userId, username, userBio, followerId, text)
+  .follow-block-left
+    img.follow-user-logo(src=userLogo)
+  .follow-block-right
+    h3.follow-username: a(href=`/users/${userId}`) @#{username}
+    p.follow-user-bio #{userBio}
+  form(class="follow-form" action=`/users/${followerId}/following` method="post")
+    +followButton(userId, followerId, text)
 
 mixin followButton(userId, followerId, text)
-  button(class="follow-button", user=userId, follower=followerId) #{text}
+  button(class="follow-button", user=userId, follower=followerId type="submit") #{text}

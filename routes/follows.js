@@ -35,21 +35,22 @@ router.post(
   })
 );
 
-// router.delete(
-//   "/:id(\\d+)",
-//   requireAuth,
-//   followValidators,
-//   asyncHandler(async (req, res) => {
-//     const followId = parseInt(req.params.id, 10);
-//     const follow = await Follow.findByPk(followId);
+router.delete(
+  "/:id(\\d+)",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const followId = parseInt(req.params.id, 10);
+    const followerId = req.session.auth.userId;
 
-//     if (follow) {
-//       await follow.destroy();
-//       res.status(204).end();
-//     } else {
-//       next(new Error("test"));
-//     }
-//   })
-// );
+    const follow = await Follow.findOne({ where: { userId, followerId } });
+    console.log("follow@@@@@@@", follow);
+    if (follow) {
+      await follow.destroy();
+      res.status(204).message("Success").end();
+    } else {
+      next(new Error("test"));
+    }
+  })
+);
 
 module.exports = router;
