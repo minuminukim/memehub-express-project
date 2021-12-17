@@ -4,7 +4,7 @@ block content
   div.userpage-header
     h1.user-title= `${user.username}'s Memes`
       //-this anchor should take you to the user's followers page.
-    a(href=`/followers` alt='followers')= "Followers"
+    a(href=`/users/${user.id}/followers` alt='followers')= "Followers"
     a(href= `/users/${user.id}/following` alt='following')= "Following"
     button.follow-button Follow
     form(action='/users/sign-out' method="post")
