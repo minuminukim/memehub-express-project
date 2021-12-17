@@ -129,7 +129,7 @@ router.get(
     const memes = user.Memes;
 
     // Follow logic
-    const currentUserId = isntLoggedIn
+    const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
     const isCurrentUser = userId === currentUserId;
@@ -160,7 +160,7 @@ router.get(
     });
 
     // find current user's followings
-    const currentUserId = isntLoggedIn
+    const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
     const promises = await Follow.findAll({
@@ -205,7 +205,7 @@ router.get(
     });
 
     // find mutual relationship here, where current user also follows
-    const currentUserId = isntLoggedIn
+    const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
     const promises = await Follow.findAll({
