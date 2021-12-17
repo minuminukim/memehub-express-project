@@ -34,8 +34,23 @@ window.addEventListener("DOMContentLoaded", ()=> {
         if (!res.ok){
           throw res;
         }
-        // `<li></li><li><button id="${comment.id}">Delete Comment</button><buttonid="${comment.id}>Edit Comment</button></li>`
 
+        let newComment = await res.json();
+        console.log("new comment", newComment);
+        let li = document.createElement("li")
+        li.setAttribute("class", "content")
+
+        li.innerHTML = `${comment.User.username} : ${newComment.body}`
+
+        //new comment
+        // create an li with attribute/class name of content
+        //should have class namve of comment.user.username
+        //inner text = comment.body
+        // inner html of both buttons
+        // `<li></li><li><button id="${comment.id}">Delete Comment</button><buttonid="${comment.id}>Edit Comment</button></li>`
+        //grab let box = .comment-box
+        //grab box = documnet.querySelectorAll
+        //unshift the created element
 
       } catch (err){
 
@@ -54,10 +69,10 @@ window.addEventListener("DOMContentLoaded", ()=> {
       const body = {commentId}
 
       try {
-        const res = await fetch("api/comments/:id(\\d+)/delete", {
+        const res = await fetch("/api/comments/delete", {
 
           method: "POST",
-          body: JSON.stringify({body}),
+          body: JSON.stringify(body),
           headers: {
             "Content-type": "application/json"
           },
@@ -65,8 +80,9 @@ window.addEventListener("DOMContentLoaded", ()=> {
         if (!res.ok){
           throw res;
         }
+        console.log("parent", e.target.parentNode)
         // `<li></li><li><button id="${comment.id}">Delete Comment</button><buttonid="${comment.id}>Edit Comment</button></li>`
-
+        e.target.parentNode.remove();
 
       } catch (err){
 

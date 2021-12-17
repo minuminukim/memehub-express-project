@@ -26,10 +26,10 @@ block content
       h3.comment-box-header Comments:
       ul.comment-box
         each comment in comments
-          li.content= `${comment.User.username}: ${comment.body} `
-          if comment.userId === locals.user.id
-            button(id=`${comment.id}` class="delete-button") Delete
-            button(id=`${comment.id}` class="edit-button") Edit
+          li.content=`${comment.User.username}: ${comment.body} `
+            if comment.userId === locals.user.id
+              button(id=`${comment.id}` class="delete-button") Delete
+              button(id=`${comment.id}` class="edit-button") Edit
           //-  li= `${comment.User.username}: ${comment.body} `
           //-    button(id=`${comment.id}` class="delete-button") Delete Comment
           //-    button(id=`${comment.id}`) Edit Comment
