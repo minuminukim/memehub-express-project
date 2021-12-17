@@ -9,7 +9,7 @@ block content
   .root
     div.spacing-more
     +validationErrorSummary(errors)
-    h1 Welcome Back
+    h1.sign-in Welcome Back
     form(action='/users/sign-in' method='post' id="sign-in-form")
       input(type='hidden' name='_csrf' value=csrfToken)
       +field('Email: ', 'email', email)
@@ -17,6 +17,6 @@ block content
       div.spacing-more
         div.sign-in-buttons
           button.sign-in-button(type='submit') Sign In
-          button.demo-button Demo
+          button.sign-in-button Demo
       div.spacing-more
-        p: a(href='/users/new') New User? Sign Up Here
+        p: a.sign-in(href='/users/new') New User? Sign Up Here
