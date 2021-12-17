@@ -8,6 +8,10 @@ div.userpage-header {
     margin: 25px;
 }
 
+div.users-followers-details {
+    margin-top: 17px;
+}
+
 img.user-meme{
     padding-top: 10px;
     height: 500px;
