@@ -1,4 +1,13 @@
 .root{
     text-align: center;
-    display: block; 
+    display: block;
+}
+
+div.sign-in-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.sign-in-button{
+    margin-right: 50px;
 }
