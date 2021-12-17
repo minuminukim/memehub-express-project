@@ -19,10 +19,11 @@ block content
             p.user-profile-name-bar= `${profileUser.username}'s Info`
             div.user-bio-description
               p Founder of the award-winning Founder of the test Founder of the another test
+            div
               if isFollowing
                 +followButton(profileUser.id, currentUserId, "Following")
               else
-               +followButton(profileUser.id, currentUserId, "Follow")
+                +followButton(profileUser.id, currentUserId, "Follow")
     div.user-feed
       ul
         each meme in memes
