@@ -14,7 +14,7 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 //- TODO: replace header with user-profile header
 block content
-  +userpageHeader(user.username, user.id, isCurrentUser, isFollowing, currentUserId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
   .root
     .followers-title-container
       h2.followers-title #{count} Follower(s)

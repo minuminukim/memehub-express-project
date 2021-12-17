@@ -154,7 +154,7 @@ router.get(
   asyncHandler(async (req, res) => {
     // find user and their followers
     const id = parseInt(req.params.id, 10);
-    const user = await User.findByPk(id, {
+    const profileUser = await User.findByPk(id, {
       include: [{ model: User, as: "followers" }],
       order: [["id", "DESC"]],
     });
@@ -163,8 +163,8 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
-    const isCurrentUser = currentUserId === user.id;
-    const isFollowing = await checkFollow(user.id, currentUserId);
+    const isCurrentUser = currentUserId === profileUser.id;
+    const isFollowing = await checkFollow(profileUser.id, currentUserId);
 
     // find current user's followings
     const promises = await Follow.findAll({
@@ -176,7 +176,7 @@ router.get(
     }, []);
 
     // then check for intersection with the fetched followers
-    const followers = user.followers.map(
+    const followers = profileUser.followers.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
         const userData = {
           id,
@@ -194,7 +194,7 @@ router.get(
 
     res.render("followers", {
       followers,
-      user,
+      profileUser,
       currentUserId,
       count: followers.length,
       isCurrentUser,
@@ -208,7 +208,7 @@ router.get(
   "/:id(\\d+)/following",
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id, 10);
-    const user = await User.findByPk(id, {
+    const profileUser = await User.findByPk(id, {
       include: [{ model: User, as: "followings" }],
       order: [["id", "DESC"]],
     });
@@ -217,8 +217,8 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
-    const isCurrentUser = currentUserId === user.id;
-    const isFollowing = await checkFollow(user.id, currentUserId);
+    const isCurrentUser = currentUserId === profileUser.id;
+    const isFollowing = await checkFollow(profileUser.id, currentUserId);
 
     // find mutual relationship here, where current user also follows
     const promises = await Follow.findAll({
@@ -230,7 +230,7 @@ router.get(
       return acc.includes(userId) ? acc : acc.concat(userId);
     }, []);
 
-    const followings = user.followings.map(
+    const followings = profileUser.followings.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
         const userData = {
           id,
@@ -246,7 +246,7 @@ router.get(
 
     res.render("following", {
       followings,
-      user,
+      profileUser,
       count: followings.length,
       currentUserId,
       isCurrentUser,

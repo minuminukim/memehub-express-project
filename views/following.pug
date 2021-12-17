@@ -12,7 +12,7 @@ append head
   //- add page specific js
 
 block content
-  +userpageHeader(user.username, user.id, isCurrentUser, isFollowing, currentUserId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
   .root
     .following-title-container
       h2.following-title #{count} Following
