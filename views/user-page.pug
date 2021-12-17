@@ -12,12 +12,13 @@ block content
   hr.user-page
   div.userPosts
     div.user-page-content
-      div.user-page-details
-        div.profile-name-bar
-          p.user-profile-name-bar= `${profileUser.username}'s Info`
-          div.user-bio-description
-            p Founder of the award-winning Founder of the test Founder of the another test
-      img.user-profile-pic(src="https://c.tenor.com/8ZDLU43omvcAAAAC/kid-thumbs-up.gif")
+      div.fixed-position
+        img.user-profile-pic(src="https://c.tenor.com/8ZDLU43omvcAAAAC/kid-thumbs-up.gif")
+        div.user-page-details
+          div.profile-name-bar
+            p.user-profile-name-bar= `${profileUser.username}'s Info`
+            div.user-bio-description
+              p Founder of the award-winning Founder of the test Founder of the another test
     div.user-feed
       ul
         each meme in memes

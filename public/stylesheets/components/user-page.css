@@ -44,7 +44,8 @@ div.userPosts {
     grid-template-columns: 2fr 3fr 2fr;
     grid-template-areas:
     "p feed .";
-    padding-top: 45px
+    padding-top: 45px;
+    position: relative;
 }
 
 img.user-profile-pic{
@@ -58,8 +59,14 @@ div.user-page-details{
     justify-content: flex-start;
     margin-top: 30px;
 }
+
 div.profile-name-bar{
     width: 200px;
+}
+
+.fixed-position{
+    position:fixed;
+    z-index:100;
 }
 
 div.user-bio-description{
@@ -79,7 +86,6 @@ div.user-page-content {
     justify-content: flex-end;
     align-items: center;
     grid-column: 1 / 2;
-    position: sticky;
 }
 
 div.user-feed{
