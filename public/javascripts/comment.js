@@ -1,39 +1,53 @@
 
+/*
+-grab button thats submits action
+-add event listener to that button
+    -grab element that holds content
+    -get memeId from button that was clicked (e.target.id)
+    -send content to backend via fetch
+        -send content with memeid and content via fetch
+*/
 
 window.addEventListener("DOMContentLoaded", ()=> {
 
   const addCommentButton = document.querySelector(".add-button");
-  const deleteCommentButton = document.querySelector(".delete-button");
-  const p = document.querySelector(".hello");
+  console.log("addCommentButton", addCommentButton);
+  addCommentButton.addEventListener("click", async (e) => {
 
-  addCommentButton.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const fd = new FormData(addCommentButton);
-    const content = fd.get("body");
-    const userId = fd.get("userId");
-    const memeId = fd.get("memeId");
-    const body = { content, userId, memeId}
+      const content = document.querySelector(".content");
+      let memeId = e.target.id;
+      let contentValue = content.value
 
-    try {
-      const res = await fetch("http:localhost8080/api/comments", {
 
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-          "Content-type": "application/json"
-        },
-      });
-      if (!res.ok){
-        throw res;
+      const body = { contentValue, memeId}
+      console.log("contentValue", contentValue )
+
+      try {
+        const res = await fetch("/api/comments", {
+
+          method: "POST",
+          body: JSON.stringify({...body}),
+          headers: {
+            "Content-type": "application/json"
+          },
+        });
+        if (!res.ok){
+          throw res;
+        }
+        `<li></li><li><button id="${comment.id}">Delete Comment</button><buttonid="${comment.id}>Edit Comment</button></li>`
+
+
+      } catch (err){
+
       }
-    } catch (err){
 
-    } else {
-      
-    }
-
+    })
   })
-
+  // const deleteCommentButton = document.querySelectorAll(".delete-button");
+  //for edit/delete
+  //queryselectorall = [button elements, ..., ...]
+  //iterate over array, adding event listener to each one
+  //
     // addCommentButton.addEventListener("submit", async (e) => {
       //   e.preventDefault();
       //   const fd = new FormData(addCommentButton);
