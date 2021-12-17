@@ -115,7 +115,7 @@ router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const user = await User.findByPk(userId, {
+    const profileUser = await User.findByPk(userId, {
       include: [
         {
           model: Meme,
@@ -126,7 +126,7 @@ router.get(
         },
       ],
     });
-    const memes = user.Memes;
+    const memes = profileUser.Memes;
 
     // Follow logic
     const currentUserId = isntLoggedIn(req)
@@ -139,7 +139,7 @@ router.get(
     res.render("user-page", {
       title: "User",
       memes,
-      user,
+      profileUser,
       isCurrentUser,
       isFollowing,
     });

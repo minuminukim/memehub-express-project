@@ -8,7 +8,7 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  +userpageHeader(user.username, user.id, isCurrentUser, isFollowing, currentUserId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
   hr.user-page
   div.userPosts
     ul
