@@ -4,8 +4,9 @@ mixin followBlock(userLogo, userId, username, userBio, followerId, text)
   .follow-block-right
     h3.follow-username: a(href=`/users/${userId}`) @#{username}
     p.follow-user-bio #{userBio}
-  form(class="follow-form" action=`/users/${followerId}/following` method="post")
-    +followButton(userId, followerId, text)
+  //- form(class="follow-form" action=`/users/${followerId}/following` method="post")
+  +followButton(userId, followerId, text)
 
 mixin followButton(userId, followerId, text)
-  button(class="follow-button", user=userId, follower=followerId type="submit") #{text}
+  form(class="follow-form" action=`/users/${followerId}/following` method="post")
+    button(class="follow-button", user=userId, follower=followerId type="submit") #{text}

@@ -1,6 +1,7 @@
 extends layout.pug
 
 include ./mixins/follows.pug
+include ./mixins/userpage-header.pug
 
 append head
   //- add page specific styles by appending to the head
@@ -10,7 +11,7 @@ append head
   link(rel="stylesheet" href="/stylesheets/components/follow-block.css")
   //- add page specific js
 
-  script(src="/javascripts/follow-button.js" type="module" defer)
+  script(src="/javascripts/index.js" type="module" defer)
 //- TODO: replace header with user-profile header
 block content
   .root
@@ -19,8 +20,7 @@ block content
     .followers-container
       each user in followers
         .followers-block
-          +followBlock("#", user.id, user.username, "bio")
           if user.mutual
-            +followButton(user.id, currentUserId, "Following")
+            +followBlock("#", user.id, user.username, "bio", currentUserId, "Following")
           else
-            +followButton(user.id, currentUserId, "Follow")
+            +followBlock(user.id, currentUserId, "Follow")

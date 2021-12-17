@@ -3,14 +3,15 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
-const { csrfProtection, asyncHandler } = require("../utils");
+const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
 const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
-const { isFollowing } = require("./utils/follows-helpers");
+const { checkFollow } = require("./utils/follows-helpers");
 
 const router = express.Router();
 
+/* CREATE A NEW USER */
 router.get("/new", csrfProtection, (req, res) => {
   const user = User.build();
   res.render("sign-up", {
@@ -54,6 +55,7 @@ router.post(
   })
 );
 
+/*************** SIGN IN LOGIC **************************************/
 router.get("/sign-in", csrfProtection, (req, res) => {
   res.render("sign-in", {
     title: "Sign In",
@@ -108,6 +110,7 @@ router.post("/sign-out", (req, res) => {
   });
 });
 
+/** GET PROFILE PAGE */
 router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
@@ -123,8 +126,23 @@ router.get(
         },
       ],
     });
-    let memes = user.Memes;
-    res.render("user-page", { title: "User", memes, user });
+    const memes = user.Memes;
+
+    // Follow logic
+    const currentUserId = isntLoggedIn
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+    console.log(isFollowing);
+
+    res.render("user-page", {
+      title: "User",
+      memes,
+      user,
+      isCurrentUser,
+      isFollowing,
+    });
   })
 );
 
@@ -142,7 +160,9 @@ router.get(
     });
 
     // find current user's followings
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn
+      ? null
+      : parseInt(req.session.auth.userId, 10);
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });
@@ -183,8 +203,11 @@ router.get(
       include: [{ model: User, as: "followings" }],
       order: [["id", "DESC"]],
     });
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+
     // find mutual relationship here, where current user also follows
+    const currentUserId = isntLoggedIn
+      ? null
+      : parseInt(req.session.auth.userId, 10);
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });
@@ -206,7 +229,7 @@ router.get(
         return userData;
       }
     );
-    
+
     res.render("following", {
       followings,
       count: followings.length,
