@@ -115,7 +115,7 @@ router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const user = await User.findByPk(userId, {
+    const profileUser = await User.findByPk(userId, {
       include: [
         {
           model: Meme,
@@ -126,10 +126,10 @@ router.get(
         },
       ],
     });
-    const memes = user.Memes;
+    const memes = profileUser.Memes;
 
     // Follow logic
-    const currentUserId = isntLoggedIn
+    const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
     const isCurrentUser = userId === currentUserId;
@@ -139,7 +139,7 @@ router.get(
     res.render("user-page", {
       title: "User",
       memes,
-      user,
+      profileUser,
       isCurrentUser,
       isFollowing,
     });
@@ -154,15 +154,19 @@ router.get(
   asyncHandler(async (req, res) => {
     // find user and their followers
     const id = parseInt(req.params.id, 10);
-    const user = await User.findByPk(id, {
+    const profileUser = await User.findByPk(id, {
       include: [{ model: User, as: "followers" }],
       order: [["id", "DESC"]],
     });
 
-    // find current user's followings
-    const currentUserId = isntLoggedIn
+    const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+
+    const isCurrentUser = currentUserId === profileUser.id;
+    const isFollowing = await checkFollow(profileUser.id, currentUserId);
+
+    // find current user's followings
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });
@@ -172,24 +176,29 @@ router.get(
     }, []);
 
     // then check for intersection with the fetched followers
-    const followers = user.followers.map(
+    const followers = profileUser.followers.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
         const userData = {
           id,
           username,
           firstName,
           lastName,
-          mutual: followIds.includes(id),
+          isMutual: followIds.includes(id),
         };
 
         return userData;
       }
     );
 
+    console.log(followers);
+
     res.render("followers", {
       followers,
+      profileUser,
       currentUserId,
       count: followers.length,
+      isCurrentUser,
+      isFollowing,
     });
   })
 );
@@ -199,31 +208,36 @@ router.get(
   "/:id(\\d+)/following",
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id, 10);
-    const user = await User.findByPk(id, {
+    const profileUser = await User.findByPk(id, {
       include: [{ model: User, as: "followings" }],
       order: [["id", "DESC"]],
     });
 
-    // find mutual relationship here, where current user also follows
-    const currentUserId = isntLoggedIn
+    const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+
+    const isCurrentUser = currentUserId === profileUser.id;
+    const isFollowing = await checkFollow(profileUser.id, currentUserId);
+
+    // find mutual relationship here, where current user also follows
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });
+
     const follows = await Promise.all(promises);
     const followIds = follows.reduce((acc, { userId }) => {
       return acc.includes(userId) ? acc : acc.concat(userId);
     }, []);
 
-    const followings = user.followings.map(
+    const followings = profileUser.followings.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
         const userData = {
           id,
           username,
           firstName,
           lastName,
-          mutual: followIds.includes(id),
+          isMutual: followIds.includes(id),
         };
 
         return userData;
@@ -232,8 +246,11 @@ router.get(
 
     res.render("following", {
       followings,
+      profileUser,
       count: followings.length,
       currentUserId,
+      isCurrentUser,
+      isFollowing,
     });
   })
 );

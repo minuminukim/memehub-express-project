@@ -1,7 +1,8 @@
 extends layout.pug
 
 include ./mixins/follows.pug
-//- TODO: replace header with user-profile header
+include ./mixins/userpage-header.pug
+
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/main-styles.css")
@@ -9,18 +10,18 @@ append head
   link(rel="stylesheet" href="/stylesheets/components/following.css")
   link(rel="stylesheet" href="/stylesheets/components/follow-block.css")
   //- add page specific js
-  script(src="/javascripts/index.js" type="module" defer)
-
 
 block content
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
   .root
     .following-title-container
       h2.following-title #{count} Following
       p.following-caption Ordered by most recently followed
-    .following-container
-      each user in followings
-        .following-block
-          if user.mutual
-            +followBlock("#", user.id, user.username, "bio", currentUserId, "Following")
-          else
-            +followBlock(user.id, currentUserId, "Follow")
+    if followings
+      .following-container
+        each following in followings
+          .following-block
+            if following.isMutual
+              +followBlock("#", following.id, following.username, "bio", currentUserId, "Following")
+            else
+              +followBlock(following.id, following.username, "bio", currentUserId, "Follow")

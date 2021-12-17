@@ -23,8 +23,6 @@ router.get(
   })
 );
 
-
-
 router.post(
   "/new",
   csrfProtection,
@@ -75,7 +73,7 @@ router.get(
     let likes = meme.Likes.length;
 
     // follow logic
-    const currentUserId = isntLoggedIn
+    const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
 
