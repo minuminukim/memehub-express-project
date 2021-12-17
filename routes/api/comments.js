@@ -34,7 +34,7 @@ router.post("/", asyncHandler(async (req, res) => {
 
 
 
-router.delete("/:id(\\d+)/delete", asyncHandler(async (req, res) => {
+router.post("/:id(\\d+)/delete", asyncHandler(async (req, res) => {
 
   try{
     const commentId = parseInt(req.params.id, 10);
