@@ -7,3 +7,7 @@ window.addEventListener("load", (event) => {
   follow();
   unfollow();
 });
+
+window.addEventListener("load", (event) => {
+  console.log("hello from hi");
+});

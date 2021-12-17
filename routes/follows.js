@@ -10,6 +10,7 @@ const followValidators = require("../validators/follow-validators");
 const router = express.Router();
 
 // get all follows
+
 router.get(
   "/",
   asyncHandler(async (req, res) => {
