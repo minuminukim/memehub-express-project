@@ -12,3 +12,13 @@ html
     if locals.authenticated
       include main-nav.pug
     block content
+    block foot
+      #footer.footer
+        div.footer-div
+          div.footer-logo
+            a.footer-logo(href='/') MemeHub
+          div.footer-content
+            a.footer-content(href='/') About
+            a.footer-content(href='/') Contact
+            a.footer-content(href='/') Help
+            a.footer-content(href='/') Legal

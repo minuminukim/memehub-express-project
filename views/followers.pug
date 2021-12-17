@@ -9,6 +9,7 @@ append head
   link(rel="stylesheet" href="/stylesheets/components/followers.css")
   link(rel="stylesheet" href="/stylesheets/components/follow-block.css")
   //- add page specific js
+
   script(src="/javascripts/follow-button.js" type="module" defer)
 //- TODO: replace header with user-profile header
 block content
@@ -16,7 +17,10 @@ block content
     .followers-title-container
       h2.followers-title #{count} Followers
     .followers-container
-      each follower in followers
+      each user in followers
         .followers-block
-          +followBlock("#", follower.id, follower.username, "bio")
-          +followButton(follower.id, userId)
+          +followBlock("#", user.id, user.username, "bio")
+          if user.mutual
+            +followButton(user.id, currentUserId, "Following")
+          else
+            +followButton(user.id, currentUserId, "Follow")

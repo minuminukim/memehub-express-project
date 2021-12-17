@@ -9,7 +9,8 @@ append head
   link(rel="stylesheet" href="/stylesheets/components/following.css")
   link(rel="stylesheet" href="/stylesheets/components/follow-block.css")
   //- add page specific js
-  script(src="/javascripts/follow-button.js" type="module" defer)
+  script(src="/javascripts/index.js" type="module" defer)
+
 
 block content
   .root
@@ -17,7 +18,9 @@ block content
       h2.following-title #{count} Following
       p.following-caption Ordered by most recently followed
     .following-container
-      each following in followings
+      each user in followings
         .following-block
-          +followBlock("#", following.id, following.username, "bio")
-          +followButton("#", following.id, userId)
+          if user.mutual
+            +followBlock("#", user.id, user.username, "bio", currentUserId, "Following")
+          else
+            +followBlock(user.id, currentUserId, "Follow")
