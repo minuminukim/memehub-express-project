@@ -5,33 +5,39 @@ const db = require("../../db/models");
 const { csrfProtection, asyncHandler } = require("../../utils");
 
 const { requireAuth } = require("../../auth");
-const { like } = require("sequelize/types/lib/operators");
 
 const router = express.Router();
-
-
-router.post("/api/likes"),
+router.post(
+  "/",
   requireAuth,
   asyncHandler(async (req, res) => {
     const likeMeme = await db.Like.findOne({
-//       where: {
-//       userId: {
-//       [Op.]: <value>
-//       }
-//       },
-//      });
-// if (db.)
-//     const like = db.Like.build({
-//       userId: res.locals.user.id,
-//       memeId: memeId,
-      // like++
+      where: {
+        userId: req.session.auth.userId,
+        memeId: req.body.memeId,
+      },
     });
+    if (!likeMeme) {
+      db.Like.create({
+        userId: req.session.auth.userId,
+        memeId: req.body.memeId,
+      });
+      res.json({ message: "liked" });
+    } else {
+      likeMeme.destroy();
+      res.json({ message: "unliked" });
+    }
+  })
+);
 
-    // if a like does not exist
-    // build a like
-    // if a like exists
-    // destroy a like
+router.use((req, res, next) => {
+  console.log("zx");
+  next();
+});
 
-
+// if a like does not exist
+// build a like
+// if a like exists
+// destroy a like
 
 module.exports = router;
