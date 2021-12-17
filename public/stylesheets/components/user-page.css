@@ -6,7 +6,6 @@ div.userpage-header {
     padding-top: 17px;
     padding-bottom: 17px;
     margin: 25px;
-
 }
 
 img.user-meme{
@@ -35,7 +34,7 @@ hr.user-page {
     height: 1px;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(255, 212, 212);
+    background-color: rgb(201, 201, 201);
     border: 0 none;
     margin-top: 20px;
 }
@@ -82,8 +81,8 @@ hr.bottom {
     height: 1px;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(255, 212, 212);
-    border: 0 none;
+    background-color: rgb(201, 201, 201);
+    border: 0 none;s
 }
 
 div.delete-meme {
