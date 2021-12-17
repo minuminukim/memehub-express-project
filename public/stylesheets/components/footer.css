@@ -7,3 +7,27 @@
     background: black;
     color: white;
 }
+
+.footer-div{
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5rem;
+}
+
+.footer-logo {
+    align-self: center;
+    justify-content: center;
+}
+.footer-content {
+    align-self: center;
+}
+
+a.footer-content{
+    padding-left: 10px;
+    padding-right: 10px;
+}
