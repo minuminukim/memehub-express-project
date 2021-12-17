@@ -13,10 +13,10 @@
 }
 
 .content {
-    height:30px;
+    height:60px;
     width: 100%;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    /* text-align: center; */
+
 }
 
 .add-button{
@@ -45,6 +45,12 @@
     margin-top: 5px;
 }
 
+
+.delete-button:active {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
 .edit-button{
     border-radius:5px;
     font-weight:bold;
@@ -54,5 +60,9 @@
     margin-top: 5px;
     margin-left:2px;
     padding: 2px 8px;
+}
 
+.edit-button:active {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
