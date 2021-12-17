@@ -12,6 +12,7 @@ const { sequelize } = require("./db/models");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const memesRouter = require("./routes/memes");
+const commentRouter = require("./routes/api/comments.js")
 const apiRouter = require("./routes/api");
 const followsRouter = require("./routes/follows");
 const likesRouter = require("./routes/api/likes");
@@ -44,9 +45,14 @@ app.use(
 store.sync();
 
 app.use(restoreUser);
+app.use("/api/comments", commentRouter);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/memes", memesRouter);
+// app.use((req,res,next)=>{
+//   console.log("helloz");
+//   next();
+// })
 app.use("/api", apiRouter);
 app.use("/follows", followsRouter);
 app.use("/api/likes", likesRouter);
