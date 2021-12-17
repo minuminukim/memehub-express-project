@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", ()=> {
         if (!res.ok){
           throw res;
         }
-        `<li></li><li><button id="${comment.id}">Delete Comment</button><buttonid="${comment.id}>Edit Comment</button></li>`
+        // `<li></li><li><button id="${comment.id}">Delete Comment</button><buttonid="${comment.id}>Edit Comment</button></li>`
 
 
       } catch (err){

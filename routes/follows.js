@@ -15,8 +15,8 @@ const followValidators = require("../validators/follow-validators");
 
 const router = express.Router();
 
-// router.use("/users", usersRouter);
-// router.use(requireAuth);
+router.use("/users", usersRouter);
+router.use(requireAuth);
 
 // get all follows
 router.get(
