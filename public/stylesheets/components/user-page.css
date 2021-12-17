@@ -41,27 +41,31 @@ hr.user-page {
 
 div.userPosts {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 2fr 3fr 2fr;
     grid-template-areas:
     "p feed .";
+    padding-top: 45px
 }
 
-div.userPosts.p {
+img.user-profile-pic{
+    height: 150px;
+    width: 150px;
+}
+
+div.user-page-content {
     grid-area: p;
     display: flex;
-    padding-top: 50px;
-    justify-content: center;
+    justify-content: flex-end;
     grid-column: 1 / 2;
+    padding-right: 25px;
 }
 
 div.user-feed{
     grid-area: feed;
     display: flex;
-    margin-left: 50px;
     justify-content: center;
     grid-column: 2 / 3;
 }
-
 
 div.user-info{
     display: flex;
