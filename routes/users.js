@@ -100,11 +100,6 @@ router.post(
   })
 );
 
-// router.post("/sign-out", (req, res) => {
-//   logoutUser(req, res);
-//   res.redirect("/users/sign-in");
-// });
-
 router.post("/sign-out", (req, res) => {
   logoutUser(req, res);
   req.session.destroy(() => {
@@ -188,7 +183,6 @@ router.get(
       include: [{ model: User, as: "followings" }],
       order: [["id", "DESC"]],
     });
-
     const currentUserId = parseInt(req.session.auth.userId, 10);
     // find mutual relationship here, where current user also follows
     const promises = await Follow.findAll({
@@ -212,12 +206,45 @@ router.get(
         return userData;
       }
     );
-
+    
     res.render("following", {
       followings,
       count: followings.length,
       currentUserId,
     });
+  })
+);
+
+// follow a user
+router.post(
+  "/:id(\\d+)/following",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const { userId, followerId } = req.body;
+    const follow = await Follow.findOne({ where: { userId, followerId } });
+    if (follow) {
+      res.status(400).json({ message: "You are already following this user." });
+    } else {
+      const newFollow = await Follow.create({ userId, followerId });
+      res.json({ newFollow });
+    }
+  })
+);
+
+router.delete(
+  "/:id(\\d+)/following",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const { userId, followerId } = req.body;
+    const follow = await Follow.findOne({ where: { userId, followerId } });
+    if (follow) {
+      await follow.destroy();
+      res
+        .status(204)
+        .json({ message: "You have successfully unfollowed this user." });
+    } else {
+      res.status(404).json({ message: "Follow does not exist" });
+    }
   })
 );
 

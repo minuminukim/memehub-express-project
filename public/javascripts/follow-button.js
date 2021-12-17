@@ -1,23 +1,58 @@
 export const follow = () => {
-  const container = document.querySelector(".root");
-  container.addEventListener("click", async (event) => {
-    // event.stopPropagation();
-    if (!event.target.classList.contains("follow-button")) {
-      return;
-    }
+  const forms = document.querySelectorAll(".follow-form");
 
-    const button = event.target;
-    const userId = parseInt(button.getAttribute("user"));
-    const followerId = parseInt(button.getAttribute("follower"));
+  forms.forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = document.querySelector(".follow-button");
+      const userId = parseInt(button.getAttribute("user"));
+      const followerId = parseInt(button.getAttribute("follower"));
 
-    const response = await fetch("/follows", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, followerId }),
+      try {
+        const response = await fetch(`/users/${userId}/following`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, followerId }),
+        });
+
+        if (!response.ok) {
+          throw response;
+        }
+        button.innerText = "Following";
+        return response.json();
+      } catch (error) {
+        return res.json(error);
+      }
     });
+  });
+};
 
-    const data = await response.json();
-    console.log(data);
-    button.innerText = button.innerText === "Follow" ? "Following" : "Follow";
+export const unfollow = () => {
+  const forms = document.querySelectorAll(".follow-form");
+
+  forms.forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = document.querySelector(".follow-button");
+      const userId = parseInt(button.getAttribute("user"));
+      const followerId = parseInt(button.getAttribute("follower"));
+
+      try {
+        const response = await fetch(`/users/${userId}/following`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, followerId }),
+        });
+
+        if (!response.ok) {
+          throw response;
+        }
+
+        button.innerText = "Follow";
+        return response.json();
+      } catch (err) {
+        return response.json(err);
+      }
+    });
   });
 };
