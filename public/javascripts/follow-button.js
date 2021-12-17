@@ -1,37 +1,3 @@
-<<<<<<< HEAD
-// export const follow = () => {
-//   // const container = document.querySelector(".followers-container");
-//   const button = document.querySelector(".follow-button");
-
-//   button.addEventListener("click", (event) => {
-//     // const isButton = event.target.tagName === "BUTTON";
-//     // if (!isButton) return;
-
-//     const userId = parseInt(button.getAttribute("user"));
-//     const followerId = parseInt(button.getAttribute("follower"));
-
-//     const request = {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ userId, followerId }),
-//     };
-
-//     fetch("http://localhost:8080/follows", request)
-//       .then((response) => {
-//         if (!response.ok) {
-//           console.log(response);
-//           throw response;
-//         } else {
-//           button.innerText = "Following";
-//           return response.json();
-//         }
-//       })
-//       .catch((err) => {
-//         Promise.reject("You are already following this user");
-//       });
-//   });
-// };
-=======
 export const follow = () => {
   const forms = document.querySelectorAll(".follow-form");
 
@@ -60,7 +26,6 @@ export const follow = () => {
     });
   });
 };
->>>>>>> main
 
 export const unfollow = () => {
   const forms = document.querySelectorAll(".follow-form");
@@ -79,18 +44,9 @@ export const unfollow = () => {
           body: JSON.stringify({ userId, followerId }),
         });
 
-<<<<<<< HEAD
-//   button.innerText = "Following";
-// };
-
-// window.addEventListener("load", (event) => {
-//   follow();
-// });
-=======
         if (!response.ok) {
           throw response;
         }
->>>>>>> main
 
         button.innerText = "Follow";
         return response.json();
