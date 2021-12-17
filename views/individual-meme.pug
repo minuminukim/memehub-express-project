@@ -1,17 +1,14 @@
 extends layout.pug
 
 include ./mixins/follows.pug
+include ./mixins/userpage-header.pug
+
+append head
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
+  script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  div.userpage-header
-    h1.user-title= `${meme.User.username}`
-    a.userpage-header-link(href=`/users/${meme.userId}/followers` alt='followers')= "Followers"
-    a.userpage-header-link(href= `/users/${meme.userId}/following` alt='following')= "Following"
-    if !isCurrentUser
-      if isFollowing
-        +followButton(meme.userId, currentUserId, "Following")
-      else
-        +followButton(meme.userId, currentUserId, "Follow")
+  +userpageHeader(meme.User.username, meme.userId, isCurrentUser, isFollowing, currentUserId)
   hr.user-page
   div.userPosts
     ul

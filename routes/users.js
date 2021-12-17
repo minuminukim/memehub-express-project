@@ -129,7 +129,9 @@ router.get(
     const memes = user.Memes;
 
     // Follow logic
-    const currentUserId = parseInt(req.session.auth.userId);
+    const currentUserId = isntLoggedIn
+      ? null
+      : parseInt(req.session.auth.userId, 10);
     const isCurrentUser = userId === currentUserId;
     const isFollowing = await checkFollow(userId, currentUserId);
     console.log(isFollowing);
