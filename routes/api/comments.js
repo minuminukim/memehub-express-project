@@ -36,35 +36,17 @@ router.post("/", asyncHandler(async (req, res) => {
 
 router.post("/:id(\\d+)/delete", asyncHandler(async (req, res) => {
 
+  
   try{
-    const commentId = parseInt(req.params.id, 10);
+    const commentId = parseInt(req.body.commentId, 10);
     const comment = await db.Comment.findByPk(commentId);
     await comment.destroy();
 
-    comment.save(function (err) {
-      if (err) {
-        console.log(err);
-        return;
-      } else {
-        res.status(204);
-        res.json({ message: "You have successfully deleted this comment." });
-      }
-    });
 
   }
   catch(e){
     console.log(e);
   }
-
-
-
-
-
-
-
-
-
-
 
 }));
 

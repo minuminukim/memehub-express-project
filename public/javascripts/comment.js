@@ -43,33 +43,39 @@ window.addEventListener("DOMContentLoaded", ()=> {
 
     })
 
-  const deleteCommentButton = document.querySelector(".delete-button");
+  const deleteCommentButton = document.querySelectorAll(".delete-button");
   console.log("deleteCommentButton", deleteCommentButton);
-  deleteCommentButton.addEventListener("click", async (e)=>{
-    console.log("inside delete event")
-    // const deleteButton = document.querySelector(".delete-button");
-    const commentId = e.target.id;
+  console.log(deleteCommentButton)
+  for(let i = 0; i < deleteCommentButton.length-1; i++){
+    deleteCommentButton[i].addEventListener("click", async (e)=>{
+      console.log("inside delete event")
+      // const deleteButton = document.querySelector(".delete-button");
+      const commentId = e.target.id;
+      const body = {commentId}
 
-    try {
-      const res = await fetch("api/comments/:id(\\d+)/delete", {
+      try {
+        const res = await fetch("api/comments/:id(\\d+)/delete", {
 
-        method: "POST",
-        body: JSON.stringify(commentId),
-        headers: {
-          "Content-type": "application/json"
-        },
-      });
-      if (!res.ok){
-        throw res;
+          method: "POST",
+          body: JSON.stringify({body}),
+          headers: {
+            "Content-type": "application/json"
+          },
+        });
+        if (!res.ok){
+          throw res;
+        }
+        // `<li></li><li><button id="${comment.id}">Delete Comment</button><buttonid="${comment.id}>Edit Comment</button></li>`
+
+
+      } catch (err){
+
       }
-      // `<li></li><li><button id="${comment.id}">Delete Comment</button><buttonid="${comment.id}>Edit Comment</button></li>`
+
+    })
 
 
-    } catch (err){
-
-    }
-
-  })
+  }
 
 
   })

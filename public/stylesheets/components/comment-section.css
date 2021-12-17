@@ -1,0 +1,22 @@
+.comment-box{
+    border: grey solid 2px;
+    width: 100%;
+    list-style-type: none;
+}
+
+.comment-box-header{
+    font-weight:bold;
+    font-size: 25px;
+}
+
+.content {
+    height:30px;
+    width: 100%;
+}
+
+.add-button{
+    border: black solid 2px;
+    font-size: 15px;
+    background-color: rgb(12, 167, 12);
+    color: white;
+}
