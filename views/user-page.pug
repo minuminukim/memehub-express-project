@@ -4,11 +4,12 @@ block content
   div.userpage-header
     h1.user-title= `${user.username}'s Memes`
       //-this anchor should take you to the user's followers page.
-    a(href='/follows' alt='followers')= "Followers"
+    a(href=`/followers` alt='followers')= "Followers"
+    a(href= `/users/${user.id}/following` alt='following')= "Following"
     button.follow-button Follow
     form(action='/users/sign-out' method="post")
       button(type='submit') Sign Out
-  hr
+  hr.user-page
   div.userPosts
     ul
       each meme in memes
@@ -21,7 +22,8 @@ block content
             each comment in meme.dataValues.Comments
               div.user-comment
                 p= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
-        hr
+        p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
+        hr.bottom
         div.end-of-post
 //- TODO: ensure comment and like features are working.
 //- Add any additional styles to the page

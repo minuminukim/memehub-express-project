@@ -1,11 +1,14 @@
 extends layout.pug
 
+include ./mixins/follows.pug
+
 block content
   div.userpage-header
     h1.user-title= `${meme.User.username}'s Meme`
       //-this anchor should take you to the user's followers page.
-    a(href='/follows' alt='followers')= "Followers"
-    button.follow-button Follow
+    a(href= `/users/${meme.User.id}/following` alt='following')= "Following"
+    form(action=`/users/${meme.User.userId}/following` method="post")
+      button(type='submit') Follow
     form(action='/users/sign-out' method="post")
       if isLoggedIn
         button(type='submit') Sign Out
@@ -18,6 +21,7 @@ block content
     ul
       h1.user-page= `${meme.headline}`
       h2.user-page= `${meme.caption}`
+
       img.user-meme(src=`${meme.link}` alt='meme')
       div.likes-and-comments
         a(href=`/` role='button')= `Likes: ${likes}`
@@ -25,7 +29,8 @@ block content
           each comment in meme.dataValues.Comments
             div.user-comment
               p= `${comment.dataValues.User.username}: ${comment.dataValues.body}`
-      hr.edit-delete
+      p.posted-on= `Posted on: ${dateFormat}`
+      hr.bottom
       if currentUser === meme.userId
         div.edit-delete
           a(href=`/memes/${meme.id}/edit`) Edit Your Meme
