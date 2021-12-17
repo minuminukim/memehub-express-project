@@ -23,13 +23,14 @@
     align-self: center;
     justify-content: center;
     text-decoration: none;
+    font-size:larger;
+    font-weight: bolder;
 }
 .footer-content {
     align-self: center;
 }
 
 a.footer-content{
-    padding-left: 10px;
     padding-right: 10px;
     text-decoration: none;
 }
