@@ -10,6 +10,8 @@ const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
+    const currentUserId = parseInt(req.session.auth.userId, 10);
+
     const memes = await Meme.findAll({
       include: [Comment, Like, User],
     });
@@ -28,6 +30,7 @@ router.get(
       title: "Memehub",
       trendingMemes,
       feedMemes,
+      currentUserId,
       i: 1,
     });
   })
@@ -38,11 +41,13 @@ router.get(
   "/recent",
   requireAuth,
   asyncHandler(async (req, res, next) => {
+    const currentUserId = parseInt(req.session.auth.userId, 10);
+
     const feedMemes = await Meme.findAll({
       order: [["id", "DESC"]],
       include: User,
     });
-    res.render("index", { title: "Memehub", feedMemes });
+    res.render("index", { title: "Memehub", feedMemes, currentUserId });
   })
 );
 
@@ -51,12 +56,14 @@ router.get(
   "/hot",
   requireAuth,
   asyncHandler(async (req, res, next) => {
+    const currentUserId = parseInt(req.session.auth.userId, 10);
+
     const memes = await Meme.findAll({
       include: [Like, User],
     });
 
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b));
-    res.render("index", { title: "Memehub", feedMemes });
+    res.render("index", { title: "Memehub", feedMemes, currentUserId });
   })
 );
 
@@ -65,13 +72,17 @@ router.get(
   "/trending",
   requireAuth,
   asyncHandler(async (req, res, next) => {
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
     const memes = await Meme.findAll({
       include: [Comment, User],
     });
 
     const feedMemes = memes.sort((a, b) => memesByComments(a, b));
 
-    res.render("index", { title: "Memehub", feedMemes });
+    res.render("index", { title: "Memehub", feedMemes, currentUserId });
   })
 );
 
@@ -80,10 +91,10 @@ router.get(
   "/you",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    const { userId } = req.session.auth;
+    const currentUserId = parseInt(req.session.auth.userId, 10);
 
     // get logged in user & the users they're following
-    const currentUser = await User.findByPk(parseInt(userId, 10), {
+    const currentUser = await User.findByPk(currentUserId, {
       include: [{ model: User, as: "followings" }],
     });
 

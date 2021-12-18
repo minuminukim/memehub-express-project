@@ -12,7 +12,7 @@ const { sequelize } = require("./db/models");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const memesRouter = require("./routes/memes");
-const commentRouter = require("./routes/api/comments.js")
+const commentRouter = require("./routes/api/comments.js");
 const apiRouter = require("./routes/api");
 const followsRouter = require("./routes/follows");
 const likesRouter = require("./routes/api/likes");
@@ -65,6 +65,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
+  console.log(err);
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
