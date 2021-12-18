@@ -1,4 +1,4 @@
-.dropdown-container
+.dropdown-container.hide
   .dropdown-top
     .container-left
       a(href=`/users/${user.id}`): img.dropdown-user-photo(src="#", alt="#").dropdown-item
@@ -7,6 +7,6 @@
       a.dropdown-user-handle.dropdown-item(href=`/users/${user.id}`) @#{user.username}
   .dropdown-bottom
     a(class="dropdown-link dropdown-item" href=`/memes/new`) Share a meme
-    a(class="dropdown-link dropdown-item" href=`/users/${user.id}/memes`) Memes
+    a(class="dropdown-link dropdown-item" href=`/users/${user.id}`) Memes
     form(action="/users/sign-out" method="post")
       button(class="sign-out-button dropdown-item" type="submit") Sign out

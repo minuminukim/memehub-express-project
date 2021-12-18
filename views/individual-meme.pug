@@ -1,64 +1,62 @@
 extends layout.pug
 
+include ./mixins/follows.pug
+include ./mixins/userpage-header.pug
+
 append head
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
+  link(rel="stylesheet" href="/stylesheets/components/comment-section.css")
+  script(src="/javascripts/index.js" type="module" defer)
   script(src="/javascripts/comment.js" type="module" defer)
 
 block content
-  div.userpage-header
-    h1.user-title= `${meme.User.username}'s Meme`
-      //-this anchor should take you to the user's followers page.
-    a(href= `/users/${meme.User.id}/following` alt='following')= "Following"
-    form(action=`/users/${meme.User.userId}/following` method="post")
-      button(type='submit') Follow
-    form(action='/users/sign-out' method="post")
-      if isLoggedIn
-        button(type='submit') Sign Out
-    if isLoggedIn === undefined
-      p: a(href='/users/new') Sign-Up
-      p: a(href='/users/sign-in') Sign In
-    p: a(href='/') Home
+  +userpageHeader(meme.User.username, meme.userId, isCurrentUser, isFollowing, currentUserId)
   hr.user-page
   div.userPosts
+    div.user-page-content
+      div.fixed-position
+        img.user-profile-pic(src=`${meme.User.profilePicture}`)
+        div.user-page-details
+          div.profile-name-bar
+            p.user-profile-name-bar= `${meme.User.username}'s Info`
+            div.user-bio-description
+              p= `${meme.User.biography}`
+            div
+              if isFollowing
+                +followButton(meme.userId, currentUserId, "Following")
+              else
+                +followButton(meme.userId, currentUserId, "Follow")
+        div.users-followers-details
+          a(href=`/users/${meme.userId}/followers` alt='followers')= "Followers"
+  div.user-feed
     ul
-      li= `Headline: ${meme.headline}`
-      li= `Caption: ${meme.caption}`
-      img(src=`${meme.link}` alt='meme')
-      div
-      a(id='likeCount' href=`/` role='button')= `Likes: ${likes}`
-      button(id=`like-${meme.id}` class='likeButton') Like
-      <i class="fas fa-thumbs-up"></i>
-      <i class="far fa-thumbs-up"></i>
-      div
-      a(href=`/` role='button') Add a Comment
-      h3 Comments:
-      each comment in comments
-        li= `${comment.dataValues.User.username}: ${comment.dataValues.body} `
-      div
-      p: a(href='/users/new') New User? Sign Up Here
-      p: a(href='/users/sign-in') Sign In to Like and Comment
-      p: a(href='/') Go Back to the Home Page
-      p: a(href=`/memes/${meme.id}/edit`) Edit Your Meme
-      p: a(href=`/memes/${meme.id}/delete`) Delete Your Meme?
       h1.user-page= `${meme.headline}`
       h2.user-page= `${meme.caption}`
 
       img.user-meme(src=`${meme.link}` alt='meme')
       div.likes-and-comments
-        a(href=`/` role='button')= `Likes: ${likes}`
+      div.likes
+        a(id='likeCount' href=`/` role='button')= `Likes: ${likes}`
+        button(id=`like-${meme.id}` class='likeButton') Like
+        <i class="fas fa-thumbs-up"></i>
+        <i class="far fa-thumbs-up"></i>
       div
-      input(type="message" name="content" id="content" class="content" placeholder="Write a comment.")
+      input(type="textarea" name="content" id="content" class="content" placeholder="Write a comment.")
       button(id=`${meme.id}` class="add-button") Add Comment
-      h3 Comments:
-      ul
+      h3.comment-box-header Comments:
+      ul.comment-box
         each comment in comments
-          li= `${comment.User.username}: ${comment.body} `
-          if comment.userId === locals.user.id
-          li= `${comment.User.username}: ${comment.body} `
-            button(id=`${comment.id}`) Delete Comment
-            button(id=`${comment.id}`) Edit Comment
+          li.content=`${comment.User.username}: ${comment.body} `
+            if comment.userId === locals.user.id
+              button(id=`${comment.id}` class="delete-button") Delete
+              button(id=`${comment.id}` class="edit-button") Edit
+          //-  li= `${comment.User.username}: ${comment.body} `
+          //-    button(id=`${comment.id}` class="delete-button") Delete Comment
+          //-    button(id=`${comment.id}`) Edit Comment
       p.posted-on= `Posted on: ${dateFormat}`
-      hr.bottom
-      if currentUser === meme.userId
+      hr.bottom-meme-page
+      if currentUserId === meme.userId
         div.edit-delete
           a(href=`/memes/${meme.id}/edit`) Edit Your Meme
           a(href=`/memes/${meme.id}/delete`) Delete Your Meme
+      div.bottom-of-page

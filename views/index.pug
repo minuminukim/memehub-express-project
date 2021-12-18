@@ -1,6 +1,6 @@
 extends layout
 
-include utils.pug
+include ./mixins/memes.pug
 include ./mixins/recommended.pug
 
 append head
@@ -25,13 +25,11 @@ block content
           a(href="/recent") Recent
       .feed-memes
         each meme in feedMemes
-          +memeBlock("#", meme.User.username, meme.link,`/users/${meme.userId}`, meme.headline, "#", "Dec 8", meme.caption)
+          +memeBlock("#", meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
     .right-container
       .recommended-follows-container
         .recommended-title-container
           h3.recommended-title Who to follow
         .recommended-blocks-container
-          +recommended(2, "to be filled", "David Lee", 0)
-          +recommended(3, "to be filled", "Will Duffy", 0)
-          +recommended(4, "to be filled", "Anthony Adams", 0)
-          +recommended(5, "to be filled", "Minu Kim", 0)
+          each dev in developers
+            +recommended(dev.id, "to be filled", dev.fullName, currentUserId, dev.isFollowing)

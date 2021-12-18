@@ -1,39 +1,34 @@
 include layout.pug
+include ./mixins/memes.pug
 
-mixin trendingMeme(rank, meme, logo, profile, username, memeHfref, headline, date)
-  .trending-meme
-    p.trending-rank #{rank}
-    img.trending-meme(src=meme)
-    img.trending-user-logo(src=logo)
-    a.trending-username(href=profile) @#{username}
-    a.trending-title(href=memeHref) #{headline}
-    p.trending-date #{date}
-
-mixin bestMeme(logo, username, meme, profile, headline, memeHref, date, caption = null)
-  .best-meme
-    img.user-logo(src=logo)
-    a.user-link(href=profile) @#{username}
-    a.meme-title(href=memeHref) #{headline}
-    p.meme-caption #{caption}
-    p.meme-date #{date}
-    img.meme-image(src=meme)
-
+append head
+  link(rel="stylesheet" href="/stylesheets/landing-page.css")
 block content
-  .root
-    include landing-nav.pug
-    div.header-main
-      img(src="#").header-background
-      h2 Memehub is a place to post, laugh, and connect
-      p It's easy and free to post your thinking on any topic and connect with millions of readers.
-      button(onclick="location.href='/users/new'" type=button) Get Started
-    .trending-memes
-      div
+  .landing-root
+    header.landing-header
+      nav.landing-nav
+        .nav-left
+          h1.nav-title: a(href="/") Memehub
+          if !locals.authenticated
+            .nav-right
+              a.nav-link(href="/users/sign-in") Sign In
+              a.nav-link(href="/users/sign-in") Try Demo
+              button(onclick="location.href='/users/new'") Get Started
+              //- TODO: render demo sign in
+        .dropdown
+          if locals.authenticated
+            include dropdown.pug
+      .landing-header-main
+        h2 Memehub is a place to post, laugh, and connect
+        p It's easy and free to post your thinking on any topic and connect with millions of readers.
+        button(onclick="location.href='/users/new'" type=button) Start Posting
+    .trending-memes-container
+      .trending-title
         h2 TRENDING ON MEMEHUB
-        div.container
-          div
-            each meme in trendingMemes
-              +trendingMeme(`0${i++}`, meme.link, "#", `/users/${meme.userId}`, meme.User.username, "#", meme.headline, "Dec 8")
+      .trending-memes
+        each meme in trendingMemes
+          +trendingMeme(`0${i++}`, meme.id, meme.link, "#", meme.userId, meme.User.username, meme.headline, "Dec 8")
     .landing-feed
       h2 "main feed goes here"
-      each meme in bestMemes
-        +bestMeme("#", meme.User.username, meme.link,`/users/${meme.userId}`, meme.headline, "#", "Dec 8", meme.caption)
+      each meme in feedMemes
+        +memeBlock("#", meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)

@@ -3,14 +3,16 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
-const { csrfProtection, asyncHandler } = require("../utils");
+const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
 const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
-const { isFollowing } = require("./utils/follows-helpers");
+const aboutValidators = require("../validators/about-validators");
+const { checkFollow } = require("./utils/follows-helpers");
 
 const router = express.Router();
 
+/* CREATE A NEW USER */
 router.get("/new", csrfProtection, (req, res) => {
   const user = User.build();
   res.render("sign-up", {
@@ -54,6 +56,7 @@ router.post(
   })
 );
 
+/*************** SIGN IN LOGIC **************************************/
 router.get("/sign-in", csrfProtection, (req, res) => {
   res.render("sign-in", {
     title: "Sign In",
@@ -108,11 +111,12 @@ router.post("/sign-out", (req, res) => {
   });
 });
 
+/** GET PROFILE PAGE */
 router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const user = await User.findByPk(userId, {
+    const profileUser = await User.findByPk(userId, {
       include: [
         {
           model: Meme,
@@ -123,10 +127,121 @@ router.get(
         },
       ],
     });
-    let memes = user.Memes;
-    res.render("user-page", { title: "User", memes, user });
+    const memes = profileUser.Memes;
+
+    // Follow logic
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+
+    res.render("user-page", {
+      title: "User",
+      memes,
+      profileUser,
+      currentUserId,
+      isCurrentUser,
+      isFollowing,
+    });
   })
 );
+
+/*****************************About Page*************************/
+router.get(
+  "/:id(\\d+)/about",
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const profileUser = await User.findByPk(userId)
+
+    // Follow logic
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+
+    res.render("about-page", {
+      title: "User",
+      profileUser,
+      isCurrentUser,
+      isFollowing,
+    });
+  })
+);
+
+//get about edit page
+
+router.get(
+  "/:id(\\d+)/about/edit",
+  csrfProtection,
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const profileUser = await User.findByPk(userId)
+
+    // Follow logic
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+
+    res.render("about-page-edit", {
+      title: "User",
+      profileUser,
+      isCurrentUser,
+      isFollowing,
+      csrfToken: req.csrfToken(),
+    });
+  })
+);
+
+//Edit the about page
+
+router.post(
+  "/:id(\\d+/about/edit)",
+  csrfProtection,
+  requireAuth,
+  aboutValidators,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const profileUser = await User.findByPk(userId)
+
+    const currentUserId = isntLoggedIn(req)
+    ? null
+    : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+
+    const { biography, profilePicture } = req.body;
+
+    const about = {
+      biography,
+      profilePicture,
+    };
+
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      await profileUser.update(about);
+      res.redirect(`/users/${profileUser.id}/about`);
+    } else {
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render("about-page-edit", {
+        title: "Edit About",
+        about,
+        errors,
+        profileUser,
+        isCurrentUser,
+        isFollowing,
+        csrfToken: req.csrfToken(),
+      });
+    }
+  })
+);
+
+
 
 /*****************************FOLLOWS*************************/
 
@@ -136,13 +251,19 @@ router.get(
   asyncHandler(async (req, res) => {
     // find user and their followers
     const id = parseInt(req.params.id, 10);
-    const user = await User.findByPk(id, {
+    const profileUser = await User.findByPk(id, {
       include: [{ model: User, as: "followers" }],
       order: [["id", "DESC"]],
     });
 
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
+    const isCurrentUser = currentUserId === profileUser.id;
+    const isFollowing = await checkFollow(profileUser.id, currentUserId);
+
     // find current user's followings
-    const currentUserId = parseInt(req.session.auth.userId, 10);
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });
@@ -152,24 +273,29 @@ router.get(
     }, []);
 
     // then check for intersection with the fetched followers
-    const followers = user.followers.map(
+    const followers = profileUser.followers.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
         const userData = {
           id,
           username,
           firstName,
           lastName,
-          mutual: followIds.includes(id),
+          isMutual: followIds.includes(id),
         };
 
         return userData;
       }
     );
 
+    console.log(followers);
+
     res.render("followers", {
       followers,
+      profileUser,
       currentUserId,
       count: followers.length,
+      isCurrentUser,
+      isFollowing,
     });
   })
 );
@@ -179,38 +305,49 @@ router.get(
   "/:id(\\d+)/following",
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id, 10);
-    const user = await User.findByPk(id, {
+    const profileUser = await User.findByPk(id, {
       include: [{ model: User, as: "followings" }],
       order: [["id", "DESC"]],
     });
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
+    const isCurrentUser = currentUserId === profileUser.id;
+    const isFollowing = await checkFollow(profileUser.id, currentUserId);
+
     // find mutual relationship here, where current user also follows
     const promises = await Follow.findAll({
       where: { followerId: currentUserId },
     });
+
     const follows = await Promise.all(promises);
     const followIds = follows.reduce((acc, { userId }) => {
       return acc.includes(userId) ? acc : acc.concat(userId);
     }, []);
 
-    const followings = user.followings.map(
+    const followings = profileUser.followings.map(
       ({ dataValues: { id, username, firstName, lastName } }) => {
         const userData = {
           id,
           username,
           firstName,
           lastName,
-          mutual: followIds.includes(id),
+          isMutual: followIds.includes(id),
         };
 
         return userData;
       }
     );
-    
+
     res.render("following", {
       followings,
+      profileUser,
       count: followings.length,
       currentUserId,
+      isCurrentUser,
+      isFollowing,
     });
   })
 );

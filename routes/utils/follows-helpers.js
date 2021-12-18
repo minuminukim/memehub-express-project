@@ -1,8 +1,9 @@
 const { Follow } = require("../../db/models");
 
-const isFollowing = async (userId, followerId) => {
-  const follow = await Follow.findOne({ where: { userId, followerId } });
-  return follow !== null;
+const checkFollow = async (userId, followerId) => {
+  return Follow.findOne({ where: { userId, followerId } })
+    .then((follow) => follow !== null)
+    .catch((err) => next(err));
 };
 
-module.exports = { isFollowing };
+module.exports = { checkFollow };

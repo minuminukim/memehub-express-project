@@ -3,13 +3,20 @@ extends layout.pug
 include utils.pug
 
 block content
-  h3 Edit Your Meme
-  +validationErrorSummary(errors)
-  form(action=`/memes/${meme.id}/edit` method='post')
-    input(type='hidden' name='_csrf' value=csrfToken)
-    +field('Headline', 'headline', meme.headline)
-    +field('Caption', 'caption', meme.caption)
-    +field('Link', 'link', meme.link)
-    div
-      button(type='submit') Update Meme
-      a(href=`/memes/${meme.id}`) Cancel
+  div.spacing-more
+  .root-new-meme
+    h1.user-page Edit Your Meme
+      div.form
+      +validationErrorSummary(errors)
+      form(action=`/memes/${meme.id}/edit` method='post')
+        input(type='hidden' name='_csrf' value=csrfToken)
+        div.spacing
+        +field('Headline: ', 'headline', meme.headline)
+        div.spacing
+        +field('Caption: ', 'caption', meme.caption)
+        div.spacing
+        +field('Link: ', 'link', meme.link)
+        div.post-cancel
+          button.submit-meme-button(type='submit') Update Meme
+          div.spacing-more
+          a.small-font(href=`/memes/${meme.id}`) Cancel

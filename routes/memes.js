@@ -2,22 +2,26 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 
 const db = require("../db/models");
-const { csrfProtection, asyncHandler } = require("../utils");
+const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
 const memesValidators = require("../validators/meme-validators");
 const { requireAuth } = require("../auth");
+const { checkFollow } = require("./utils/follows-helpers");
 
 const router = express.Router();
 
-router.get("/new", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
-  const user = await db.User.findByPk(req.session.auth.userId)
-  res.render("new-meme", {
-    title: "New Meme",
-    user,
-    csrfToken: req.csrfToken(),
-  });
-}));
-
-
+router.get(
+  "/new",
+  csrfProtection,
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const user = await db.User.findByPk(req.session.auth.userId);
+    res.render("new-meme", {
+      title: "New Meme",
+      user,
+      csrfToken: req.csrfToken(),
+    });
+  })
+);
 
 router.post(
   "/new",
@@ -43,7 +47,7 @@ router.post(
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render("new-meme", {
         title: "New Meme",
-        meme: { ...meme},
+        meme: { ...meme },
         errors,
         csrfToken: req.csrfToken(),
       });
@@ -62,17 +66,52 @@ router.get(
         { model: db.Like },
       ],
     });
-    let date = meme.dataValues.updatedAt
-    let dateFormat = date.toLocaleDateString("en-US")
-    let isLoggedIn = req.session.auth
+    let date = meme.dataValues.updatedAt;
+    let dateFormat = date.toLocaleDateString("en-US");
+    let isLoggedIn = req.session.auth;
     let comments = meme.Comments;
     let likes = meme.Likes.length;
-    if (req.session.auth){
-      let currentUser = req.session.auth.userId
-      res.render("individual-meme", { title: "Meme", meme, comments, likes, currentUser, isLoggedIn, dateFormat });
-    } else {
-    res.render("individual-meme", { title: "Meme", meme, comments, likes, isLoggedIn, dateFormat });
-    }
+
+    // follow logic
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
+    const isCurrentUser = meme.userId === currentUserId;
+    const isFollowing = await checkFollow(meme.userId, currentUserId);
+
+    res.render("individual-meme", {
+      title: "Meme",
+      meme,
+      comments,
+      likes,
+      currentUserId,
+      isCurrentUser,
+      isFollowing,
+      dateFormat,
+    });
+
+    // if (req.session.auth) {
+    //   let currentUser = req.session.auth.userId;
+    //   res.render("individual-meme", {
+    //     title: "Meme",
+    //     meme,
+    //     comments,
+    //     likes,
+    //     currentUser,
+    //     isLoggedIn,
+    //     dateFormat,
+    //   });
+    // } else {
+    //   res.render("individual-meme", {
+    //     title: "Meme",
+    //     meme,
+    //     comments,
+    //     likes,
+    //     isLoggedIn,
+    //     dateFormat,
+    //   });
+    // }
   })
 );
 
@@ -82,16 +121,16 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const memeId = parseInt(req.params.id, 10);
-    const meme = await db.Meme.findByPk(memeId, { include: [db.User]} );
+    const meme = await db.Meme.findByPk(memeId, { include: [db.User] });
 
     if (meme.User.id !== req.session.auth.userId) {
-        const err = new Error("Unauthorized");
-        err.status = 401;
-        err.message = "You are not authorized to edit this meme.";
-        err.title = "Unauthorized";
-        throw err;
+      const err = new Error("Unauthorized");
+      err.status = 401;
+      err.message = "You are not authorized to edit this meme.";
+      err.title = "Unauthorized";
+      throw err;
     }
-      res.render("meme-edit", {
+    res.render("meme-edit", {
       title: "Edit Meme",
       meme,
       csrfToken: req.csrfToken(),
@@ -139,14 +178,14 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const memeId = parseInt(req.params.id, 10);
-    const meme = await db.Meme.findByPk(memeId, { include: [db.User]});
+    const meme = await db.Meme.findByPk(memeId, { include: [db.User] });
 
     if (meme.User.id !== req.session.auth.userId) {
-        const err = new Error("Unauthorized");
-        err.status = 401;
-        err.message = "You are not authorized to delete this meme.";
-        err.title = "Unauthorized";
-        throw err;
+      const err = new Error("Unauthorized");
+      err.status = 401;
+      err.message = "You are not authorized to delete this meme.";
+      err.title = "Unauthorized";
+      throw err;
     }
 
     res.render("meme-delete", {

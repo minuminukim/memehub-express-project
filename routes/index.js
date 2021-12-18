@@ -3,13 +3,18 @@ const router = express.Router();
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { requireAuth } = require("../auth");
-const { asyncHandler, isLoggedIn } = require("../utils");
+const { asyncHandler, isntLoggedIn } = require("../utils");
 const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
+const { checkFollow } = require("./utils/follows-helpers");
 
 /* GET home page -- default sorted by likes. */
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
     const memes = await Meme.findAll({
       include: [Comment, Like, User],
     });
@@ -21,18 +26,42 @@ router.get(
       .slice(0, 6);
 
     // fetch memes by likes
-    const feedMemes = memes
-      .filter((meme) => meme.Likes.length)
-      .sort((a, b) => memesByLikes(a, b));
+    const feedMemes = memes.sort((a, b) => memesByLikes(a, b)).slice(0, 20);
 
-    const bestMemes = feedMemes.slice(0, 10);
+    /* Recommended Followers:
+       Hardcoding here because this section won't be dynamic for demo
+     */
 
-    // if user logged in, render landing-page, else render index
-    res.render(isLoggedIn(req) ? "landing-page" : "index", {
+    // query for developer user objects & their followers
+    const devsAndFollowers = await User.findAll({
+      where: {
+        username: ["davidlee", "willduffy", "anthonyadams", "minukim"],
+      },
+      include: [{ model: User, as: "followers" }],
+    });
+
+    /* Map to an array with relevant data + include an isFollowing check
+       for the current user
+    */
+    const developers = devsAndFollowers.map((dev) => {
+      const { id, username, firstName, lastName, followers } = dev.dataValues;
+      const isFollowing = followers.some(
+        (follower) => follower.id === currentUserId
+      );
+
+      const fullName = `${firstName} ${lastName}`;
+      return { id, username, fullName, isFollowing };
+    });
+
+    console.log(JSON.stringify(developers, null, 2));
+
+    // If user logged in, render landing-page, else render index
+    res.render(currentUserId === null ? "landing-page" : "index", {
       title: "Memehub",
       trendingMemes,
-      bestMemes,
       feedMemes,
+      currentUserId,
+      developers,
       i: 1,
     });
   })
@@ -43,11 +72,13 @@ router.get(
   "/recent",
   requireAuth,
   asyncHandler(async (req, res, next) => {
+    const currentUserId = parseInt(req.session.auth.userId, 10);
+
     const feedMemes = await Meme.findAll({
       order: [["id", "DESC"]],
       include: User,
     });
-    res.render("index", { title: "Memehub", feedMemes });
+    res.render("index", { title: "Memehub", feedMemes, currentUserId });
   })
 );
 
@@ -56,12 +87,14 @@ router.get(
   "/hot",
   requireAuth,
   asyncHandler(async (req, res, next) => {
+    const currentUserId = parseInt(req.session.auth.userId, 10);
+
     const memes = await Meme.findAll({
       include: [Like, User],
     });
 
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b));
-    res.render("index", { title: "Memehub", feedMemes });
+    res.render("index", { title: "Memehub", feedMemes, currentUserId });
   })
 );
 
@@ -70,13 +103,17 @@ router.get(
   "/trending",
   requireAuth,
   asyncHandler(async (req, res, next) => {
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
     const memes = await Meme.findAll({
       include: [Comment, User],
     });
 
     const feedMemes = memes.sort((a, b) => memesByComments(a, b));
 
-    res.render("index", { title: "Memehub", feedMemes });
+    res.render("index", { title: "Memehub", feedMemes, currentUserId });
   })
 );
 
@@ -85,10 +122,10 @@ router.get(
   "/you",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    const { userId } = req.session.auth;
+    const currentUserId = parseInt(req.session.auth.userId, 10);
 
     // get logged in user & the users they're following
-    const currentUser = await User.findByPk(parseInt(userId, 10), {
+    const currentUser = await User.findByPk(currentUserId, {
       include: [{ model: User, as: "followings" }],
     });
 

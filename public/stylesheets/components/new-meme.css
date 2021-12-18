@@ -66,55 +66,47 @@ div.post-cancel {
     display: inline-flex
 }
 
-.post-glow {
-    width: 100px;
-    height: 25px;
-    border: none;
-    outline: none;
-    color: rgb(252, 247, 247);
-    background: rgb(145, 142, 142);
+.submit-meme-button {
+    background-image: linear-gradient(#f7f8fa, #e7e9ec);
+    border-color: #adb1b8 #a2a6ac #8d9096;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    box-shadow: rgba(255, 255, 255, 0.6) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #0f1111;
     cursor: pointer;
-    position: relative;
-    border-radius: 15px;
-    justify-content: center;
-}
+    display: inline-block;
+    font-family: "Amazon Ember", Arial, sans-serif;
+    font-size: 14px;
+    height: 29px;
+    font-size: 13px;
+    outline: 0;
+    overflow: hidden;
+    padding: 0 11px;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+  }
 
-.post-glow:before {
-    content: '';
-    background: linear-gradient(45deg, #0b07e9, #eb1010, #fffb12, #5cfd1c, #20fad6, #1b41fd, #6103c5, #eb21bf, #ff2020);
-    position: absolute;
-    top: -2px;
-    left:-2px;
-    background-size: 300%;
-    z-index: -1;
-    filter: blur(4px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 15s linear infinite;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 15px;
-}
+  .submit-meme-button:active {
+    border-bottom-color: #a2a6ac;
+  }
 
-.post-glow:active {
-    color: rgb(167, 161, 161)
-}
+  .submit-meme-button:active:hover {
+    border-bottom-color: #a2a6ac;
+  }
 
-.post-glow:active:after {
-    background: transparent;
-}
+  .submit-meme-button:hover {
+    border-color: #a2a6ac #979aa1 #82858a;
+  }
 
-.post-glow:hover:before {
-    opacity: 1;
-}
-
-.post-glow:after {
-    z-index: -1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgb(2, 2, 2);
-    left: 0;
-    top: 0;
-    border-radius: 15px;
-}
+  .submit-meme-button:focus {
+    border-color: #5bb6f3;
+    box-shadow: rgba(42, 184, 240, 0.5) 0 0 3px 2px;
+    outline: 0;
+  }

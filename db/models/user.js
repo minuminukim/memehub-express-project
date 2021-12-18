@@ -25,6 +25,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING.BINARY,
         allowNull: false,
       },
+      profilePicture: {
+        type: DataTypes.TEXT,
+      },
+      biography: {
+        type: DataTypes.STRING(160),
+      },
     },
     {}
   );

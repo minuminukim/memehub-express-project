@@ -1,29 +1,51 @@
 extends layout.pug
 
+include ./mixins/follows.pug
+include ./mixins/userpage-header.pug
+
+append head
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
+  script(src="/javascripts/index.js" type="module" defer)
+  script(src="/javascripts/comment.js" type="module" defer)
+
 block content
-  div.userpage-header
-    h1.user-title= `${user.username}'s Memes`
-      //-this anchor should take you to the user's followers page.
-    a(href=`/followers` alt='followers')= "Followers"
-    a(href= `/users/${user.id}/following` alt='following')= "Following"
-    button.follow-button Follow
-    form(action='/users/sign-out' method="post")
-      button(type='submit') Sign Out
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
   hr.user-page
   div.userPosts
-    ul
-      each meme in memes
-        h1.user-page= `${meme.dataValues.headline}`
-        h2.user-page= `${meme.dataValues.caption}`
-        img.user-meme(src=`${meme.dataValues.link}` alt='meme')
-        div.likes-and-comments
-          a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
-          div Comments:
-            each comment in meme.dataValues.Comments
-              div.user-comment
-                p= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
-        p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
-        hr.bottom
-        div.end-of-post
+    div.user-page-content
+      div.fixed-position
+        img.user-profile-pic(src=`${profileUser.profilePicture}`)
+        div.user-page-details
+          div.profile-name-bar
+            p.user-profile-name-bar= `${profileUser.username}'s Info`
+            div.user-bio-description
+              p= `${profileUser.biography}`
+            div
+              if isFollowing
+                +followButton(profileUser.id, currentUserId, "Following")
+              else
+                +followButton(profileUser.id, currentUserId, "Follow")
+        div.users-followers-details
+          a(href=`/users/${profileUser.id}/followers` alt='followers')= "Followers"
+    div.user-feed
+      ul
+        each meme in memes
+          h1.user-page= `${meme.dataValues.headline}`
+          h2.user-page= `${meme.dataValues.caption}`
+          img.user-meme(src=`${meme.dataValues.link}` alt='meme')
+          div.likes-and-comments
+            a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+            input(type="textarea" name="content" id="content" class="content" placeholder="Write a comment.")
+            button(id=`${meme.id}` class="add-button") Add Comment
+            div Comments:
+              each comment in meme.dataValues.Comments
+                div.user-comment
+                  li.content= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
+                    if comment.userId === locals.user.id
+                      button(id=`${comment.id}` class="delete-button") Delete
+                      button(id=`${comment.id}` class="edit-button") Edit
+          p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
+            hr.bottom
+          div.end-of-post
 //- TODO: ensure comment and like features are working.
 //- Add any additional styles to the page
