@@ -274,32 +274,28 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
-    const isCurrentUser = currentUserId === profileUser.id;
-    const isFollowing = await checkFollow(profileUser.id, currentUserId);
-
-    // find current user's followings
-    const promises = await Follow.findAll({
-      where: { followerId: currentUserId },
-    });
-    const follows = await Promise.all(promises);
-    const followIds = follows.reduce((acc, { userId }) => {
-      return acc.includes(userId) ? acc : acc.concat(userId);
-    }, []);
+    let { followers } = profileUser.dataValues;
+    const isCurrentUser = profileUser.id === currentUserId;
 
     // then check for intersection with the fetched followers
-    const followers = profileUser.followers.map(
-      ({ dataValues: { id, username, firstName, lastName } }) => {
-        const userData = {
-          id,
-          username,
-          firstName,
-          lastName,
-          isMutual: followIds.includes(id),
-        };
+    followers = profileUser.followers.map((follower) => {
+      const { id, username, firstName, lastName, biography, profilePicture } =
+        follower.dataValues;
 
-        return userData;
-      }
-    );
+      const isFollowing = follower.id === currentUserId;
+      const followId = isFollowing ? 0 : follower.Follow.id;
+
+      return {
+        id,
+        username,
+        firstName,
+        lastName,
+        biography,
+        profilePicture,
+        isFollowing,
+        followId,
+      };
+    });
 
     console.log(followers);
 
@@ -307,9 +303,8 @@ router.get(
       followers,
       profileUser,
       currentUserId,
-      count: followers.length,
       isCurrentUser,
-      isFollowing,
+      count: followers.length,
     });
   })
 );

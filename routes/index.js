@@ -44,8 +44,15 @@ router.get(
        for the current user
     */
     const developers = devsAndFollowers.map((dev) => {
-      const { id, username, firstName, lastName, biography, followers } =
-        dev.dataValues;
+      const {
+        id,
+        username,
+        firstName,
+        lastName,
+        biography,
+        profilePicture,
+        followers,
+      } = dev.dataValues;
 
       // const isFollowing = followers.some(
       //   (follower) => follower.id === currentUserId
@@ -63,7 +70,15 @@ router.get(
       }
 
       const fullName = `${firstName} ${lastName}`;
-      return { id, username, fullName, biography, isFollowing, followId };
+      return {
+        id,
+        username,
+        fullName,
+        biography,
+        profilePicture,
+        isFollowing,
+        followId,
+      };
     });
 
     console.log(JSON.stringify(developers, null, 2));
