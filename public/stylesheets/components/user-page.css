@@ -8,6 +8,16 @@ div.userpage-header {
   margin: 25px;
 }
 
+a.userpage-header-link{
+  text-decoration: none;
+  color: gray;
+}
+
+a.userpage-header-link:hover{
+  text-decoration: none;
+  color: black;
+}
+
 a.user-title {
   font-weight: bolder;
   font-size: 30px;

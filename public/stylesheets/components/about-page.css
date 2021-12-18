@@ -17,6 +17,12 @@ div.about-page-user-detail{
     padding-bottom: 20px;
 }
 
+h1.about-page-spacing{
+    padding-bottom: 20px;
+    font-weight: bolder;
+    color: black;
+}
+
 .about-page-follows{
     margin-top: 20px;
     display: flex;
