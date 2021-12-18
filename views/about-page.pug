@@ -13,7 +13,11 @@ block content
   hr.user-page
   div.about-page-content
     div.about-page-user-detail
-      h1= `About ${profileUser.username}`
-      p= `${profileUser.biography}`
+      h1.about-page-spacing= `About ${profileUser.username}`
+      p.about-page-spacing= `${profileUser.biography}`
+      hr.user-page
+      div.about-page-follows
+        a.userpage-header-link(href=`/users/${userId}/followers` alt='followers')= "Followers"
+        a.userpage-header-link(href= `/users/${userId}/following` alt='following')= "Following"
     div.about-page-user-picture
       img.user-profile-pic(src=`${profileUser.profilePicture}`)

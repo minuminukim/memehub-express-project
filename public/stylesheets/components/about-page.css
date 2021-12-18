@@ -6,9 +6,19 @@ div.about-page-content {
 
 
 div.about-page-user-picture{
-    margin-left: 50px;
+    margin-left: 40px;
 }
 
 div.about-page-user-detail{
     width: 20em;
+}
+
+.about-page-spacing{
+    padding-bottom: 20px;
+}
+
+.about-page-follows{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
 }
