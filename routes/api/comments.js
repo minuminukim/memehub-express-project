@@ -19,7 +19,7 @@ router.post("/", asyncHandler(async (req, res) => {
     include: db.User
   })
 
-    res.json({ comment })
+    res.json({comment })
 
 
 }));
