@@ -1,10 +1,10 @@
-mixin followBlock(userLogo, userId, username, userBio, followerId, text, isCurrentUser, followId)
+mixin followBlock(user, followerId, text, isCurrentUser, followId)
   .follow-block-left
-    img.follow-user-logo(src=userLogo)
+    img.follow-user-logo(src=user.profilePicture)
   .follow-block-right
-    h3.follow-username: a(href=`/users/${userId}`) @#{username}
-    p.follow-user-bio #{userBio}
-  +followButton(followId, userId, followerId, text)
+    h3.follow-username: a(href=`/users/${user.id}`) @#{user.username}
+    p.follow-user-bio #{user.biography}
+  +followButton(user.id, followerId, text, followId)
 
 mixin followButton(userId, followerId, text, followId)
   if userId !== followerId

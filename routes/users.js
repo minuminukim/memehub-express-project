@@ -289,14 +289,14 @@ router.get(
 
     let { followers } = profileUser.dataValues;
     const isCurrentUser = profileUser.id === currentUserId;
-
+    const isFollowing = await checkFollow(profileUser.id, currentUserId);
     // then check for intersection with the fetched followers
     followers = profileUser.followers.map((follower) => {
       const { id, username, firstName, lastName, biography, profilePicture } =
         follower.dataValues;
 
-      const isFollowing = follower.id === currentUserId;
-      const followId = isFollowing ? 0 : follower.Follow.id;
+      const isMutual = follower.id === currentUserId;
+      const followId = isMutual ? 0 : follower.Follow.id;
 
       return {
         id,
@@ -305,7 +305,7 @@ router.get(
         lastName,
         biography,
         profilePicture,
-        isFollowing,
+        isMutual,
         followId,
       };
     });
@@ -318,6 +318,7 @@ router.get(
       currentUserId,
       numberOfFollowers,
       isCurrentUser,
+      isFollowing,
       count: followers.length,
     });
   })
@@ -337,33 +338,29 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
-    console.log(JSON.stringify(profileUser, null, 2));
     const isCurrentUser = currentUserId === profileUser.id;
     const isFollowing = await checkFollow(profileUser.id, currentUserId);
 
+    let { followings } = profileUser.dataValues;
     // find mutual relationship here, where current user also follows
-    const promises = await Follow.findAll({
-      where: { followerId: currentUserId },
+    followings = profileUser.followings.map((following) => {
+      const { id, username, firstName, lastName, biography, profilePicture } =
+        following.dataValues;
+
+      const isMutual = following.id === currentUserId;
+      const followId = isMutual ? 0 : following.Follow.id;
+
+      return {
+        id,
+        username,
+        firstName,
+        lastName,
+        biography,
+        profilePicture,
+        isMutual,
+        followId,
+      };
     });
-
-    const follows = await Promise.all(promises);
-    const followIds = follows.reduce((acc, { userId }) => {
-      return acc.includes(userId) ? acc : acc.concat(userId);
-    }, []);
-
-    const followings = profileUser.followings.map(
-      ({ dataValues: { id, username, firstName, lastName } }) => {
-        const userData = {
-          id,
-          username,
-          firstName,
-          lastName,
-          isMutual: followIds.includes(id),
-        };
-
-        return userData;
-      }
-    );
 
     res.render("following", {
       followings,
