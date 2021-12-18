@@ -49,7 +49,8 @@ router.get(
         (follower) => follower.id === currentUserId
       );
 
-      return { id, username, firstName, lastName, isFollowing };
+      const fullName = `${firstName} ${lastName}`;
+      return { id, username, fullName, isFollowing };
     });
 
     console.log(JSON.stringify(developers, null, 2));
