@@ -28,7 +28,9 @@ button {
 }
 
 @media (max-width: 1100px) {
-  
+  div.user-page-content {
+    visibility: hidden;
+  }
 }
 
 
