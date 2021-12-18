@@ -30,7 +30,7 @@ block content
     div.user-feed
       ul
         each meme in memes
-          h1.user-page= `${meme.dataValues.headline}`
+          a.user-page(href=`/memes/${meme.id}`)= `${meme.dataValues.headline}`
           h2.user-page= `${meme.dataValues.caption}`
           a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
           div.likes-and-comments
