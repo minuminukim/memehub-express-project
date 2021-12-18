@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
   console.log("addCommentButton", addCommentButton);
   addCommentButton.addEventListener("click", async (e) => {
 
-    const content = document.querySelector(".content");
+    let content = document.querySelector(".content");
     let memeId = e.target.id;
     let contentValue = content.value
 
