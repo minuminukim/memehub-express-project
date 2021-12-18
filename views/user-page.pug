@@ -6,7 +6,7 @@ include ./mixins/userpage-header.pug
 append head
   link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
   script(src="/javascripts/index.js" type="module" defer)
-  script(src="/javascripts/comment.js" type="module" defer)
+  script(src="/javascripts/user-page-comment.js" type="module" defer)
 
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
@@ -38,6 +38,7 @@ block content
             input(type="textarea" name="content" id="content" class="content" placeholder="Write a comment.")
             button(id=`${meme.id}` class="add-button") Add Comment
             div Comments:
+            ul.comment-box
               each comment in meme.dataValues.Comments
                 li.content= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
                   if comment.userId === locals.user.id

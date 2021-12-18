@@ -3,11 +3,13 @@ window.addEventListener("DOMContentLoaded", () => {
     const addCommentButtonListener = (button) => {
         button.addEventListener("click", async (e) => {
             const content = document.querySelector(".content");
+            console.log("content", content)
             let memeId = e.target.id;
             let contentValue = content.value;
+            console.log("contentvalue", contentValue)
 
             const body = { contentValue, memeId };
-            console.log("contentValue", contentValue);
+
 
             try {
                 const res = await fetch("/api/comments", {
@@ -75,7 +77,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
     const addCommentButtons = document.querySelectorAll(".add-button");
-    addCommentButtons.addEvent
+    for(let i = 0; i < addCommentButtons.length; i++){
+        const button = addCommentButtons[i];
+        addCommentButtonListener(button);
+    }
+
 
 
   })

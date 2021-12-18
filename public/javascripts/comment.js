@@ -126,7 +126,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const deleteCommentButton = document.querySelectorAll(".delete-button");
   console.log("deleteCommentButton", deleteCommentButton);
   console.log(deleteCommentButton)
-  for (let i = 0; i < deleteCommentButton.length - 1; i++) {
+  for (let i = 0; i < deleteCommentButton.length; i++) {
     const button = deleteCommentButton[i]
     addDeleteButtonListener(button);
   }
