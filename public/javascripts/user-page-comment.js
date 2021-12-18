@@ -5,8 +5,6 @@ window.addEventListener("DOMContentLoaded", () => {
             let memeId = e.target.id;
             console.log("memeId", memeId)
             let content = document.getElementById(`${memeId}`);
-            // let content = document.querySelector(".content");
-            // console.log("content", content)
             let contentValue = content.value;
             console.log("contentvalue", contentValue)
 
@@ -36,6 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
                 console.log("hello", newComment.body)
                 let innerLi = `${newComment.User.username} : ${newComment.body}`
+                console.log("innerLi", innerLi)
 
                 li.innerHTML = innerLi;
                 let deleteButton = document.createElement("button");
@@ -54,18 +53,20 @@ window.addEventListener("DOMContentLoaded", () => {
                 li.appendChild(deleteButton);
                 li.appendChild(editButton);
 
-                let grabUl = document.querySelector(".comment-box")
+                let grabUl = document.querySelector(`#like-${memeId}`)
+
+                // console.log("this is grabUl", grabUl)
 
                 let ulChildren = Array.from(grabUl.children).slice();
 
 
                 grabUl.innerHTML = "";
                 grabUl.appendChild(li);
-                console.log("last grabUl", grabUl)
+
 
 
                 Array.from(ulChildren).forEach(child => grabUl.appendChild(child))
-                console.log("checkpoint")
+
 
 
             } catch (err) {
@@ -109,7 +110,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     throw res;
                 }
                 console.log("parent", e.target.parentNode)
-                // `<li></li><li><button id="${comment.id}">Delete Comment</button><buttonid="${comment.id}>Edit Comment</button></li>`
+            
                 e.target.parentNode.remove();
 
             } catch (err) {
