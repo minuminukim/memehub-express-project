@@ -28,16 +28,39 @@ router.get(
     // fetch memes by likes
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b)).slice(0, 20);
 
-    // const isFollowing = await checkFollow(userId, currentUserId);
-    // TODO figure out how to get userId for recommended followers block
+    /* Recommended Followers:
+       Hardcoding here because this section won't be dynamic for demo
+     */
 
-    // if user logged in, render landing-page, else render index
-    res.render(isntLoggedIn(req) ? "landing-page" : "index", {
+    // query for developer user objects & their followers
+    const devsAndFollowers = await User.findAll({
+      where: {
+        username: ["davidlee", "willduffy", "anthonyadams", "minukim"],
+      },
+      include: [{ model: User, as: "followers" }],
+    });
+
+    /* Map to an array with relevant data + include an isFollowing check
+       for the current user
+    */
+    const developers = devsAndFollowers.map((dev) => {
+      const { id, username, firstName, lastName, followers } = dev.dataValues;
+      const isFollowing = followers.some(
+        (follower) => follower.id === currentUserId
+      );
+
+      return { id, username, firstName, lastName, isFollowing };
+    });
+
+    console.log(JSON.stringify(developers, null, 2));
+
+    // If user logged in, render landing-page, else render index
+    res.render(currentUserId === null ? "landing-page" : "index", {
       title: "Memehub",
       trendingMemes,
       feedMemes,
       currentUserId,
-      // isFollowing,
+      developers,
       i: 1,
     });
   })
