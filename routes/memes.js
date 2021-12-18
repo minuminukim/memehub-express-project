@@ -59,6 +59,7 @@ router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const memeId = parseInt(req.params.id, 10);
+
     const meme = await db.Meme.findByPk(memeId, {
       include: [
         { model: db.User },
@@ -66,16 +67,27 @@ router.get(
         { model: db.Like },
       ],
     });
+
+    // console.log(meme.User.dataValues.id)
+
+    const followNum = await db.Follow.findAll({
+      where: {
+         userId: meme.User.dataValues.id
+      }
+    })
+
+
+    let numberOfFollowers = followNum.length
+    // console.log(followNum)
     let date = meme.dataValues.updatedAt;
     let dateFormat = date.toLocaleDateString("en-US");
     let isLoggedIn = req.session.auth;
     let comments = meme.Comments;
     let likes = meme.Likes.length;
-
     // follow logic
     const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    ? null
+    : parseInt(req.session.auth.userId, 10);
 
     const isCurrentUser = meme.userId === currentUserId;
     const isFollowing = await checkFollow(meme.userId, currentUserId);
@@ -89,6 +101,7 @@ router.get(
       isCurrentUser,
       isFollowing,
       dateFormat,
+      numberOfFollowers,
     });
 
     // if (req.session.auth) {

@@ -129,6 +129,14 @@ router.get(
     });
     const memes = profileUser.Memes;
 
+    const followNum = await Follow.findAll({
+      where: {
+         userId: profileUser.id
+      }
+    })
+
+    let numberOfFollowers = followNum.length
+
     // Follow logic
     const currentUserId = isntLoggedIn(req)
       ? null
@@ -143,6 +151,7 @@ router.get(
       currentUserId,
       isCurrentUser,
       isFollowing,
+      numberOfFollowers,
     });
   })
 );
@@ -153,6 +162,14 @@ router.get(
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId)
+
+    const followNum = await Follow.findAll({
+      where: {
+         userId: profileUser.id
+      }
+    })
+
+    let numberOfFollowers = followNum.length
 
     // Follow logic
     const currentUserId = isntLoggedIn(req)
@@ -166,6 +183,7 @@ router.get(
       profileUser,
       isCurrentUser,
       isFollowing,
+      numberOfFollowers,
     });
   })
 );
@@ -180,6 +198,14 @@ router.get(
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId)
 
+    const followNum = await Follow.findAll({
+      where: {
+         userId: profileUser.id
+      }
+    })
+
+    let numberOfFollowers = followNum.length
+
     // Follow logic
     const currentUserId = isntLoggedIn(req)
       ? null
@@ -192,6 +218,7 @@ router.get(
       profileUser,
       isCurrentUser,
       isFollowing,
+      numberOfFollowers,
       csrfToken: req.csrfToken(),
     });
   })
@@ -260,6 +287,13 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
+      const followNum = await Follow.findAll({
+        where: {
+           userId: profileUser.id
+        }
+      })
+
+      let numberOfFollowers = followNum.length
     const isCurrentUser = currentUserId === profileUser.id;
     const isFollowing = await checkFollow(profileUser.id, currentUserId);
 
@@ -274,12 +308,13 @@ router.get(
 
     // then check for intersection with the fetched followers
     const followers = profileUser.followers.map(
-      ({ dataValues: { id, username, firstName, lastName } }) => {
+      ({ dataValues: { id, username, firstName, lastName, profilePicture } }) => {
         const userData = {
           id,
           username,
           firstName,
           lastName,
+          profilePicture,
           isMutual: followIds.includes(id),
         };
 
@@ -294,6 +329,7 @@ router.get(
       profileUser,
       currentUserId,
       count: followers.length,
+      numberOfFollowers,
       isCurrentUser,
       isFollowing,
     });
