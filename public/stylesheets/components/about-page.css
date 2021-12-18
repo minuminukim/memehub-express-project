@@ -1,0 +1,5 @@
+div.about-page-content {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
