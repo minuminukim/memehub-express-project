@@ -3,7 +3,9 @@ header
     div.nav-logo
       a.nav-logo(href="/") MemeHub
     div.nav-content
-      a.nav-search(href="#") Search
-      button.dropdown-button: img.dropdown-img-button(src=`${user.profilePicture}`)
-      if locals.authenticated
-        include dropdown.pug
+      div.nav-content
+        a.nav-search(href="#") Search
+      div.nav-content
+        button.dropdown-button: img.dropdown-img-button(src=`${user.profilePicture}`)
+        if locals.authenticated
+          include dropdown.pug

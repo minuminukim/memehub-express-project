@@ -14,9 +14,10 @@ nav.header-nav {
 }
 
 .nav-content {
-  align-self: center;
+  display: inline-flex
 }
 
 .nav-search{
-  margin-right: 15px;
+  margin-right: 25px;
+  align-self: center;
 }
