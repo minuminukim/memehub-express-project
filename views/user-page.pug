@@ -26,7 +26,7 @@ block content
               else
                 +followButton(profileUser.id, currentUserId, "Follow")
         div.users-followers-details
-          a(href=`/users/${profileUser.id}/followers` alt='followers')= "Followers"
+          a.userpage-header-link(href=`/users/${profileUser.id}/followers` alt='followers')= `${profileUser.username}'s Followers`
     div.user-feed
       ul
         each meme in memes
