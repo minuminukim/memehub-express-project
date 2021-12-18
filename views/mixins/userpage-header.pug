@@ -1,6 +1,6 @@
 mixin userpageHeader(username, userId, isCurrentUser, isFollowing, currentUserId)
   .userpage-header
-    h1.user-title= `${username}`
+    h1.user-title: a(href=`/users/${userId}`)= `${username}`
     a.userpage-header-link(href=`/users/${userId}/followers` alt='followers')= "Followers"
     a.userpage-header-link(href= `/users/${userId}/following` alt='following')= "Following"
     if !isCurrentUser

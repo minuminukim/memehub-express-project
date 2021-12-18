@@ -1,5 +1,5 @@
 .dropdown-container {
-  display: none;
+  display: flex;
   flex-direction: column;
   position: absolute;
   top: 40px;
@@ -9,6 +9,10 @@
   color: #757575;
   font-size: 14px;
   width: 25%;
+}
+
+.hide {
+  display: none;
 }
 
 .dropdown-top {
