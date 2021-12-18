@@ -7,6 +7,6 @@ mixin followBlock(userLogo, userId, username, userBio, followerId, text, isCurre
   +followButton(userId, followerId, text, isCurrentUser)
 
 mixin followButton(userId, followerId, text)
-  if !isCurrentUser
+  if userId !== followerId
     form(class="follow-form" action=`/users/${followerId}/following` method="post")
       button(class="follow-button", user=userId, follower=followerId type="submit") #{text}
