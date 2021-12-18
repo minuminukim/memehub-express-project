@@ -1,21 +1,28 @@
 const express = require("express");
 
-const { Follow } = require("../db/models");
-const { isFollowing } = require("./utils/follows-helpers");
+const { Follow } = require("../../db/models");
+const { isFollowing } = require("../utils/follows-helpers");
 
-const { asyncHandler, csrfProtection } = require("../utils");
-const { requireAuth } = require("../auth");
-const followValidators = require("../validators/follow-validators");
+const { asyncHandler, csrfProtection } = require("../../utils");
+const { requireAuth } = require("../../auth");
+const followValidators = require("../../validators/follow-validators");
 
 const router = express.Router();
-
-// get all follows
 
 router.get(
   "/",
   asyncHandler(async (req, res) => {
     const follows = await Follow.findAll();
     res.json({ follows });
+  })
+);
+
+router.get(
+  "/:id(\\d+)",
+  asyncHandler(async (req, res) => {
+    const { userId, followerId } = req.body;
+    const follow = await Follow.findOne({ where: userId, followerId });
+    console.log(follow);
   })
 );
 
