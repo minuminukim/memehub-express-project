@@ -1,14 +1,22 @@
 nav.header-nav {
   display: flex;
-  align-items: flex-start;
-  /* margin: 0 10%; */
-  /* width: 100vw; */
-  justify-content: space-between;
+  align-content: center;
+  justify-content: space-around;
+  height: 5rem
 }
 
-.nav-left,
-.nav-right{
-  display: flex;
-  align-items: flex-end;
-  margin-left: 600px;
+.nav-logo{
+  align-self: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size:larger;
+  font-weight: bolder;
+}
+
+.nav-content {
+  align-self: center;
+}
+
+.nav-search{
+  margin-right: 15px;
 }

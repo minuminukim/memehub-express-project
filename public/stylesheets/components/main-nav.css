@@ -1,7 +1,15 @@
-.dropdown-button {
+.dropdown-img-button {
   border-radius: 50%;
-  height: 2rem;
-  width: 2rem;
+  height: 40px;
+  width: 40px;
+  background-color: none;
+}
+
+.dropdown-button {
+  border: none;
+  background-color: transparent;
   cursor: pointer;
-  position: relative;
+  outline: none;
+  overflow: hidden;
+  background-repeat: no-repeat;
 }
