@@ -9,7 +9,7 @@ append head
   script(src="/javascripts/comment.js" type="module" defer)
 
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId)
   hr.user-page
   div.userPosts
     div.user-page-content
@@ -22,9 +22,9 @@ block content
               p= `${profileUser.biography}`
             div
               if isFollowing
-                +followButton(profileUser.id, currentUserId, "Following")
+                +followButton(profileUser.id, currentUserId, "Following", followId)
               else
-                +followButton(profileUser.id, currentUserId, "Follow")
+                +followButton(profileUser.id, currentUserId, "Follow", followId)
         div.users-followers-details
           a(href=`/users/${profileUser.id}/followers` alt='followers')= "Followers"
     div.user-feed

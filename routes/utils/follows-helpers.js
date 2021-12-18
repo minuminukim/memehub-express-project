@@ -21,4 +21,4 @@ const getFollow = (followers, currentUserId) => {
   return [isFollowing, followId];
 };
 
-module.exports = { checkFollow };
+module.exports = { checkFollow, getFollow };

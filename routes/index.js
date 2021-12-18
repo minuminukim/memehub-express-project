@@ -5,7 +5,7 @@ const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { requireAuth } = require("../auth");
 const { asyncHandler, isntLoggedIn } = require("../utils");
 const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
-const { checkFollow } = require("./utils/follows-helpers");
+const { checkFollow, getFollow } = require("./utils/follows-helpers");
 
 /* GET home page -- default sorted by likes. */
 router.get(

@@ -8,7 +8,7 @@ const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
-const { checkFollow } = require("./utils/follows-helpers");
+const { checkFollow, getFollow } = require("./utils/follows-helpers");
 
 const router = express.Router();
 
@@ -131,7 +131,6 @@ router.get(
 
     const memes = profileUser.Memes;
 
-
     // Follow logic
     const currentUserId = isntLoggedIn(req)
       ? null
@@ -140,14 +139,7 @@ router.get(
     const isCurrentUser = userId === currentUserId;
     // const isFollowing = await checkFollow(userId, currentUserId);
     const { followers } = profileUser.dataValues;
-    let isFollowing = false;
-    let followId = 0;
-
-    for (const follower of followers) {
-      if (follower.id === currentUserId) {
-        isF
-      }
-    }
+    const [isFollowing, followId] = getFollow(followers, currentUserId);
 
     res.render("user-page", {
       title: "User",
@@ -156,6 +148,7 @@ router.get(
       currentUserId,
       isCurrentUser,
       isFollowing,
+      followId,
     });
   })
 );
@@ -165,20 +158,25 @@ router.get(
   "/:id(\\d+)/about",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const profileUser = await User.findByPk(userId);
+    const profileUser = await User.findByPk(userId, {
+      include: { model: User, as: "followers" },
+    });
 
     // Follow logic
     const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+
+    const { followers } = profileUser.dataValues;
+    const [isFollowing, followId] = getFollow(followers, currentUserId);
     const isCurrentUser = userId === currentUserId;
-    const isFollowing = await checkFollow(userId, currentUserId);
 
     res.render("about-page", {
       title: "User",
       profileUser,
       isCurrentUser,
       isFollowing,
+      followId,
     });
   })
 );
@@ -191,20 +189,25 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const profileUser = await User.findByPk(userId);
+    const profileUser = await User.findByPk(userId, {
+      include: { model: User, as: "followers" },
+    });
 
     // Follow logic
     const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+
+    const { followers } = profileUser.dataValues;
+    const [isFollowing, followId] = getFollow(followers, currentUserId);
     const isCurrentUser = userId === currentUserId;
-    const isFollowing = await checkFollow(userId, currentUserId);
 
     res.render("about-page-edit", {
       title: "User",
       profileUser,
       isCurrentUser,
       isFollowing,
+      followId,
       csrfToken: req.csrfToken(),
     });
   })
