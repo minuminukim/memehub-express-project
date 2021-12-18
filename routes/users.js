@@ -287,6 +287,13 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
+      const followNum = await Follow.findAll({
+        where: {
+           userId: profileUser.id
+        }
+      })
+
+      let numberOfFollowers = followNum.length
     const isCurrentUser = currentUserId === profileUser.id;
     const isFollowing = await checkFollow(profileUser.id, currentUserId);
 
@@ -301,12 +308,13 @@ router.get(
 
     // then check for intersection with the fetched followers
     const followers = profileUser.followers.map(
-      ({ dataValues: { id, username, firstName, lastName } }) => {
+      ({ dataValues: { id, username, firstName, lastName, profilePicture } }) => {
         const userData = {
           id,
           username,
           firstName,
           lastName,
+          profilePicture,
           isMutual: followIds.includes(id),
         };
 
@@ -321,6 +329,7 @@ router.get(
       profileUser,
       currentUserId,
       count: followers.length,
+      numberOfFollowers,
       isCurrentUser,
       isFollowing,
     });
