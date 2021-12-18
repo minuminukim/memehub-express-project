@@ -13,7 +13,6 @@ router.get(
     const memes = await Meme.findAll({
       include: [Comment, Like, User],
     });
-    console.log("hello@@@@@@@,", res.locals.authenticated);
 
     // fetch memes by most comments
     const trendingMemes = memes

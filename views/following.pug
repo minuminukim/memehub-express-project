@@ -22,6 +22,6 @@ block content
         each following in followings
           .following-block
             if following.isMutual
-              +followBlock("#", following.id, following.username, "bio", currentUserId, "Following")
+              +followBlock("#", following.id, following.username, "bio", currentUserId, "Following", isCurrentUser)
             else
-              +followBlock(following.id, following.username, "bio", currentUserId, "Follow")
+              +followBlock("#", following.id, following.username, "bio", currentUserId, "Follow", isCurrentUser)
