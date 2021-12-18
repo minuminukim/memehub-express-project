@@ -39,11 +39,10 @@ block content
             button(id=`${meme.id}` class="add-button") Add Comment
             div Comments:
               each comment in meme.dataValues.Comments
-                div.user-comment
-                  li.content= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
-                    if comment.userId === locals.user.id
-                      button(id=`${comment.id}` class="delete-button") Delete
-                      button(id=`${comment.id}` class="edit-button") Edit
+                li.content= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
+                  if comment.userId === locals.user.id
+                    button(id=`${comment.id}` class="delete-button") Delete
+                    button(id=`${comment.id}` class="edit-button") Edit
           p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
             hr.bottom
           div.end-of-post
