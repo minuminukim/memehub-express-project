@@ -7,6 +7,7 @@ const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
 const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
+const aboutValidators = require("../validators/about-validators");
 const { checkFollow } = require("./utils/follows-helpers");
 
 const router = express.Router();
@@ -134,7 +135,6 @@ router.get(
       : parseInt(req.session.auth.userId, 10);
     const isCurrentUser = userId === currentUserId;
     const isFollowing = await checkFollow(userId, currentUserId);
-    console.log(isFollowing);
 
     res.render("user-page", {
       title: "User",
@@ -146,6 +146,102 @@ router.get(
     });
   })
 );
+
+/*****************************About Page*************************/
+router.get(
+  "/:id(\\d+)/about",
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const profileUser = await User.findByPk(userId)
+
+    // Follow logic
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+
+    res.render("about-page", {
+      title: "User",
+      profileUser,
+      isCurrentUser,
+      isFollowing,
+    });
+  })
+);
+
+//get about edit page
+
+router.get(
+  "/:id(\\d+)/about/edit",
+  csrfProtection,
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const profileUser = await User.findByPk(userId)
+
+    // Follow logic
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+
+    res.render("about-page-edit", {
+      title: "User",
+      profileUser,
+      isCurrentUser,
+      isFollowing,
+      csrfToken: req.csrfToken(),
+    });
+  })
+);
+
+//Edit the about page
+
+router.post(
+  "/:id(\\d+/about/edit)",
+  csrfProtection,
+  requireAuth,
+  aboutValidators,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const profileUser = await User.findByPk(userId)
+
+    const currentUserId = isntLoggedIn(req)
+    ? null
+    : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+
+    const { biography, profilePicture } = req.body;
+
+    const about = {
+      biography,
+      profilePicture,
+    };
+
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      await profileUser.update(about);
+      res.redirect(`/users/${profileUser.id}/about`);
+    } else {
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render("about-page-edit", {
+        title: "Edit About",
+        about,
+        errors,
+        profileUser,
+        isCurrentUser,
+        isFollowing,
+        csrfToken: req.csrfToken(),
+      });
+    }
+  })
+);
+
+
 
 /*****************************FOLLOWS*************************/
 
