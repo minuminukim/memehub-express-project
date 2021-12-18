@@ -6,7 +6,7 @@ block content
   div.spacing-more
   p.username= `Draft meme for ${user.dataValues.username}`
   .root-new-meme
-    h1.head-color Meme
+    h1.user-page Meme
       div.form
       +validationErrorSummary(errors)
       form(action='/memes/new' method='post')
@@ -18,6 +18,6 @@ block content
         div.spacing
         +field(null, 'link', link, 'text', 'Enter your link here...')
         div.post-cancel
-          button.post-glow(type='submit') Post Meme
+          button.submit-meme-button(type='submit') Post Meme
           div.spacing-more
           a.small-font(href='/') Click Here To Cancel

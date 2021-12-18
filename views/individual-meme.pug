@@ -13,6 +13,22 @@ block content
   +userpageHeader(meme.User.username, meme.userId, isCurrentUser, isFollowing, currentUserId)
   hr.user-page
   div.userPosts
+    div.user-page-content
+      div.fixed-position
+        img.user-profile-pic(src="https://c.tenor.com/8ZDLU43omvcAAAAC/kid-thumbs-up.gif")
+        div.user-page-details
+          div.profile-name-bar
+            p.user-profile-name-bar= `${meme.User.username}'s Info`
+            div.user-bio-description
+              p Founder of the award-winning Founder of the test Founder of the another test
+            div
+              if isFollowing
+                +followButton(meme.userId, currentUserId, "Following")
+              else
+                +followButton(meme.userId, currentUserId, "Follow")
+        div.users-followers-details
+          a(href=`/users/${meme.userId}/followers` alt='followers')= "Followers"
+  div.user-feed
     ul
       h1.user-page= `${meme.headline}`
       h2.user-page= `${meme.caption}`
@@ -34,8 +50,9 @@ block content
           //-    button(id=`${comment.id}` class="delete-button") Delete Comment
           //-    button(id=`${comment.id}`) Edit Comment
       p.posted-on= `Posted on: ${dateFormat}`
-      hr.bottom
+      hr.bottom-meme-page
       if currentUserId === meme.userId
         div.edit-delete
           a(href=`/memes/${meme.id}/edit`) Edit Your Meme
           a(href=`/memes/${meme.id}/delete`) Delete Your Meme
+      div.bottom-of-page
