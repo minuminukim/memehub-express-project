@@ -7,6 +7,7 @@ const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
 const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
+const aboutValidators = require("../validators/about-validators");
 const { checkFollow } = require("./utils/follows-helpers");
 
 const router = express.Router();
@@ -188,6 +189,39 @@ router.get(
       isCurrentUser,
       isFollowing,
     });
+  })
+);
+
+router.post(
+  "/:id(\\d+/about/edit)",
+  csrfProtection,
+  requireAuth,
+  aboutValidators,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const profileUser = await User.findByPk(userId)
+
+    const { biography, profilePicture } = req.body;
+
+    const about = {
+      biography,
+      profilePicture,
+    };
+
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      await profileUser.update(about);
+      res.redirect(`/users/${userId}/about`);
+    } else {
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render("about-page-edit", {
+        title: "Edit About",
+        about,
+        errors,
+        csrfToken: req.csrfToken(),
+      });
+    }
   })
 );
 
