@@ -15,9 +15,18 @@ block content
     div.about-page-user-detail
       h1.about-page-spacing= `About ${profileUser.username}`
       p.about-page-spacing= `${profileUser.biography}`
+      div
+        if isCurrentUser
+          div.edit-delete
+            a(href=`/`) Edit Your Biography
       hr.user-page
       div.about-page-follows
         a.userpage-header-link(href=`/users/${userId}/followers` alt='followers')= "Followers"
         a.userpage-header-link(href= `/users/${userId}/following` alt='following')= "Following"
+
     div.about-page-user-picture
       img.user-profile-pic(src=`${profileUser.profilePicture}`)
+      div
+        if isCurrentUser
+          div.edit-delete
+            a(href=`/`) Edit Profile Picture
