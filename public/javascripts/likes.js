@@ -28,7 +28,7 @@ addLike.addEventListener("click", async (e) => {
   if (data.message === "liked") {
     count += 1;
     likeCounter.innerHTML = `Likes: ${count}`;
-    e.target.innerText = "Unlike";
+    e.target =;
   } else {
     count -= 1;
     likeCounter.innerHTML = `Likes: ${count}`;
@@ -43,3 +43,5 @@ if string convert to num
 increment or dec depending on if or else
 save it to new val 
 */
+
+// button(id=`like-${meme.id}` class='likeButton') Like
