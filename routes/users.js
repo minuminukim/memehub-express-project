@@ -170,6 +170,7 @@ router.get(
 );
 
 //get about edit page
+
 router.get(
   "/:id(\\d+)/about/edit",
   csrfProtection,
@@ -194,6 +195,8 @@ router.get(
     });
   })
 );
+
+//Edit the about page
 
 router.post(
   "/:id(\\d+/about/edit)",
