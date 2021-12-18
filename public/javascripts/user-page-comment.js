@@ -35,9 +35,9 @@ window.addEventListener("DOMContentLoaded", () => {
                 li.setAttribute("class", "content")
 
                 console.log("hello", newComment.body)
-                let innerLi = `${newComment.dataValues.User.username} : ${newComment.dataValues.body}`
-                li.innerHTML = innerLi;
+                let innerLi = `${newComment.User.username} : ${newComment.body}`
 
+                li.innerHTML = innerLi;
                 let deleteButton = document.createElement("button");
                 addDeleteButtonListener(deleteButton);
                 let editButton = document.createElement("button");
@@ -55,15 +55,17 @@ window.addEventListener("DOMContentLoaded", () => {
                 li.appendChild(editButton);
 
                 let grabUl = document.querySelector(".comment-box")
-                console.log("ul", grabUl.children)
+
                 let ulChildren = Array.from(grabUl.children).slice();
-                console.log("checkpoint")
+
 
                 grabUl.innerHTML = "";
                 grabUl.appendChild(li);
+                console.log("last grabUl", grabUl)
 
 
                 Array.from(ulChildren).forEach(child => grabUl.appendChild(child))
+                console.log("checkpoint")
 
 
             } catch (err) {

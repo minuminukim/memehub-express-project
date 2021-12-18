@@ -38,7 +38,7 @@ block content
             input(type="textarea" name="content" id=`${meme.id}` class="content" placeholder="Write a comment.")
             button(id=`${meme.id}` class="add-button") Add Comment
             div Comments:
-            ul.comment-box
+            ul.comment-box(id=`like-${meme.id}`)
               each comment in meme.dataValues.Comments
                 li.content= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
                   if comment.userId === locals.user.id
