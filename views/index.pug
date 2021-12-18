@@ -25,7 +25,7 @@ block content
           a(href="/recent") Recent
       .feed-memes
         each meme in feedMemes
-          +memeBlock("#", meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
+          +memeBlock(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
     .right-container
       .recommended-follows-container
         .recommended-title-container
