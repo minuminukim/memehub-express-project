@@ -14,12 +14,12 @@ block content
   div.userPosts
     div.user-page-content
       div.fixed-position
-        img.user-profile-pic(src="https://c.tenor.com/8ZDLU43omvcAAAAC/kid-thumbs-up.gif")
+        img.user-profile-pic(src=`${meme.User.profilePicture}`)
         div.user-page-details
           div.profile-name-bar
             p.user-profile-name-bar= `${meme.User.username}'s Info`
             div.user-bio-description
-              p Founder of the award-winning Founder of the test Founder of the another test
+              p= `${meme.User.biography}`
             div
               if isFollowing
                 +followButton(meme.userId, currentUserId, "Following")

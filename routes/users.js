@@ -134,7 +134,6 @@ router.get(
       : parseInt(req.session.auth.userId, 10);
     const isCurrentUser = userId === currentUserId;
     const isFollowing = await checkFollow(userId, currentUserId);
-    console.log(isFollowing);
 
     res.render("user-page", {
       title: "User",
