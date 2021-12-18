@@ -125,16 +125,29 @@ router.get(
             { model: Like },
           ],
         },
+        { model: User, as: "followers" },
       ],
     });
+
     const memes = profileUser.Memes;
+
 
     // Follow logic
     const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+
     const isCurrentUser = userId === currentUserId;
-    const isFollowing = await checkFollow(userId, currentUserId);
+    // const isFollowing = await checkFollow(userId, currentUserId);
+    const { followers } = profileUser.dataValues;
+    let isFollowing = false;
+    let followId = 0;
+
+    for (const follower of followers) {
+      if (follower.id === currentUserId) {
+        isF
+      }
+    }
 
     res.render("user-page", {
       title: "User",
@@ -152,7 +165,7 @@ router.get(
   "/:id(\\d+)/about",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const profileUser = await User.findByPk(userId)
+    const profileUser = await User.findByPk(userId);
 
     // Follow logic
     const currentUserId = isntLoggedIn(req)
@@ -178,7 +191,7 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const profileUser = await User.findByPk(userId)
+    const profileUser = await User.findByPk(userId);
 
     // Follow logic
     const currentUserId = isntLoggedIn(req)
@@ -206,11 +219,11 @@ router.post(
   aboutValidators,
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const profileUser = await User.findByPk(userId)
+    const profileUser = await User.findByPk(userId);
 
     const currentUserId = isntLoggedIn(req)
-    ? null
-    : parseInt(req.session.auth.userId, 10);
+      ? null
+      : parseInt(req.session.auth.userId, 10);
     const isCurrentUser = userId === currentUserId;
     const isFollowing = await checkFollow(userId, currentUserId);
 
@@ -240,8 +253,6 @@ router.post(
     }
   })
 );
-
-
 
 /*****************************FOLLOWS*************************/
 
@@ -314,6 +325,7 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
+    console.log(JSON.stringify(profileUser, null, 2));
     const isCurrentUser = currentUserId === profileUser.id;
     const isFollowing = await checkFollow(profileUser.id, currentUserId);
 

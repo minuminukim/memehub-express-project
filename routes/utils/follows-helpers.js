@@ -6,4 +6,19 @@ const checkFollow = async (userId, followerId) => {
     .catch((err) => next(err));
 };
 
+const getFollow = (followers, currentUserId) => {
+  let isFollowing = false;
+  let followId = 0;
+
+  for (const follower of followers) {
+    if (follower.id === currentUserId) {
+      isFollowing = true;
+      followId = follower.Follow.id;
+    }
+    break;
+  }
+
+  return [isFollowing, followId];
+};
+
 module.exports = { checkFollow };
