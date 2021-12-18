@@ -28,7 +28,7 @@ addLike.addEventListener("click", async (e) => {
   if (data.message === "liked") {
     count += 1;
     likeCounter.innerHTML = `Likes: ${count}`;
-    e.target =;
+    e.target.innerText = "Unlike";
   } else {
     count -= 1;
     likeCounter.innerHTML = `Likes: ${count}`;
