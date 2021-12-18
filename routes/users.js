@@ -128,6 +128,7 @@ router.get(
         { model: User, as: "followers" },
       ],
     });
+    console.log(JSON.stringify(profileUser, null, 2));
 
     const memes = profileUser.Memes;
 
@@ -139,6 +140,7 @@ router.get(
     const isCurrentUser = userId === currentUserId;
     // const isFollowing = await checkFollow(userId, currentUserId);
     const { followers } = profileUser.dataValues;
+    const numberOfFollowers = followers.length;
     const [isFollowing, followId] = getFollow(followers, currentUserId);
 
     res.render("user-page", {
@@ -149,6 +151,7 @@ router.get(
       isCurrentUser,
       isFollowing,
       followId,
+      numberOfFollowers,
     });
   })
 );
@@ -161,6 +164,14 @@ router.get(
     const profileUser = await User.findByPk(userId, {
       include: { model: User, as: "followers" },
     });
+
+    const followNum = await Follow.findAll({
+      where: {
+        userId: profileUser.id,
+      },
+    });
+
+    let numberOfFollowers = followNum.length;
 
     // Follow logic
     const currentUserId = isntLoggedIn(req)
@@ -177,6 +188,7 @@ router.get(
       isCurrentUser,
       isFollowing,
       followId,
+      numberOfFollowers,
     });
   })
 );
@@ -201,13 +213,14 @@ router.get(
     const { followers } = profileUser.dataValues;
     const [isFollowing, followId] = getFollow(followers, currentUserId);
     const isCurrentUser = userId === currentUserId;
-
+    const numberOfFollowers = followers.length;
     res.render("about-page-edit", {
       title: "User",
       profileUser,
       isCurrentUser,
       isFollowing,
       followId,
+      numberOfFollowers,
       csrfToken: req.csrfToken(),
     });
   })
@@ -298,11 +311,12 @@ router.get(
     });
 
     console.log(followers);
-
+    const numberOfFollowers = followers.length;
     res.render("followers", {
       followers,
       profileUser,
       currentUserId,
+      numberOfFollowers,
       isCurrentUser,
       count: followers.length,
     });
