@@ -1,3 +1,16 @@
+const addFollowButtonListener = () => {
+  const forms = document.querySelectorAll(".follow-form");
+
+  forms.forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const button = form.children[0];
+      const userId = parseInt()
+    })
+  })
+};
+
 export const follow = () => {
   const forms = document.querySelectorAll(".follow-form");
 
