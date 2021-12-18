@@ -2,6 +2,7 @@ extends layout.pug
 
 include ./mixins/follows.pug
 include ./mixins/userpage-header.pug
+include utils.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
@@ -12,6 +13,20 @@ block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
   if isCurrentUser
     hr.user-page
+    div.about-page-edit-form
+      h1.user-page Edit Your About Page
+        div.form
+        +validationErrorSummary(errors)
+        form(action=`/users/${profileUser.id}/about/edit` method='post')
+          input(type='hidden' name='_csrf' value=csrfToken)
+          div.spacing
+          +field('Biography: ', 'biography', profileUser.biography)
+          div.spacing
+          +field('Profile Picture: ', 'profilePicture', profileUser.profilePicture)
+          div.post-cancel
+            button.submit-meme-button(type='submit') Update About
+            div.spacing-more
+            a.small-font(href=`/users/${profileUser.id}/about`) Cancel
     div.about-page-content
       div.about-page-user-detail
         h1.about-page-spacing= `About ${profileUser.username}`

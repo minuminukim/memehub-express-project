@@ -172,6 +172,8 @@ router.get(
 //get about edit page
 router.get(
   "/:id(\\d+)/about/edit",
+  csrfProtection,
+  requireAuth,
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId)
@@ -188,6 +190,7 @@ router.get(
       profileUser,
       isCurrentUser,
       isFollowing,
+      csrfToken: req.csrfToken(),
     });
   })
 );
@@ -201,6 +204,12 @@ router.post(
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId)
 
+    const currentUserId = isntLoggedIn(req)
+    ? null
+    : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+
     const { biography, profilePicture } = req.body;
 
     const about = {
@@ -212,13 +221,16 @@ router.post(
 
     if (validatorErrors.isEmpty()) {
       await profileUser.update(about);
-      res.redirect(`/users/${userId}/about`);
+      res.redirect(`/users/${profileUser.id}/about`);
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render("about-page-edit", {
         title: "Edit About",
         about,
         errors,
+        profileUser,
+        isCurrentUser,
+        isFollowing,
         csrfToken: req.csrfToken(),
       });
     }

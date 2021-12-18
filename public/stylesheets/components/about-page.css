@@ -26,3 +26,9 @@ div.about-page-user-detail{
 .about-page-edit-link {
     margin-top: 15px;
 }
+
+div.about-page-edit-form{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
