@@ -23,6 +23,10 @@ header {
   background-color: rgb(182, 219, 253);
 }
 
+button {
+  cursor: pointer;
+}
+
 
 /* nav {
   display:flex;

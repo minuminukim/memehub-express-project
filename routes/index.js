@@ -10,7 +10,9 @@ const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
 
     const memes = await Meme.findAll({
       include: [Comment, Like, User],
