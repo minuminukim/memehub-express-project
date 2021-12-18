@@ -8,6 +8,12 @@ div.userpage-header {
   margin: 25px;
 }
 
+a.user-title {
+  font-weight: bolder;
+  font-size: 30px;
+  text-decoration: none;
+}
+
 div.users-followers-details {
   margin-top: 17px;
   margin-bottom: 10px;
