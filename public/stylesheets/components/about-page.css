@@ -3,3 +3,12 @@ div.about-page-content {
     justify-content: center;
     margin-top: 60px;
 }
+
+
+div.about-page-user-picture{
+    margin-left: 50px;
+}
+
+div.about-page-user-detail{
+    width: 20em;
+}
