@@ -92,7 +92,7 @@ div.user-page-content {
     justify-content: flex-end;
     align-items: center;
     grid-column: 1 / 2;
-    padding-left: 50px;
+    padding-left: 60px;
 }
 
 div.user-feed{
