@@ -129,6 +129,14 @@ router.get(
     });
     const memes = profileUser.Memes;
 
+    const followNum = await Follow.findAll({
+      where: {
+         userId: profileUser.id
+      }
+    })
+
+    let numberOfFollowers = followNum.length
+
     // Follow logic
     const currentUserId = isntLoggedIn(req)
       ? null
@@ -143,6 +151,7 @@ router.get(
       currentUserId,
       isCurrentUser,
       isFollowing,
+      numberOfFollowers,
     });
   })
 );
@@ -153,6 +162,14 @@ router.get(
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId)
+
+    const followNum = await Follow.findAll({
+      where: {
+         userId: profileUser.id
+      }
+    })
+
+    let numberOfFollowers = followNum.length
 
     // Follow logic
     const currentUserId = isntLoggedIn(req)
@@ -166,6 +183,7 @@ router.get(
       profileUser,
       isCurrentUser,
       isFollowing,
+      numberOfFollowers,
     });
   })
 );
@@ -180,6 +198,14 @@ router.get(
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId)
 
+    const followNum = await Follow.findAll({
+      where: {
+         userId: profileUser.id
+      }
+    })
+
+    let numberOfFollowers = followNum.length
+
     // Follow logic
     const currentUserId = isntLoggedIn(req)
       ? null
@@ -192,6 +218,7 @@ router.get(
       profileUser,
       isCurrentUser,
       isFollowing,
+      numberOfFollowers,
       csrfToken: req.csrfToken(),
     });
   })
