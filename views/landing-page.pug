@@ -27,8 +27,8 @@ block content
         h2 TRENDING ON MEMEHUB
       .trending-memes
         each meme in trendingMemes
-          +trendingMeme(`0${i++}`, meme.id, meme.link, "#", meme.userId, meme.User.username, meme.headline, "Dec 8")
+          +trendingMeme(`0${i++}`, meme.id, meme.link, meme.User.profilePicture, meme.userId, meme.User.username, meme.headline, "Dec 8")
     .landing-feed
       h2 "main feed goes here"
       each meme in feedMemes
-        +memeBlock("#", meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
+        +memeBlock(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
