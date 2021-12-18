@@ -1,20 +1,11 @@
 mixin trendingMeme(rank, memeId, meme, logo, userId, username, headline, date)
-  .trending-meme
+  .trending-meme-block
     p.trending-rank #{rank}
     a(href=`/memes/${memeId}`): img.trending-meme(src=meme)
     img.trending-user-logo(src=logo)
     a.trending-username(href=`/users/${userId}`) @#{username}
     a.trending-title(href=`/memes/${memeId}`) #{headline}
     p.trending-date #{date}
-
-mixin bestMeme(logo, username, meme, memeId, userId, headline, date, caption = null)
-  .best-meme
-    a(href=`/users/${userId}`): img.user-logo(src=logo)
-    a.user-link(href=`/users/${userId}`) @#{username}
-    a.meme-title(href=`/memes/${memeId}`) #{headline}
-    p.meme-caption #{caption}
-    p.meme-date #{date}
-    a(href=`/memes/${memeId}`): img.meme-image(src=meme)
 
 mixin memeBlock(logo, username, meme, memeId, userId, headline, date, caption = null)
   .meme-block

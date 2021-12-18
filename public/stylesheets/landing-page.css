@@ -1,0 +1,96 @@
+/* @import url("components/landing-nav.css"); */
+/* @import url("components/landing-header.css"); */
+/* @import url("components/trending-memes.css"); */
+@import url("components/feed-block.css");
+
+.landing-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-header,
+.landing-header-main {
+  background-color: #ffc017;
+  width: 100vw;
+}
+
+.landing-header {
+  display: flex;
+}
+
+.landing-nav {
+  grid-column: 1 / 13;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  background-color: #ffc017;
+}
+
+.landing-header-main {
+  padding-top: 40px;
+}
+
+.landing-header-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.nav-title a {
+  font-family: "Playfair Display", "Georgia", "Cambria", "Times New Roman",
+    serif;
+  color: #292929;
+  font-weight: 900;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.landing-header button {
+  background-color: #292929;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: 0;
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+.landing-header-main button {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid black;
+  max-width: 30%;
+}
+
+.landing-header-main h2 {
+  font-family: "Georgia", "Cambria", "Times New Roman", serif;
+  font-size: 70px;
+}
+
+/* trending memes */
+.trending-memes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.trending-meme-block {
+  height: 100%;
+  width: 100%;
+  flex-grow: 1;
+  flex-basis: 30vw;
+}
+
+.trending-meme {
+  width: 100%;
+  height: auto;
+}
