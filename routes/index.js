@@ -5,6 +5,7 @@ const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { requireAuth } = require("../auth");
 const { asyncHandler, isntLoggedIn } = require("../utils");
 const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
+const { checkFollow } = require("./utils/follows-helpers");
 
 /* GET home page -- default sorted by likes. */
 router.get(
@@ -27,12 +28,16 @@ router.get(
     // fetch memes by likes
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b)).slice(0, 20);
 
+    // const isFollowing = await checkFollow(userId, currentUserId);
+    // TODO figure out how to get userId for recommended followers block
+
     // if user logged in, render landing-page, else render index
     res.render(isntLoggedIn(req) ? "landing-page" : "index", {
       title: "Memehub",
       trendingMemes,
       feedMemes,
       currentUserId,
+      // isFollowing,
       i: 1,
     });
   })
