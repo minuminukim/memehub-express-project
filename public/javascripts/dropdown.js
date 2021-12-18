@@ -1,14 +1,14 @@
 export const toggleDropdown = () => {
   const button = document.querySelector(".dropdown-button");
-  button.addEventListener("click", (event) => {
-    const dropdown = document.querySelector(".dropdown-container");
+  const dropdown = document.querySelector(".dropdown-container");
 
-    if (dropdown.style.display === "none") {
-      dropdown.style.display = "flex";
+  button.onclick = () => {
+    if (dropdown.classList.contains("hide")) {
+      dropdown.classList.remove("hide");
     } else {
-      dropdown.style.display = "none";
+      dropdown.classList.add("hide");
     }
-  });
+  };
 };
 
 // click event listener on post and edit buttons
