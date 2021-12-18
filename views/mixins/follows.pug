@@ -4,7 +4,7 @@ mixin followBlock(userLogo, userId, username, userBio, followerId, text, isCurre
   .follow-block-right
     h3.follow-username: a(href=`/users/${userId}`) @#{username}
     p.follow-user-bio #{userBio}
-  +followButton(userId, followerId, text, isCurrentUser)
+  +followButton(userId, followerId, text)
 
 mixin followButton(userId, followerId, text)
   if userId !== followerId

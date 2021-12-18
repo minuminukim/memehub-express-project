@@ -94,3 +94,17 @@ export const unfollow = () => {
     });
   });
 };
+
+/** TODO
+ * Right now I'm applying both the post and delete listeners on
+ * every single button.
+ * So I have to figure out
+ * on client-side
+ * IF already following
+ *  apply delete listener
+ * ELSE
+ *  apply post listener
+ */
+
+
+//
