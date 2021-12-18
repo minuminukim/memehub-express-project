@@ -1,0 +1,25 @@
+extends layout.pug
+
+include ./mixins/follows.pug
+include ./mixins/userpage-header.pug
+
+append head
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
+  script(src="/javascripts/index.js" type="module" defer)
+  script(src="/javascripts/comment.js" type="module" defer)
+
+block content
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
+  if isCurrentUser
+    hr.user-page
+    div.about-page-content
+      div.about-page-user-detail
+        h1.about-page-spacing= `About ${profileUser.username}`
+        p.about-page-spacing= `${profileUser.biography}`
+        hr.user-page
+        div.about-page-follows
+          a.userpage-header-link(href=`/users/${userId}/followers` alt='followers')= "Followers"
+          a.userpage-header-link(href= `/users/${userId}/following` alt='following')= "Following"
+        div.about-page-edit-link
+      div.about-page-user-picture
+        img.user-profile-pic(src=`${profileUser.profilePicture}`)

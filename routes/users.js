@@ -168,6 +168,30 @@ router.get(
   })
 );
 
+//get about edit page
+router.get(
+  "/:id(\\d+)/about/edit",
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const profileUser = await User.findByPk(userId)
+
+    // Follow logic
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const isCurrentUser = userId === currentUserId;
+    const isFollowing = await checkFollow(userId, currentUserId);
+
+    res.render("about-page-edit", {
+      title: "User",
+      profileUser,
+      isCurrentUser,
+      isFollowing,
+    });
+  })
+);
+
+
 
 /*****************************FOLLOWS*************************/
 
