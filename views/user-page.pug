@@ -10,19 +10,35 @@ block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
   hr.user-page
   div.userPosts
-    ul
-      each meme in memes
-        h1.user-page= `${meme.dataValues.headline}`
-        h2.user-page= `${meme.dataValues.caption}`
-        img.user-meme(src=`${meme.dataValues.link}` alt='meme')
-        div.likes-and-comments
-          a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
-          div Comments:
-            each comment in meme.dataValues.Comments
-              div.user-comment
-                p= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
-        p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
-        hr.bottom
-        div.end-of-post
+    div.user-page-content
+      div.fixed-position
+        img.user-profile-pic(src="https://c.tenor.com/8ZDLU43omvcAAAAC/kid-thumbs-up.gif")
+        div.user-page-details
+          div.profile-name-bar
+            p.user-profile-name-bar= `${profileUser.username}'s Info`
+            div.user-bio-description
+              p Founder of the award-winning Founder of the test Founder of the another test
+            div
+              if isFollowing
+                +followButton(profileUser.id, currentUserId, "Following")
+              else
+                +followButton(profileUser.id, currentUserId, "Follow")
+        div.users-followers-details
+          a(href=`/users/${profileUser.id}/followers` alt='followers')= "Followers"
+    div.user-feed
+      ul
+        each meme in memes
+          h1.user-page= `${meme.dataValues.headline}`
+          h2.user-page= `${meme.dataValues.caption}`
+          img.user-meme(src=`${meme.dataValues.link}` alt='meme')
+          div.likes-and-comments
+            a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+            div Comments:
+              each comment in meme.dataValues.Comments
+                div.user-comment
+                  p= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
+          p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
+            hr.bottom
+          div.end-of-post
 //- TODO: ensure comment and like features are working.
 //- Add any additional styles to the page
