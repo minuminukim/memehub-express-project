@@ -140,6 +140,7 @@ router.get(
       title: "User",
       memes,
       profileUser,
+      currentUserId,
       isCurrentUser,
       isFollowing,
     });
