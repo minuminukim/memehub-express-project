@@ -1,14 +1,14 @@
 include follows.pug
 
-mixin recommended(userId, bio, username, followerId, isFollowing, image = "/images/user-profile.png")
+mixin recommended(dev, followerId)
   .recommended-block
     .rec-left
-      a(href=`/users/${userId}`): img.user-photo(src=image)
+      a(href=`/users/${dev.id}`): img.user-photo(src=dev.profilePicture)
     .rec-mid
-      a(class="recommended-username" href=`/users/${userId}`) #{username}
-      p.recommended-bio #{bio}
+      a(class="recommended-username" href=`/users/${dev.id}`) #{dev.username}
+      p.recommended-bio #{dev.biography}
     .rec-right
-      if isFollowing
-        +followButton(userId, followerId, "Following")
+      if dev.isFollowing
+        +followButton(dev.id, followerId, "Following", dev.followId)
       else
-        +followButton(userId, followerId, "Follow")
+        +followButton(dev.id, followerId, "Follow", dev.followId)

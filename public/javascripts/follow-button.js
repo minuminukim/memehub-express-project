@@ -1,15 +1,30 @@
-const addFollowButtonListener = () => {
-  const forms = document.querySelectorAll(".follow-form");
+// const addFollowButtonListener = () => {
+//   const forms = document.querySelectorAll(".follow-form");
 
-  forms.forEach((form) => {
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
+//   forms.forEach((form) => {
+//     form.addEventListener("submit", async (event) => {
+//       event.preventDefault();
 
-      const button = form.children[0];
-      const userId = parseInt()
-    })
-  })
-};
+//       const button = form.children[0];
+//       const userId = parseInt(button.getAttribute("user", 10));
+//       const followerId = parseInt(button.getAttribute("follower", 10));
+
+//       try {
+//         const response = await fetch(`/api/user/${userId}/following`, {
+//           method: "GET",
+//           headers: {"Content-Type": "application/json"},
+//           body: JSON.stringify({ userId, followerId }),
+//         });
+
+//         const { message } = await response.json();
+
+//         if (message === "Follow already exists.") {
+
+//         }
+//       }
+//     })
+//   })
+// };
 
 export const follow = () => {
   const forms = document.querySelectorAll(".follow-form");
@@ -34,6 +49,11 @@ export const follow = () => {
           return;
         }
 
+        // const { message } = await response.json();
+
+        // if (message === "You are already following this user.") {
+
+        // }
         if (!response.ok) {
           const { message } = await response.json();
           const error = Error({

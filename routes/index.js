@@ -39,18 +39,31 @@ router.get(
       },
       include: [{ model: User, as: "followers" }],
     });
-
+    console.log(JSON.stringify(devsAndFollowers, null, 2));
     /* Map to an array with relevant data + include an isFollowing check
        for the current user
     */
     const developers = devsAndFollowers.map((dev) => {
-      const { id, username, firstName, lastName, followers } = dev.dataValues;
-      const isFollowing = followers.some(
-        (follower) => follower.id === currentUserId
-      );
+      const { id, username, firstName, lastName, biography, followers } =
+        dev.dataValues;
+
+      // const isFollowing = followers.some(
+      //   (follower) => follower.id === currentUserId
+      // );
+
+      let isFollowing = false;
+      let followId = 0;
+
+      for (const follower of followers) {
+        if (follower.id === currentUserId) {
+          isFollowing = true;
+          followId = follower.Follow.id;
+        }
+        break;
+      }
 
       const fullName = `${firstName} ${lastName}`;
-      return { id, username, fullName, isFollowing };
+      return { id, username, fullName, biography, isFollowing, followId };
     });
 
     console.log(JSON.stringify(developers, null, 2));
