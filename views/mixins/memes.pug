@@ -17,11 +17,14 @@ mixin bestMeme(logo, username, meme, memeId, userId, headline, date, caption = n
     a(href=`/memes/${memeId}`): img.meme-image(src=meme)
 
 mixin memeBlock(logo, username, meme, memeId, userId, headline, date, caption = null)
-  .meme-block
-    .meme-signature
-      a(href=`/users/${userId}`): img.user-logo(src=logo)
-      a.user-link(href=`/users/${userId}`) @#{username}
-    h2: a.meme-title(href=`/memes/${memeId}`) #{headline}
-    h3.meme-caption #{caption}
-    a(href=`/memes/${memeId}`): img.meme-image(src=meme)
-    p.meme-date #{date}
+  div.user-feed
+   .meme-block
+     .meme-signature
+       a(href=`/users/${userId}`): img.user-logo(src=logo)
+       a.user-link(href=`/users/${userId}`) @#{username}
+     h2: a.meme-title(href=`/memes/${memeId}`) #{headline}
+     h3.meme-caption #{caption}
+     a(href=`/memes/${memeId}`): img.meme-image(src=meme)
+     p.meme-date #{date}
+     hr.bottom-meme-page
+     div.bottom-of-page

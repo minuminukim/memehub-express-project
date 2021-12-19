@@ -126,6 +126,11 @@ div.user-feed {
   grid-column: 2 / 3;
 }
 
+.feed-memes-loggedIn {
+  border-right: solid rgb(201, 201, 201) 1px;
+  margin-right: 50px;
+}
+
 div.user-info {
   display: flex;
   justify-content: flex-start;

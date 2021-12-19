@@ -23,7 +23,7 @@ block content
           a(href="/hot") Hot
           a(href="/trending") Trending
           a(href="/recent") Recent
-      .feed-memes
+      .feed-memes-loggedIn
         each meme in feedMemes
           +memeBlock(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
     .right-container
