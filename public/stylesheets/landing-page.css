@@ -34,7 +34,7 @@ div.right-padding{
 img.header{
   height: 300px;
   width: 500px;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   border-radius: 5%;
   opacity: .85;
   z-index: 1;
@@ -47,6 +47,14 @@ div.right-side-header{
 }
 
 .trending-memes-container {
+
+}
+
+div.margin-body{
+  margin-left: 100px;
+}
+
+div.landing-hr{
   border-top: solid black 1px;
 }
 .landing-nav {
