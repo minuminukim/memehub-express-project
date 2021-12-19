@@ -12,10 +12,12 @@ const { sequelize } = require("./db/models");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const memesRouter = require("./routes/memes");
+const searchRouter = require("./routes/search");
 const commentRouter = require("./routes/api/comments.js");
 const apiRouter = require("./routes/api");
 // const followsRouter = require("./routes/follows");
 const likesRouter = require("./routes/api/likes");
+
 
 const app = express();
 
@@ -49,6 +51,7 @@ app.use("/api/comments", commentRouter);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/memes", memesRouter);
+app.use("/search", searchRouter);
 // app.use((req,res,next)=>{
 //   console.log("helloz");
 //   next();
