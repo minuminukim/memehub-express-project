@@ -6,6 +6,7 @@ const { requireAuth } = require("../auth");
 const { asyncHandler, isntLoggedIn } = require("../utils");
 const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
 const { checkFollow, getFollow } = require("./utils/follows-helpers");
+const fetchDevelopers = require("./utils/fetch-developers");
 
 /* GET home page -- default sorted by likes. */
 router.get(
@@ -40,7 +41,6 @@ router.get(
       include: [{ model: User, as: "followers" }],
     });
 
-
     /* Map to an array with relevant data + include an isFollowing check
        for the current user
     */
@@ -60,7 +60,7 @@ router.get(
 
       for (const follower of followers) {
         if (follower.id == currentUserId) {
-          console.log('test');
+          console.log("test");
           isFollowing = true;
           followId = follower.Follow.id;
           break;
@@ -98,13 +98,22 @@ router.get(
   "/recent",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const developers = await fetchDevelopers(currentUserId);
 
     const feedMemes = await Meme.findAll({
       order: [["id", "DESC"]],
       include: User,
     });
-    res.render("index", { title: "Memehub", feedMemes, currentUserId });
+
+    res.render("index", {
+      title: "Memehub",
+      feedMemes,
+      currentUserId,
+      developers,
+    });
   })
 );
 
@@ -113,14 +122,21 @@ router.get(
   "/hot",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const developers = await fetchDevelopers(currentUserId);
 
     const memes = await Meme.findAll({
       include: [Like, User],
     });
-
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b));
-    res.render("index", { title: "Memehub", feedMemes, currentUserId });
+    res.render("index", {
+      title: "Memehub",
+      feedMemes,
+      currentUserId,
+      developers,
+    });
   })
 );
 
@@ -132,6 +148,7 @@ router.get(
     const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+    const developers = await fetchDevelopers(currentUserId);
 
     const memes = await Meme.findAll({
       include: [Comment, User],
@@ -139,7 +156,12 @@ router.get(
 
     const feedMemes = memes.sort((a, b) => memesByComments(a, b));
 
-    res.render("index", { title: "Memehub", feedMemes, currentUserId });
+    res.render("index", {
+      title: "Memehub",
+      feedMemes,
+      currentUserId,
+      developers,
+    });
   })
 );
 
@@ -148,7 +170,10 @@ router.get(
   "/you",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const developers = await fetchDevelopers(currentUserId);
 
     // get logged in user & the users they're following
     const currentUser = await User.findByPk(currentUserId, {
@@ -173,7 +198,7 @@ router.get(
     const feedMemes = resolvedMemes.flat();
 
     // TODO: re-factor
-    res.render("index", { title: "Memehub", feedMemes });
+    res.render("index", { title: "Memehub", feedMemes, developers });
   })
 );
 

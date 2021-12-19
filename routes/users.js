@@ -128,7 +128,6 @@ router.get(
         { model: User, as: "followers" },
       ],
     });
-    console.log(JSON.stringify(profileUser, null, 2));
 
     const memes = profileUser.Memes;
 
@@ -138,9 +137,8 @@ router.get(
       : parseInt(req.session.auth.userId, 10);
 
     const isCurrentUser = userId === currentUserId;
-    // const isFollowing = await checkFollow(userId, currentUserId);
-    const { followers } = profileUser.dataValues;
-    const numberOfFollowers = followers.length;
+    const { followers } = profileUser;
+    const numberOfFollowers = followers.length || 0;
     const [isFollowing, followId] = getFollow(followers, currentUserId);
 
     res.render("user-page", {
