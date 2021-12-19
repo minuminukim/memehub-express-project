@@ -9,6 +9,6 @@ mixin recommended(dev, followerId)
       p.recommended-bio #{dev.biography}
     .rec-right
       if dev.isFollowing
-        +followButton(dev.id, followerId, "Following", dev.followId)
+        +followButton(dev.id, followerId, "Following", dev.followId, "unfollow-button")
       else
-        +followButton(dev.id, followerId, "Follow", dev.followId)
+        +followButton(dev.id, followerId, "Follow", dev.followId, "follow-button")

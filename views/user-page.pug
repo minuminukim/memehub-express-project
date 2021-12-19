@@ -21,9 +21,9 @@ block content
               p= `${profileUser.biography}`
             div
               if isFollowing
-                +followButton(profileUser.id, currentUserId, "Following", followId)
+                +followButton(profileUser.id, currentUserId, "Following", followId, "unfollow-button")
               else
-                +followButton(profileUser.id, currentUserId, "Follow", followId)
+                +followButton(profileUser.id, currentUserId, "Follow", followId, "follow-button")
         div.users-followers-details
           a.userpage-header-link(href=`/users/${profileUser.id}/followers` alt='followers')= `${profileUser.username}'s Followers`
     div.user-feed

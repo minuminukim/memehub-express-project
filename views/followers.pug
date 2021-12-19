@@ -22,6 +22,6 @@ block content
         each follower in followers
           .followers-block
             if follower.isMutual
-              +followBlock(follower, currentUserId, "Following", follower.followId)
+              +followBlock(follower, currentUserId, "Following", follower.followId, "unfollow-button")
             else
-              +followBlock(follower, currentUserId, "Follow", follower.followId)
+              +followBlock(follower, currentUserId, "Follow", follower.followId, "follow-button")
