@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
   console.log("addCommentButton", addCommentButton);
   addCommentButton.addEventListener("click", async (e) => {
 
-    const content = document.querySelector(".content");
+    let content = document.querySelector(".content");
     let memeId = e.target.id;
     let contentValue = content.value
 
@@ -126,7 +126,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const deleteCommentButton = document.querySelectorAll(".delete-button");
   console.log("deleteCommentButton", deleteCommentButton);
   console.log(deleteCommentButton)
-  for (let i = 0; i < deleteCommentButton.length - 1; i++) {
+  for (let i = 0; i < deleteCommentButton.length; i++) {
     const button = deleteCommentButton[i]
     addDeleteButtonListener(button);
   }
