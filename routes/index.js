@@ -5,7 +5,7 @@ const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const { requireAuth } = require("../auth");
 const { asyncHandler, isntLoggedIn } = require("../utils");
 const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
-const { checkFollow } = require("./utils/follows-helpers");
+const { checkFollow, getFollow } = require("./utils/follows-helpers");
 
 /* GET home page -- default sorted by likes. */
 router.get(
@@ -39,18 +39,46 @@ router.get(
       },
       include: [{ model: User, as: "followers" }],
     });
-
+    console.log(JSON.stringify(devsAndFollowers, null, 2));
     /* Map to an array with relevant data + include an isFollowing check
        for the current user
     */
     const developers = devsAndFollowers.map((dev) => {
-      const { id, username, firstName, lastName, followers } = dev.dataValues;
-      const isFollowing = followers.some(
-        (follower) => follower.id === currentUserId
-      );
+      const {
+        id,
+        username,
+        firstName,
+        lastName,
+        biography,
+        profilePicture,
+        followers,
+      } = dev.dataValues;
+
+      // const isFollowing = followers.some(
+      //   (follower) => follower.id === currentUserId
+      // );
+
+      let isFollowing = false;
+      let followId = 0;
+
+      for (const follower of followers) {
+        if (follower.id === currentUserId) {
+          isFollowing = true;
+          followId = follower.Follow.id;
+        }
+        break;
+      }
 
       const fullName = `${firstName} ${lastName}`;
-      return { id, username, fullName, isFollowing };
+      return {
+        id,
+        username,
+        fullName,
+        biography,
+        profilePicture,
+        isFollowing,
+        followId,
+      };
     });
 
     console.log(JSON.stringify(developers, null, 2));
