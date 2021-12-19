@@ -23,10 +23,10 @@ router.post('/', asyncHandler(async (req, res) =>{
         where: {
             [Op.or]: {
             headline: {
-                [Op.like]: `%${search}%`
+                [Op.iLike]: `%${search}%`
             },
             caption: {
-                [Op.like]: `%${search}%`
+                [Op.iLike]: `%${search}%`
             }
         }
     }
