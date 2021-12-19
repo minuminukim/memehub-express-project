@@ -45,9 +45,9 @@ router.post("/delete", asyncHandler(async (req, res) => {
 }));
 
 
-// router.post("/api/comments/:id(\\d+)/edit", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
+router.post("/edit",asyncHandler(async (req, res) => {
 
 
-// }));
+}));
 
 module.exports = router;

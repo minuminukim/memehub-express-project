@@ -40,6 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 let deleteButton = document.createElement("button");
                 addDeleteButtonListener(deleteButton);
                 let editButton = document.createElement("button");
+                addEditButtonListener(editButton);
 
                 deleteButton.setAttribute("id", `${newComment.id}`);
                 deleteButton.setAttribute("class", "delete-button");
@@ -95,6 +96,7 @@ window.addEventListener("DOMContentLoaded", () => {
             console.log("inside delete event")
 
             const commentId = e.target.id;
+
             const body = { commentId }
 
             try {
@@ -110,7 +112,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     throw res;
                 }
                 console.log("parent", e.target.parentNode)
-            
+
                 e.target.parentNode.remove();
 
             } catch (err) {
@@ -127,5 +129,69 @@ window.addEventListener("DOMContentLoaded", () => {
         const button = deleteCommentButtons[i]
         addDeleteButtonListener(button);
     }
+
+
+    // const addCommentButtons = document.querySelectorAll(".add-button");
+    // for (let i = 0; i < addCommentButtons.length; i++) {
+    //     let button = addCommentButtons[i];
+    //     addCommentButtonListener(button);
+    // }
+
+
+    const addEditButtonListener = (button) => {
+
+        button.addEventListener("click", async (e) => {
+
+            if (e.target.innerHTML === "Edit"){
+
+                e.target.innerHTML = "Save";
+                let memeId = e.target.id;
+
+                let input = document.createElement("input")
+                input.setAttribute("type", "textarea")
+                input.setAttribute("id", `${memeId}`)
+                let previousContent = e.target.parentNode.innerHTML;
+                let regex = /\w+.\s\w+/
+                let regexPlaceHolder = previousContent.match(regex)
+                let placeholder = regexPlaceHolder[0];
+                input.setAttribute("placeholder", placeholder)
+                console.log("input", input)
+
+
+                
+                console.log("input", input)
+                let innerLi = "hello"
+                li.innerHTML = innerLi;
+                let deleteButton = document.createElement("button");
+                addDeleteButtonListener(deleteButton);
+                // let editButton = document.createElement("button");
+            }else if (e.target.innerHTML === "Save"){
+                console.log("here")
+                e.target.innerHTML = "Edit";
+
+
+
+
+            }
+
+
+
+
+        })
+    }
+
+const editCommentButtons = document.querySelectorAll(".edit-button");
+    for (let i = 0; i < editCommentButtons.length; i++) {
+        let button = editCommentButtons[i];
+        addEditButtonListener(button);
+    }
+
+
+
+
+
+
+
+
 
 })
