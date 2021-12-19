@@ -1,0 +1,70 @@
+.sign-up-root,
+.sign-up-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-up-root {
+  margin: 0 auto;
+}
+
+.sign-up-links {
+  display: flex;
+}
+
+
+.sign-up-title {
+  font-family: "Georgia", "Cambria", "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+.field input {
+  border: 1px solid #848583;
+  border-radius: 10px;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.field label {
+  padding: 5px 0px;
+}
+
+.sign-up-buttons button {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #848583;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 20px;
+  height: 1.8rem;
+  width: 6rem;
+  text-align: center;
+}
+
+button:hover,
+input:hover {
+  background-color: #fff;
+  border-color: rgba(0, 0, 0, 0.9);
+}
+
+.sign-up-links a {
+  text-decoration: none;
+  color: #1a8917;
+  font-weight: bold;
+}
+
+.cancel-button {
+  text-decoration: none;
+  font-weight: bold;
+  color: #dc3545;
+}
