@@ -22,8 +22,10 @@ mixin memeBlock(logo, username, meme, memeId, userId, headline, date, caption = 
      .meme-signature
        a(href=`/users/${userId}`): img.user-logo(src=logo)
        a.user-link(href=`/users/${userId}`) @#{username}
-     h2: a.meme-title(href=`/memes/${memeId}`) #{headline}
-     h3.meme-caption #{caption}
+     div.title-left
+       h2: a.meme-title(href=`/memes/${memeId}`) #{headline}
+     div.caption-left
+       h3.meme-caption #{caption}
      a(href=`/memes/${memeId}`): img.meme-image(src=meme)
      div.dev-spacing
      div.date-left

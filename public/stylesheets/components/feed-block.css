@@ -40,6 +40,20 @@ div.date-left {
   justify-content: flex-start;
 }
 
+div.title-left {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+div.caption-left {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
 .meme-image {
   width: 100%;
   height: auto;
