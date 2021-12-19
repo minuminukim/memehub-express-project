@@ -7,10 +7,27 @@
   align-items: center;
 }
 
+.nav-left {
+  justify-content: flex-start;
+  align-self: center;
+  margin-left: 50px;
+  font-weight: bolder;
+}
+.nav-right{
+  display: inline-flex;
+  align-items: center;
+  margin-right: 50px;
+}
+
+div.right-padding{
+  padding-right: 25px;
+}
+
 .landing-header,
 .landing-header-main {
   background-color: #ffc017;
   width: 100vw;
+  border-bottom: black solid 1px;
 }
 
 .landing-header {
@@ -22,13 +39,19 @@
   display: flex;
   justify-content: space-between;
   position: fixed;
+  height: 75px;
   top: 0;
   width: 100vw;
   background-color: #ffc017;
+  border-bottom: black solid 1px;
 }
 
 .landing-header-main {
   padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 75px;
+  margin-left: 50px;
 }
 
 .landing-header-main {
@@ -40,9 +63,9 @@
   font-family: "Playfair Display", "Georgia", "Cambria", "Times New Roman",
     serif;
   color: #292929;
-  font-weight: 900;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: bolder;
 }
 
 .nav-link {
