@@ -1,19 +1,18 @@
 export const follow = () => {
-  const forms = document.querySelectorAll(".follow-form");
+  const buttons = document.querySelectorAll(".follow-button");
 
-  forms.forEach((form) => {
-    form.addEventListener("submit", async (event) => {
+  buttons.forEach((button) => {
+    button.addEventListener("click", async (event) => {
       event.preventDefault();
-
-      const button = form.children[0];
       const userId = parseInt(button.getAttribute("user"), 10);
       const followerId = parseInt(button.getAttribute("follower"), 10);
+      const followId = button.getAttribute("follow");
 
       try {
         const response = await fetch(`/users/${followerId}/following`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId, followerId }),
+          body: JSON.stringify({ userId, followerId, followId }),
         });
 
         if (response.status === 401) {
@@ -31,25 +30,20 @@ export const follow = () => {
 
           throw error;
         }
+
         const { newFollow } = await response.json();
+
         button.innerText = "Following";
         button.setAttribute("follow", newFollow.id);
-        console.log(document.querySelector(".follow-count"));
 
-        // const resourceIsFollow = window.location.href
-        //   .toString()
-        //   .split("/")
-        //   .pop()
-        //   .startsWith("follow");
+        const path = window.location.href.toString().trim().split("/");
+        const shouldUpdate = path.includes(userId.toString());
 
-        // console.log(resourceIsFollow);
-
-        // if (resourceIsFollow) {
-        //   const followCount = document.querySelector(".follow-count");
-        //   let [count, text] = followCount.innerText.trim().split(" ");
-        //   count = parseInt(count) + 1;
-        //   followCount.innerText = `${count} ${text}`;
-        // }
+        if (shouldUpdate) {
+          const followCount = document.querySelector(".follow-count");
+          const [count, text] = followCount.innerText.trim().split(" ");
+          followCount.innerText = `${parseInt(count) + 1} ${text}`;
+        }
 
         // TODO figure out how to resolve the response promise
         return newFollow;
@@ -62,13 +56,12 @@ export const follow = () => {
 };
 
 export const unfollow = () => {
-  const forms = document.querySelectorAll(".follow-form");
+  const buttons = document.querySelectorAll(".follow-button");
 
-  forms.forEach((form) => {
-    form.addEventListener("submit", async (event) => {
+  buttons.forEach((button) => {
+    button.addEventListener("click", async (event) => {
       event.preventDefault();
 
-      const button = event.children[0];
       const userId = parseInt(button.getAttribute("user"), 10);
       const followerId = parseInt(button.getAttribute("follower"), 10);
       const followId = parseInt(button.getAttribute("follow", 10));
@@ -90,11 +83,19 @@ export const unfollow = () => {
         }
 
         button.innerText = "Follow";
-        button.removeEventListener("click");
+        button.setAttribute("follow", "0");
+
         const { message } = await response.json();
-        // const path = window.location.href.toString().trim().split("/");
-        // const profileId = parseInt(path[path.length - 2], 10);
-        // const shouldUpdate = profileId === userId;
+
+        const path = window.location.href.toString().trim().split("/");
+        const shouldUpdate = path.includes(userId.toString());
+
+        if (shouldUpdate) {
+          const followCount = document.querySelector(".follow-count");
+          const [count, text] = followCount.innerText.trim().split(" ");
+          followCount.innerText = `${parseInt(count) - 1} ${text}`;
+        }
+
         // const resourceIsFollow = path[path.length - 1].startsWith("follow");
 
         // console.log(path);

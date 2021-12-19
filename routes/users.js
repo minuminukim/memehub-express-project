@@ -378,13 +378,19 @@ router.post(
   "/:id(\\d+)/following",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const { userId, followerId } = req.body;
-    const follow = await Follow.findOne({ where: { userId, followerId } });
-    if (follow) {
-      res.status(400).json({ message: "You are already following this user." });
-    } else {
+    const { userId, followerId, followId } = req.body;
+    // const follow = await Follow.findOne({ where: { userId, followerId } });
+    // if (follow) {
+    //   res.status(400).json({ message: "You are already following this user." });
+    // } else {
+    //   const newFollow = await Follow.create({ userId, followerId });
+    //   res.json({ newFollow });
+    // }
+    if (!parseInt(followId, 10)) {
       const newFollow = await Follow.create({ userId, followerId });
       res.json({ newFollow });
+    } else {
+      res.status(400).json({ message: "You are already following this user." });
     }
   })
 );
