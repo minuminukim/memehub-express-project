@@ -5,11 +5,10 @@ include ./mixins/userpage-header.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
-  script(src="/javascripts/index.js" type="module" defer)
   script(src="/javascripts/user-page-comment.js" type="module" defer)
 
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId, numberOfFollowers)
   hr.user-page
   div.userPosts
     div.user-page-content

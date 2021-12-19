@@ -1,7 +1,8 @@
-export const addFollowButtonListener = () => {
+export const addFollowButtonEvent = () => {
   const buttons = document.querySelectorAll(".follow-button");
   buttons.forEach((button) => {
     const followId = parseInt(button.getAttribute("follow"));
+    console.log(followId);
     if (!followId) {
       button.addEventListener("click", follow);
     } else {

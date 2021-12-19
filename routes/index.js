@@ -29,57 +29,9 @@ router.get(
     // fetch memes by likes
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b)).slice(0, 20);
 
-    /* Recommended Followers:
-       Hardcoding here because this section won't be dynamic for demo
-     */
-
-    // query for developer user objects & their followers
-    const devsAndFollowers = await User.findAll({
-      where: {
-        username: ["davidlee", "willduffy", "anthonyadams", "minukim"],
-      },
-      include: [{ model: User, as: "followers" }],
-    });
-
-    /* Map to an array with relevant data + include an isFollowing check
-       for the current user
-    */
-    const developers = devsAndFollowers.map((dev) => {
-      const {
-        id,
-        username,
-        firstName,
-        lastName,
-        biography,
-        profilePicture,
-        followers,
-      } = dev.dataValues;
-
-      let isFollowing = false;
-      let followId = 0;
-
-      for (const follower of followers) {
-        if (follower.id == currentUserId) {
-          console.log("test");
-          isFollowing = true;
-          followId = follower.Follow.id;
-          break;
-        }
-      }
-
-      const fullName = `${firstName} ${lastName}`;
-      return {
-        id,
-        username,
-        fullName,
-        biography,
-        profilePicture,
-        isFollowing,
-        followId,
-      };
-    });
-
-    // console.log(JSON.stringify(developers, null, 2));
+    /********** RECOMMENDED FOLLOWERS (the developers) *************/
+    // Helper that queries for users & their followers, then maps relevant data
+    const developers = await fetchDevelopers(currentUserId);
 
     // If user logged in, render landing-page, else render index
     return res.render(currentUserId === null ? "landing-page" : "index", {
@@ -125,11 +77,13 @@ router.get(
     const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+
     const developers = await fetchDevelopers(currentUserId);
 
     const memes = await Meme.findAll({
       include: [Like, User],
     });
+
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b));
     res.render("index", {
       title: "Memehub",
