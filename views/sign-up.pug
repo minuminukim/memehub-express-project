@@ -1,18 +1,26 @@
 extends layout.pug
 include utils.pug
 
+append head
+  link(rel="stylesheet" href="/stylesheets/components/sign-up.css")
+
 block content
   +validationErrorSummary(errors)
-  form(action='/users/new' method='post')
-    input(type='hidden' name='_csrf' value=csrfToken)
-    +field('User Name', 'username', user.username)
-    +field('First Name', 'firstName', user.firstName)
-    +field('Last Name', 'lastName', user.lastName)
-    +field('Email Address', 'email', user.email)
-    +field('Password', 'password', user.password, 'password')
-    +field('Confirm Password', 'confirmPassword', '', 'password')
-    div(class='py-4')
-      button(type='submit' class='register-button') Register
-      a(href='/' class='cancel-button') Cancel
-    div
-        p: a(href='/users/sign-in') Already have an account?
+  .sign-up-root
+    h2.sign-up-title Join Memehub.
+    form(action='/users/new' method='post' class='sign-up-form')
+      input(type='hidden' name='_csrf' value=csrfToken)
+      +field('User Name', 'username', user.username)
+      +field('First Name', 'firstName', user.firstName)
+      +field('Last Name', 'lastName', user.lastName)
+      +field('Email Address', 'email', user.email)
+      +field('Password', 'password', user.password, 'password')
+      +field('Confirm Password', 'confirmPassword', '', 'password')
+      div(class='sign-up-buttons')
+        button(type='submit' class='register-button') Register
+        form(action='/users/sign-in' method='post')
+          button(type='submit' class='demo-button') Try Demo
+        a(href='/' class='cancel-button') Cancel
+      div.sign-up-links
+          p Already have an account?
+          p: a(href='/users/sign-in') Sign in
