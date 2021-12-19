@@ -22,6 +22,7 @@
   font-size: 22px;
   font-weight: bold;
   color: #292929;
+  text-decoration: none;
 }
 
 .meme-caption {
@@ -38,6 +39,7 @@
 div.date-left {
   display: flex;
   justify-content: flex-start;
+  margin-top: 25px;
 }
 
 div.title-left {
