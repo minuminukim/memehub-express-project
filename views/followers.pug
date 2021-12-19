@@ -14,7 +14,7 @@ append head
   script(src="/javascripts/index.js" type="module")
 //- TODO: replace header with user-profile header
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId)
   .root
     .followers-title-container
       h2.follow-count #{count} Follower(s)
@@ -23,6 +23,6 @@ block content
         each follower in followers
           .followers-block
             if follower.isMutual
-              +followBlock(follower.profilePicture, follower.id, follower.username, "bio", currentUserId, "Following")
+              +followBlock(follower, currentUserId, "Following", followId)
             else
-              +followBlock(profileUser.profilePicture, follower.id, follower.username, "bio", currentUserId, "Follow")
+              +followBlock(follower, currentUserId, "Follow", followId)

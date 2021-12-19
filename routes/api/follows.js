@@ -17,6 +17,20 @@ router.get(
   })
 );
 
+// check if request user is already following
+router.get(
+  "/user/:id(\\d+)/following",
+  asyncHandler(async (req, res) => {
+    const { userId, followerId } = req.body.userId;
+    const follow = await Follow.findOne({where: {userId, followerId}});
+    if (follow) {
+      res.json({message: "Follow already exists."});
+    } else {
+      res.json({message: "Follow does not exist."})
+    }
+  })
+);
+
 router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {

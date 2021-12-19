@@ -32,4 +32,4 @@ block content
           h3.recommended-title Who to follow
         .recommended-blocks-container
           each dev in developers
-            +recommended(dev.id, "to be filled", dev.fullName, currentUserId, dev.isFollowing)
+            +recommended(dev, currentUserId)
