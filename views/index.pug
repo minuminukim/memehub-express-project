@@ -28,8 +28,9 @@ block content
           +memeBlock(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
     .right-container
       .recommended-follows-container
-        .recommended-title-container
-          h3.recommended-title Who to follow
-        .recommended-blocks-container
-          each dev in developers
-            +recommended(dev, currentUserId)
+        div.stick-container
+          .recommended-title-container
+            h3.recommended-title Who to follow
+          .recommended-blocks-container
+            each dev in developers
+              +recommended(dev, currentUserId)

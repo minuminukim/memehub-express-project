@@ -13,16 +13,30 @@
 
 .feed-container {
   grid-column: 2 / 9;
+  margin-top: 25px;
 }
 
 .right-container {
   grid-column: 9 / 12;
+
 }
 
 .feed-toggles a {
   text-transform: uppercase;
   font-size: 13px;
   color: #757575;
+  display: inline-flex;
+  justify-items: space-around;
+  padding-right: 15px;
+}
+
+.feed-toggles {
+  text-transform: uppercase;
+  font-size: 13px;
+  color: #757575;
+  display: inline-flex;
+  justify-items: space-around;
+  margin-bottom: 25px;
 }
 
 .feed-container a {
