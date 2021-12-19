@@ -59,3 +59,11 @@ div.caption-left {
   height: auto;
   overflow: hidden;
 }
+
+.meme-block-user-logo {
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  background-color: none;
+  margin-right: 5px;
+}

@@ -9,7 +9,7 @@ mixin trendingMeme(rank, memeId, meme, logo, userId, username, headline, date)
 
 mixin bestMeme(logo, username, meme, memeId, userId, headline, date, caption = null)
   .best-meme
-    a(href=`/users/${userId}`): img.user-logo(src=logo)
+    a(href=`/users/${userId}`): img.meme-block-user-logo(src=logo)
     a.user-link(href=`/users/${userId}`) @#{username}
     a.meme-title(href=`/memes/${memeId}`) #{headline}
     p.meme-caption #{caption}
@@ -20,7 +20,7 @@ mixin memeBlock(logo, username, meme, memeId, userId, headline, date, caption = 
   div.user-feed
    .meme-block
      .meme-signature
-       a(href=`/users/${userId}`): img.user-logo(src=logo)
+       a(href=`/users/${userId}`): img.meme-block-user-logo(src=logo)
        a.user-link(href=`/users/${userId}`) @#{username}
      div.title-left
        h2: a.meme-title(href=`/memes/${memeId}`) #{headline}
