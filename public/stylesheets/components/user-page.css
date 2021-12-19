@@ -35,6 +35,13 @@ img.user-meme {
   width: 500px;
 }
 
+a.user-page {
+  color: black;
+  font-weight: bolder;
+  text-decoration: none;
+  font-size: 2rem;
+}
+
 h1.user-page {
   color: black;
   font-weight: bolder;

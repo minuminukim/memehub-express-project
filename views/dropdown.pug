@@ -1,12 +1,12 @@
 .dropdown-container.hide
   .dropdown-top
     .container-left
-      a(href=`/users/${user.id}`): img.dropdown-user-photo(src="#", alt="#").dropdown-item
+      a(href=`/users/${user.id}`): img.dropdown-user-photo(src=user.profilePicture, alt="profile picture").dropdown-item
     .container-right
-      a.dropdown-user-name.dropdown-item(href=`/users/${user.id}`) #{user.firstName} #{user.lastName}
-      a.dropdown-user-handle.dropdown-item(href=`/users/${user.id}`) @#{user.username}
+      a.dropdown-user-name.user-name-margin(href=`/users/${user.id}`) #{user.firstName} #{user.lastName}
+      a.dropdown-user-handle(href=`/users/${user.id}`) @#{user.username}
   .dropdown-bottom
     a(class="dropdown-link dropdown-item" href=`/memes/new`) Share a meme
-    a(class="dropdown-link dropdown-item" href=`/users/${user.id}`) Memes
+    a(class="dropdown-link dropdown-item" href=`/users/${user.id}`) Meme
     form(action="/users/sign-out" method="post")
       button(class="sign-out-button dropdown-item" type="submit") Sign out
