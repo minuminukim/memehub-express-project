@@ -11,10 +11,9 @@ append head
   link(rel="stylesheet" href="/stylesheets/components/follow-block.css")
   //- add page specific js
 
-  script(src="/javascripts/index.js" type="module")
 //- TODO: replace header with user-profile header
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId, count)
   .root
     .followers-title-container
       h2.follow-count #{count} Follower(s)
@@ -23,6 +22,6 @@ block content
         each follower in followers
           .followers-block
             if follower.isMutual
-              +followBlock(follower, currentUserId, "Following", followId)
+              +followBlock(follower, currentUserId, "Following", follower.followId)
             else
-              +followBlock(follower, currentUserId, "Follow", followId)
+              +followBlock(follower, currentUserId, "Follow", follower.followId)

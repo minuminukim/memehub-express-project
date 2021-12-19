@@ -277,9 +277,15 @@ router.get(
   "/:id(\\d+)/followers",
   asyncHandler(async (req, res) => {
     // find user and their followers
-    const id = parseInt(req.params.id, 10);
-    const profileUser = await User.findByPk(id, {
-      include: [{ model: User, as: "followers" }],
+    const profileId = parseInt(req.params.id, 10);
+    const profileUser = await User.findByPk(profileId, {
+      include: [
+        {
+          model: User,
+          as: "followers",
+          include: [{ model: User, as: "followers" }],
+        },
+      ],
       order: [["id", "DESC"]],
     });
 
@@ -287,16 +293,16 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
-    let { followers } = profileUser.dataValues;
-    const isCurrentUser = profileUser.id === currentUserId;
-    const isFollowing = await checkFollow(profileUser.id, currentUserId);
-    // then check for intersection with the fetched followers
-    followers = profileUser.followers.map((follower) => {
+    let isFollowing = false;
+    const followers = profileUser.followers.map((follower) => {
       const { id, username, firstName, lastName, biography, profilePicture } =
-        follower.dataValues;
+        follower;
 
-      const isMutual = follower.id === currentUserId;
-      const followId = isMutual ? 0 : follower.Follow.id;
+      if (follower.id === currentUserId) {
+        isFollowing = true;
+      }
+
+      const [isMutual, followId] = getFollow(follower.followers, currentUserId);
 
       return {
         id,
@@ -309,16 +315,17 @@ router.get(
         followId,
       };
     });
+    // then check for intersection with the fetched followers
 
-    const numberOfFollowers = followers.length;
+    const isCurrentUser = profileUser.id === currentUserId;
     res.render("followers", {
       followers,
       profileUser,
       currentUserId,
-      numberOfFollowers,
+      numberOfFollowers: followers.length || 0,
       isCurrentUser,
       isFollowing,
-      count: followers.length,
+      count: followers.length || 0,
     });
   })
 );
@@ -329,7 +336,13 @@ router.get(
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(id, {
-      include: [{ model: User, as: "followings" }],
+      include: [
+        {
+          model: User,
+          as: "followings",
+          include: [{ model: User, as: "followers" }],
+        },
+      ],
       order: [["id", "DESC"]],
     });
 
@@ -340,14 +353,15 @@ router.get(
     const isCurrentUser = currentUserId === profileUser.id;
     const isFollowing = await checkFollow(profileUser.id, currentUserId);
 
-    let { followings } = profileUser.dataValues;
     // find mutual relationship here, where current user also follows
-    followings = profileUser.followings.map((following) => {
+    const followings = profileUser.followings.map((following) => {
       const { id, username, firstName, lastName, biography, profilePicture } =
-        following.dataValues;
+        following;
 
-      const isMutual = following.id === currentUserId;
-      const followId = isMutual ? 0 : following.Follow.id;
+      const [isMutual, followId] = getFollow(
+        following.followers,
+        currentUserId
+      );
 
       return {
         id,
@@ -364,7 +378,7 @@ router.get(
     res.render("following", {
       followings,
       profileUser,
-      count: followings.length,
+      count: followings.length || 0,
       currentUserId,
       isCurrentUser,
       isFollowing,
@@ -378,14 +392,8 @@ router.post(
   requireAuth,
   asyncHandler(async (req, res) => {
     const { userId, followerId, followId } = req.body;
-    // const follow = await Follow.findOne({ where: { userId, followerId } });
-    // if (follow) {
-    //   res.status(400).json({ message: "You are already following this user." });
-    // } else {
-    //   const newFollow = await Follow.create({ userId, followerId });
-    //   res.json({ newFollow });
-    // }
-    if (!parseInt(followId, 10)) {
+    const follow = await Follow.findOne({ where: { userId, followerId } });
+    if (!follow) {
       const newFollow = await Follow.create({ userId, followerId });
       res.json({ newFollow });
     } else {

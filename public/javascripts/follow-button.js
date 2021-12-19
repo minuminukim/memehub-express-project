@@ -1,7 +1,7 @@
 export const addFollowButtonListener = () => {
   const buttons = document.querySelectorAll(".follow-button");
   buttons.forEach((button) => {
-    const followId = button.getAttribute("follow");
+    const followId = parseInt(button.getAttribute("follow"));
     if (!followId) {
       button.addEventListener("click", follow);
     } else {
@@ -82,11 +82,8 @@ const unfollow = async (e) => {
     button.innerText = "Follow";
     button.setAttribute("follow", "0");
 
-    console.log("check@@@@@@@@@@@@@@@@@@@");
-
     const path = window.location.href.toString().trim().split("/");
     const shouldUpdate = path.includes(userId.toString());
-    console.log(shouldUpdate);
 
     if (shouldUpdate) {
       const followCount = document.querySelector(".follow-count");
@@ -97,7 +94,8 @@ const unfollow = async (e) => {
     button.removeEventListener("click", unfollow);
     button.addEventListener("click", follow);
 
-    const data = await response.json();
+    const { message } = await response.json();
+    console.log(message);
     return Promise.resolve(data);
   } catch (error) {
     return Promise.reject(error);

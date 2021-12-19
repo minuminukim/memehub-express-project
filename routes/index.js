@@ -39,7 +39,8 @@ router.get(
       },
       include: [{ model: User, as: "followers" }],
     });
-    console.log(JSON.stringify(devsAndFollowers, null, 2));
+
+
     /* Map to an array with relevant data + include an isFollowing check
        for the current user
     */
@@ -54,19 +55,16 @@ router.get(
         followers,
       } = dev.dataValues;
 
-      // const isFollowing = followers.some(
-      //   (follower) => follower.id === currentUserId
-      // );
-
       let isFollowing = false;
       let followId = 0;
 
       for (const follower of followers) {
-        if (follower.id === currentUserId) {
+        if (follower.id == currentUserId) {
+          console.log('test');
           isFollowing = true;
           followId = follower.Follow.id;
+          break;
         }
-        break;
       }
 
       const fullName = `${firstName} ${lastName}`;
@@ -81,10 +79,10 @@ router.get(
       };
     });
 
-    console.log(JSON.stringify(developers, null, 2));
+    // console.log(JSON.stringify(developers, null, 2));
 
     // If user logged in, render landing-page, else render index
-    res.render(currentUserId === null ? "landing-page" : "index", {
+    return res.render(currentUserId === null ? "landing-page" : "index", {
       title: "Memehub",
       trendingMemes,
       feedMemes,

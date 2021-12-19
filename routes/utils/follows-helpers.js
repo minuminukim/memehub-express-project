@@ -14,8 +14,8 @@ const getFollow = (followers, currentUserId) => {
     if (follower.id === currentUserId) {
       isFollowing = true;
       followId = follower.Follow.id;
+      break;
     }
-    break;
   }
 
   return [isFollowing, followId];
