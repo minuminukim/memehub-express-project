@@ -45,7 +45,7 @@ p.recommended-bio-p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background: white;
+  font-size: 14px;
 }
 
 div.recommended-bio {
