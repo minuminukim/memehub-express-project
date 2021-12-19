@@ -8,7 +8,11 @@ const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
-const { checkFollow, getFollow } = require("./utils/follows-helpers");
+const {
+  checkFollow,
+  getFollow,
+  getFollowData,
+} = require("./utils/follows-helpers");
 
 const router = express.Router();
 
@@ -136,10 +140,13 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
-    const isCurrentUser = userId === currentUserId;
-    const { followers } = profileUser;
-    const numberOfFollowers = followers.length || 0;
-    const [isFollowing, followId] = getFollow(followers, currentUserId);
+    const { isCurrentUser, numberOfFollowers, isFollowing, followId : profileFollowId } =
+      getFollowData(profileUser, currentUserId);
+    console.log(isFollowing, profileFollowId);
+    // const isCurrentUser = userId === currentUserId;
+    // const { followers } = profileUser;
+    // const numberOfFollowers = followers.length || 0;
+    // const [isFollowing, followId] = getFollow(followers, currentUserId);
 
     res.render("user-page", {
       title: "User",
@@ -147,9 +154,9 @@ router.get(
       profileUser,
       currentUserId,
       isCurrentUser,
-      isFollowing,
-      followId,
       numberOfFollowers,
+      isFollowing,
+      profileFollowId,
     });
   })
 );
@@ -187,6 +194,7 @@ router.get(
       isFollowing,
       followId,
       numberOfFollowers,
+      currentUserId,
     });
   })
 );
@@ -292,12 +300,14 @@ router.get(
       : parseInt(req.session.auth.userId, 10);
 
     let isFollowing = false;
+    let profileFollowId = 0;
     const followers = profileUser.followers.map((follower) => {
       const { id, username, firstName, lastName, biography, profilePicture } =
         follower;
 
       if (follower.id === currentUserId) {
         isFollowing = true;
+        profileFollowId = follower.Follow.id;
       }
 
       const [isMutual, followId] = getFollow(follower.followers, currentUserId);
@@ -323,6 +333,7 @@ router.get(
       numberOfFollowers: followers.length || 0,
       isCurrentUser,
       isFollowing,
+      profileFollowId,
       count: followers.length || 0,
     });
   })
@@ -340,6 +351,10 @@ router.get(
           as: "followings",
           include: [{ model: User, as: "followers" }],
         },
+        {
+          model: User,
+          as: "followers",
+        },
       ],
       order: [["id", "DESC"]],
     });
@@ -348,8 +363,12 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
+    const [isFollowing, profileFollowId] = getFollow(
+      profileUser.followers,
+      currentUserId
+    );
+
     const isCurrentUser = currentUserId === profileUser.id;
-    const isFollowing = await checkFollow(profileUser.id, currentUserId);
 
     // find mutual relationship here, where current user also follows
     const followings = profileUser.followings.map((following) => {
@@ -380,6 +399,7 @@ router.get(
       currentUserId,
       isCurrentUser,
       isFollowing,
+      profileFollowId,
     });
   })
 );

@@ -1,11 +1,11 @@
-mixin userpageHeader(username, userId, isCurrentUser, isFollowing, currentUserId, followId, numberOfFollowers)
+mixin userpageHeader(profileUsername, profileId, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   .userpage-header
-    a.user-title(href=`/users/${userId}`)= `${username}`
-    a.userpage-header-link(href=`/users/${userId}/about`)= "About"
-    a.userpage-header-link(href=`/users/${userId}/followers` alt='followers')= `${numberOfFollowers} Followers`
-    a.userpage-header-link(href= `/users/${userId}/following` alt='following')= "Following"
+    a.user-title(href=`/users/${profileId}`)= `${profileUsername}`
+    a.userpage-header-link(href=`/users/${profileId}/about`)= "About"
+    a.userpage-header-link(href=`/users/${profileId}/followers` alt='followers')= `${numberOfFollowers} Followers`
+    a.userpage-header-link(href= `/users/${profileId}/following` alt='following')= "Following"
     if !isCurrentUser
       if isFollowing
-        +followButton(userId, currentUserId, "Following", followId)
+        +followButton(profileId, currentUserId, "Following", profileFollowId, "unfollow-button")
       else
-        +followButton(userId, currentUserId, "Follow", followId)
+        +followButton(profileId, currentUserId, "Follow", profileFollowId, "follow-button")

@@ -13,7 +13,7 @@ append head
 
 //- TODO: replace header with user-profile header
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId, count)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, count)
   .root
     .followers-title-container
       h2.follow-count #{count} Follower(s)

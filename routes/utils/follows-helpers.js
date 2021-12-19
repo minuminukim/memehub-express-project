@@ -21,4 +21,20 @@ const getFollow = (followers, currentUserId) => {
   return [isFollowing, followId];
 };
 
-module.exports = { checkFollow, getFollow };
+const getFollowData = (user, currentUserId) => {
+  const isCurrentUser = user.id === currentUserId;
+  const { followers } = user;
+  // console.log(JSON.stringify(followers, null, 2));
+  const numberOfFollowers = followers.length || 0;
+  const [isFollowing, followId] = getFollow(followers, currentUserId);
+  console.log(isFollowing, followId);
+
+  return {
+    isCurrentUser,
+    numberOfFollowers,
+    isFollowing,
+    followId,
+  };
+};
+
+module.exports = { checkFollow, getFollow, getFollowData };
