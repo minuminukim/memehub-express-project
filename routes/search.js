@@ -3,6 +3,8 @@ const { validationResult } = require("express-validator");
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
 const db = require("../db/models");
 const { csrfProtection, asyncHandler } = require("../utils");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const router = express.Router();
 
@@ -18,9 +20,14 @@ router.post('/', asyncHandler(async (req, res) =>{
 
 
     const findMeme = await Meme.findAll({
-        where: {
-            headline: `${search}`
-        }
+        [Op.or]: [{
+            headline: {
+                [Op.like]: `%${search}%`
+            },
+            caption: {
+                [Op.like]: `%${search}%`
+            }
+        }]
     })
     console.log(search === 'hello world')
     console.log(findMeme)
