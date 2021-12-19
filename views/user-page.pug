@@ -7,6 +7,7 @@ append head
   link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
   script(src="/javascripts/index.js" type="module" defer)
   script(src="/javascripts/user-page-comment.js" type="module" defer)
+  script(src="/javascripts/likes.js" type='module' defer)
 
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId)
@@ -34,8 +35,12 @@ block content
           h2.user-page= `${meme.dataValues.caption}`
           a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
           div.likes-and-comments
-            a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
-            input(type="textarea" name="content" id=`${meme.id}` class="content" placeholder="Write a comment.")
+            div.likes
+              a(id='likeCount' href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+              button(id=`like-${meme.id}` class='likeButton') Like
+            div
+            //- a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+            //- input(type="textarea" name="content" id=`${meme.id}` class="content" placeholder="Write a comment.")
             button(id=`${meme.id}` class="add-button") Add Comment
             div Comments:
             ul.comment-box(id=`like-${meme.id}`)
