@@ -20,16 +20,18 @@ router.post('/', asyncHandler(async (req, res) =>{
 
 
     const findMeme = await Meme.findAll({
-        [Op.or]: [{
+        where: {
+            [Op.or]: {
             headline: {
                 [Op.like]: `%${search}%`
             },
             caption: {
                 [Op.like]: `%${search}%`
             }
-        }]
+        }
+    }
     })
-    console.log(search === 'hello world')
+
     console.log(findMeme)
     res.render('search-page', {
         title: "Search",
