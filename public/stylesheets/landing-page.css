@@ -10,13 +10,11 @@
 .nav-left {
   justify-content: flex-start;
   align-self: center;
-  margin-left: 50px;
   font-weight: bolder;
 }
 .nav-right{
   display: inline-flex;
   align-items: center;
-  margin-right: 50px;
 }
 
 div.right-padding{
@@ -37,7 +35,7 @@ div.right-padding{
 .landing-nav {
   grid-column: 1 / 13;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   position: fixed;
   height: 75px;
   top: 0;
