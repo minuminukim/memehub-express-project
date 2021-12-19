@@ -393,8 +393,8 @@ router.delete(
   "/:id(\\d+)/following",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const { userId, followerId } = req.body;
-    const follow = await Follow.findOne({ where: { userId, followerId } });
+    const { userId, followerId, followId } = req.body;
+    const follow = await Follow.findByPk(parseInt(followId, 10));
     if (follow) {
       await follow.destroy();
       res
