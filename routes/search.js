@@ -36,6 +36,7 @@ router.post('/', asyncHandler(async (req, res) =>{
     res.render('search-page', {
         title: "Search",
         findMeme,
+        search
     })
 }));
 

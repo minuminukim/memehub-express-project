@@ -17,3 +17,13 @@ block content
           button.submit-meme-button(type='submit') Search
           div.spacing-more
           a.small-font(href='/') Click Here To Cancel
+  if search
+   div.search-meme-feed
+     ul
+       each meme in findMeme
+         a.user-page(href=`/memes/${meme.id}`)= `${meme.dataValues.headline}`
+         h2.user-page= `${meme.dataValues.caption}`
+         a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
+         p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
+           hr.bottom
+         div.end-of-post
