@@ -20,4 +20,13 @@ nav.header-nav {
 .nav-search{
   margin-right: 25px;
   align-self: center;
+  text-decoration: none;
+}
+
+.nav-search:hover{
+  font-weight: 700;
+  margin-right: 25px;
+  align-self: center;
+  text-decoration: none;
+  cursor: pointer;
 }
