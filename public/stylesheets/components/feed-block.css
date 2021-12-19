@@ -32,7 +32,14 @@
 .meme-date {
   font-size: 13px;
   color: #757575;
+  justify-items: flex-start;
 }
+
+div.date-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .meme-image {
   width: 100%;
   height: auto;

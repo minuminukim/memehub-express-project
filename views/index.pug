@@ -31,6 +31,8 @@ block content
         div.stick-container
           .recommended-title-container
             h3.recommended-title Who to follow
+            div.dev-spacing
           .recommended-blocks-container
             each dev in developers
-              +recommended(dev, currentUserId)
+              div.dev-spacing
+                +recommended(dev, currentUserId)
