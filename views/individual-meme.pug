@@ -8,6 +8,7 @@ append head
   link(rel="stylesheet" href="/stylesheets/components/comment-section.css")
   script(src="/javascripts/index.js" type="module" defer)
   script(src="/javascripts/comment.js" type="module" defer)
+  script(src="/javascripts/likes.js" type='module' defer)
 
 block content
   +userpageHeader(meme.User.username, meme.userId, isCurrentUser, isFollowing, currentUserId)
@@ -38,8 +39,6 @@ block content
       div.likes
         a(id='likeCount' href=`/` role='button')= `Likes: ${likes}`
         button(id=`like-${meme.id}` class='likeButton') Like
-        <i class="fas fa-thumbs-up"></i>
-        <i class="far fa-thumbs-up"></i>
       div
       input(type="textarea" name="content" id="content" class="content" placeholder="Write a comment.")
       button(id=`${meme.id}` class="add-button") Add Comment
