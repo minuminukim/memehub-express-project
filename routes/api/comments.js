@@ -46,12 +46,17 @@ router.post("/delete", asyncHandler(async (req, res) => {
 
 
 router.post("/edit", asyncHandler(async (req, res) => {
-    console.log("here")
-  // try{
-    const commentId = parseInt(req.body.commentId, 10);
-    const comment = await db.Comment.findByPk(commentId);
 
-    res.json({comment });
+  // try{
+
+    const memeId = parseInt(req.body.memeId, 10);
+    const comments = await db.Comment.findAll({
+      where: {
+        memeId: memeId,
+      }
+    });
+
+    res.json({comments });
 
   // }
   // catch(e){

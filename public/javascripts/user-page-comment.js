@@ -33,7 +33,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
                 li.setAttribute("class", "content")
 
-                console.log("hello", newComment.body)
                 let innerLi = `${newComment.User.username} : ${newComment.body}`
                 console.log("innerLi", innerLi)
 
@@ -146,42 +145,99 @@ window.addEventListener("DOMContentLoaded", () => {
             if (e.target.innerHTML === "Edit") {
 
                 const commentId = e.target.id;
+                console.log("commentId", commentId)
+                const memeId = e.target.name;
+                const body = { commentId, memeId }
+
                 e.target.innerHTML = "Save";
-                let parent = e.target.parent
-                console.log("parent", parent)
-                let editableLi = document.getElementById(`like-${commentId}`)
-                console.log("editableLi", editableLi)
-                let input = document.createElement("input")
-                input.setAttribute("type", "textarea")
-                input.setAttribute("id", `${commentId}`)
-                let previousContent = e.target.parentNode.innerHTML;
-                let regex = /\w+.\s\w+/
-                let regexPlaceholder = previousContent.match(regex)
-                let placeholder = regexPlaceholder[0];
-                input.setAttribute("placeholder", placeholder)
-                editableLi.innerHTMl = input;
-                console.log("editableLI",editableLi)
-                // let li = document.querySelector()
+                console.log("step 1")
+                try {
+                    const res = await fetch("/api/comments/edit", {
+
+                        method: "POST",
+                        body: JSON.stringify({ ...body }),
+                        headers: {
+                            "Content-type": "application/json"
+                        },
+                    });
+                    if (!res.ok) {
+                        throw res;
+                    }
+
+                    let data = await res.json();
+                    console.log("data", data)
+
+                    let input = document.createElement("input");
+                    input.setAttribute("type", "textarea")
+                    input.setAttribute("id", `${commentId}`)
+                    let previousContent = e.target.parentNode.innerHTML;
+                    let regex = /\s\w+/
+                    let regexPlaceholder = previousContent.match(regex)
+                    let placeholder = regexPlaceholder[0];
+                    input.setAttribute("placeholder", placeholder)
+
+                    let grabUl = document.querySelector(`#like-${memeId}`)
+                    console.log("this is grabUl", grabUl)
+
+                    let ulChildren = Array.from(grabUl.children).slice();
+                    console.log("ulChildren", ulChildren)
+                    let liThatWillBeEdited = document.getElementById(`like-${commentId}`)
+                    console.log("testingLi", liThatWillBeEdited)
+                    liThatWillBeEdited.innerHTML = "";
+                    liThatWillBeEdited.appendChild(input);
 
 
-                // let commentId = e.target.name;
+                    let saveButton = document.createElement("button");
+                    // addSaveButtonListener(saveButton);
+                    saveButton.setAttribute("id", `${commentId}`);
+                    console.log("checkpoint")
+                    saveButton.setAttribute("class", "save-button");
+                    saveButton.innerHTML = "Save";
 
-
-                //to create input element and get its placeholder
-
-                console.log("input", input)
-
-
-                console.log("hey im back")
-                let data = await res.json();
-                console.log("data", data)
-                let newComment = data.comment;
-                console.log("new comment", newComment);
-                let li = document.createElement("li")
+                    liThatWillBeEdited.appendChild(saveButton);
 
 
 
-                let grabComment = document.getElementById(`${commentId}`)
+
+
+
+                    // e.target.parentNode.remove();
+
+
+
+
+                    // let saveButton = document.createElement("button");
+                    // addSaveButtonListener(saveButton);
+
+
+
+                } catch (err) {
+
+                }
+                // let editableLi = document.getElementById(`like-${commentId}`)
+                // console.log("editableLi", editableLi)
+                // let input = document.createElement("input")
+                // input.setAttribute("type", "textarea")
+                // input.setAttribute("id", `${commentId}`)
+                // let previousContent = e.target.parentNode.innerHTML;
+                // let regex = /\w+.\s\w+/
+                // let regexPlaceholder = previousContent.match(regex)
+                // let placeholder = regexPlaceholder[0];
+                // input.setAttribute("placeholder", placeholder)
+                // editableLi.innerHTMl = input;
+                // console.log("editableLI",editableLi)
+
+
+                // console.log("hey im back")
+                // let data = await res.json();
+                // console.log("data", data)
+                // let newComment = data.comment;
+                // console.log("new comment", newComment);
+                // let li = document.createElement("li")
+
+
+
+                // let grabComment = document.getElementById(`${commentId}`)
                 // let parent = grabComment.parent;
                 // console.log("parent", parent)
 
@@ -191,14 +247,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
                 //to create li
 
-                let innerLi = `${comment.dataValues.User.username} : ${comment.dataValues.body}`
+                // let innerLi = `${comment.dataValues.User.username} : ${comment.dataValues.body}`
 
-                console.log("input", innerLi)
+                // console.log("input", innerLi)
 
                 // let innerLi = "hello"
-                li.innerHTML = innerLi;
-                let deleteButton = document.createElement("button");
-                addDeleteButtonListener(deleteButton);
+                // li.innerHTML = innerLi;
+                // let deleteButton = document.createElement("button");
+                // addDeleteButtonListener(deleteButton);
                 // let editButton = document.createElement("button");
 
 
@@ -209,7 +265,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
             } else if (e.target.innerHTML === "Save") {
-                console.log("here")
                 e.target.innerHTML = "Edit";
 
 

@@ -43,7 +43,7 @@ block content
                 li.content(id=`like-${comment.id}`)= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
                   if comment.userId === locals.user.id
                     button(id=`${comment.id}` class="delete-button") Delete
-                    button(id=`${comment.id}` class="edit-button" name=`${comment.id}`) Edit
+                    button(id=`${comment.id}` class="edit-button" name=`${meme.id}`) Edit
           p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
             hr.bottom
           div.end-of-post
