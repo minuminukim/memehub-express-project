@@ -45,3 +45,10 @@ save it to new val
 */
 
 // button(id=`like-${meme.id}` class='likeButton') Like
+
+{
+  /* <i id='icon1' class="fas fa-thumbs-up"></i> 
+<i id='icon2' class="far fa-thumbs-up"></i> *
+let likeIcon = document.querySelector("#icon1");
+let unlikeIcon = document.querySelector("#icon2"); */
+}
