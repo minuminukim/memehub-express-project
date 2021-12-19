@@ -310,7 +310,6 @@ router.get(
       };
     });
 
-    console.log(followers);
     const numberOfFollowers = followers.length;
     res.render("followers", {
       followers,
