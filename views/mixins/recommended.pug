@@ -3,10 +3,12 @@ include follows.pug
 mixin recommended(dev, followerId)
   .recommended-block
     .rec-left
-      a(href=`/users/${dev.id}`): img.user-photo(src=dev.profilePicture)
+      a(href=`/users/${dev.id}`): img.dropdown-img-button(src=dev.profilePicture)
     .rec-mid
       a(class="recommended-username" href=`/users/${dev.id}`) #{dev.username}
-      p.recommended-bio #{dev.biography}
+      div.recommended-bio
+        div.recommended-bio-p
+          p.recommended-bio-p #{dev.biography}
     .rec-right
       if dev.isFollowing
         +followButton(dev.id, followerId, "Following", dev.followId, "unfollow-button")
