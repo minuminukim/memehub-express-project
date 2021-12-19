@@ -1,4 +1,4 @@
-mixin userpageHeader(username, userId, isCurrentUser, isFollowing, currentUserId)
+mixin userpageHeader(username, userId, isCurrentUser, isFollowing, currentUserId, followId)
   .userpage-header
     a.user-title(href=`/users/${userId}`)= `${username}`
     a.userpage-header-link(href=`/users/${userId}/about`)= "About"
@@ -6,6 +6,6 @@ mixin userpageHeader(username, userId, isCurrentUser, isFollowing, currentUserId
     a.userpage-header-link(href= `/users/${userId}/following` alt='following')= "Following"
     if !isCurrentUser
       if isFollowing
-        +followButton(userId, currentUserId, "Following")
+        +followButton(userId, currentUserId, "Following", followId)
       else
-        +followButton(userId, currentUserId, "Follow")
+        +followButton(userId, currentUserId, "Follow", followId)

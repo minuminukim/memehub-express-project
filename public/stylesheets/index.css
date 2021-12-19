@@ -33,6 +33,32 @@ button {
   }
 }
 
+.likeButton {
+  padding: 2px 4px;
+  background-color: #0080ff;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  border-radius: 8px;
+  color: white;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  /* position: absolute; */
+  /* right: 57.3%; */
+  /* top: 61% */
+
+}
+
+.likeButton:active {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+.likeCount {
+  font-family: "Open Sans", sans-serif;
+  /* right: 58%; */
+  top: 64%
+}
 
 /* nav {
   display:flex;

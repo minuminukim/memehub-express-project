@@ -32,9 +32,38 @@
 .meme-date {
   font-size: 13px;
   color: #757575;
+  justify-items: flex-start;
 }
+
+div.date-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+div.title-left {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+div.caption-left {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
 .meme-image {
   width: 100%;
   height: auto;
   overflow: hidden;
+}
+
+.meme-block-user-logo {
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  background-color: none;
+  margin-right: 5px;
 }

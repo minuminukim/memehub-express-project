@@ -3,6 +3,7 @@ include ./mixins/memes.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/landing-page.css")
+
 block content
   .landing-root
     header.landing-header
@@ -14,14 +15,16 @@ block content
               a.nav-link(href="/users/sign-in") Sign In
               a.nav-link(href="/users/sign-in") Try Demo
               button(onclick="location.href='/users/new'") Get Started
-              //- TODO: render demo sign in
+              //- TODO: render demo sign-in
+
         .dropdown
           if locals.authenticated
             include dropdown.pug
       .landing-header-main
         h2 Memehub is a place to post, laugh, and connect
         p It's easy and free to post your thinking on any topic and connect with millions of readers.
-        button(onclick="location.href='/users/new'" type=button) Start Posting
+        //- button(onclick="location.href='/users/new'" type=button) Start Posting
+        button.modal-button Start Posting
     .trending-memes-container
       .trending-title
         h2 TRENDING ON MEMEHUB

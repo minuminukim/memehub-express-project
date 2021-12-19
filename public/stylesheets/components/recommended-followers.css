@@ -5,16 +5,51 @@
 .recommended-follows-container {
   display: flex;
   flex-direction: column;
+
 }
 
 .recommended-blocks-container {
   display: flex;
   flex-direction: column;
+
 }
 
+div.stick-container{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 100;
+  margin-right: 100px;
+  margin-top: 25px;
+}
 .recommended-block {
   display: flex;
   justify-content: space-between;
+}
+
+.rec-mid {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 10px;
+  align-content: flex-start;
+  align-self: flex-start;
+  flex-wrap: wrap;
+
+}
+
+p.recommended-bio-p {
+  width: 250px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}
+
+div.recommended-bio {
+  margin-top: 10px;
 }
 
 .recommended-username {
