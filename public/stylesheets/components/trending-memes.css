@@ -3,6 +3,9 @@ a.trending-title-headline{
     font-weight: bolder;
     margin-top: 5px;
     margin-bottom: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .trending-memes > div > h2{
@@ -13,7 +16,22 @@ a.trending-title-headline{
     font-weight: bold;
 }
 
+.trending-titles{
+    display: inline-flex;
+    background-color: none;
+    justify-self: center;
+}
+
+.trending-img-title{
+    height: 25px;
+    width: 25px;
+    background-color: none;
+    border-radius: 50%;
+
+}
+
 div.trending-meme{
+    box-sizing: border-box;
     display:flex;
     flex-wrap:wrap;
     padding-right: 30px;
@@ -65,6 +83,7 @@ h2.trending-title{
     justify-content: flex-start;
     font-weight: bold;
     margin-left: 60px;
+    align-self: center;
 }
 
 div.trending-memes{

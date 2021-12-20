@@ -38,10 +38,12 @@ block content
           h2.user-page= `${meme.dataValues.caption}`
           a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
           div.likes-and-comments
-            div.likes
-              a(id=`likeCount-${meme.id}` role='button')= `❤ : ${meme.dataValues.Likes.length}`
+          div.likes
+            div.likes-and-comments
+              p(id=`likeCount-${meme.id}` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+            div.likes-and-comments
               button(id=`like-${meme.id}` class='likeButton') Like
-
+            div.likes-and-comments
             //- a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
             input(type="textarea" name="content" id=`${meme.id}` class="content" placeholder="Write a comment.")
             button(id=`${meme.id}` class="add-button") Add Comment

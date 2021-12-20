@@ -15,15 +15,15 @@ const {
 
 const router = express.Router();
 
-const commentNotFoundError = (commentId) => {
-  const error = new Error({
-    title: "Comment not found.",
-    message: `Comment with the id of ${commentId} could not be found.`,
-    status: 404,
-  });
+// const commentNotFoundError = (commentId) => {
+//   const error = new Error({
+//     title: "Comment not found.",
+//     message: `Comment with the id of ${commentId} could not be found.`,
+//     status: 404,
+//   });
 
-  return error;
-};
+//   return error;
+// };
 
 router.post(
   "/",
@@ -33,12 +33,9 @@ router.post(
       userId: req.session.auth.userId,
       memeId: req.body.memeId,
     });
-<<<<<<< HEAD
 
-    comment = await db.Comment.findByPk(comment.id, {
-      include: db.User,
-    });
-=======
+
+
 
     comment = await db.Comment.findByPk(comment.id, {
       include: db.User,
@@ -81,7 +78,7 @@ router.put("/edit", asyncHandler(async (req, res) => {
 
 
 
->>>>>>> a208e06bbb2663695453ce785d3107fb9c99289a
+
 
     res.json({ comment });
   })
@@ -103,37 +100,6 @@ router.post(
   })
 );
 
-<<<<<<< HEAD
-// router.put("/edit", asyncHandler(async (req, res) => {
-
-// }));
-
-  // try{
-
-    // const memeId = parseInt(req.body.memeId, 10);
-    //const comments = await db.Comment.findAll({
-    //  where: {
-    //    memeId: memeId,
-    //  }
-    //});
-
-    //res.json({comments });
-
-
-
-
-// }));
-
-
-router.put(
-  "/:id(//d+)",
-  // requireAuth,
-  // commentValidators,
-  // handleValidationErrors,
-  asyncHandler(async (req, res, next) => {
-    console.log("inside")
-    const commentId = parseInt(req.body.commentId, 10);
-=======
 
 router.put(
   "/:id(\\d+)",
@@ -142,7 +108,6 @@ router.put(
   handleValidationErrors,
   asyncHandler(async (req, res, next) => {
     const commentId = parseInt(req.params.id, 10);
->>>>>>> a208e06bbb2663695453ce785d3107fb9c99289a
     const comment = await Comment.findOne({ where: { id: commentId } });
 
     if (comment.userId !== req.session.auth.userId) {
@@ -156,12 +121,7 @@ router.put(
     }
 
     if (comment) {
-<<<<<<< HEAD
-      console.log("inside")
-      await comment.update({ body: req.body.contentValue });
-=======
       await comment.update({ body: req.body.body });
->>>>>>> a208e06bbb2663695453ce785d3107fb9c99289a
       res.json({ comment });
     } else {
       next(commentNotFoundError(commentId));
