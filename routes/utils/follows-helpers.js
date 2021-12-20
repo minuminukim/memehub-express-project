@@ -21,13 +21,12 @@ const getFollow = (followers, currentUserId) => {
   return [isFollowing, followId];
 };
 
+// Helper that gets relevant data for follow button
 const getFollowData = (user, currentUserId) => {
-  const isCurrentUser = user.id === currentUserId;
   const { followers } = user;
-  // console.log(JSON.stringify(followers, null, 2));
+  const isCurrentUser = user.id === currentUserId;
   const numberOfFollowers = followers.length || 0;
   const [isFollowing, followId] = getFollow(followers, currentUserId);
-  console.log(isFollowing, followId);
 
   return {
     isCurrentUser,

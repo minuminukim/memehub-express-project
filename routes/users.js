@@ -140,9 +140,13 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
-    const { isCurrentUser, numberOfFollowers, isFollowing, followId : profileFollowId } =
-      getFollowData(profileUser, currentUserId);
-    console.log(isFollowing, profileFollowId);
+    const {
+      isCurrentUser,
+      numberOfFollowers,
+      isFollowing,
+      followId: profileFollowId,
+    } = getFollowData(profileUser, currentUserId);
+
     // const isCurrentUser = userId === currentUserId;
     // const { followers } = profileUser;
     // const numberOfFollowers = followers.length || 0;
@@ -170,31 +174,26 @@ router.get(
       include: { model: User, as: "followers" },
     });
 
-    const followNum = await Follow.findAll({
-      where: {
-        userId: profileUser.id,
-      },
-    });
-
-    let numberOfFollowers = followNum.length;
-
     // Follow logic
     const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
 
-    const { followers } = profileUser.dataValues;
-    const [isFollowing, followId] = getFollow(followers, currentUserId);
-    const isCurrentUser = userId === currentUserId;
+    const {
+      isCurrentUser,
+      numberOfFollowers,
+      isFollowing,
+      followId: profileFollowId,
+    } = getFollowData(profileUser, currentUserId);
 
     res.render("about-page", {
       title: "User",
       profileUser,
       isCurrentUser,
       isFollowing,
-      followId,
       numberOfFollowers,
       currentUserId,
+      profileFollowId,
     });
   })
 );
@@ -216,16 +215,19 @@ router.get(
       ? null
       : parseInt(req.session.auth.userId, 10);
 
-    const { followers } = profileUser.dataValues;
-    const [isFollowing, followId] = getFollow(followers, currentUserId);
-    const isCurrentUser = userId === currentUserId;
-    const numberOfFollowers = followers.length;
+    const {
+      isCurrentUser,
+      numberOfFollowers,
+      isFollowing,
+      followId: profileFollowId,
+    } = getFollowData(profileUser, currentUserId);
+
     res.render("about-page-edit", {
       title: "User",
       profileUser,
       isCurrentUser,
       isFollowing,
-      followId,
+      profileFollowId,
       numberOfFollowers,
       csrfToken: req.csrfToken(),
     });
