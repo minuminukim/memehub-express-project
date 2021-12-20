@@ -45,10 +45,10 @@ export const follow = async (e) => {
       button.classList.contains("side-button")
     ) {
       handleSideAndHeaderFollows(button, newFollow.id);
-      updateCount("follow", userId);
+      updateCount("follow", userId, followerId);
     } else {
       resetButton(button, newFollow.id);
-      updateCount("follow", userId);
+      updateCount("follow", userId, followerId);
     }
 
     return newFollow;
@@ -85,10 +85,10 @@ export const unfollow = async (e) => {
       button.classList.contains("side-button")
     ) {
       handleSideAndHeaderFollows(button, "0");
-      updateCount("unfollow", userId);
+      updateCount("unfollow", userId, followerId);
     } else {
       resetButton(button, "0");
-      updateCount("unfollow", userId);
+      updateCount("unfollow", userId, followerId);
     }
 
     const { message } = await response.json();
@@ -116,11 +116,15 @@ export const resetButton = (button, followId) => {
   }
 };
 
-const updateCount = (action, userId) => {
+const updateCount = (action, userId, followerId) => {
   const followCounts = document.querySelectorAll(".follow-count");
   const path = window.location.href.toString().trim().split("/");
 
-  if (!followCounts.length || !path.includes(userId.toString())) {
+  if (
+    !followCounts.length ||
+    (path.includes("following") && !path.includes(followerId.toString())) ||
+    (path.includes("followers") && userId === followerId)
+  ) {
     return;
   }
 

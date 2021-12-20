@@ -28,8 +28,6 @@
   border-top: 1px solid #e6e6e6;
 }
 
-
-
 .follow-block:last-child {
   border-bottom: 1px solid #e6e6e6;
 }
@@ -95,7 +93,8 @@
   border-radius: 50%;
 }
 
-h2.follow-count {
+h2.followers-count,
+h2.following-count {
   text-align: left;
   font-size: 30px;
   font-weight: 500;
