@@ -10,7 +10,7 @@ append head
   script(src="/javascripts/comment.js" type="module" defer)
 
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   if isCurrentUser
     hr.user-page
     div.about-page-edit-form
