@@ -1,53 +1,90 @@
 const express = require("express");
 
 const db = require("../../db/models");
-const { csrfProtection, asyncHandler } = require("../../utils");
+const {
+  csrfProtection,
+  asyncHandler,
+  handleValidationErrors,
+} = require("../../utils");
+
 const { requireAuth } = require("../../auth");
+const commentValidators = require("../../validators/comment-validators");
 
 const router = express.Router();
 
+const commentNotFoundError = (commentId) => {
+  const error = new Error({
+    title: "Comment not found.",
+    message: `Comment with the id of ${commentId} could not be found.`,
+    status: 404,
+  });
 
-router.post("/", asyncHandler(async (req, res) => {
+  return error;
+};
 
-  let comment = await db.Comment.create({
+router.post(
+  "/",
+  asyncHandler(async (req, res) => {
+    let comment = await db.Comment.create({
       body: req.body.contentValue,
       userId: req.session.auth.userId,
       memeId: req.body.memeId,
+    });
+
+    comment = await db.Comment.findByPk(comment.id, {
+      include: db.User,
+    });
+
+    res.json({ comment });
   })
+);
 
-  comment = await db.Comment.findByPk(comment.id,{
-    include: db.User
+router.post(
+  "/delete",
+  asyncHandler(async (req, res) => {
+    try {
+      const commentId = parseInt(req.body.commentId, 10);
+      console.log("commentIds", commentId);
+      const comment = await db.Comment.findByPk(commentId);
+      console.log("commentz", comment);
+      await comment.destroy();
+      res.json({ message: "Your comment was deleted successfully!" });
+    } catch (e) {
+      console.log(e);
+    }
   })
-
-    res.json({comment })
-
-
-}));
-
-
-
-router.post("/delete", asyncHandler(async (req, res) => {
-
-  try{
-
-    const commentId = parseInt(req.body.commentId, 10);
-    console.log("commentIds", commentId)
-    const comment = await db.Comment.findByPk(commentId);
-    console.log("commentz",comment);
-    await comment.destroy();
-    res.json({message: "Your comment was deleted successfully!"})
-
-  }
-  catch(e){
-    console.log(e);
-  }
-
-}));
-
+);
 
 // router.post("/api/comments/:id(\\d+)/edit", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
 
-
 // }));
+
+router.put(
+  "/:id(\\d+)",
+  requireAuth,
+  commentValidators,
+  handleValidationErrors,
+  asyncHandler(async (req, res, next) => {
+    const commentId = parseInt(req.params.id, 10);
+    const comment = await Comment.findOne({ where: { id: commentId } });
+
+    if (comment.userId !== req.session.auth.userId) {
+      const error = new Error({
+        title: "Unauthorized",
+        message: "You are not authorized to edit this comment.",
+        status: 401,
+      });
+
+      throw error;
+    }
+
+    if (comment) {
+      await comment.update({ body: req.body.body });
+      res.json({ comment });
+    } else {
+      next(commentNotFoundError(commentId));
+    }
+  })
+);
 
 module.exports = router;
