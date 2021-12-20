@@ -6,7 +6,10 @@ include ./mixins/userpage-header.pug
 append head
   link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
   script(src="/javascripts/user-page-comment.js" type="module" defer)
+
   //- script(src="/javascripts/user-page.js" type="module")
+  script(src="/javascripts/likes.js" type='module' defer)
+
 
 
 block content
@@ -35,16 +38,20 @@ block content
           h2.user-page= `${meme.dataValues.caption}`
           a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
           div.likes-and-comments
-            a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+            div.likes
+              a(id='likeCount' href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+              button(id=`like-${meme.id}` class='likeButton') Like
+
+            //- a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
             input(type="textarea" name="content" id=`${meme.id}` class="content" placeholder="Write a comment.")
             button(id=`${meme.id}` class="add-button") Add Comment
             div Comments:
-            ul.comment-box(id=`like-${meme.id}`)
+            ul.comment-box(id=`comment-${meme.id}`)
               each comment in meme.dataValues.Comments
-                li.content= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
+                li.content(id=`comment-${comment.id}`)= `${comment.dataValues.User.dataValues.username}: ${comment.dataValues.body}`
                   if comment.userId === locals.user.id
                     button(id=`${comment.id}` class="delete-button") Delete
-                    button(id=`${comment.id}` class="edit-button") Edit
+                    button(id=`${comment.id}` class="edit-button" name=`${meme.id}`) Edit
           p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
             hr.bottom
           div.end-of-post
