@@ -141,11 +141,15 @@ const handleSideAndHeaderFollows = (button, followId) => {
 
   if (classList.contains("header-button")) {
     const side = document.querySelector(".side-button");
+    if (side) {
+      resetButton(side, followId);
+    }
     resetButton(button, followId);
-    resetButton(side, followId);
   } else {
     const header = document.querySelector(".header-button");
+    if (header) {
+      resetButton(header, followId);
+    }
     resetButton(button, followId);
-    resetButton(header, followId);
   }
 };
