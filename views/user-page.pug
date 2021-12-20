@@ -8,7 +8,7 @@ append head
   script(src="/javascripts/user-page-comment.js" type="module" defer)
 
   //- script(src="/javascripts/user-page.js" type="module")
-  script(src="/javascripts/likes.js" type='module' defer)
+  //- script(src="/javascripts/likes.js" type='module' defer)
 
 
 
@@ -26,9 +26,9 @@ block content
               p= `${profileUser.biography}`
             div
               if isFollowing
-                +followButton(profileUser.id, currentUserId, "Following", profileFollowId, "unfollow-button")
+                +followButton(profileUser.id, currentUserId, "Following", profileFollowId, "unfollow-button", "side")
               else
-                +followButton(profileUser.id, currentUserId, "Follow", profileFollowId, "follow-button")
+                +followButton(profileUser.id, currentUserId, "Follow", profileFollowId, "follow-button", "side")
         div.users-followers-details
           a.userpage-header-link(href=`/users/${profileUser.id}/followers` alt='followers')= `${profileUser.username}'s Followers`
     div.user-feed

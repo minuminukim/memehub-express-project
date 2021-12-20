@@ -24,9 +24,9 @@ block content
               p= `${meme.User.biography}`
             div
               if isFollowing
-                +followButton(meme.userId, currentUserId, "Following", profileFollowId, "unfollow-button")
+                +followButton(meme.userId, currentUserId, "Following", profileFollowId, "unfollow-button", "side")
               else
-                +followButton(meme.userId, currentUserId, "Follow", profileFollowId, "follow-button")
+                +followButton(meme.userId, currentUserId, "Follow", profileFollowId, "follow-button", "side")
         div.users-followers-details
           a.userpage-header-link(href=`/users/${meme.userId}/followers` alt='followers')= `${meme.User.username}'s Followers`
   div.user-feed

@@ -1,4 +1,4 @@
-export const addFollowButtonEvents = () => {
+export const addFollowButtonListeners = () => {
   const followButtons = [...document.querySelectorAll(".follow-button")];
   const unfollowButtons = [...document.querySelectorAll(".unfollow-button")];
 
@@ -39,16 +39,16 @@ export const follow = async (e) => {
 
     const { newFollow } = await response.json();
 
-    resetButton(button, newFollow.id);
-    updateCount("follow", userId);
-    // const path = window.location.href.toString().trim().split("/");
-    // const shouldUpdate = path.includes(userId.toString());
-
-    // if (shouldUpdate) {
-    //   const followCount = document.querySelector(".follow-count");
-    //   const [count, text] = followCount.innerText.trim().split(" ");
-    //   followCount.innerText = `${parseInt(count) + 1} ${text}`;
-    // }
+    // if on /memes/:id or /users/:id
+    if (
+      button.classList.contains("header") ||
+      button.classList.contains("side")
+    ) {
+      handleSideAndHeaderFollows(button, newFollow.id);
+    } else {
+      resetButton(button, newFollow.id);
+      updateCount("follow", userId);
+    }
 
     return newFollow;
   } catch (error) {
@@ -79,18 +79,16 @@ export const unfollow = async (e) => {
       throw response;
     }
 
-    resetButton(button, "0");
-    // const shouldUpdate = document.querySelectorAll(".follow-count").length > 0;
-    // if (shouldUpdate) updatePage("unfollow");
-    updateCount("unfollow", userId);
-    // const path = window.location.href.toString().trim().split("/");
-    // const shouldUpdate = path.includes(userId.toString());
+    if (
+      button.classList.contains("header") ||
+      button.classList.contains("side")
+    ) {
+      handleSideAndHeaderFollows(button, "0");
+    } else {
+      resetButton(button, "0");
+      updateCount("follow", userId);
+    }
 
-    // if (shouldUpdate) {
-    //   const followCount = document.querySelector(".follow-count");
-    //   const [count, text] = followCount.innerText.trim().split(" ");
-    //   followCount.innerText = `${parseInt(count) - 1} ${text}`;
-    // }
     const { message } = await response.json();
     return Promise.resolve(message);
   } catch (error) {
@@ -134,4 +132,18 @@ const updateCount = (action, userId) => {
       el.innerText = `${int - 1} ${text}`;
     }
   });
+};
+
+const handleSideAndHeaderFollows = (button, followId) => {
+  const classList = button.classList;
+
+  if (classList.contains(".header")) {
+    const side = document.querySelector(".side");
+    resetButton(button, followId);
+    resetButton(side, followId);
+  } else {
+    const header = document.querySelector(".header");
+    resetButton(button, followId);
+    resetButton(header, followId);
+  }
 };

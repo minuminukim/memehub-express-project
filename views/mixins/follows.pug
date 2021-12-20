@@ -6,6 +6,6 @@ mixin followBlock(followed, followerId, text, followId, type = "follow-button")
     p.follow-user-bio #{followed.biography}
   +followButton(followed.id, followerId, text, followId, type)
 
-mixin followButton(followedId, followerId, text, followId, type = "follow-button")
+mixin followButton(followedId, followerId, text, followId, type = "follow-button", location = null)
   if followedId !== followerId
-    button(class=type, follow=followId, user=followedId, follower=followerId type="submit") #{text}
+    button(class=type, follow=followId, user=followedId, follower=followerId type="submit", class=location) #{text}

@@ -6,6 +6,6 @@ mixin userpageHeader(profileUsername, profileId, isCurrentUser, isFollowing, cur
     a.userpage-header-link(href= `/users/${profileId}/following` alt='following')= "Following"
     if !isCurrentUser
       if isFollowing
-        +followButton(profileId, currentUserId, "Following", profileFollowId, "unfollow-button")
+        +followButton(profileId, currentUserId, "Following", profileFollowId, "unfollow-button", "header")
       else
-        +followButton(profileId, currentUserId, "Follow", profileFollowId, "follow-button")
+        +followButton(profileId, currentUserId, "Follow", profileFollowId, "follow-button", "header")

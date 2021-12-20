@@ -15,16 +15,6 @@ const {
 
 const router = express.Router();
 
-const commentNotFoundError = (commentId) => {
-  const error = new Error({
-    title: "Comment not found.",
-    message: `Comment with the id of ${commentId} could not be found.`,
-    status: 404,
-  });
-
-  return error;
-};
-
 router.post(
   "/",
   asyncHandler(async (req, res) => {
@@ -58,29 +48,24 @@ router.post(
   })
 );
 
-router.post("/edit", asyncHandler(async (req, res) => {
-
-// }));
-=======
-  // try{
-
+router.post(
+  "/edit",
+  asyncHandler(async (req, res) => {
+    // }));
+    // try{
     // const memeId = parseInt(req.body.memeId, 10);
     //const comments = await db.Comment.findAll({
     //  where: {
     //    memeId: memeId,
     //  }
     //});
-
     //res.json({comments });
-
-  // }
-  // catch(e){
-  //   console.log(e);
-  // }
-
-
-}));
-
+    // }
+    // catch(e){
+    //   console.log(e);
+    // }
+  })
+);
 
 router.put(
   "/:id(\\d+)",
