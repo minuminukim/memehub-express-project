@@ -39,12 +39,13 @@ export const follow = async (e) => {
 
     const { newFollow } = await response.json();
 
-    // if on /memes/:id or /users/:id
+    // for buttons that appear in the nav or sidebar
     if (
-      button.classList.contains("header") ||
-      button.classList.contains("side")
+      button.classList.contains("header-button") ||
+      button.classList.contains("side-button")
     ) {
       handleSideAndHeaderFollows(button, newFollow.id);
+      updateCount("follow", userId);
     } else {
       resetButton(button, newFollow.id);
       updateCount("follow", userId);
@@ -80,13 +81,14 @@ export const unfollow = async (e) => {
     }
 
     if (
-      button.classList.contains("header") ||
-      button.classList.contains("side")
+      button.classList.contains("header-button") ||
+      button.classList.contains("side-button")
     ) {
       handleSideAndHeaderFollows(button, "0");
+      updateCount("unfollow", userId);
     } else {
       resetButton(button, "0");
-      updateCount("follow", userId);
+      updateCount("unfollow", userId);
     }
 
     const { message } = await response.json();
@@ -137,12 +139,12 @@ const updateCount = (action, userId) => {
 const handleSideAndHeaderFollows = (button, followId) => {
   const classList = button.classList;
 
-  if (classList.contains(".header")) {
-    const side = document.querySelector(".side");
+  if (classList.contains("header-button")) {
+    const side = document.querySelector(".side-button");
     resetButton(button, followId);
     resetButton(side, followId);
   } else {
-    const header = document.querySelector(".header");
+    const header = document.querySelector(".header-button");
     resetButton(button, followId);
     resetButton(header, followId);
   }
