@@ -8,5 +8,4 @@ mixin followBlock(followed, followerId, text, followId, type = "follow-button")
 
 mixin followButton(followedId, followerId, text, followId, type = "follow-button")
   if followedId !== followerId
-    //- form(class="follow-form" action=`/users/${followerId}/following` method="post")
     button(class=type, follow=followId, user=followedId, follower=followerId type="submit") #{text}

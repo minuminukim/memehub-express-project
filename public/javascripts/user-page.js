@@ -1,5 +1,4 @@
-import { follow, unfollow } from "./follow-button.js";
-import { toggleDropdown } from "./dropdown.js";
+import { follow, unfollow, updateButton } from "./follow-button.js";
 
 window.addEventListener("load", () => {
   const followButtons = document.querySelectorAll(".follow-button");

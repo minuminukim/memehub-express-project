@@ -2,7 +2,7 @@ mixin userpageHeader(profileUsername, profileId, isCurrentUser, isFollowing, cur
   .userpage-header
     a.user-title(href=`/users/${profileId}`)= `${profileUsername}`
     a.userpage-header-link(href=`/users/${profileId}/about`)= "About"
-    a.userpage-header-link(href=`/users/${profileId}/followers` alt='followers')= `${numberOfFollowers} Followers`
+    a.userpage-header-link(href=`/users/${profileId}/followers` alt='followers' class="follow-count")= `${numberOfFollowers} Followers`
     a.userpage-header-link(href= `/users/${profileId}/following` alt='following')= "Following"
     if !isCurrentUser
       if isFollowing
