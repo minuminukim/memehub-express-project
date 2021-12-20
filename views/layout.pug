@@ -2,7 +2,7 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
+        title="MemeHub"
         link(rel='stylesheet' href='/stylesheets/main-styles.css')
         link(rel="stylesheet" href="/stylesheets/components/main-nav.css")
         link(rel="stylesheet" href="/stylesheets/components/dropdown.css")
@@ -11,6 +11,8 @@ html
   body
     if locals.authenticated
       include main-nav.pug
+    else
+      include ./includes/landing-header.pug
     block content
     block foot
       #footer.footer

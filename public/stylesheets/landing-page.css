@@ -12,12 +12,12 @@
   align-self: center;
   font-weight: bolder;
 }
-.nav-right{
+.nav-right {
   display: inline-flex;
   align-items: center;
 }
 
-div.right-padding{
+div.right-padding {
   padding-right: 25px;
 }
 
@@ -31,26 +31,25 @@ div.right-padding{
   display: flex;
 }
 
-img.header{
+img.header {
   height: 300px;
   width: 500px;
   margin-bottom: 25px;
   border-radius: 5%;
-  opacity: .85;
+  opacity: 0.85;
   z-index: 1;
 }
 
-div.right-side-header{
+div.right-side-header {
   display: flex;
   justify-content: center;
   align-self: center;
 }
 
-.modal-button{
-  
+.modal-button {
 }
 
-.trending-memes-container{
+.trending-memes-container {
   margin-top: 25px;
   display: flex;
   flex-direction: row;
@@ -58,18 +57,18 @@ div.right-side-header{
   justify-content: space-evenly;
 }
 
-div.meme-feed-spacing{
+div.meme-feed-spacing {
   border-top: solid lightgray 1px;
   margin-top: 25px;
 }
 
-div.margin-body{
+div.margin-body {
   margin-top: 40px;
   margin-right: 60px;
   margin-left: 60px;
 }
 
-div.landing-hr{
+div.landing-hr {
   border-top: solid black 1px;
 }
 
@@ -106,8 +105,7 @@ div.header-main-spacing {
 }
 
 .nav-title a {
-  font-family: "Playfair Display", "Georgia", "Cambria", "Times New Roman",
-    serif;
+  font-family: "Playfair Display", serif;
   color: #292929;
   text-decoration: none;
   font-size: 30px;

@@ -1,7 +1,19 @@
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 60px;
+  padding: 10px 0;
+}
+
+.nav-logo a {
+  font-family: "Playfair Display", serif;
+}
+
 .dropdown-img-button {
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 32px;
+  width: 32px;
   background-color: none;
 }
 
@@ -13,6 +25,3 @@
   overflow: hidden;
   background-repeat: no-repeat;
 }
-
-
-
