@@ -1,8 +1,11 @@
-export const addFollowButtonListener = () => {
-  const buttons = document.querySelectorAll(".follow-button");
-  buttons.forEach((button) => {
-    const followId = button.getAttribute("follow");
-    if (!followId) {
+export const addFollowButtonEvents = () => {
+  const followButtons = [...document.querySelectorAll(".follow-button")];
+  const unfollowButtons = [...document.querySelectorAll(".unfollow-button")];
+
+  const allButtons = [...followButtons, ...unfollowButtons];
+
+  allButtons.forEach((button) => {
+    if (button.classList.contains("follow-button")) {
       button.addEventListener("click", follow);
     } else {
       button.addEventListener("click", unfollow);
@@ -10,7 +13,7 @@ export const addFollowButtonListener = () => {
   });
 };
 
-const follow = async (e) => {
+export const follow = async (e) => {
   e.preventDefault();
 
   const button = e.target;
@@ -36,27 +39,24 @@ const follow = async (e) => {
 
     const { newFollow } = await response.json();
 
-    button.innerText = "Following";
-    button.setAttribute("follow", newFollow.id);
+    resetButton(button, newFollow.id);
+    updateCount("follow", userId);
+    // const path = window.location.href.toString().trim().split("/");
+    // const shouldUpdate = path.includes(userId.toString());
 
-    const path = window.location.href.toString().trim().split("/");
-    const shouldUpdate = path.includes(userId.toString());
+    // if (shouldUpdate) {
+    //   const followCount = document.querySelector(".follow-count");
+    //   const [count, text] = followCount.innerText.trim().split(" ");
+    //   followCount.innerText = `${parseInt(count) + 1} ${text}`;
+    // }
 
-    if (shouldUpdate) {
-      const followCount = document.querySelector(".follow-count");
-      const [count, text] = followCount.innerText.trim().split(" ");
-      followCount.innerText = `${parseInt(count) + 1} ${text}`;
-    }
-
-    button.removeEventListener("click", follow);
-    button.addEventListener("click", unfollow);
     return newFollow;
   } catch (error) {
     return Promise.reject(error);
   }
 };
 
-const unfollow = async (e) => {
+export const unfollow = async (e) => {
   e.preventDefault();
   const button = e.target;
   const userId = parseInt(button.getAttribute("user"), 10);
@@ -79,27 +79,59 @@ const unfollow = async (e) => {
       throw response;
     }
 
-    button.innerText = "Follow";
-    button.setAttribute("follow", "0");
+    resetButton(button, "0");
+    // const shouldUpdate = document.querySelectorAll(".follow-count").length > 0;
+    // if (shouldUpdate) updatePage("unfollow");
+    updateCount("unfollow", userId);
+    // const path = window.location.href.toString().trim().split("/");
+    // const shouldUpdate = path.includes(userId.toString());
 
-    console.log("check@@@@@@@@@@@@@@@@@@@");
-
-    const path = window.location.href.toString().trim().split("/");
-    const shouldUpdate = path.includes(userId.toString());
-    console.log(shouldUpdate);
-
-    if (shouldUpdate) {
-      const followCount = document.querySelector(".follow-count");
-      const [count, text] = followCount.innerText.trim().split(" ");
-      followCount.innerText = `${parseInt(count) - 1} ${text}`;
-    }
-
-    button.removeEventListener("click", unfollow);
-    button.addEventListener("click", follow);
-
-    const data = await response.json();
-    return Promise.resolve(data);
+    // if (shouldUpdate) {
+    //   const followCount = document.querySelector(".follow-count");
+    //   const [count, text] = followCount.innerText.trim().split(" ");
+    //   followCount.innerText = `${parseInt(count) - 1} ${text}`;
+    // }
+    const { message } = await response.json();
+    return Promise.resolve(message);
   } catch (error) {
     return Promise.reject(error);
   }
+};
+
+export const resetButton = (button, followId) => {
+  if (button.classList.contains("follow-button")) {
+    button.innerText = "Following";
+    button.setAttribute("follow", followId);
+    button.classList.remove("follow-button");
+    button.classList.add("unfollow-button");
+    button.removeEventListener("click", follow);
+    button.addEventListener("click", unfollow);
+  } else {
+    button.innerText = "Follow";
+    button.setAttribute("follow", followId);
+    button.classList.remove("unfollow-button");
+    button.classList.add("follow-button");
+    button.removeEventListener("click", unfollow);
+    button.addEventListener("click", follow);
+  }
+};
+
+const updateCount = (action, userId) => {
+  const followCounts = document.querySelectorAll(".follow-count");
+  const path = window.location.href.toString().trim().split("/");
+
+  if (!followCounts.length || !path.includes(userId.toString())) {
+    return;
+  }
+
+  followCounts.forEach((el) => {
+    const [count, text] = el.innerText.toString().trim().split(" ");
+    const int = parseInt(count);
+
+    if (action === "follow") {
+      el.innerText = `${int + 1} ${text}`;
+    } else {
+      el.innerText = `${int - 1} ${text}`;
+    }
+  });
 };

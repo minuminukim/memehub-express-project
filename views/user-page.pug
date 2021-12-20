@@ -5,12 +5,15 @@ include ./mixins/userpage-header.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
-  script(src="/javascripts/index.js" type="module" defer)
   script(src="/javascripts/user-page-comment.js" type="module" defer)
-  //- script(src="/javascripts/likes.js" type='module' defer)
+
+  //- script(src="/javascripts/user-page.js" type="module")
+  script(src="/javascripts/likes.js" type='module' defer)
+
+
 
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   hr.user-page
   div.userPosts
     div.user-page-content
@@ -23,9 +26,9 @@ block content
               p= `${profileUser.biography}`
             div
               if isFollowing
-                +followButton(profileUser.id, currentUserId, "Following", followId)
+                +followButton(profileUser.id, currentUserId, "Following", profileFollowId, "unfollow-button")
               else
-                +followButton(profileUser.id, currentUserId, "Follow", followId)
+                +followButton(profileUser.id, currentUserId, "Follow", profileFollowId, "follow-button")
         div.users-followers-details
           a.userpage-header-link(href=`/users/${profileUser.id}/followers` alt='followers')= `${profileUser.username}'s Followers`
     div.user-feed
@@ -36,7 +39,7 @@ block content
           a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
           div.likes-and-comments
             div.likes
-              a(id='likeCount' href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+              a(id=`likeCount-${meme.id}` role='button')= `❤ : ${meme.dataValues.Likes.length}`
               button(id=`like-${meme.id}` class='likeButton') Like
 
             //- a(href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
