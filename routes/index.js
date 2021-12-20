@@ -114,6 +114,7 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const currentUserId = getUserId(req);
+    console.log(currentUserId);
     const developers = await fetchDevelopers(currentUserId);
 
     // Fetch user & their following memes
@@ -131,11 +132,9 @@ router.get(
       ],
     });
 
-    // iterate through following memes & flatten array
-    const followings = user.followings;
-    const feedMemes = followings.reduce((acc, { Memes }) => {
-      return acc.concat(Memes);
-    }, []);
+    const promises = user.followings.map(({ Memes }) => Memes);
+    const resolved = await Promise.all(promises);
+    const feedMemes = resolved.flat();
 
     res.render("index", {
       title: "Memehub",
