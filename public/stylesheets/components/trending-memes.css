@@ -64,7 +64,7 @@ h2.trending-title{
     display: flex;
     justify-content: flex-start;
     font-weight: bold;
-    margin-left: 30px;
+    margin-left: 60px;
 }
 
 div.trending-memes{
@@ -77,6 +77,7 @@ div.trending-memes{
 img.trending-meme{
     height: 250px;
     width:250px;
+    border-radius: 3%;
 }
 
 div.trending-rank {
