@@ -1,3 +1,5 @@
+import { handleErrors } from "./error-modal.js";
+
 export const addFollowButtonListeners = () => {
   const followButtons = [...document.querySelectorAll(".follow-button")];
   const unfollowButtons = [...document.querySelectorAll(".unfollow-button")];
@@ -53,7 +55,7 @@ export const follow = async (e) => {
 
     return newFollow;
   } catch (error) {
-    return Promise.reject(error);
+    handleErrors(error);
   }
 };
 
@@ -92,9 +94,9 @@ export const unfollow = async (e) => {
     }
 
     const { message } = await response.json();
-    return Promise.resolve(message);
+    return message;
   } catch (error) {
-    return Promise.reject(error);
+    handleErrors(error);
   }
 };
 
@@ -116,28 +118,65 @@ export const resetButton = (button, followId) => {
   }
 };
 
-const updateCount = (action, userId, followerId) => {
-  const followCounts = document.querySelectorAll(".follow-count");
+const shouldUpdate = (action, userId, followerId) => {
+  const followerCounts = document.querySelectorAll(".follower-count");
+  const followingCounts = document.querySelectorAll(".following-count");
   const path = window.location.href.toString().trim().split("/");
+  const user = userId.toString();
+  const follower = followerId.toString();
 
-  if (
-    !followCounts.length ||
-    (path.includes("following") && !path.includes(followerId.toString())) ||
-    (path.includes("followers") && userId === followerId)
-  ) {
-    return;
-  }
+  //   if (!followerCounts.length && !followingCounts.length) {
+  //     return false;
+  //   } else if (
+  //     (path.includes(following) && !path)
+  //   )
+};
 
-  followCounts.forEach((el) => {
-    const [count, text] = el.innerText.toString().trim().split(" ");
-    const int = parseInt(count);
+const updateCount = (action, userId, followerId) => {
+  const followerCounts = document.querySelectorAll(".follower-count");
+  const followingCounts = document.querySelectorAll(".following-count");
+  const path = window.location.href.toString().trim().split("/");
+  /**
+   * if followerCounts && followingCounts both empty
+   *    return
+   * if path ends in following and doesnt belong to current user
+   *    return
+   * else
+   *   update following count
+   * if path ends in followers and belongs to current user
+   *   return
+   * else
+   *   update followers count
+   * if path ends in an id and userId === followerId
+   *   return
+   * else
+   *    update followers count
+   * if path ends in about and doesnt belong to current user
+   *  return
+   * else
+   *    update followers count
+   */
+  // const resource = path.pop(); // following or followers
+  // console.log(resource);
 
-    if (action === "follow") {
-      el.innerText = `${int + 1} ${text}`;
-    } else {
-      el.innerText = `${int - 1} ${text}`;
-    }
-  });
+  // if (
+  //   (!followerCounts.length && !followingCounts.length) ||
+  //   (path.includes("following") && !path.includes(followerId.toString())) ||
+  //   path.includes("followers")
+  // ) {
+  //   return;
+  // }
+
+  // followCounts.forEach((el) => {
+  //   const [count, text] = el.innerText.toString().trim().split(" ");
+  //   const int = parseInt(count);
+
+  //   if (action === "follow") {
+  //     el.innerText = `${int + 1} ${text}`;
+  //   } else {
+  //     el.innerText = `${int - 1} ${text}`;
+  //   }
+  // });
 };
 
 const handleSideAndHeaderFollows = (button, followId) => {
