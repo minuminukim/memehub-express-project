@@ -31,11 +31,13 @@ block content
           img.header(src="https://thenerdd.files.wordpress.com/2019/08/fslwqmq.jpg?w=840")
     div.landing-hr
       div.margin-body
-        .trending-title
-          h2 TRENDING ON MEMEHUB
-        .trending-memes-container
-          each meme in trendingMemes
-            +trendingMeme(`0${i++}`, meme.id, meme.link, meme.User.profilePicture, meme.userId, meme.User.username, meme.headline, "Dec 8")
+        div.trending-content
+          .trending-titles
+            h2.trending-title TRENDING ON MEMEHUB
+          .trending-memes-container
+            each meme in trendingMemes
+              +trendingMeme(`0${i++}`, meme.id, meme.link, meme.User.profilePicture, meme.userId, meme.User.username, meme.headline, "Dec 8")
+  div.meme-feed-spacing
       .landing-feed
         each meme in feedMemes
           +memeBlock(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)

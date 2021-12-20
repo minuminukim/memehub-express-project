@@ -54,9 +54,15 @@ div.right-side-header{
   justify-content: space-evenly;
 }
 
+div.meme-feed-spacing{
+  border-top: solid lightgray 1px;
+  margin-top: 25px;
+}
 
 div.margin-body{
-  margin-left: 100px;
+  margin-top: 40px;
+  margin-right: 60px;
+  margin-left: 60px;
 }
 
 div.landing-hr{
