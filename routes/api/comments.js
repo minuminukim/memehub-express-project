@@ -45,9 +45,25 @@ router.post("/delete", asyncHandler(async (req, res) => {
 }));
 
 
-// router.post("/api/comments/:id(\\d+)/edit", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
+router.post("/edit", asyncHandler(async (req, res) => {
+
+  // try{
+
+    const memeId = parseInt(req.body.memeId, 10);
+    const comments = await db.Comment.findAll({
+      where: {
+        memeId: memeId,
+      }
+    });
+
+    res.json({comments });
+
+  // }
+  // catch(e){
+  //   console.log(e);
+  // }
 
 
-// }));
+}));
 
 module.exports = router;
