@@ -46,6 +46,13 @@ div.right-side-header{
   align-self: center;
 }
 
+.trending-memes-container{
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
 
 
 div.margin-body{
@@ -55,6 +62,7 @@ div.margin-body{
 div.landing-hr{
   border-top: solid black 1px;
 }
+
 .landing-nav {
   grid-column: 1 / 13;
   display: flex;
@@ -139,6 +147,5 @@ div.header-main-spacing {
 }
 
 .trending-meme {
-  width: 100%;
   height: auto;
 }

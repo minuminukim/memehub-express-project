@@ -12,8 +12,6 @@ div.trending-meme{
     padding-right: 16px;
     padding-left: 16px;
     text-align: center;
-    border: 1.5px solid grey;
-    border-radius: 5px;
 }
 
 div.container{
@@ -77,5 +75,4 @@ img.user-logo{
 }
 
 p.trending-rank{
-    border: 1.5px solid grey;
 }
