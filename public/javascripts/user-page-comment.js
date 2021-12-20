@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 li.appendChild(deleteButton);
                 li.appendChild(editButton);
 
-                let grabUl = document.querySelector(`#like-${memeId}`)
+                let grabUl = document.querySelector(`#comment-${memeId}`)
 
                 console.log("this is grabUl", grabUl)
 
@@ -176,12 +176,12 @@ window.addEventListener("DOMContentLoaded", () => {
                     let placeholder = regexPlaceholder[0];
                     input.setAttribute("placeholder", placeholder)
 
-                    let grabUl = document.querySelector(`#like-${memeId}`)
+                    let grabUl = document.querySelector(`#comment-${memeId}`)
                     console.log("this is grabUl", grabUl)
 
                     let ulChildren = Array.from(grabUl.children).slice();
                     console.log("ulChildren", ulChildren)
-                    let liThatWillBeEdited = document.getElementById(`like-${commentId}`)
+                    let liThatWillBeEdited = document.getElementById(`comment-${commentId}`)
                     console.log("testingLi", liThatWillBeEdited)
                     liThatWillBeEdited.innerHTML = "";
                     liThatWillBeEdited.appendChild(input);
