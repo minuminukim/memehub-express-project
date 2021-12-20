@@ -44,10 +44,13 @@ router.post("/delete", asyncHandler(async (req, res) => {
 
 }));
 
+//define validators
+//find comment.bypk
+// req.params.id
 
-router.post("/edit", asyncHandler(async (req, res) => {
+router.put("/edit", asyncHandler(async (req, res) => {
 
-  // try{
+ 
 
     const memeId = parseInt(req.body.memeId, 10);
     const comments = await db.Comment.findAll({
@@ -56,12 +59,11 @@ router.post("/edit", asyncHandler(async (req, res) => {
       }
     });
 
+
+
     res.json({comments });
 
-  // }
-  // catch(e){
-  //   console.log(e);
-  // }
+
 
 
 }));

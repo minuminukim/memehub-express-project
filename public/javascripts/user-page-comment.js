@@ -154,7 +154,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 try {
                     const res = await fetch("/api/comments/edit", {
 
-                        method: "POST",
+                        method: "PUT",
                         body: JSON.stringify({ ...body }),
                         headers: {
                             "Content-type": "application/json"
@@ -196,20 +196,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
                     liThatWillBeEdited.appendChild(saveButton);
 
-
-
-
-
-
                     // e.target.parentNode.remove();
-
-
-
-
                     // let saveButton = document.createElement("button");
                     // addSaveButtonListener(saveButton);
-
-
 
                 } catch (err) {
 
@@ -236,14 +225,9 @@ window.addEventListener("DOMContentLoaded", () => {
                 // let li = document.createElement("li")
 
 
-
                 // let grabComment = document.getElementById(`${commentId}`)
                 // let parent = grabComment.parent;
                 // console.log("parent", parent)
-
-
-
-
 
                 //to create li
 
@@ -257,23 +241,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 // addDeleteButtonListener(deleteButton);
                 // let editButton = document.createElement("button");
 
-
-
-
-
-
-
-
-            } else if (e.target.innerHTML === "Save") {
-                e.target.innerHTML = "Edit";
-
-
-
-
             }
-
-
-
 
         })
     }
@@ -283,6 +251,39 @@ window.addEventListener("DOMContentLoaded", () => {
         let button = editCommentButtons[i];
         addEditButtonListener(button);
     }
+
+    // const addSaveButtonListener = (button) => {
+
+    //     button.addEventListener("click", async (e) => {
+    //         console.log("inside delete event")
+
+    //         const commentId = e.target.id;
+
+    //         const body = { commentId }
+
+    //         try {
+    //             const res = await fetch("/api/comments/delete", {
+
+    //                 method: "POST",
+    //                 body: JSON.stringify(body),
+    //                 headers: {
+    //                     "Content-type": "application/json"
+    //                 },
+    //             });
+    //             if (!res.ok) {
+    //                 throw res;
+    //             }
+    //             console.log("parent", e.target.parentNode)
+
+    //             e.target.parentNode.remove();
+
+    //         } catch (err) {
+
+    //         }
+
+    //     })
+    // }
+
 
 
 
