@@ -39,7 +39,7 @@ block content
           a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
           div.likes-and-comments
           div.likes
-            a(id=`likeCount-${meme.id}` href=`/` role='button')= `Likes: ${meme.dataValues.Likes.length}`
+            p(id=`likeCount-${meme.id}` role='button')= `Likes: ${meme.dataValues.Likes.length}`
             div.likes-and-comments
             button(id=`like-${meme.id}` class='likeButton') Like
             div.likes-and-comments
