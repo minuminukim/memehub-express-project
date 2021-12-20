@@ -32,12 +32,12 @@ div.right-padding{
 }
 
 img.header{
-  height: 300px;
-  width: 500px;
+  height: 350px;
+  width: 600px;
   margin-bottom: 25px;
-  border-radius: 5%;
-  opacity: .85;
+  border-radius: 7%;
   z-index: 1;
+  opacity: .85;
 }
 
 div.right-side-header{
@@ -47,7 +47,14 @@ div.right-side-header{
 }
 
 .modal-button{
-  
+  display: flex;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 0 11px;
 }
 
 .trending-memes-container{
@@ -135,7 +142,6 @@ div.header-main-spacing {
   background-color: #fff;
   color: #000;
   border: 1px solid black;
-  max-width: 30%;
 }
 
 .landing-header-main h2 {
