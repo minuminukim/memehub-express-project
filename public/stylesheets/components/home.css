@@ -18,14 +18,18 @@
 
 .right-container {
   grid-column: 9 / 12;
+}
 
+.feed-toggles {
+  display: flex;
+  justify-items: space-around;
+  margin-bottom: 25px;
 }
 
 .feed-toggles a {
   text-transform: uppercase;
   font-size: 13px;
   color: #757575;
-  display: inline-flex;
   justify-items: space-around;
   padding-right: 15px;
 }
@@ -34,15 +38,22 @@ div.dev-spacing {
   margin-bottom: 25px;
 }
 
-.feed-toggles {
-  text-transform: uppercase;
-  font-size: 13px;
-  color: #757575;
-  display: inline-flex;
-  justify-items: space-around;
-  margin-bottom: 25px;
-}
 
 .feed-container a {
   text-decoration: none;
+}
+
+
+@media screen and (max-width: 900px) {
+  .feed-container {
+    grid-column: 1 / 13;
+  }
+
+  .feed-memes-loggedIn {
+    border: 0;
+  }
+
+  .right-container {
+    display: none;
+  }
 }

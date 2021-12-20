@@ -17,6 +17,7 @@
   grid-auto-rows: 1fr;
   width: 100%;
   align-items: center;
+  border-top: 1px solid #e6e6e6;
 }
 
 .follow-block {
@@ -26,6 +27,8 @@
   padding: 24px 0px;
   border-top: 1px solid #e6e6e6;
 }
+
+
 
 .follow-block:last-child {
   border-bottom: 1px solid #e6e6e6;

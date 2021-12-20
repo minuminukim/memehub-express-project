@@ -57,6 +57,7 @@ div.recommended-bio {
 .recommended-title {
   font-weight: 500;
 }
+
 .follow-button,
 .unfollow-button {
   border: 1px solid #848583;
@@ -66,8 +67,12 @@ div.recommended-bio {
   padding: 0 0.8rem;
 }
 
-.follow-button:hover,
-.unfollow-button:hover {
+.unfollow-button {
+  background-color: #000;
+  color: #fff;
+}
+
+.follow-button:hover {
   background-color: #fff;
   border-color: rgba(0, 0, 0, 0.9);
   color: rgba(0, 0, 0, 0.9);
