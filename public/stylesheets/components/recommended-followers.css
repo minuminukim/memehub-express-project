@@ -5,16 +5,14 @@
 .recommended-follows-container {
   display: flex;
   flex-direction: column;
-
 }
 
 .recommended-blocks-container {
   display: flex;
   flex-direction: column;
-
 }
 
-div.stick-container{
+div.stick-container {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -36,7 +34,6 @@ div.stick-container{
   align-content: flex-start;
   align-self: flex-start;
   flex-wrap: wrap;
-
 }
 
 p.recommended-bio-p {
@@ -60,7 +57,8 @@ div.recommended-bio {
 .recommended-title {
   font-weight: 500;
 }
-.follow-button {
+.follow-button,
+.unfollow-button {
   border: 1px solid #848583;
   background-color: #fff;
   color: #000;
@@ -68,7 +66,8 @@ div.recommended-bio {
   padding: 0 0.8rem;
 }
 
-.follow-button:hover {
+.follow-button:hover,
+.unfollow-button:hover {
   background-color: #fff;
   border-color: rgba(0, 0, 0, 0.9);
 }

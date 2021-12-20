@@ -9,29 +9,35 @@ block content
     header.landing-header
       nav.landing-nav
         .nav-left
-          h1.nav-title: a(href="/") Memehub
-          if !locals.authenticated
-            .nav-right
-              a.nav-link(href="/users/sign-in") Sign In
-              a.nav-link(href="/users/sign-in") Try Demo
-              button(onclick="location.href='/users/new'") Get Started
-              //- TODO: render demo sign-in
+          h1.nav-title: a(href="/") MemeHub
+        .nav-right
+          div.right-padding
+            a.nav-link(href="/users/sign-in") Sign In
+          div.right-padding
+            a.nav-link(href="/users/sign-in") Try Demo
+          div.right-padding
+            button(onclick="location.href='/users/new'") Get Started
+            //- TODO: render demo sign-in
 
-        .dropdown
-          if locals.authenticated
-            include dropdown.pug
       .landing-header-main
-        h2 Memehub is a place to post, laugh, and connect
-        p It's easy and free to post your thinking on any topic and connect with millions of readers.
-        //- button(onclick="location.href='/users/new'" type=button) Start Posting
-        button.modal-button Start Posting
-    .trending-memes-container
-      .trending-title
-        h2 TRENDING ON MEMEHUB
-      .trending-memes
-        each meme in trendingMemes
-          +trendingMeme(`0${i++}`, meme.id, meme.link, meme.User.profilePicture, meme.userId, meme.User.username, meme.headline, "Dec 8")
-    .landing-feed
-      h2 "main feed goes here"
-      each meme in feedMemes
-        +memeBlock(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
+        div
+          h2 Memehub is a place to post, laugh, and connect
+          div.header-main-spacing
+            p It's easy and free to post your thinking on any topic and connect with millions of readers.
+            div.header-main-spacing
+              button.modal-button Start Posting
+            div.header-main-spacing
+        div.right-side-header
+          img.header(src="https://thenerdd.files.wordpress.com/2019/08/fslwqmq.jpg?w=840")
+    div.landing-hr
+      div.margin-body
+        div.trending-content
+          .trending-titles
+            h2.trending-title TRENDING ON MEMEHUB
+          .trending-memes-container
+            each meme in trendingMemes
+              +trendingMeme(`0${i++}`, meme.id, meme.link, meme.User.profilePicture, meme.userId, meme.User.username, meme.headline, "Dec 8")
+  div.meme-feed-spacing
+      .landing-feed
+        each meme in feedMemes
+          +memeBlock(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)

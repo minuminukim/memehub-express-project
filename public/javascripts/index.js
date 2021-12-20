@@ -1,7 +1,7 @@
 import { toggleDropdown } from "./dropdown.js";
-import { addFollowButtonListener } from "./follow-button.js";
+import { addFollowButtonEvents } from "./follow-button.js";
 
 window.addEventListener("load", (event) => {
   toggleDropdown();
-  addFollowButtonListener();
+  addFollowButtonEvents();
 });

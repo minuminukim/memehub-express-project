@@ -1,3 +1,10 @@
+a.trending-title-headline{
+    text-decoration: none;
+    font-weight: bolder;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .trending-memes > div > h2{
     text-align: left;
     margin-left: 150px;
@@ -9,11 +16,8 @@
 div.trending-meme{
     display:flex;
     flex-wrap:wrap;
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: 30px;
     text-align: center;
-    border: 1.5px solid grey;
-    border-radius: 5px;
 }
 
 div.container{
@@ -42,8 +46,7 @@ div.container div{
 
 .landing-feed {
     text-align: left;
-    margin-left: 150px;
-    margin-top: 85px;
+     margin-top: 40px;
 }
 /* .trending-memes{
     display:grid;
@@ -51,6 +54,18 @@ div.container div{
     grid-gap: 10px;
 } */
 
+div.trending-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h2.trending-title{
+    display: flex;
+    justify-content: flex-start;
+    font-weight: bold;
+    margin-left: 60px;
+}
 
 div.trending-memes{
     display:flex;
@@ -62,6 +77,15 @@ div.trending-memes{
 img.trending-meme{
     height: 250px;
     width:250px;
+    border-radius: 3%;
+}
+
+div.trending-rank {
+    font-size: 40px;
+    color: lightgray;
+    font-weight: bolder;
+    margin-right: 12px;
+    align-self: center;
 }
 
 img.trending-user-logo{
@@ -76,6 +100,21 @@ img.user-logo{
     margin-right: 5px;
 }
 
-p.trending-rank{
-    border: 1.5px solid grey;
+div.user-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    justify-self: flex-start;
+    justify-items: flex-start;
+    align-self: center;
+    margin-right: 5px;
+}
+div.trending-title{
+    display:flex;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+div.end-of-trending{
+    margin-top: 25px;
 }
