@@ -14,11 +14,26 @@ const getFollow = (followers, currentUserId) => {
     if (follower.id === currentUserId) {
       isFollowing = true;
       followId = follower.Follow.id;
+      break;
     }
-    break;
   }
 
   return [isFollowing, followId];
 };
 
-module.exports = { checkFollow, getFollow };
+// Helper that gets relevant data for follow button
+const getFollowData = (user, currentUserId) => {
+  const { followers } = user;
+  const isCurrentUser = user.id === currentUserId;
+  const numberOfFollowers = followers.length || 0;
+  const [isFollowing, followId] = getFollow(followers, currentUserId);
+
+  return {
+    isCurrentUser,
+    numberOfFollowers,
+    isFollowing,
+    followId,
+  };
+};
+
+module.exports = { checkFollow, getFollow, getFollowData };

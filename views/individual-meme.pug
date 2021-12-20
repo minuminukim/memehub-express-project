@@ -11,7 +11,7 @@ append head
   script(src="/javascripts/likes.js" type='module' defer)
 
 block content
-  +userpageHeader(meme.User.username, meme.userId, isCurrentUser, isFollowing, currentUserId)
+  +userpageHeader(meme.User.username, meme.userId, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   hr.user-page
   div.userPosts
     div.user-page-content
@@ -24,9 +24,9 @@ block content
               p= `${meme.User.biography}`
             div
               if isFollowing
-                +followButton(meme.userId, currentUserId, "Following")
+                +followButton(meme.userId, currentUserId, "Following", profileFollowId, "unfollow-button")
               else
-                +followButton(meme.userId, currentUserId, "Follow")
+                +followButton(meme.userId, currentUserId, "Follow", profileFollowId, "follow-button")
         div.users-followers-details
           a.userpage-header-link(href=`/users/${meme.userId}/followers` alt='followers')= `${meme.User.username}'s Followers`
   div.user-feed

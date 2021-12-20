@@ -12,16 +12,16 @@ append head
   //- add page specific js
 
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, followId)
+  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, count)
   .root
     .following-title-container
-      h2.follow-count #{count} Following
+      h2 Following
       p.following-caption Ordered by most recently followed
     if followings
       .following-container
         each following in followings
           .following-block
             if following.isMutual
-              +followBlock(following, currentUserId, "Following", followId)
+              +followBlock(following, currentUserId, "Following", following.followId, "unfollow-button")
             else
-              +followBlock(following, currentUserId, "Follow", followId)
+              +followBlock(following, currentUserId, "Follow", following.followId, "follow-button")

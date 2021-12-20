@@ -6,6 +6,7 @@ const { requireAuth } = require("../auth");
 const { asyncHandler, isntLoggedIn } = require("../utils");
 const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
 const { checkFollow, getFollow } = require("./utils/follows-helpers");
+const fetchDevelopers = require("./utils/fetch-developers");
 
 /* GET home page -- default sorted by likes. */
 router.get(
@@ -28,63 +29,12 @@ router.get(
     // fetch memes by likes
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b)).slice(0, 20);
 
-    /* Recommended Followers:
-       Hardcoding here because this section won't be dynamic for demo
-     */
-
-    // query for developer user objects & their followers
-    const devsAndFollowers = await User.findAll({
-      where: {
-        username: ["davidlee", "willduffy", "anthonyadams", "minukim"],
-      },
-      include: [{ model: User, as: "followers" }],
-    });
-    console.log(JSON.stringify(devsAndFollowers, null, 2));
-    /* Map to an array with relevant data + include an isFollowing check
-       for the current user
-    */
-    const developers = devsAndFollowers.map((dev) => {
-      const {
-        id,
-        username,
-        firstName,
-        lastName,
-        biography,
-        profilePicture,
-        followers,
-      } = dev.dataValues;
-
-      // const isFollowing = followers.some(
-      //   (follower) => follower.id === currentUserId
-      // );
-
-      let isFollowing = false;
-      let followId = 0;
-
-      for (const follower of followers) {
-        if (follower.id === currentUserId) {
-          isFollowing = true;
-          followId = follower.Follow.id;
-        }
-        break;
-      }
-
-      const fullName = `${firstName} ${lastName}`;
-      return {
-        id,
-        username,
-        fullName,
-        biography,
-        profilePicture,
-        isFollowing,
-        followId,
-      };
-    });
-
-    console.log(JSON.stringify(developers, null, 2));
+    /********** RECOMMENDED FOLLOWERS (the developers) *************/
+    // Helper that queries for users & their followers, then maps relevant data
+    const developers = await fetchDevelopers(currentUserId);
 
     // If user logged in, render landing-page, else render index
-    res.render(currentUserId === null ? "landing-page" : "index", {
+    return res.render(currentUserId === null ? "landing-page" : "index", {
       title: "Memehub",
       trendingMemes,
       feedMemes,
@@ -100,13 +50,22 @@ router.get(
   "/recent",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const developers = await fetchDevelopers(currentUserId);
 
     const feedMemes = await Meme.findAll({
       order: [["id", "DESC"]],
       include: User,
     });
-    res.render("index", { title: "Memehub", feedMemes, currentUserId });
+
+    res.render("index", {
+      title: "Memehub",
+      feedMemes,
+      currentUserId,
+      developers,
+    });
   })
 );
 
@@ -115,14 +74,23 @@ router.get(
   "/hot",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
+    const developers = await fetchDevelopers(currentUserId);
 
     const memes = await Meme.findAll({
       include: [Like, User],
     });
 
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b));
-    res.render("index", { title: "Memehub", feedMemes, currentUserId });
+    res.render("index", {
+      title: "Memehub",
+      feedMemes,
+      currentUserId,
+      developers,
+    });
   })
 );
 
@@ -134,6 +102,7 @@ router.get(
     const currentUserId = isntLoggedIn(req)
       ? null
       : parseInt(req.session.auth.userId, 10);
+    const developers = await fetchDevelopers(currentUserId);
 
     const memes = await Meme.findAll({
       include: [Comment, User],
@@ -141,7 +110,12 @@ router.get(
 
     const feedMemes = memes.sort((a, b) => memesByComments(a, b));
 
-    res.render("index", { title: "Memehub", feedMemes, currentUserId });
+    res.render("index", {
+      title: "Memehub",
+      feedMemes,
+      currentUserId,
+      developers,
+    });
   })
 );
 
@@ -150,7 +124,10 @@ router.get(
   "/you",
   requireAuth,
   asyncHandler(async (req, res, next) => {
-    const currentUserId = parseInt(req.session.auth.userId, 10);
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+    const developers = await fetchDevelopers(currentUserId);
 
     // get logged in user & the users they're following
     const currentUser = await User.findByPk(currentUserId, {
@@ -175,7 +152,7 @@ router.get(
     const feedMemes = resolvedMemes.flat();
 
     // TODO: re-factor
-    res.render("index", { title: "Memehub", feedMemes });
+    res.render("index", { title: "Memehub", feedMemes, developers });
   })
 );
 
