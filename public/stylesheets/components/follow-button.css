@@ -9,6 +9,7 @@
   border: 0;
   height: 2.5rem;
   cursor: pointer;
+  width: fit-content;
 }
 
 .follow-button {
@@ -35,7 +36,7 @@
 .unfollow-button:hover {
   background-color: rgba(0, 0, 0, 0.55);
 } */
-/* 
+/*
 .follow-side,
 .follow-header {
   background-color: #1a8917;

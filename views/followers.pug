@@ -7,21 +7,20 @@ append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/main-styles.css")
   link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
-  link(rel="stylesheet" href="/stylesheets/components/followers.css")
-  link(rel="stylesheet" href="/stylesheets/components/follow-block.css")
+  link(rel="stylesheet" href="/stylesheets/user-follows.css")
   //- add page specific js
 
 //- TODO: replace header with user-profile header
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, count)
   .root
-    .followers-title-container
-      h2.follow-count #{count} Follower(s)
-    if followers
-      .followers-container
-        each follower in followers
-          .followers-block
-            if follower.isMutual
-              +followBlock(follower, currentUserId, "Following", follower.followId, "unfollow-button")
-            else
-              +followBlock(follower, currentUserId, "Follow", follower.followId, "follow-button")
+    .follows-container
+      .follows-title-container
+        h2.follow-count #{count} Follower(s)
+      if followers
+          each follower in followers
+            .follow-block
+              if follower.isMutual
+                +followBlock(follower, currentUserId, "Following", follower.followId, "unfollow-button")
+              else
+                +followBlock(follower, currentUserId, "Follow", follower.followId, "follow-button")
