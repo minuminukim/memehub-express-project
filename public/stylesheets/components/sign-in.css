@@ -36,6 +36,7 @@ h1.sign-in {
   outline: 0;
   overflow: hidden;
   padding-right: 11px;
+  padding-left: 11px;
   text-align: center;
   text-decoration: none;
   text-overflow: ellipsis;
