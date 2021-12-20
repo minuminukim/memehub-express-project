@@ -15,15 +15,15 @@ const {
 
 const router = express.Router();
 
-const commentNotFoundError = (commentId) => {
-  const error = new Error({
-    title: "Comment not found.",
-    message: `Comment with the id of ${commentId} could not be found.`,
-    status: 404,
-  });
+// const commentNotFoundError = (commentId) => {
+//   const error = new Error({
+//     title: "Comment not found.",
+//     message: `Comment with the id of ${commentId} could not be found.`,
+//     status: 404,
+//   });
 
-  return error;
-};
+//   return error;
+// };
 
 router.post(
   "/",
@@ -61,7 +61,7 @@ router.post(
 router.post("/edit", asyncHandler(async (req, res) => {
 
 // }));
-=======
+// =======
   // try{
 
     // const memeId = parseInt(req.body.memeId, 10);

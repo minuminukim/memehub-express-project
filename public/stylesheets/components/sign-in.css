@@ -35,12 +35,10 @@ h1.sign-in {
   font-size: 13px;
   outline: 0;
   overflow: hidden;
-  padding: 0 11px;
+  padding-right: 11px;
   text-align: center;
   text-decoration: none;
   text-overflow: ellipsis;
-  user-select: none;
-  -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
 }
