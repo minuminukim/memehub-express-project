@@ -32,12 +32,12 @@ div.right-padding{
 }
 
 img.header{
-  height: 300px;
-  width: 500px;
+  height: 350px;
+  width: 600px;
   margin-bottom: 25px;
-  border-radius: 5%;
-  opacity: .85;
+  border-radius: 7%;
   z-index: 1;
+  opacity: .85;
 }
 
 div.right-side-header{
