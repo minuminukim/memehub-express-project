@@ -38,7 +38,9 @@ block content
       div.likes-and-comments
       div.likes
         a(id=`likeCount-${meme.id}` href=`/` role='button')= `Likes: ${likes}`
+        div.likes-and-comments
         button(id=`like-${meme.id}` class='likeButton') Like
+        div.likes-and-comments
       div
       input(type="textarea" name="content" id="content" class="content" placeholder="Write a comment.")
       button(id=`${meme.id}` class="add-button") Add Comment
