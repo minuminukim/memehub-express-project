@@ -8,7 +8,10 @@ const {
 } = require("../../utils");
 
 const { requireAuth } = require("../../auth");
-const commentValidators = require("../../validators/comment-validators");
+const {
+  commentValidators,
+  commentNotFoundError,
+} = require("../../validators/comment-validators");
 
 const router = express.Router();
 
