@@ -3,11 +3,11 @@ mixin trendingMeme(rank, memeId, meme, logo, userId, username, headline, date)
     div.trending-rank
       p.trending-rank #{rank}
     div.user-info
-      div
+      div.trending-title
         img.meme-block-user-logo(src=logo)
         a.trending-username(href=`/users/${userId}`) @#{username}
       div.trending-title
-        a.trending-title(href=`/memes/${memeId}`) #{headline}
+        a.trending-title-headline(href=`/memes/${memeId}`) #{headline}
       div.trending-title
         p.trending-date #{date}
     div

@@ -1,3 +1,10 @@
+a.trending-title-headline{
+    text-decoration: none;
+    font-weight: bolder;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .trending-memes > div > h2{
     text-align: left;
     margin-left: 150px;
@@ -9,8 +16,7 @@
 div.trending-meme{
     display:flex;
     flex-wrap:wrap;
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: 30px;
     text-align: center;
 }
 
@@ -77,7 +83,7 @@ div.trending-rank {
     font-size: 40px;
     color: lightgray;
     font-weight: bolder;
-    margin-right: 10px;
+    margin-right: 12px;
     align-self: center;
 }
 
