@@ -142,8 +142,14 @@ div.end-of-post {
 
 div.likes-and-comments {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-top: 10px;
+  align-self: center;
+  align-items: center;
+}
+
+div.like-count{
+  padding-left: 10px;
 }
 
 div.user-comment {
