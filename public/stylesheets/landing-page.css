@@ -52,7 +52,6 @@ div.right-side-header{
   text-align: center;
   text-decoration: none;
   text-overflow: ellipsis;
-  overflow: hidden;
   white-space: nowrap;
   box-sizing: border-box;
   padding: 0 11px;

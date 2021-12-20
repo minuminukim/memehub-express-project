@@ -3,6 +3,9 @@ a.trending-title-headline{
     font-weight: bolder;
     margin-top: 5px;
     margin-bottom: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .trending-memes > div > h2{
@@ -14,6 +17,7 @@ a.trending-title-headline{
 }
 
 div.trending-meme{
+    box-sizing: border-box;
     display:flex;
     flex-wrap:wrap;
     padding-right: 30px;
