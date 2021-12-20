@@ -33,6 +33,12 @@ router.post(
       userId: req.session.auth.userId,
       memeId: req.body.memeId,
     });
+<<<<<<< HEAD
+
+    comment = await db.Comment.findByPk(comment.id, {
+      include: db.User,
+    });
+=======
 
     comment = await db.Comment.findByPk(comment.id, {
       include: db.User,
@@ -58,6 +64,46 @@ router.post(
   })
 );
 
+router.put("/edit", asyncHandler(async (req, res) => {
+
+// }));
+
+  // try{
+
+    // const memeId = parseInt(req.body.memeId, 10);
+    //const comments = await db.Comment.findAll({
+    //  where: {
+    //    memeId: memeId,
+    //  }
+    //});
+
+    //res.json({comments });
+
+
+
+>>>>>>> a208e06bbb2663695453ce785d3107fb9c99289a
+
+    res.json({ comment });
+  })
+);
+
+router.post(
+  "/delete",
+  asyncHandler(async (req, res) => {
+    try {
+      const commentId = parseInt(req.body.commentId, 10);
+      console.log("commentIds", commentId);
+      const comment = await db.Comment.findByPk(commentId);
+      console.log("commentz", comment);
+      await comment.destroy();
+      res.json({ message: "Your comment was deleted successfully!" });
+    } catch (e) {
+      console.log(e);
+    }
+  })
+);
+
+<<<<<<< HEAD
 // router.put("/edit", asyncHandler(async (req, res) => {
 
 // }));
@@ -87,6 +133,16 @@ router.put(
   asyncHandler(async (req, res, next) => {
     console.log("inside")
     const commentId = parseInt(req.body.commentId, 10);
+=======
+
+router.put(
+  "/:id(\\d+)",
+  requireAuth,
+  commentValidators,
+  handleValidationErrors,
+  asyncHandler(async (req, res, next) => {
+    const commentId = parseInt(req.params.id, 10);
+>>>>>>> a208e06bbb2663695453ce785d3107fb9c99289a
     const comment = await Comment.findOne({ where: { id: commentId } });
 
     if (comment.userId !== req.session.auth.userId) {
@@ -100,8 +156,12 @@ router.put(
     }
 
     if (comment) {
+<<<<<<< HEAD
       console.log("inside")
       await comment.update({ body: req.body.contentValue });
+=======
+      await comment.update({ body: req.body.body });
+>>>>>>> a208e06bbb2663695453ce785d3107fb9c99289a
       res.json({ comment });
     } else {
       next(commentNotFoundError(commentId));
