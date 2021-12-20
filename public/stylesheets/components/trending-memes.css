@@ -16,6 +16,20 @@ a.trending-title-headline{
     font-weight: bold;
 }
 
+.trending-titles{
+    display: inline-flex;
+    background-color: none;
+    justify-self: center;
+}
+
+.trending-img-title{
+    height: 25px;
+    width: 25px;
+    background-color: none;
+    border-radius: 50%;
+
+}
+
 div.trending-meme{
     box-sizing: border-box;
     display:flex;
@@ -69,6 +83,7 @@ h2.trending-title{
     justify-content: flex-start;
     font-weight: bold;
     margin-left: 60px;
+    align-self: center;
 }
 
 div.trending-memes{
