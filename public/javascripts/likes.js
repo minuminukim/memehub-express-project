@@ -10,13 +10,20 @@ console.log("likes javascript!");
 const addLike = document.querySelector(".likeButton");
 // console.log("addLike", addLike);
 
-addLike.addEventListener("click", async (e) => {
-  const memeId = e.target.id.split("-")[1]; // [like, 3]
+//below lines are for creating the event on every button
+// window.addEventListener("DOMContentLoaded", () => {
+// const addLikeButtonListener = (button) => {
 
+addLike.addEventListener("click", async (e) => {
+  console.log("test")
+  const memeId = e.target.id.split("-")[1]; // [like, 3]
   let likeCounter = document.querySelector("#likeCount");
-  let count = likeCounter.innerHTML;
-  console.log("likeCounter", count);
-  count = parseInt(count.split(": ")[1], 10);
+
+    let count = likeCounter.innerHTML;
+    count = parseInt(count.split(": ")[1], 10);
+
+  // let count = likeCounter.innerHTML;
+  // console.log("likeCounter", count);
 
   const res = await fetch("/api/likes", {
     method: "POST",
@@ -34,20 +41,30 @@ addLike.addEventListener("click", async (e) => {
     likeCounter.innerHTML = `Likes: ${count}`;
     e.target.innerText = "Like";
   }
-});
+})
+// }
+
+//below code is used with the commented code above on 14 and 15
+// const likeButton = document.querySelectorAll(".likeButton");
+// for (let i = 0; i < likeButton.length; i++) {
+//   const button = likeButton[i]
+//   addLikeButtonListener(button);
+// }
+// })
+
 
 /*grab the ele off the page
 cant ele++ or --
 get innerhtml val
 if string convert to num
 increment or dec depending on if or else
-save it to new val 
+save it to new val
 */
 
 // button(id=`like-${meme.id}` class='likeButton') Like
 
 {
-  /* <i id='icon1' class="fas fa-thumbs-up"></i> 
+  /* <i id='icon1' class="fas fa-thumbs-up"></i>
 <i id='icon2' class="far fa-thumbs-up"></i> *
 let likeIcon = document.querySelector("#icon1");
 let unlikeIcon = document.querySelector("#icon2"); */
