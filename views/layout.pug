@@ -11,8 +11,8 @@ html
   body
     if locals.authenticated
       include main-nav.pug
-    else
-      include ./includes/landing-header.pug
+    //- else
+    //-   include ./includes/landing-header.pug
     block content
     block foot
       #footer.footer
