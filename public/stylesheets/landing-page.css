@@ -1,4 +1,8 @@
 @import url("components/feed-block.css");
+@import url("components/landing-nav.css");
+@import url("components/landing-header.css");
+@import url("components/trending-memes.css");
+
 
 .landing-root {
   display: flex;

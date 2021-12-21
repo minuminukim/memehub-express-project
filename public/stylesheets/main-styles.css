@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap");
 @import url("reset.css");
 @import url("index.css");
 
-@import url("components/landing-nav.css");
 @import url("components/dropdown.css");
+/* @import url("components/landing-nav.css"); */
 @import url("components/sign-in.css");
-@import url("components/landing-header.css");
-@import url("components/trending-memes.css");
+/* @import url("components/landing-header.css");
+@import url("components/trending-memes.css"); */
 @import url("components/new-meme.css");
 @import url("components/user-page.css");
 @import url("components/footer.css");
-@import url("components/about-page.css");
 @import url("components/search-page.css");
+@import url("components/follow-button.css");

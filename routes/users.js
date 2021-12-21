@@ -8,7 +8,7 @@ const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
-const { followNotFoundError } = require("../validators/follow-validators");
+const getUserId = require("./utils/get-user-id");
 
 const {
   checkFollow,
@@ -18,7 +18,7 @@ const {
 
 const router = express.Router();
 
-/* CREATE A NEW USER */
+// get user sign-up form
 router.get("/new", csrfProtection, (req, res) => {
   const user = User.build();
   res.render("sign-up", {
@@ -28,6 +28,7 @@ router.get("/new", csrfProtection, (req, res) => {
   });
 });
 
+// post user sign-up form
 router.post(
   "/new",
   csrfProtection,
@@ -62,7 +63,7 @@ router.post(
   })
 );
 
-/*************** SIGN IN LOGIC **************************************/
+/************************** SIGN IN LOGIC **************************************/
 router.get("/sign-in", csrfProtection, (req, res) => {
   res.render("sign-in", {
     title: "Sign In",
@@ -138,21 +139,13 @@ router.get(
     const memes = profileUser.Memes;
 
     // Follow logic
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
-
+    const currentUserId = getUserId(req);
     const {
       isCurrentUser,
       numberOfFollowers,
       isFollowing,
       followId: profileFollowId,
     } = getFollowData(profileUser, currentUserId);
-
-    // const isCurrentUser = userId === currentUserId;
-    // const { followers } = profileUser;
-    // const numberOfFollowers = followers.length || 0;
-    // const [isFollowing, followId] = getFollow(followers, currentUserId);
 
     res.render("user-page", {
       title: "User",
@@ -212,11 +205,7 @@ router.get(
       include: { model: User, as: "followers" },
     });
 
-    // Follow logic
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
-
+    const currentUserId = getUserId(req);
     const {
       isCurrentUser,
       numberOfFollowers,
@@ -247,9 +236,7 @@ router.post(
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId);
 
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    const currentUserId = getUserId(req);
     const isCurrentUser = userId === currentUserId;
     const isFollowing = await checkFollow(userId, currentUserId);
 
@@ -293,16 +280,18 @@ router.get(
         {
           model: User,
           as: "followers",
-          include: [{ model: User, as: "followers" }],
+          include: [
+            {
+              model: User,
+              as: "followers",
+            },
+          ],
         },
       ],
       order: [["id", "DESC"]],
     });
-
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
-
+    console.log(profileUser.followers[0].followers);
+    const currentUserId = getUserId(req);
     let isFollowing = false;
     let profileFollowId = 0;
     const followers = profileUser.followers.map((follower) => {
