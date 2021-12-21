@@ -58,19 +58,19 @@ router.post(
 );
 
 router.delete(
-  "/:id(\\d+)",
+  "/:id(\\d+)/following/:id(\\d+)",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const followId = parseInt(req.params.id, 10);
-    const followerId = req.session.auth.userId;
-
-    const follow = await Follow.findOne({ where: { userId, followerId } });
-    console.log("follow@@@@@@@", follow);
+    const { followId } = req.body;
+    console.log(followId);
+    const follow = await Follow.findByPk(parseInt(followId, 10));
     if (follow) {
       await follow.destroy();
-      res.status(204).message("Success").end();
+      res
+        .status(204)
+        .json({ message: "You have successfully unfollowed this user." });
     } else {
-      next(new Error("test"));
+      res.status(404).json({ message: "Follow does not exist" });
     }
   })
 );
