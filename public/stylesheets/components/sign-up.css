@@ -1,59 +1,152 @@
-.sign-up-root,
+/* HEADER */
+/* .landing-header {
+  background-color: #ffc017;
+  width: 100vw;
+  display: flex;
+}
+
+.landing-nav {
+  display: flex;
+  justify-content: space-around;
+  z-index: 100;
+  height: 75px;
+  top: 0;
+  width: 100vw;
+  border-bottom: black solid 1px;
+}
+
+.nav-left {
+  justify-content: flex-start;
+  align-self: center;
+  font-weight: bolder;
+}
+.nav-right {
+  display: inline-flex;
+  align-items: center;
+}
+.nav-title a {
+  font-family: "Playfair Display", serif;
+  color: #292929;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.landing-header button {
+  background-color: #292929;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: 0;
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+
+div.right-padding {
+  padding-right: 25px;
+} */
+
+html {
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.sign-up-root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.sign-up-form {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  min-width: 800px;
+}
+
 .sign-up-buttons {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.sign-up-root {
-  margin: 0 auto;
+  padding-top: 30px;
 }
 
 .sign-up-links {
   display: flex;
+  padding-top: 30px;
 }
-
 
 .sign-up-title {
   font-family: "Georgia", "Cambria", "Times New Roman", serif;
   font-size: 28px;
   line-height: 32px;
   text-align: center;
+  padding-bottom: 30px;
 }
+
 
 .field {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 4px 0;
+  width: 100%;
 }
 
 .field input {
-  border: 1px solid #848583;
-  border-radius: 10px;
-  padding: 5px;
-  padding-left: 10px;
+  border: 0;
+  border-bottom: 1px solid #848583;
+  text-align: center;
+  min-width: 270px;
+  min-height: 30px;
 }
 
 .field label {
   padding: 5px 0px;
+  font-size: 13px;
 }
 
 .sign-up-buttons button {
-  background-color: #fff;
-  color: #000;
+  background-color: #191919;
+  color: #fff;
   border: 1px solid #848583;
   font-size: 14px;
   font-weight: 400;
   border-radius: 20px;
   height: 1.8rem;
-  width: 6rem;
+  min-width: 200px;
   text-align: center;
 }
 
-button:hover,
+.demo-button {
+  margin-top: 10px;
+}
 input:hover {
-  background-color: #fff;
   border-color: rgba(0, 0, 0, 0.9);
 }
 
@@ -67,4 +160,21 @@ input:hover {
   text-decoration: none;
   font-weight: bold;
   color: #dc3545;
+}
+
+@media screen and (max-width: 800) {
+  .sign-up-root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    align-items: stretch;
+  }
+
+  .sign-up-form {
+    width: 100%;
+    height: 100%;
+  }
+  label {
+    display: none;
+  }
 }

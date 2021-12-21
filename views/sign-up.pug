@@ -3,25 +3,37 @@ include utils.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/components/sign-up.css")
-  link(rel="stylesheet" href="/stylesheets/landing-page.css")
+  link(rel="stylesheet" href="/stylesheets/components/errors.css")
 
 block content
+  //- header.landing-header
+  //-   nav.landing-nav
+  //-     .nav-left
+  //-       h1.nav-title: a(href="/") MemeHub
+  //-     .nav-right
+  //-       div.right-padding
+  //-         a.nav-link(href="/users/sign-in") Sign In
+  //-       div.right-padding
+  //-         a.nav-link(href="/users/sign-in") Try Demo
+  //-       div.right-padding
+  //-         div
+  //-           button(onclick="location.href='/users/new'") Get Started
   +validationErrorSummary(errors)
   .sign-up-root
-    h2.sign-up-title Join Memehub.
     form(action='/users/new' method='post' class='sign-up-form')
+      .title-container
+        h2.sign-up-title Join Memehub.
       input(type='hidden' name='_csrf' value=csrfToken)
-      +field('User Name', 'username', user.username)
-      +field('First Name', 'firstName', user.firstName)
-      +field('Last Name', 'lastName', user.lastName)
-      +field('Email Address', 'email', user.email)
+      +field('Username', 'username', user.username)
+      +field('First name', 'firstName', user.firstName)
+      +field('Last name', 'lastName', user.lastName)
+      +field('Email', 'email', user.email, 'text')
       +field('Password', 'password', user.password, 'password')
       +field('Confirm Password', 'confirmPassword', '', 'password')
       div(class='sign-up-buttons')
-        button(type='submit' class='register-button') Register
-        form(action='/users/sign-in' method='post')
-          button(type='submit' class='demo-button') Try Demo
-        a(href='/' class='cancel-button') Cancel
-      div.sign-up-links
+        button(type='submit' class='register-button') Continue
+        button(onclick="location.href='/users/sign-in/" class='demo-button') Try Demo
+        div.sign-up-links
           p Already have an account?
           p: a(href='/users/sign-in') Sign in
+          a(href='/' class='cancel-button') Cancel
