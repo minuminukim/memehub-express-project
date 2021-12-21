@@ -1,0 +1,40 @@
+div.about-page-content {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+
+div.about-page-user-picture{
+    margin-left: 40px;
+}
+
+div.about-page-user-detail{
+    width: 20em;
+}
+
+.about-page-spacing{
+    padding-bottom: 20px;
+}
+
+h1.about-page-spacing{
+    padding-bottom: 20px;
+    font-weight: bolder;
+    color: black;
+}
+
+.about-page-follows{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-page-edit-link {
+    margin-top: 15px;
+}
+
+div.about-page-edit-form{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}

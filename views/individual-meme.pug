@@ -4,6 +4,7 @@ include ./mixins/follows.pug
 include ./mixins/userpage-header.pug
 
 append head
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
   link(rel="stylesheet" href="/stylesheets/components/comment-section.css")
   script(src="/javascripts/index.js" type="module" defer)
   script(src="/javascripts/comment.js" type="module" defer)
@@ -36,8 +37,10 @@ block content
       img.user-meme(src=`${meme.link}` alt='meme')
       div.likes-and-comments
       div.likes
-        a(id='likeCount' href=`/` role='button')= `Likes: ${likes}`
+        p(id=`likeCount-${meme.id}` role='button')= `Likes: ${likes}`
+        div.likes-and-comments
         button(id=`like-${meme.id}` class='likeButton') Like
+        div.likes-and-comments
       div
       input(type="textarea" name="content" id="content" class="content" placeholder="Write a comment.")
       button(id=`${meme.id}` class="add-button") Add Comment

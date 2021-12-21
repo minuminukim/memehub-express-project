@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 const commentRouter = require("./comments.js");
 const followsRouter = require("./follows.js");
-const likesRout
 
 // mount subpaths
 router.use("/comments", commentRouter);

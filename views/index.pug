@@ -4,7 +4,14 @@ include ./mixins/memes.pug
 include ./mixins/recommended.pug
 
 append head
-  link(rel="stylesheet" href="/stylesheets/home.css")
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/main-styles.css")
+  link(rel="stylesheet" href="/stylesheets/components/home.css")
+  link(rel="stylesheet" href="/stylesheets/components/feed-block.css")
+  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
+  link(rel="stylesheet" href="/stylesheets/components/recommended-followers.css")
+  //- add page specific js
+  script(src="/javascripts/index.js" type="module" defer)
 
 block content
   .root

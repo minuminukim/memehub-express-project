@@ -8,7 +8,7 @@ const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
-const getUserId = require("./utils/get-user-id");
+const { followNotFoundError } = require("../validators/follow-validators");
 
 const {
   checkFollow,
@@ -18,7 +18,7 @@ const {
 
 const router = express.Router();
 
-// get user sign-up form
+/* CREATE A NEW USER */
 router.get("/new", csrfProtection, (req, res) => {
   const user = User.build();
   res.render("sign-up", {
@@ -28,7 +28,6 @@ router.get("/new", csrfProtection, (req, res) => {
   });
 });
 
-// post user sign-up form
 router.post(
   "/new",
   csrfProtection,
@@ -63,7 +62,7 @@ router.post(
   })
 );
 
-/************************** SIGN IN LOGIC **************************************/
+/*************** SIGN IN LOGIC **************************************/
 router.get("/sign-in", csrfProtection, (req, res) => {
   res.render("sign-in", {
     title: "Sign In",
@@ -92,21 +91,21 @@ router.post(
 
         if (isPassword) {
           loginUser(req, res, user);
-          return res.redirect("/");
+            return res.redirect("/");
         }
       }
+        errors.push("Sign In failed for the provided email and password");
+      } else {
+          errors = validatorErrors.array().map((error) => error.msg);
 
-      errors.push("Sign In failed for the provided email and password");
-    } else {
-      errors = validatorErrors.array().map((error) => error.msg);
-    }
+      }
 
-    res.render("sign-in", {
-      title: "Sign In",
-      email,
-      errors,
-      csrfToken: req.csrfToken(),
-    });
+      res.render("sign-in", {
+        title: "Sign In",
+        email,
+        errors,
+        csrfToken: req.csrfToken(),
+      });
   })
 );
 
@@ -139,13 +138,21 @@ router.get(
     const memes = profileUser.Memes;
 
     // Follow logic
-    const currentUserId = getUserId(req);
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
     const {
       isCurrentUser,
       numberOfFollowers,
       isFollowing,
       followId: profileFollowId,
     } = getFollowData(profileUser, currentUserId);
+
+    // const isCurrentUser = userId === currentUserId;
+    // const { followers } = profileUser;
+    // const numberOfFollowers = followers.length || 0;
+    // const [isFollowing, followId] = getFollow(followers, currentUserId);
 
     res.render("user-page", {
       title: "User",
@@ -205,7 +212,11 @@ router.get(
       include: { model: User, as: "followers" },
     });
 
-    const currentUserId = getUserId(req);
+    // Follow logic
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
     const {
       isCurrentUser,
       numberOfFollowers,
@@ -236,7 +247,9 @@ router.post(
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId);
 
-    const currentUserId = getUserId(req);
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
     const isCurrentUser = userId === currentUserId;
     const isFollowing = await checkFollow(userId, currentUserId);
 
@@ -280,18 +293,16 @@ router.get(
         {
           model: User,
           as: "followers",
-          include: [
-            {
-              model: User,
-              as: "followers",
-            },
-          ],
+          include: [{ model: User, as: "followers" }],
         },
       ],
       order: [["id", "DESC"]],
     });
-    console.log(profileUser.followers[0].followers);
-    const currentUserId = getUserId(req);
+
+    const currentUserId = isntLoggedIn(req)
+      ? null
+      : parseInt(req.session.auth.userId, 10);
+
     let isFollowing = false;
     let profileFollowId = 0;
     const followers = profileUser.followers.map((follower) => {
