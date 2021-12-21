@@ -3,22 +3,29 @@ extends layout.pug
 include utils.pug
 
 append head
-  link(rel="stylesheet" href="/stylesheets/landing-page.css")
+  link(rel="stylesheet" href="/stylesheets/components/sign-in.css")
 
   script(src="/javascripts/demo-user.js" type="module" defer)
 
 block content
+  nav.form-nav
+    .nav-logo-container
+      a(href="/"): img.nav-logo(src="/images/medium-logo-cropped.png")
+      .nav-title-container
+        h1.nav-title: a(href="/") MemeHub
   .root
-    div.spacing-more
     +validationErrorSummary(errors)
-    h1.sign-in Welcome Back
-    form(action='/users/sign-in' method='post' id="sign-in-form")
+    form(action='/users/sign-in' method='post' id='sign-in-form')
+      .form-header
+        h2 Welcome back.
+        p Enter the email address and password associated with your account, and we'll send you on your way.
       input(type='hidden' name='_csrf' value=csrfToken)
-      +field('Email: ', 'email', email)
-      +field('Password: ', 'password', null, 'password')
-      div.spacing-more
-        div.sign-in-buttons
-          button.sign-in-button(type='submit') Sign In
-          button.sign-in-button(class="demo-button") Demo
-      div.spacing-more
-        p: a.sign-in(href='/users/new') New User? Sign Up Here
+      .form-fields
+      +field('Your email', 'email', email)
+      +field('Password', 'password', null, 'password')
+      .form-buttons
+        button.form-button(type='submit') Continue
+        button.form-button(class='demo-button') Demo
+      .form-links
+        p No account?
+        a(href='/users/new') Create one
