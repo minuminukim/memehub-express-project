@@ -58,6 +58,7 @@ router.post(
   })
 );
 
+<<<<<<< HEAD
 // router.post(
 //   "/edit",
 //   asyncHandler(async (req, res) => {
@@ -84,6 +85,34 @@ router.post(
 //     // }
 //   })
 // );
+=======
+router.post(
+  "/edit",
+  asyncHandler(async (req, res) => {
+    // }));
+    // try{
+=======
+router.post("/edit", asyncHandler(async (req, res) => {
+
+// }));
+// =======
+  // try{
+
+
+    // const memeId = parseInt(req.body.memeId, 10);
+    //const comments = await db.Comment.findAll({
+    //  where: {
+    //    memeId: memeId,
+    //  }
+    //});
+    //res.json({comments });
+    // }
+    // catch(e){
+    //   console.log(e);
+    // }
+  })
+);
+>>>>>>> 01aff82f666ea8ed2095033dc70829bda6034ead
 
 router.put(
   "/:id(\\d+)",
