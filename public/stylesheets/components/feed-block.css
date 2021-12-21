@@ -14,8 +14,11 @@
 }
 
 .user-link {
+  display: flex;
+  align-self: center;
   color: #292929;
   font-size: 13px;
+  text-decoration: none;
 }
 
 .meme-title {
@@ -72,4 +75,10 @@ div.caption-left {
 
 p.trending-date{
   font-size: 14px;
+}
+
+a.trending-username{
+  display: flex;
+  align-self: center;
+  text-decoration: none;
 }
