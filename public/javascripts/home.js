@@ -20,6 +20,7 @@ const transformToggleText = () => {
   toggle.style.paddingBottom = "5px";
   toggle.style.color = "#292929";
   toggle.style.borderBottom = "1px solid #292929";
+  toggle.style.fontWeight = "500";
 };
 
 window.addEventListener("DOMContentLoaded", () => {
