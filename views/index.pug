@@ -7,21 +7,22 @@ append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/home.css")
   //- add page specific js
-  script(src="/javascripts/index.js" type="module" defer)
+  script(src="/javascripts/index.js" type="module")
+  script(src="/javascripts/home.js" type="module")
 
 block content
   .root
     .left-container
       .feed-container
         .feed-toggles
-            .feed-toggle
-              a(href="/you" class="following") Following
-            .feed-toggle
-              a(href="/hot" class="hot") Hot
-            .feed-toggle
-              a(href="/trending" class="trending") Trending
-            .feed-toggle
-              a(href="/recent" class="recent") Recent
+          .feed-toggle
+            a(href="/you" class="following") Following
+          .feed-toggle
+            a(href="/hot" class="hot") Hot
+          .feed-toggle
+            a(href="/trending" class="trending") Trending
+          .feed-toggle
+            a(href="/recent" class="recent") Recent
         .feed-memes-container
           .feed-memes
             each meme in feedMemes

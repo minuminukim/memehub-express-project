@@ -145,11 +145,6 @@ h2.recommended-title {
   padding: 0 12px;
 }
 
-.feed-toggles a:focus {
-  color: #292929;
-  border-bottom: 1px solid #292929;
-}
-
 .feed-memes-container {
   padding-top: 2rem;
 }
