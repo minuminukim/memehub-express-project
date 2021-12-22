@@ -1,10 +1,9 @@
 @import url("/stylesheets/components/feed-block.css");
-/* @import url("/stylesheets/components/recommended-followers.css"); */
+@import url("/stylesheets/components/recommended-followers.css");
 /* general layout */
 
 .root {
   display: flex;
-  grid-gap: 20px;
   justify-content: center;
 }
 
@@ -28,106 +27,6 @@
   border: 1px solid orange;
 }
 
-/* RECOMMENDED FOLLOWERS */
-.recommended-follows-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-height: 400px;
-  max-width: 360px;
-}
-
-.recommended-title-container {
-  align-self: flex-start;
-}
-
-h2.recommended-title {
-  color: #292929;
-  font-size: 16px;
-  font-weight: 500;
-  padding-bottom: 1em;
-}
-
-
-.recommended-blocks-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-auto-rows: 1fr;
-  align-items: center;
-}
-
-.recommended-block {
-  display: grid;
-  grid-template-columns: 48px auto minmax(32px, 64px);
-  align-items: center;
-  max-height: 80px;
-  max-width: 360px;
-  grid-gap: 1em;
-  padding-bottom: 1em;
-}
-
-.recommended-photo {
-  border-radius: 50%;
-  max-height: 48px;
-  max-width: 48px;
-}
-
-.recommended-username {
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  padding-bottom: 5px;
-}
-
-.recommended-bio {
-  color: #757575;
-  font-size: 14px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  min-height: 20px;
-  max-height: 40px;
-}
-
-.recommended-bio p {
-  width: fit-content;
-}
-
-.rec-mid {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* white-space: nowrap; */
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.rec-right {
-  justify-self: flex-end;
-}
-
-.follow-button,
-.unfollow-button {
-  border: 1px solid #848583;
-  background-color: #fff;
-  color: #000;
-  height: 2rem;
-  padding: 0 0.8rem;
-  max-width: 85px;
-}
-
-.recommended-block .unfollow-button {
-  background-color: #000;
-  color: #fff;
-}
-
-.follow-button:hover {
-  background-color: #fff;
-  border-color: rgba(0, 0, 0, 0.9);
-  color: rgba(0, 0, 0, 0.9);
-}
-
 /* MAIN FEED */
 .feed-toggles {
   align-self: flex-start;
@@ -147,6 +46,19 @@ h2.recommended-title {
 
 .feed-memes-container {
   padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.feed-memes {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: fit-content;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 /* .feed-memes-loggedIn {
@@ -192,7 +104,7 @@ div.dev-spacing {
   text-decoration: none;
 } */
 
-@media screen and (max-width: 900px) {
+@media (max-width: 900px) {
   .root {
     padding: 0;
     margin: 0 24px;
@@ -203,11 +115,8 @@ div.dev-spacing {
   .left-container {
     margin: 0;
     padding: 0;
-    grid-column: 1 / 2;
-  }
-
-  .feed-memes-loggedIn {
-    border: 0;
+    width: 100%;
+    border-right: 0;
   }
 
   .right-container {

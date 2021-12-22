@@ -6,8 +6,7 @@ mixin recommended(dev, followerId)
       a(href=`/users/${dev.id}`): img.recommended-photo(src=dev.profilePicture)
     .rec-mid
       a(class="recommended-username" href=`/users/${dev.id}`) @#{dev.username}
-      .recommended-bio
-        p #{dev.biography}
+      p.recommended-bio #{dev.biography}
     .rec-right
       if dev.isFollowing
         +followButton(dev.id, followerId, "Following", dev.followId, "unfollow-button")
