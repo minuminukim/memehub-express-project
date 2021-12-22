@@ -26,8 +26,15 @@ block content
                 +followButton(meme.userId, currentUserId, "Following", profileFollowId, "unfollow-button", "side-button")
               else
                 +followButton(meme.userId, currentUserId, "Follow", profileFollowId, "follow-button", "side-button")
-        div.users-followers-details
-          a.userpage-header-link(href=`/users/${meme.userId}/followers` alt='followers')= `${meme.User.username}'s Followers`
+        div.user-followings-details
+          p.user-followings-header= `${meme.User.firstName}  ${meme.User.lastName} Follows`
+          .user-followings-container
+            each following in followings.slice(0, 5)
+              .following-block
+                a(href=`/users/${following.id}`): img(src=`${following.profilePicture}`)
+                a.followings-link(href=`/users/${following.id}`)= `@${following.username}`
+            a.see-all(href=`/users/${meme.User.id}/following`) See all
+
   div.user-feed
     ul
       h1.user-page= `${meme.headline}`
