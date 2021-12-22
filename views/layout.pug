@@ -9,8 +9,9 @@ html
 
         script(src="/javascripts/index.js" type="module" defer)
   body
-    if locals.authenticated
-      include main-nav.pug
+    block header
+      if locals.authenticated
+        include main-nav.pug
     //- else
     //-   include ./includes/landing-header.pug
     block content

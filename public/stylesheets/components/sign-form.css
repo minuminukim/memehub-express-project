@@ -3,7 +3,7 @@ body {
   height: 100%;
 }
 
-.root {
+main {
   height: 100%;
   border: 1px solid blue;
   display: flex;

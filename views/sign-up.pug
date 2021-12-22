@@ -1,18 +1,20 @@
 extends layout.pug
-include utils.pug
+include ./mixins/form-utils.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/components/sign-form.css")
   link(rel="stylesheet" href="/stylesheets/components/errors.css")
+  script(src="/javascripts/demo-user.js" type="module" defer)
 
-block content
+block header
   nav.form-nav
     .nav-logo-container
       a(href="/"): img.nav-logo(src="/images/medium-logo-cropped.png")
       .nav-title-container
         h1.nav-title: a(href="/") MemeHub
+block content
   +validationErrorSummary(errors)
-  .root
+  main
     form(action='/users/new' method='post' id='sign-up-form')
       .form-header
         h2 Join Memehub.
