@@ -27,7 +27,7 @@ export const handleErrors = async (e) => {
   }
 };
 
-export const isResponseOK = (response) => {
+export const isResponseOk = (response) => {
   if (response.status === 401) {
     window.location.href = "/log-in";
     return false;

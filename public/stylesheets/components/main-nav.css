@@ -1,5 +1,60 @@
 .main-nav {
   display: flex;
+  width: 100vw;
+  padding: 25px 50px;
+  height: 80px;
+  justify-content: space-between;
+  box-shadow: 0 0 15px #f2f2f2;
+}
+
+.main-nav-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 25px;
+  height: fit-content;
+}
+
+.main-nav-left a {
+  height: 25px;
+}
+
+img.nav-logo {
+  width: auto;
+  height: 25px;
+  padding: 1px 7px 1px 0;
+}
+
+a.nav-title {
+  font-family: "Playfair Display", serif;
+  color: #292929;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.main-nav-right {
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-search {
+  padding-right: 0.5rem;
+}
+
+.dropdown-button,
+.dropdown-img-button {
+  border: 0;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  background-color: none;
+  cursor: pointer;
+}
+
+/* .main-nav {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 60px;
@@ -24,4 +79,4 @@
   outline: none;
   overflow: hidden;
   background-repeat: no-repeat;
-}
+} */
