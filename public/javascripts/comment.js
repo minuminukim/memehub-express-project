@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
     let content = document.querySelector(".content");
     let memeId = e.target.id;
     let contentValue = content.value
-
+    
 
     const body = { contentValue, memeId }
     console.log("contentValue", contentValue)

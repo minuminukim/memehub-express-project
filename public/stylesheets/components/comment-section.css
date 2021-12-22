@@ -12,6 +12,11 @@
     font-size: 25px;
 }
 
+div.comment-header{
+    font-weight:bold;
+    font-size: 25px;
+}
+
 .content {
     height:60px;
     width: 100%;
@@ -20,13 +25,12 @@
 }
 
 .add-button{
-    border: black solid 2px;
-    font-size: 15px;
-    background-color: rgb(12, 167, 12);
-    color: white;
-    padding: 5px 5px;
+    border: #FCD200 solid 1px;
+    font-size: 13px;
+    background-color: #FFD814;
+    color: black;
+    padding: 5px 8px;
     border-radius: 7px;
-    font-weight: bold;
 
 }
 
@@ -65,4 +69,10 @@
 .edit-button:active {
     transform: scale(0.98);
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+div.add-comment-button{
+    display:flex;
+    justify-content: right;
+    padding-top: 5px;
 }
