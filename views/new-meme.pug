@@ -2,6 +2,9 @@ extends layout.pug
 
 include ./mixins/form-utils.pug
 
+append head
+  link(rel='stylesheet' href='/stylesheets/components/new-meme.css')
+
 block content
   div.spacing-more
   p.username= `Draft meme for ${user.dataValues.username}`

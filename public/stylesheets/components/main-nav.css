@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   position: fixed;
+  z-index: 2;
   top: 0;
   padding: 25px 0;
   height: 80px;
