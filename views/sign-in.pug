@@ -1,6 +1,10 @@
 extends sign-up.pug
 include ./mixins/form-utils.pug
 
+append head
+  //- link(rel="stylesheet" href="/stylesheets/components/sign-form.css")
+  //- script(link="/javascripts/form-errors.js" type="module")
+  script(src="/javascripts/demo-user.js" type="module")
 block content
   +validationErrorSummary(errors)
   main
@@ -14,7 +18,7 @@ block content
         +field('Password', 'password', null, 'password')
       .form-buttons
         button.form-button(type='submit') Continue
-        button.form-button(class='demo-button') Demo
+        button.form-button(class='demo-button' type='submit') Demo
       .form-links
         p No account?
         a(href='/users/new') Create one

@@ -3,8 +3,8 @@
 }
 
 .error-message {
+  padding-top: 0.5em;
   font-size: 13px;
   color: #c94a4a;
-  position: absolute;
   width: 270px;
 }

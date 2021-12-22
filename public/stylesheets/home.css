@@ -1,5 +1,6 @@
 @import url("/stylesheets/components/feed-block.css");
 @import url("/stylesheets/components/recommended-followers.css");
+
 /* general layout */
 .root {
   display: flex;
