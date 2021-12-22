@@ -91,21 +91,20 @@ router.post(
 
         if (isPassword) {
           loginUser(req, res, user);
-            return res.redirect("/");
+          return res.redirect("/");
         }
       }
-        errors.push("Sign In failed for the provided email and password");
-      } else {
-          errors = validatorErrors.array().map((error) => error.msg);
+      errors.push("Sign In failed for the provided email and password");
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
 
-      }
-
-      res.render("sign-in", {
-        title: "Sign In",
-        email,
-        errors,
-        csrfToken: req.csrfToken(),
-      });
+    res.render("sign-in", {
+      title: "Sign In",
+      email,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
   })
 );
 
@@ -132,6 +131,7 @@ router.get(
           ],
         },
         { model: User, as: "followers" },
+        { model: User, as: "followings" },
       ],
     });
 
@@ -147,12 +147,8 @@ router.get(
       numberOfFollowers,
       isFollowing,
       followId: profileFollowId,
+      followings,
     } = getFollowData(profileUser, currentUserId);
-
-    // const isCurrentUser = userId === currentUserId;
-    // const { followers } = profileUser;
-    // const numberOfFollowers = followers.length || 0;
-    // const [isFollowing, followId] = getFollow(followers, currentUserId);
 
     res.render("user-page", {
       title: "User",
@@ -163,6 +159,7 @@ router.get(
       numberOfFollowers,
       isFollowing,
       profileFollowId,
+      followings,
     });
   })
 );

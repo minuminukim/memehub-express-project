@@ -27,12 +27,14 @@ const getFollowData = (user, currentUserId) => {
   const isCurrentUser = user.id === currentUserId;
   const numberOfFollowers = followers.length || 0;
   const [isFollowing, followId] = getFollow(followers, currentUserId);
+  const followings = user.followings;
 
   return {
     isCurrentUser,
     numberOfFollowers,
     isFollowing,
     followId,
+    followings,
   };
 };
 

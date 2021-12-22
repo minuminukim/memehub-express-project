@@ -27,6 +27,7 @@ const router = express.Router();
 
 router.post(
   "/",
+  commentValidators,
   asyncHandler(async (req, res) => {
     let comment = await db.Comment.create({
       body: req.body.contentValue,

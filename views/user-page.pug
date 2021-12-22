@@ -15,21 +15,29 @@ block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   hr.user-page
   div.userPosts
-    div.user-page-content
-      div.fixed-position
-        img.user-profile-pic(src=`${profileUser.profilePicture}`)
-        div.user-page-details
-          div.profile-name-bar
-            p.user-profile-name-bar= `${profileUser.username}'s Info`
-            div.user-bio-description
-              p= `${profileUser.biography}`
-            div
-              if isFollowing
-                +followButton(profileUser.id, currentUserId, "Following", profileFollowId, "unfollow-button", "side-button")
-              else
-                +followButton(profileUser.id, currentUserId, "Follow", profileFollowId, "follow-button", "side-button")
-        div.users-followers-details
-          a.userpage-header-link(href=`/users/${profileUser.id}/followers` alt='followers')= `${profileUser.username}'s Followers`
+    block side
+      div.user-page-content
+        div.fixed-position
+          img.user-profile-pic(src=`${profileUser.profilePicture}`)
+          div.user-page-details
+            div.profile-name-bar
+              p.user-profile-name-bar= `${profileUser.username}'s Info`
+              div.user-bio-description
+                p= `${profileUser.biography}`
+              div
+                if isFollowing
+                  +followButton(profileUser.id, currentUserId, "Following", profileFollowId, "unfollow-button", "side-button")
+                else
+                  +followButton(profileUser.id, currentUserId, "Follow", profileFollowId, "follow-button", "side-button")
+          div.user-followings-details
+            p.user-followings-header= `${profileUser.firstName}  ${profileUser.lastName} Follows`
+            .user-followings-container
+              each following in followings.slice(0, 5)
+                .following-block
+                  a(href=`/users/${following.id}`): img(src=`${following.profilePicture}`)
+                  a.followings-link(href=`/users/${following.id}`)= `@${following.username}`
+              a.see-all(href=`/users/${profileUser.id}/following`) See all
+
     div.user-feed
       ul
         each meme in memes
