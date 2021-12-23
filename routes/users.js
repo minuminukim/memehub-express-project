@@ -10,7 +10,6 @@ const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
 const getUserId = require("./utils/get-user-id");
 
-
 const {
   checkFollow,
   getFollow,
@@ -392,9 +391,11 @@ router.get(
       };
     });
 
+
     res.render("following", {
       followings,
       profileUser,
+      numberOfFollowers: profileUser.followers.length || 0,
       count: followings.length || 0,
       currentUserId,
       isCurrentUser,
