@@ -10,7 +10,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 
-
+            if(contentValue === ""){
+                alert("You must enter text before adding a comment.");
+                return;
+            }
             const body = { contentValue, memeId, };
 
 
@@ -55,7 +58,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 editButton.innerHTML = "Edit";
 
                 li.appendChild(deleteButton);
-                li.appendChild(editButton);
+                // li.appendChild(editButton);
 
                 let grabUl = document.querySelector(`#comment-${memeId}`)
 

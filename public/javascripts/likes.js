@@ -67,7 +67,7 @@ window.addEventListener("DOMContentLoaded", () => {
       console.log(data);
       if (data.message === "liked") {
         count += 1;
-        likeCounter.innerHTML = `👍: ${count}`;
+        likeCounter.innerHTML = `👍 : ${count}`;
         e.target.innerText = "Unlike";
       } else {
         count -= 1;

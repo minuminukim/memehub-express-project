@@ -1,5 +1,7 @@
 const { check } = require("express-validator");
 
+
+
 const commentValidators = [
   check("body")
     .exists({ checkFalsy: true })
@@ -16,4 +18,4 @@ const commentNotFoundError = (commentId) => {
   return error;
 };
 
-module.exports = { commentValidators, commentNotFoundError };
+module.exports = {  commentValidators, commentNotFoundError };

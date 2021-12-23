@@ -17,10 +17,15 @@ window.addEventListener("DOMContentLoaded", () => {
     let content = document.querySelector(".content");
     let memeId = e.target.id;
     let contentValue = content.value
-    
+
 
     const body = { contentValue, memeId }
     console.log("contentValue", contentValue)
+
+    if(contentValue === ""){
+      alert("You must enter text before adding a comment.");
+      return;
+  }
 
     try {
       const res = await fetch("/api/comments", {
@@ -61,7 +66,7 @@ window.addEventListener("DOMContentLoaded", () => {
       editButton.innerHTML = "Edit";
 
       li.appendChild(deleteButton);
-      li.appendChild(editButton);
+      // li.appendChild(editButton);
 
       let grabUl = document.querySelector(".comment-box")
       console.log("ul", grabUl.children)
