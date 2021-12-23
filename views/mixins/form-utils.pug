@@ -1,10 +1,11 @@
 mixin validationErrorSummary(errors)
   if errors
-    div(class='alert alert-danger' role='alert')
+    .error-container
+      span.exit [ x ]
       p The following error(s) occurred:
-      ul
+      ul.error-list
         each error in errors
-          li= error
+          li(class='error-message')= error
 
 mixin field(labelText, fieldName, fieldValue, fieldType = 'text', placeholder = null)
   div(class=null).field

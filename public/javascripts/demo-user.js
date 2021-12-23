@@ -1,5 +1,5 @@
 const demoSignIn = () => {
-  const button = document.querySelector("#demo-button");
+  const button = document.querySelector(".demo-button");
 
   button.addEventListener("click", (event) => {
     event.preventDefault();

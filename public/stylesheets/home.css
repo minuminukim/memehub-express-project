@@ -1,0 +1,80 @@
+@import url("/stylesheets/components/feed-block.css");
+@import url("/stylesheets/components/recommended-followers.css");
+/* general layout */
+.root {
+  display: flex;
+  justify-content: center;
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-right: 56px;
+  margin-right: 56px;
+  padding-top: 2rem;
+  border-right: 1px solid #e6e6e6;
+  max-width: 750px;
+  width: 100%;
+}
+
+.right-container {
+  padding-top: 2rem;
+  display: flex;
+}
+
+/* MAIN FEED */
+.feed-toggles {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e6e6e6;
+  height: 30px;
+}
+
+.feed-toggles a {
+  color: #757575;
+  text-transform: uppercase;
+  font-size: 13px;
+  text-decoration: none;
+  padding: 0 12px;
+}
+
+.feed-memes-container {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.feed-memes {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: fit-content;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+@media (max-width: 900px) {
+  .root {
+    padding: 0;
+    margin: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .left-container {
+    grid-column: 1 / 2;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border-right: 0;
+  }
+
+  .right-container {
+    display: none;
+  }
+}

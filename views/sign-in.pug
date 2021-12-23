@@ -1,22 +1,20 @@
-extends layout.pug
-
-include utils.pug
-
-append head
-  script(src="/javascripts/demo-user.js" type="module" defer)
+extends sign-up.pug
+include ./mixins/form-utils.pug
 
 block content
-  .root
-    div.spacing-more
-    +validationErrorSummary(errors)
-    h1.sign-in Welcome Back
-    form(action='/users/sign-in' method='post' id="sign-in-form")
+  +validationErrorSummary(errors)
+  main
+    form(action='/users/sign-in' method='post' id='sign-in-form')
+      .form-header
+        h2 Welcome back.
+        p Enter the email address and password associated with your account, and we'll send you on your way.
       input(type='hidden' name='_csrf' value=csrfToken)
-      +field('Email: ', 'email', email)
-      +field('Password: ', 'password', null, 'password')
-      div.spacing-more
-        div.sign-in-buttons
-          button.sign-in-button(type='submit') Sign In
-          button.sign-in-button(id="demo-button") Demo
-      div.spacing-more
-        p: a.sign-in(href='/users/new') New User? Sign Up Here
+      .form-fields
+        +field('Your email', 'email', email)
+        +field('Password', 'password', null, 'password')
+      .form-buttons
+        button.form-button(type='submit') Continue
+        button.form-button(class='demo-button') Demo
+      .form-links
+        p No account?
+        a(href='/users/new') Create one

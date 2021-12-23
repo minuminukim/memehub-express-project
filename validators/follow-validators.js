@@ -7,6 +7,15 @@ const { checkFollow } = require("../routes/utils/follows-helpers");
 // follow doesn't already exist
 // not trying to follow yourself
 
+const followNotFoundError = () => {
+  const error = Error({
+    errors: ["Follow does not exist."],
+    title: "Follow not found.",
+    status: 404,
+  });
+
+  return error;
+};
 
 const followValidators = [
   check("userId").custom(async (userId, { req }) => {
@@ -19,4 +28,4 @@ const followValidators = [
   }),
 ];
 
-module.exports = followValidators;
+module.exports = { followNotFoundError, followValidators };

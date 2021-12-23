@@ -58,28 +58,60 @@ router.post(
   })
 );
 
-router.post("/edit", asyncHandler(async (req, res) => {
 
-// }));
-// =======
-  // try{
+// router.post(
+//   "/edit",
+//   asyncHandler(async (req, res) => {
+//     // }));
+//     // try{
 
-    // const memeId = parseInt(req.body.memeId, 10);
-    //const comments = await db.Comment.findAll({
-    //  where: {
-    //    memeId: memeId,
-    //  }
-    //});
+// router.post("/edit", asyncHandler(async (req, res) => {
 
-    //res.json({comments });
-
-  // }
-  // catch(e){
-  //   console.log(e);
-  // }
+// // }));
+// // =======
+//   // try{
 
 
-}));
+//     // const memeId = parseInt(req.body.memeId, 10);
+//     //const comments = await db.Comment.findAll({
+//     //  where: {
+//     //    memeId: memeId,
+//     //  }
+//     //});
+//     //res.json({comments });
+//     // }
+//     // catch(e){
+//     //   console.log(e);
+//     // }
+//   })
+// );
+
+// router.post(
+//   "/edit",
+//   asyncHandler(async (req, res) => {
+//     // }));
+//     // try{
+
+// router.post("/edit", asyncHandler(async (req, res) => {
+
+// // }));
+// // =======
+//   // try{
+
+
+//     // const memeId = parseInt(req.body.memeId, 10);
+//     //const comments = await db.Comment.findAll({
+//     //  where: {
+//     //    memeId: memeId,
+//     //  }
+//     //});
+//     //res.json({comments });
+//     // }
+//     // catch(e){
+//     //   console.log(e);
+//     // }
+//   })
+// );
 
 
 router.put(

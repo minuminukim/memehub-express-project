@@ -1,11 +1,12 @@
 mixin followBlock(followed, followerId, text, followId, type = "follow-button")
   .follow-block-left
-    img.follow-user-logo(src=followed.profilePicture)
-  .follow-block-right
-    h3.follow-username: a(href=`/users/${followed.id}`) @#{followed.username}
-    p.follow-user-bio #{followed.biography}
+    a(href=`/users/${followed.id}`): img.follow-user-logo(src=followed.profilePicture)
+  .follow-block-middle
+    .middle-content
+      h3.follow-username: a(href=`/users/${followed.id}`) @#{followed.username}
+      p.follow-user-bio #{followed.biography}
   +followButton(followed.id, followerId, text, followId, type)
 
-mixin followButton(followedId, followerId, text, followId, type = "follow-button")
+mixin followButton(followedId, followerId, text, followId, type = "follow-button", location = null)
   if followedId !== followerId
-    button(class=type, follow=followId, user=followedId, follower=followerId type="submit") #{text}
+    button(class=type, follow=followId, user=followedId, follower=followerId type="submit", class=location) #{text}
