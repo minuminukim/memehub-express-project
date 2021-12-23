@@ -75,10 +75,10 @@
   border-top: 8px solid #292929;
 }
 
-/* .hidden,
+.hidden,
 .modal-hidden {
   visibility: hidden;
-} */
+}
 
 /* comments */
 .comments-modal {
