@@ -27,6 +27,7 @@ const router = express.Router();
 
 router.post(
   "/",
+  commentValidators,
   asyncHandler(async (req, res) => {
     let comment = await db.Comment.create({
       body: req.body.contentValue,
@@ -40,66 +41,91 @@ router.post(
     comment = await db.Comment.findByPk(comment.id, {
       include: db.User,
     });
-
-    res.json({ comment });
-  })
-);
-
-router.post(
-  "/delete",
-  asyncHandler(async (req, res) => {
-    try {
-      const commentId = parseInt(req.body.commentId, 10);
-      console.log("commentIds", commentId);
-      const comment = await db.Comment.findByPk(commentId);
-      console.log("commentz", comment);
-      await comment.destroy();
-      res.json({ message: "Your comment was deleted successfully!" });
-    } catch (e) {
-      console.log(e);
+    if (comment) {
+      res.status(200).json({ comment });
+    } else {
+      res.status(400).json({ message: "Please try again." });
     }
   })
 );
 
-router.put("/edit", asyncHandler(async (req, res) => {
-
-// }));
-
-  // try{
-
-    // const memeId = parseInt(req.body.memeId, 10);
-    //const comments = await db.Comment.findAll({
-    //  where: {
-    //    memeId: memeId,
-    //  }
-    //});
-
-    //res.json({comments });
-
-
-
-
-
-    res.json({ comment });
-  })
-);
-
-router.post(
-  "/delete",
+router.delete(
+  "/:id(\\d+)",
+  requireAuth,
   asyncHandler(async (req, res) => {
-    try {
-      const commentId = parseInt(req.body.commentId, 10);
-      console.log("commentIds", commentId);
-      const comment = await db.Comment.findByPk(commentId);
-      console.log("commentz", comment);
+    const commentId = parseInt(req.params.id, 10);
+    const comment = await db.Comment.findByPk(commentId);
+
+    if (comment) {
       await comment.destroy();
-      res.json({ message: "Your comment was deleted successfully!" });
-    } catch (e) {
-      console.log(e);
+      res.status(204).json({ message: "You have deleted your comment." });
+    } else {
+      res.status(404).json({ message: "Comment does not exist." });
     }
+    // try {
+    //   const commentId = parseInt(req.body.commentId, 10);
+    //   console.log("commentIds", commentId);
+    //   const comment = await db.Comment.findByPk(commentId);
+    //   console.log("commentz", comment);
+    //   await comment.destroy();
+    //   res.json({ message: "Your comment was deleted successfully!" });
+    // } catch (e) {
+    //   console.log(e);
+    // }
   })
 );
 
+// router.post(
+//   "/edit",
+//   asyncHandler(async (req, res) => {
+//     // }));
+//     // try{
+
+// router.post("/edit", asyncHandler(async (req, res) => {
+
+// // }));
+// // =======
+//   // try{
+
+//     // const memeId = parseInt(req.body.memeId, 10);
+//     //const comments = await db.Comment.findAll({
+//     //  where: {
+//     //    memeId: memeId,
+//     //  }
+//     //});
+//     //res.json({comments });
+//     // }
+//     // catch(e){
+//     //   console.log(e);
+//     // }
+//   })
+// );
+
+// router.post(
+//   "/edit",
+//   asyncHandler(async (req, res) => {
+//     // }));
+//     // try{
+
+// router.post("/edit", asyncHandler(async (req, res) => {
+
+// // }));
+// // =======
+//   // try{
+
+//     // const memeId = parseInt(req.body.memeId, 10);
+//     //const comments = await db.Comment.findAll({
+//     //  where: {
+//     //    memeId: memeId,
+//     //  }
+//     //});
+//     //res.json({comments });
+//     // }
+//     // catch(e){
+//     //   console.log(e);
+//     // }
+//   })
+// );
 
 router.put(
   "/:id(\\d+)",
@@ -108,7 +134,10 @@ router.put(
   handleValidationErrors,
   asyncHandler(async (req, res, next) => {
     const commentId = parseInt(req.params.id, 10);
-    const comment = await Comment.findOne({ where: { id: commentId } });
+    const comment = await db.Comment.findOne({
+      where: { id: commentId },
+      include: db.User,
+    });
 
     if (comment.userId !== req.session.auth.userId) {
       const error = new Error({

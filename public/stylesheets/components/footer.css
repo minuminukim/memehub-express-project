@@ -6,6 +6,7 @@
     height: 5rem;
     background: black;
     color: white;
+    z-index: 100;
 }
 
 .footer-div{

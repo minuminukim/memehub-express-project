@@ -1,0 +1,277 @@
+.likes-and-comments-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 120px;
+}
+
+.likes-and-comments {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 125px;
+}
+
+.likes,
+.comments {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #292929;
+  width: 50%;
+}
+
+.likeButton,
+.commentButton {
+  max-width: 25px;
+  height: auto;
+  cursor: pointer;
+}
+
+.likeButton:hover,
+.commentButton:hover {
+  opacity: 0.5;
+}
+
+.likes p,
+.comments p {
+  padding-left: 0.5em;
+}
+
+.invert {
+  background-color: white;
+  filter: invert(1);
+  border-radius: 50%;
+}
+
+.like-bubble {
+  justify-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  right: 12.5px;
+  top: 6px;
+}
+
+.bubble {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #292929;
+  width: 45px;
+  height: 35px;
+  color: white;
+  font-size: 13px;
+  border-radius: 5px;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #292929;
+}
+
+.hidden,
+.modal-hidden {
+  visibility: hidden;
+}
+
+/* comments */
+.comments-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 400px;
+  color: #292929;
+  background-color: #fff;
+  z-index: 2;
+  box-shadow: 0 0 10px #f2f2f2;
+}
+
+.comments-modal a {
+  text-decoration: none;
+}
+
+.comments-modal-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 25px 25px 2rem 25px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 12px 25px 12px;
+}
+
+.comments-header h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #292929;
+}
+
+.modal-close {
+  font-size: 25px;
+  color: #757575;
+  font-weight: 200;
+  cursor: pointer;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 200px;
+  padding: 12px 12px;
+  box-shadow: 0 0 5px 3px #f2f2f2;
+}
+
+.user-signature {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.user-signature a {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.user-signature img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.username {
+  padding-left: 8px;
+}
+
+.input-container {
+  height: 100px;
+  width: 100%;
+}
+
+.input-container {
+  width: 100%;
+  padding: 12px 0;
+}
+
+::placeholder {
+  color: lightgray;
+}
+
+textarea,
+input {
+  height: 100px;
+  width: 100%;
+  padding-bottom: 80px;
+  border: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.input-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 14px;
+  margin: 25px 0;
+}
+
+.input-buttons p {
+  padding-right: 12px;
+}
+
+.respond-button,
+.update-button {
+  background-color: #1a8917;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 20px;
+  border: 0;
+  height: 2rem;
+  padding: 0 0.8rem;
+  max-width: 85px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.respond-button {
+  position: relative;
+  bottom: 2em;
+}
+
+.respond-button:hover,
+.update-button:hover {
+  background-color: #157813;
+}
+
+.comments-container {
+  background-color: #fff;
+  z-index: 3;
+  height: 100%;
+  padding: 25px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.comment-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 25px 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.comment-block p {
+  color: #292929;
+  font-size: 14px;
+}
+
+.comment-body-container {
+  padding: 12px 0;
+  max-width: 350px;
+}
+
+.comment-buttons {
+  align-self: flex-end;
+}
+
+.edit-button,
+.delete-button {
+  color: #292929;
+  font-size: 14px;
+  background-color: white;
+  border: 0;
+}
+
+.delete-button {
+  padding-left: 5px;
+}
+
+.comment-buttons button:hover {
+  font-weight: 500;
+}
