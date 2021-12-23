@@ -6,8 +6,8 @@ mixin userSignature(user)
 mixin commentBlock(user, comment)
   li.comment-block(id=`commentBlock-${comment.id}`)
     +userSignature(user, comment)
-    .comment-body-container
-      p.comment-body #{comment.body}
+    .comment-body-container(id=`comments-${comment.memeId}`)
+      p.comment-body(id=`body-${comment.id}`) #{comment.body}
     .comment-buttons(id=`buttons-${comment.memeId}`)
       if comment.userId === locals.user.id
         button(id=`edit-${comment.id}` class="edit-button") Edit
@@ -33,7 +33,7 @@ mixin commentsModal(meme, currentUserId)
       .comments-header
         h2 Responses
         span.modal-close(id=`close-${meme.id}`) x
-      .comment-form
+      .comment-form(id=`form-${meme.id}` user=`${currentUserId}`)
         +userSignature(locals.user)
         .input-container
           input.content(type="textarea" name="content" id=`content-${meme.id}` placeholder="What are your thoughts?")

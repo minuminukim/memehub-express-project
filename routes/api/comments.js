@@ -43,23 +43,32 @@ router.post(
   })
 );
 
-router.post(
-  "/delete",
+router.delete(
+  "/:id(\\d+)",
+  requireAuth,
   asyncHandler(async (req, res) => {
-    try {
-      const commentId = parseInt(req.body.commentId, 10);
-      console.log("commentIds", commentId);
-      const comment = await db.Comment.findByPk(commentId);
-      console.log("commentz", comment);
+    const commentId = parseInt(req.params.id, 10);
+    const comment = await db.Comment.findByPk(commentId);
+
+    if (comment) {
       await comment.destroy();
-      res.json({ message: "Your comment was deleted successfully!" });
-    } catch (e) {
-      console.log(e);
+      res.status(204).json({ message: "You have deleted your comment." });
+    } else {
+      res.status(404).json({ message: "Comment does not exist." });
     }
+    // try {
+    //   const commentId = parseInt(req.body.commentId, 10);
+    //   console.log("commentIds", commentId);
+    //   const comment = await db.Comment.findByPk(commentId);
+    //   console.log("commentz", comment);
+    //   await comment.destroy();
+    //   res.json({ message: "Your comment was deleted successfully!" });
+    // } catch (e) {
+    //   console.log(e);
+    // }
   })
 );
 
-
 // router.post(
 //   "/edit",
 //   asyncHandler(async (req, res) => {
@@ -71,7 +80,6 @@ router.post(
 // // }));
 // // =======
 //   // try{
-
 
 //     // const memeId = parseInt(req.body.memeId, 10);
 //     //const comments = await db.Comment.findAll({
@@ -99,7 +107,6 @@ router.post(
 // // =======
 //   // try{
 
-
 //     // const memeId = parseInt(req.body.memeId, 10);
 //     //const comments = await db.Comment.findAll({
 //     //  where: {
@@ -113,7 +120,6 @@ router.post(
 //     // }
 //   })
 // );
-
 
 router.put(
   "/:id(\\d+)",
@@ -122,7 +128,10 @@ router.put(
   handleValidationErrors,
   asyncHandler(async (req, res, next) => {
     const commentId = parseInt(req.params.id, 10);
-    const comment = await Comment.findOne({ where: { id: commentId } });
+    const comment = await db.Comment.findOne({
+      where: { id: commentId },
+      include: db.User,
+    });
 
     if (comment.userId !== req.session.auth.userId) {
       const error = new Error({
