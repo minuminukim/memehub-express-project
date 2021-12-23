@@ -1,0 +1,80 @@
+.likes-and-comments-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 120px;
+}
+
+.likes-and-comments {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 125px;
+}
+
+.likes,
+.comments {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #292929;
+  width: 50%;
+}
+
+.likeButton,
+.commentButton {
+  max-width: 25px;
+  height: auto;
+  cursor: pointer;
+}
+
+.likeButton:hover,
+.commentButton:hover {
+  opacity: 0.5
+}
+
+.likes p,
+.comments p {
+  padding-left: 0.5em;
+}
+
+.invert {
+  background-color: white;
+  filter: invert(1);
+  border-radius: 50%;
+}
+
+.like-bubble {
+  justify-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  right: 12.5px;
+  top: 6px;
+}
+
+.bubble {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #292929;
+  width: 45px;
+  height: 35px;
+  color: white;
+  font-size: 13px;
+  border-radius: 5px;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #292929;
+}
+
+.hidden {
+  visibility: hidden;
+}
