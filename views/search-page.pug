@@ -20,13 +20,23 @@ block content
           button.submit-meme-button(type='submit') Search
           div.spacing-more
           a.small-font(href='/') Click Here To Cancel
+          div.spacing-more
   if search
-   div.search-meme-feed
-     ul
-       each meme in findMeme
-         a.user-page(href=`/memes/${meme.id}`)= `${meme.dataValues.headline}`
-         h2.user-page= `${meme.dataValues.caption}`
-         a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
-         p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
-           hr.bottom
-         div.end-of-post
+    hr.bottom
+    if findMeme.length === 0
+      .root-new-meme
+        h1 We couldn't find any posts.
+    .root-new-meme
+      div.search-meme-feed
+        ul
+          each meme in findMeme
+            h1.user-page(href=`/memes/${meme.id}`)= `${meme.dataValues.headline}`
+            div.spacing-more
+            h2.user-page= `${meme.dataValues.caption}`
+            div.spacing-more
+            a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
+            p.posted-on= `Posted on ${meme.dataValues.updatedAt.toLocaleDateString("en-US")}`
+            div.spacing-more
+            hr.bottom
+            div.end-of-post
+            div.spacing-more
