@@ -5,10 +5,10 @@ export const docScroll = () =>{
         let color = 'white';
         let originalColor = '#ffc017'
 
-        if (scrollY >= 600){
+        if (scrollY >= 500){
             nav.style.background = color;
         }
-        if (scrollY < 600) {
+        if (scrollY < 500) {
             nav.style.background = originalColor;
         }
     });
