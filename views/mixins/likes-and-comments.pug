@@ -36,9 +36,8 @@ mixin commentsModal(meme, currentUserId)
       .comment-form(id=`form-${meme.id}` user=`${currentUserId}`)
         +userSignature(locals.user)
         .input-container
-          input.content(type="textarea" name="content" id=`content-${meme.id}` placeholder="What are your thoughts?")
+          textarea.content(name="content" id=`content-${meme.id}` placeholder="What are your thoughts?")
         .input-buttons
-          p Cancel
           button.respond-button(id=`respond-${meme.id}`) Respond
     .comments-container
       ul.comment-box(id=`commentBox-${meme.id}`)

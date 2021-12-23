@@ -52,12 +52,14 @@ const addCommentButtonListener = (button) => {
       commentCount.innerText = count += 1;
 
       const newComment = renderNewComment(comment, memeId);
-      const userSignature = document.querySelector(`.user-${User.id}`).cloneNode(true);
+      const userSignature = document
+        .querySelector(`.user-${User.id}`)
+        .cloneNode(true);
       newComment.prepend(userSignature);
       const commentBox = document.getElementById(`commentBox-${memeId}`);
       commentBox.prepend(newComment);
       content.value = "";
-      
+
       return comment;
     } catch (e) {
       handleErrors(e);
@@ -102,16 +104,16 @@ const addEditButtonListener = (button) => {
     const editForm = `
       <div class="comment-form" id="editForm-${memeId}">
         <div class="input-container">
-          <input type="textarea" value=${body.innerText} id="editInput-${commentId}">
+          <input value=${body.innerText} id="editInput-${commentId}">
         </div>
         <div class="input-buttons">
-          <p>Cancel</p>
           <button class="update-button" id="update-${memeId}">Update</button>
         </div>
       </div>
     `;
 
     block.innerHTML = editForm;
+
     const updateButton = document.getElementById(`update-${memeId}`);
 
     updateButton.addEventListener("click", async (e) => {
@@ -131,7 +133,9 @@ const addEditButtonListener = (button) => {
         console.log(comment);
         const { User } = comment;
 
-        const userSignature = document.querySelector(`.user-${User.id}`).cloneNode(true);
+        const userSignature = document
+          .querySelector(`.user-${User.id}`)
+          .cloneNode(true);
         const updated = renderNewComment(comment, memeId);
         updated.prepend(userSignature);
 
