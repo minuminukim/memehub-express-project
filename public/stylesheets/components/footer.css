@@ -1,54 +1,57 @@
 .footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 5rem;
-    background: black;
-    color: white;
-    z-index: 100;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  background: black;
+  color: white;
+  z-index: 100;
 }
 
-.footer-div{
-    display: flex;
-    align-content: center;
-    justify-content: space-around;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 5rem;
+.footer-div {
+  display: flex;
+  align-content: center;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
 }
 
 .footer-logo {
-    align-self: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size:larger;
-    font-weight: bolder;
+  align-self: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: larger;
+  font-weight: bolder;
 }
+
 .footer-content {
-    align-self: center;
+  align-self: center;
 }
 
-a.footer-content{
-    padding-right: 15px;
-    text-decoration: none;
+a.footer-content {
+  padding-right: 15px;
+  text-decoration: none;
 }
 
-a.footer-logo{
-    text-decoration: none;
+a.footer-logo {
+  text-decoration: none;
+  font-family: "Playfair Display", serif;
+  font-size: 25px;
 }
 
 img.footer-img {
-    height: 30px;
-    width: 30px;
-    filter: invert(100%);
-    margin-right: 10px;
+  height: 30px;
+  width: 30px;
+  filter: invert(100%);
+  margin-right: 10px;
 }
 
 img.footer-img.aa {
-    height: 30px;
-    width: 125px;
-    filter: opacity(1) drop-shadow(0 0 0 rgb(247, 247, 247));
+  height: 30px;
+  width: 125px;
+  filter: opacity(1) drop-shadow(0 0 0 rgb(247, 247, 247));
 }
