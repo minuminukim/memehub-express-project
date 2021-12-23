@@ -96,7 +96,6 @@ div.profile-name-bar {
 .fixed-position {
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: sticky;
   top: 33vh;
   z-index: 1;
