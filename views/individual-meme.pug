@@ -27,6 +27,7 @@ block content
                 +followButton(meme.userId, currentUserId, "Following", profileFollowId, "unfollow-button", "side-button")
               else
                 +followButton(meme.userId, currentUserId, "Follow", profileFollowId, "follow-button", "side-button")
+
         div.user-followings-details
           p.user-followings-header= `${meme.User.firstName}  ${meme.User.lastName} Follows`
           .user-followings-container
@@ -44,25 +45,6 @@ block content
       img.user-meme(src=`${meme.link}` alt='meme')
       +likesAndComments(meme)
       +commentsModal(meme, currentUserId)
-      //- div.likes-and-comments
-      //- div.likes
-      //-   p(id=`likeCount-${meme.id}` role='button')= `Likes: ${likes}`
-      //-   div.likes-and-comments
-      //-   button(id=`like-${meme.id}` class='likeButton') Like
-      //-   div.likes-and-comments
-      //- div
-      //- input(type="textarea" name="content" id="content" class="content" placeholder="Write a comment.")
-      //- button(id=`${meme.id}` class="add-button") Add Comment
-      //- h3.comment-box-header Comments:
-      //- ul.comment-box
-      //-   each comment in comments
-      //-     li.content=`${comment.User.username}: ${comment.body} `
-      //-       if comment.userId === locals.user.id
-      //-         button(id=`${comment.id}` class="delete-button") Delete
-      //-         button(id=`${comment.id}` class="edit-button") Edit
-          //-  li= `${comment.User.username}: ${comment.body} `
-          //-    button(id=`${comment.id}` class="delete-button") Delete Comment
-          //-    button(id=`${comment.id}`) Edit Comment
       p.posted-on= `Posted on: ${dateFormat}`
       hr.bottom-meme-page
       if currentUserId === meme.userId
