@@ -1,17 +1,17 @@
 mixin userSignature(user)
-  .user-signature
+  .user-signature(class=`user-${user.id}`)
     a(href=`/users/${user.id}`): img(src=`${user.profilePicture}`)
     a.username(href=`/users/${user.id}`)= `@${user.username}`
 
 mixin commentBlock(user, comment)
-  li.comment-block
+  li.comment-block(id=`commentBlock-${comment.id}`)
     +userSignature(user, comment)
     .comment-body-container
       p.comment-body #{comment.body}
     .comment-buttons
       if comment.userId === locals.user.id
-        button(id=`${comment.id}` class="edit-button") Edit
-        button(id=`${comment.id}` class="delete-button") Delete
+        button(id=`edit-${comment.id}` class="edit-button") Edit
+        button(id=`delete-${comment.id}` class="delete-button") Delete
 
 mixin likesAndComments(meme)
   .likes-and-comments-section
@@ -36,11 +36,11 @@ mixin commentsModal(meme, currentUserId)
       .comment-form
         +userSignature(locals.user)
         .input-container
-          input.content(type="textarea" name="content" id=`comment-${meme.id}` placeholder="What are your thoughts?")
+          input.content(type="textarea" name="content" id=`content-${meme.id}` placeholder="What are your thoughts?")
         .input-buttons
           p Cancel
-          button.respond-button Respond
+          button.respond-button(id=`respond-${meme.id}`) Respond
     .comments-container
-      ul.comment-box(id=`comment-${meme.id}`)
+      ul.comment-box(id=`commentBox-${meme.id}`)
         each comment in meme.Comments
           +commentBlock(comment.User, comment, currentUserId)
