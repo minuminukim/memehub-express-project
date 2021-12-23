@@ -2,6 +2,7 @@ extends layout.pug
 
 include ./mixins/follows.pug
 include ./mixins/userpage-header.pug
+include ./mixins/likes-and-comments.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/user-page.css")
@@ -44,17 +45,7 @@ block content
           a.user-page(href=`/memes/${meme.id}`)= `${meme.dataValues.headline}`
           h2.user-page= `${meme.dataValues.caption}`
           a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.dataValues.link}` alt='meme')
-          .likes-and-comments-section
-            .like-bubble.hidden(id=`bubble-${meme.id}`)
-              .bubble Like
-              .arrow
-            .likes-and-comments
-              .likes
-                img(id=`like-${meme.id}` class=`likeButton` src = meme.liked ? '/images/happy-emote-filled.png' : '/images/happy-emote.png')
-                p(id=`likeCount-${meme.id}`)= `${meme.Likes.length}`
-              .comments
-                img(class='commentButton' id=`comment-${meme.id}` src='/images/chat-bubble-white.png')
-                p(id=`commentCount-${meme.id}`)= `${meme.Comments.length}`
+          +likesAndComments(meme)
             //- div.likes-and-comments
             //-   p(id=`likeCount-${meme.id}` role='button')= `Likes: ${meme.dataValues.Likes.length}`
             //- div.likes-and-comments

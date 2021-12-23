@@ -80,8 +80,14 @@ router.get(
     let comments = meme.Comments;
     let likes = meme.Likes.length;
 
-    // follow logic
     const currentUserId = getUserId(req);
+    const like = await db.Like.findOne({
+      where: { userId: currentUserId, memeId: meme.id },
+    });
+
+    if (like) meme.liked = true;
+    else meme.liked = false;
+    // follow logic
 
     const {
       isCurrentUser,

@@ -1,0 +1,13 @@
+mixin likesAndComments(meme)
+  .likes-and-comments-section
+    .like-bubble.hidden(id=`bubble-${meme.id}`)
+      .bubble(class=`bubble-${meme.id}`)
+        p= meme.liked ? 'Unlike' : 'Like'
+      .arrow
+    .likes-and-comments
+      .likes
+        img(id=`like-${meme.id}` class=`likeButton` src = meme.liked ? '/images/happy-emote-filled.png' : '/images/happy-emote.png')
+        p(id=`likeCount-${meme.id}`)= `${meme.Likes.length}`
+      .comments
+        img(class='commentButton' id=`comment-${meme.id}` src='/images/chat-bubble-white.png')
+        p(id=`commentCount-${meme.id}`)= `${meme.Comments.length}`

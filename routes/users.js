@@ -3,13 +3,13 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
-const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
+const { csrfProtection, asyncHandler } = require("../utils");
 const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
-const { followNotFoundError } = require("../validators/follow-validators");
 const getUserId = require("./utils/get-user-id");
+
 
 const {
   checkFollow,
@@ -141,15 +141,15 @@ router.get(
     // Follow logic
     const currentUserId = getUserId(req);
 
+    // check if memes are liked by current user and append key-value pairs
     for (const meme of memes) {
       meme.liked = false;
-      const like = await Like.findOne({
-        where: { userId: currentUserId, memeId: meme.id },
-      });
+      const likes = meme.Likes;
 
-      if (like) {
+      for (const like of likes) {
+        if (like.userId === currentUserId);
         meme.liked = true;
-        console.log(meme.liked);
+        break;
       }
     }
     // const isLiked = Like.findOne({where: {userId: currentUserId, memeId: meme}})

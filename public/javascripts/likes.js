@@ -51,7 +51,7 @@ window.addEventListener("DOMContentLoaded", () => {
       const memeId = e.target.id.split("-")[1]; // [like, 3]
       console.log("memeId", memeId);
       let likeCounter = document.getElementById(`likeCount-${memeId}`);
-
+      const bubble = document.querySelector(`.bubble-${memeId}`);
       let count = parseInt(likeCounter.innerText, 10);
       // let count = likeCounter.innerHTML;
       console.log("count", count);
@@ -69,11 +69,13 @@ window.addEventListener("DOMContentLoaded", () => {
         count += 1;
         likeCounter.innerText = `${count}`;
         e.target.src = "/images/happy-emote-filled.png";
+        bubble.innerText = "Unlike";
         // e.target.innerText = "Unlike";
       } else {
         count -= 1;
         likeCounter.innerHTML = `${count}`;
         e.target.src = "/images/happy-emote.png";
+        bubble.innerText = "Like";
         // e.target.innerText = "Like";
       }
     });
@@ -88,7 +90,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 const toggleLikeBubble = (button) => {
   const memeId = button.id.split("-")[1];
   const bubble = document.getElementById(`bubble-${memeId}`);
@@ -96,11 +97,11 @@ const toggleLikeBubble = (button) => {
   button.addEventListener("mouseover", (e) => {
     console.log(bubble);
     bubble.classList.remove("hidden");
-  })
+  });
 
   button.addEventListener("mouseout", (e) => {
     bubble.classList.add("hidden");
-  })
+  });
 };
 //below code is used with the commented code above on 14 and 15
 // const likeButton = document.querySelectorAll(".likeButton");
