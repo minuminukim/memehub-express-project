@@ -4,7 +4,8 @@ include ./mixins/form-utils.pug
 append head
   link(rel="stylesheet" href="/stylesheets/components/sign-form.css")
   link(rel="stylesheet" href="/stylesheets/components/errors.css")
-  script(src="/javascripts/demo-user.js" type="module" defer)
+  //- script(src="/javascripts/demo-user.js" type="module")
+  script(src="/javascripts/form-errors.js" type="module")
 
 block header
   nav.form-nav
@@ -17,7 +18,7 @@ block content
   main
     form(action='/users/new' method='post' id='sign-up-form')
       .form-header
-        h2 Join Memehub.
+        h2 Join MemeHub.
         p Enter your information to create an account.
       input(type='hidden' name='_csrf' value=csrfToken)
       .form-fields
@@ -29,7 +30,7 @@ block content
         +field('Confirm Password', 'confirmPassword', '', 'password')
       .form-buttons
         button(type='submit' class='register-button') Continue
-        button(onclick="location.href='/users/sign-in/" class='demo-button') Try Demo
+        button(onclick="location.href='/users/sign-in/'" class='demo-button') Try Demo
       .form-links
           p Already have an account?
           p: a(href='/users/sign-in') Sign in

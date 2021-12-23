@@ -5,7 +5,8 @@ const db = require("../db/models");
 const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
 const memesValidators = require("../validators/meme-validators");
 const { requireAuth } = require("../auth");
-const { checkFollow, getFollowData } = require("./utils/follows-helpers");
+const { getFollowData } = require("./utils/follows-helpers");
+const getUserId = require("./utils/get-user-id");
 
 const router = express.Router();
 
@@ -62,7 +63,13 @@ router.get(
 
     const meme = await db.Meme.findByPk(memeId, {
       include: [
-        { model: db.User, include: [{ model: db.User, as: "followers" }] },
+        {
+          model: db.User,
+          include: [
+            { model: db.User, as: "followers" },
+            { model: db.User, as: "followings" },
+          ],
+        },
         { model: db.Comment, include: [{ model: db.User }] },
         { model: db.Like },
       ],
@@ -73,16 +80,21 @@ router.get(
     let comments = meme.Comments;
     let likes = meme.Likes.length;
 
+    const currentUserId = getUserId(req);
+    const like = await db.Like.findOne({
+      where: { userId: currentUserId, memeId: meme.id },
+    });
+
+    if (like) meme.liked = true;
+    else meme.liked = false;
     // follow logic
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
 
     const {
       isCurrentUser,
       numberOfFollowers,
       isFollowing,
       followId: profileFollowId,
+      followings,
     } = getFollowData(meme.User, currentUserId);
 
     res.render("individual-meme", {
@@ -96,6 +108,7 @@ router.get(
       isFollowing,
       dateFormat,
       numberOfFollowers,
+      followings,
     });
   })
 );

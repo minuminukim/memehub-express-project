@@ -49,7 +49,7 @@
   color: #000;
 }
 
-.container-left{
+.container-left {
   align-items: flex-start;
   justify-content: flex-start;
 }
@@ -65,11 +65,11 @@
   margin: 1rem;
 }
 
-.user-name-margin{
+.user-name-margin {
   margin-bottom: 10px;
 }
 
-.dropdown-user-photo{
+.dropdown-user-photo {
   height: 40px;
   width: 40px;
   border-radius: 50%;

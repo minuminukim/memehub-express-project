@@ -1,0 +1,45 @@
+mixin userSignature(user)
+  .user-signature(class=`user-${user.id}`)
+    a(href=`/users/${user.id}`): img(src=`${user.profilePicture}`)
+    a.username(href=`/users/${user.id}`)= `@${user.username}`
+
+mixin commentBlock(user, comment)
+  li.comment-block(id=`commentBlock-${comment.id}`)
+    +userSignature(user, comment)
+    .comment-body-container(id=`comments-${comment.memeId}`)
+      p.comment-body(id=`body-${comment.id}`) #{comment.body}
+    .comment-buttons(id=`buttons-${comment.memeId}`)
+      if comment.userId === locals.user.id
+        button(id=`edit-${comment.id}` class="edit-button") Edit
+        button(id=`delete-${comment.id}` class="delete-button") Delete
+
+mixin likesAndComments(meme)
+  .likes-and-comments-section
+    .like-bubble.hidden(id=`bubble-${meme.id}`)
+      .bubble(class=`bubble-${meme.id}`)
+        p= meme.liked ? 'Unlike' : 'Like'
+      .arrow
+    .likes-and-comments
+      .likes
+        img(id=`like-${meme.id}` class=`likeButton` src = meme.liked ? '/images/happy-emote-filled.png' : '/images/happy-emote.png')
+        p(id=`likeCount-${meme.id}`)= `${meme.Likes.length}`
+      .comments
+        img(class='commentButton' id=`comment-${meme.id}` src='/images/chat-bubble-white.png')
+        p(id=`commentCount-${meme.id}`)= `${meme.Comments.length}`
+
+mixin commentsModal(meme, currentUserId)
+  .comments-modal.modal-hidden(id=`modal-${meme.id}`)
+    .comments-modal-top
+      .comments-header
+        h2 Responses
+        span.modal-close(id=`close-${meme.id}`) x
+      .comment-form(id=`form-${meme.id}` user=`${currentUserId}`)
+        +userSignature(locals.user)
+        .input-container
+          textarea.content(name="content" id=`content-${meme.id}` placeholder="What are your thoughts?")
+        .input-buttons
+          button.respond-button(id=`respond-${meme.id}`) Respond
+    .comments-container
+      ul.comment-box(id=`commentBox-${meme.id}`)
+        each comment in meme.Comments
+          +commentBlock(comment.User, comment, currentUserId)

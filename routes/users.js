@@ -3,12 +3,13 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 const { User, Meme, Comment, Like, Follow } = require("../db/models");
-const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
+const { csrfProtection, asyncHandler } = require("../utils");
 const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
-const { followNotFoundError } = require("../validators/follow-validators");
+const getUserId = require("./utils/get-user-id");
+
 
 const {
   checkFollow,
@@ -91,21 +92,20 @@ router.post(
 
         if (isPassword) {
           loginUser(req, res, user);
-            return res.redirect("/");
+          return res.redirect("/");
         }
       }
-        errors.push("Sign In failed for the provided email and password");
-      } else {
-          errors = validatorErrors.array().map((error) => error.msg);
+      errors.push("Sign In failed for the provided email and password");
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
 
-      }
-
-      res.render("sign-in", {
-        title: "Sign In",
-        email,
-        errors,
-        csrfToken: req.csrfToken(),
-      });
+    res.render("sign-in", {
+      title: "Sign In",
+      email,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
   })
 );
 
@@ -132,27 +132,34 @@ router.get(
           ],
         },
         { model: User, as: "followers" },
+        { model: User, as: "followings" },
       ],
     });
 
     const memes = profileUser.Memes;
 
     // Follow logic
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    const currentUserId = getUserId(req);
 
+    // check if memes are liked by current user and append key-value pairs
+    for (const meme of memes) {
+      meme.liked = false;
+      const likes = meme.Likes;
+
+      for (const like of likes) {
+        if (like.userId === currentUserId);
+        meme.liked = true;
+        break;
+      }
+    }
+    // const isLiked = Like.findOne({where: {userId: currentUserId, memeId: meme}})
     const {
       isCurrentUser,
       numberOfFollowers,
       isFollowing,
       followId: profileFollowId,
+      followings,
     } = getFollowData(profileUser, currentUserId);
-
-    // const isCurrentUser = userId === currentUserId;
-    // const { followers } = profileUser;
-    // const numberOfFollowers = followers.length || 0;
-    // const [isFollowing, followId] = getFollow(followers, currentUserId);
 
     res.render("user-page", {
       title: "User",
@@ -163,6 +170,7 @@ router.get(
       numberOfFollowers,
       isFollowing,
       profileFollowId,
+      followings,
     });
   })
 );
@@ -177,9 +185,7 @@ router.get(
     });
 
     // Follow logic
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    const currentUserId = getUserId(req);
 
     const {
       isCurrentUser,
@@ -213,9 +219,7 @@ router.get(
     });
 
     // Follow logic
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    const currentUserId = getUserId(req);
 
     const {
       isCurrentUser,
@@ -247,9 +251,7 @@ router.post(
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId);
 
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    const currentUserId = getUserId(req);
     const isCurrentUser = userId === currentUserId;
     const isFollowing = await checkFollow(userId, currentUserId);
 
@@ -299,10 +301,7 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
-
+    const currentUserId = getUserId(req);
     let isFollowing = false;
     let profileFollowId = 0;
     const followers = profileUser.followers.map((follower) => {
@@ -363,10 +362,7 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
-
+    const currentUserId = getUserId(req);
     const [isFollowing, profileFollowId] = getFollow(
       profileUser.followers,
       currentUserId
