@@ -85,8 +85,13 @@ router.get(
       where: { userId: currentUserId, memeId: meme.id },
     });
 
-    if (like) meme.liked = true;
-    else meme.liked = false;
+    meme.liked = false;
+    meme.likeId = 0;
+
+    if (like) {
+      meme.liked = true;
+      meme.likeId = like.id;
+    }
     // follow logic
 
     const {

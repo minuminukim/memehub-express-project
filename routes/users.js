@@ -143,10 +143,13 @@ router.get(
     // check if memes are liked by current user and append key-value pairs
     for (const meme of memes) {
       meme.liked = false;
+      meme.likeId = 0;
+      
       const likes = meme.Likes;
 
       for (const like of likes) {
         if (like.userId === currentUserId);
+        meme.likeId = like.id;
         meme.liked = true;
         break;
       }

@@ -1,7 +1,7 @@
 const express = require("express");
 const { validationResult } = require("express-validator");
 
-const db = require("../../db/models");
+const { Like } = require("../../db/models");
 const { csrfProtection, asyncHandler } = require("../../utils");
 
 const { requireAuth } = require("../../auth");
@@ -11,14 +11,14 @@ router.post(
   "/",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const likeMeme = await db.Like.findOne({
+    const likeMeme = await Like.findOne({
       where: {
         userId: req.session.auth.userId,
         memeId: req.body.memeId,
       },
     });
     if (!likeMeme) {
-      db.Like.create({
+      Like.create({
         userId: req.session.auth.userId,
         memeId: req.body.memeId,
       });
@@ -30,18 +30,10 @@ router.post(
   })
 );
 
-router.delete(
-  "/:id(\\d+)",
-  requireAuth,
-  asyncHandler(async (req, res) => {
-    
-  })
-)
-
-router.use((req, res, next) => {
-  console.log("zx");
-  next();
-});
+// router.use((req, res, next) => {
+//   console.log("zx");
+//   next();
+// });
 
 // if a like does not exist
 // build a like

@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", async (e) => {
       const memeId = e.target.id.split("-")[1]; // [like, 3]
       let likeCounter = document.getElementById(`likeCount-${memeId}`);
-      const bubble = document.querySelector(`.bubble-${memeId}`);
+      const bubble = document.querySelector(`.likeBubble-${memeId}`);
       let count = parseInt(likeCounter.innerText, 10);
 
       const res = await fetch("/api/likes", {
