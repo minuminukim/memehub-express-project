@@ -186,8 +186,24 @@ const renderNewComment = (comment, memeId) => {
   return newComment;
 };
 
+const toggleCommentBubble = (button) => {
+  const memeId = button.id.split("-")[1];
+  const bubble = document.getElementById(`commentBubble-${memeId}`);
+
+  button.addEventListener("mouseover", (e) => {
+    bubble.classList.remove("hidden");
+  });
+
+  button.addEventListener("mouseout", (e) => {
+    bubble.classList.add("hidden");
+  });
+};
+
 window.addEventListener("DOMContentLoaded", () => {
   toggleModal();
+
+  const commentButtons = document.querySelectorAll(".commentButton");
+  commentButtons.forEach((button) => toggleCommentBubble(button));
 
   const postButtons = document.querySelectorAll(".respond-button");
   postButtons.forEach((button) => addCommentButtonListener(button));

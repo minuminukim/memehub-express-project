@@ -15,10 +15,15 @@ mixin commentBlock(user, comment)
 
 mixin likesAndComments(meme)
   .likes-and-comments-section
-    .like-bubble.hidden(id=`bubble-${meme.id}`)
-      .bubble(class=`bubble-${meme.id}`)
-        p= meme.liked ? 'Unlike' : 'Like'
-      .arrow
+    .react-bubbles
+      .like-bubble.hidden(id=`likeBubble-${meme.id}`)
+        .bubble(class=`likeBubble-${meme.id}`)
+          p= meme.liked ? 'Unfunny' : 'Funny'
+        .arrow
+      .comment-bubble.hidden(id=`commentBubble-${meme.id}`)
+        .bubble(class=`commentBubble-${meme.id}`)
+          p= `Reply`
+        .arrow
     .likes-and-comments
       .likes
         img(id=`like-${meme.id}` class=`likeButton` src = meme.liked ? '/images/happy-emote-filled.png' : '/images/happy-emote.png')

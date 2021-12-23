@@ -18,12 +18,12 @@ window.addEventListener("DOMContentLoaded", () => {
         count += 1;
         likeCounter.innerText = `${count}`;
         e.target.src = "/images/happy-emote-filled.png";
-        bubble.innerText = "Unlike";
+        bubble.innerText = "Unfunny";
       } else {
         count -= 1;
         likeCounter.innerHTML = `${count}`;
         e.target.src = "/images/happy-emote.png";
-        bubble.innerText = "Like";
+        bubble.innerText = "Funny";
       }
     });
   };
@@ -39,10 +39,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
 const toggleLikeBubble = (button) => {
   const memeId = button.id.split("-")[1];
-  const bubble = document.getElementById(`bubble-${memeId}`);
+  const bubble = document.getElementById(`likeBubble-${memeId}`);
 
   button.addEventListener("mouseover", (e) => {
-    console.log(bubble);
     bubble.classList.remove("hidden");
   });
 
@@ -50,4 +49,3 @@ const toggleLikeBubble = (button) => {
     bubble.classList.add("hidden");
   });
 };
-

@@ -30,6 +30,14 @@ router.post(
   })
 );
 
+router.delete(
+  "/:id(\\d+)",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    
+  })
+)
+
 router.use((req, res, next) => {
   console.log("zx");
   next();
