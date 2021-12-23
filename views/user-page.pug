@@ -50,7 +50,7 @@ block content
               .arrow
             .likes-and-comments
               .likes
-                img(id=`like-${meme.id}` class=`likeButton` src='/images/happy-emote.png')
+                img(id=`like-${meme.id}` class=`likeButton` src = meme.liked ? '/images/happy-emote-filled.png' : '/images/happy-emote.png')
                 p(id=`likeCount-${meme.id}`)= `${meme.Likes.length}`
               .comments
                 img(class='commentButton' id=`comment-${meme.id}` src='/images/chat-bubble-white.png')

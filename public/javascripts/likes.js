@@ -68,11 +68,12 @@ window.addEventListener("DOMContentLoaded", () => {
       if (data.message === "liked") {
         count += 1;
         likeCounter.innerText = `${count}`;
-        button.classList.add("invert");
+        e.target.src = "/images/happy-emote-filled.png";
         // e.target.innerText = "Unlike";
       } else {
         count -= 1;
         likeCounter.innerHTML = `${count}`;
+        e.target.src = "/images/happy-emote.png";
         // e.target.innerText = "Like";
       }
     });
@@ -83,12 +84,12 @@ window.addEventListener("DOMContentLoaded", () => {
   for (let i = 0; i < addLikeButtons.length; i++) {
     const button = addLikeButtons[i];
     addLikeButtonListener(button);
-    toggleHiddenBubble(button);
+    toggleLikeBubble(button);
   }
 });
 
 
-const toggleHiddenBubble = (button) => {
+const toggleLikeBubble = (button) => {
   const memeId = button.id.split("-")[1];
   const bubble = document.getElementById(`bubble-${memeId}`);
 

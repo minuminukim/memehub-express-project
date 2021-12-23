@@ -9,6 +9,7 @@ const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
 const { followNotFoundError } = require("../validators/follow-validators");
+const getUserId = require("./utils/get-user-id");
 
 const {
   checkFollow,
@@ -138,10 +139,20 @@ router.get(
     const memes = profileUser.Memes;
 
     // Follow logic
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    const currentUserId = getUserId(req);
 
+    for (const meme of memes) {
+      meme.liked = false;
+      const like = await Like.findOne({
+        where: { userId: currentUserId, memeId: meme.id },
+      });
+
+      if (like) {
+        meme.liked = true;
+        console.log(meme.liked);
+      }
+    }
+    // const isLiked = Like.findOne({where: {userId: currentUserId, memeId: meme}})
     const {
       isCurrentUser,
       numberOfFollowers,
@@ -174,9 +185,7 @@ router.get(
     });
 
     // Follow logic
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    const currentUserId = getUserId(req);
 
     const {
       isCurrentUser,
@@ -210,9 +219,7 @@ router.get(
     });
 
     // Follow logic
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    const currentUserId = getUserId(req);
 
     const {
       isCurrentUser,
@@ -244,9 +251,7 @@ router.post(
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId);
 
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
+    const currentUserId = getUserId(req);
     const isCurrentUser = userId === currentUserId;
     const isFollowing = await checkFollow(userId, currentUserId);
 
@@ -296,10 +301,7 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
-
+    const currentUserId = getUserId(req);
     let isFollowing = false;
     let profileFollowId = 0;
     const followers = profileUser.followers.map((follower) => {
@@ -360,10 +362,7 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    const currentUserId = isntLoggedIn(req)
-      ? null
-      : parseInt(req.session.auth.userId, 10);
-
+    const currentUserId = getUserId(req);
     const [isFollowing, profileFollowId] = getFollow(
       profileUser.followers,
       currentUserId
