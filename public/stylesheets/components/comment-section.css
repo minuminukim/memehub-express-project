@@ -86,3 +86,24 @@ li button{
     display:inline-block;
     float: right;
 }
+
+
+div.fixed-position{
+    border-radius: 8px;
+    background-color:#8936d6;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+}
+
+div.profile-name-bar p {
+    color: white;
+}
+
+div.users-followers-details a{
+color:white;
+}
+
+div.user-feed{
+    background-color: rgb(238, 236, 236);
+}
