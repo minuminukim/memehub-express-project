@@ -98,6 +98,8 @@ div.landing-hr {
   width: 100vw;
   background-color: #ffc017;
   border-bottom: black solid 1px;
+  transition-property: transform background;
+  transition-duration: .4s;
 }
 
 div.header-main-spacing {
