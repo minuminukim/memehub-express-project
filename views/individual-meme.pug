@@ -36,19 +36,18 @@ block content
                 a(href=`/users/${following.id}`): img(src=`${following.profilePicture}`)
                 a.followings-link(href=`/users/${following.id}`)= `@${following.username}`
             a.see-all(href=`/users/${meme.User.id}/following`) See all
-
-  div.user-feed
-    ul
-      h1.user-page= `${meme.headline}`
-      h2.user-page= `${meme.caption}`
-
-      img.user-meme(src=`${meme.link}` alt='meme')
-      +likesAndComments(meme)
-      +commentsModal(meme, currentUserId)
-      p.posted-on= `Posted on: ${dateFormat}`
-      hr.bottom-meme-page
-      if currentUserId === meme.userId
-        div.edit-delete
-          a(href=`/memes/${meme.id}/edit`) Edit Your Meme
-          a(href=`/memes/${meme.id}/delete`) Delete Your Meme
-      div.bottom-of-page
+    div.user-feed
+      ul
+        h1.user-page= `${meme.headline}`
+        h2.user-page= `${meme.caption}`
+  
+        img.user-meme(src=`${meme.link}` alt='meme')
+        +likesAndComments(meme)
+        +commentsModal(meme, currentUserId)
+        p.posted-on= `Posted on: ${dateFormat}`
+        hr.bottom-meme-page
+        if currentUserId === meme.userId
+          div.edit-delete
+            a(href=`/memes/${meme.id}/edit`) Edit Your Meme
+            a(href=`/memes/${meme.id}/delete`) Delete Your Meme
+        div.bottom-of-page
