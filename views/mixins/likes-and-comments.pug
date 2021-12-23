@@ -1,8 +1,17 @@
-mixin commentBlock(user)
-  .comment-block
-    .user-signature
-      a(href=`/users/${user.id}`): img(src=`${user.profilePicture}`)
+mixin userSignature(user)
+  .user-signature
+    a(href=`/users/${user.id}`): img(src=`${user.profilePicture}`)
+    a.username(href=`/users/${user.id}`)= `@${user.username}`
 
+mixin commentBlock(user, comment)
+  li.comment-block
+    +userSignature(user, comment)
+    .comment-body-container
+      p.comment-body #{comment.body}
+    .comment-buttons
+      if comment.userId === locals.user.id
+        button(id=`${comment.id}` class="edit-button") Edit
+        button(id=`${comment.id}` class="delete-button") Delete
 
 mixin likesAndComments(meme)
   .likes-and-comments-section
@@ -17,5 +26,21 @@ mixin likesAndComments(meme)
       .comments
         img(class='commentButton' id=`comment-${meme.id}` src='/images/chat-bubble-white.png')
         p(id=`commentCount-${meme.id}`)= `${meme.Comments.length}`
-      .comments-modal.hidden
-  
+
+mixin commentsModal(meme, currentUserId)
+  .comments-modal.modal-hidden(id=`modal-${meme.id}`)
+    .comments-modal-top
+      .comments-header
+        h2 Responses
+        span.modal-close(id=`close-${meme.id}`) x
+      .comment-form
+        +userSignature(locals.user)
+        .input-container
+          input.content(type="textarea" name="content" id=`comment-${meme.id}` placeholder="What are your thoughts?")
+        .input-buttons
+          p Cancel
+          button.respond-button Respond
+    .comments-container
+      ul.comment-box(id=`comment-${meme.id}`)
+        each comment in meme.Comments
+          +commentBlock(comment.User, comment, currentUserId)
