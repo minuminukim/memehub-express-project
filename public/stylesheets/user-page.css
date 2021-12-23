@@ -173,7 +173,7 @@ hr.edit-delete {
 }
 
 p.posted-on {
-  padding-top: 20px;
+  padding: 20px 0;
   font-size: 14px;
 }
 
@@ -196,6 +196,7 @@ hr.bottom.meme-page {
   margin-right: auto;
   background-color: rgb(201, 201, 201);
   border: 0 nones;
+  border: 1px solid #e6e6e6;
 }
 
 div.bottom-of-page {
