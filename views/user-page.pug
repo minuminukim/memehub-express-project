@@ -61,7 +61,7 @@ block content
             //-       if comment.userId === locals.user.id
             //-         button(id=`${comment.id}` class="delete-button") Delete
             //-         button(id=`${comment.id}` class="edit-button" name=`${meme.id}`) Edit
-          p.posted-on= `Posted on ${meme.updatedAt.toLocaleDateString("en-US")}`
+          p.posted-on= `${meme.updatedAt.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})}`
             hr.bottom
           div.end-of-post
 //- TODO: ensure comment and like features are working.

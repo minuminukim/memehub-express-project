@@ -1,3 +1,9 @@
+mixin commentBlock(user)
+  .comment-block
+    .user-signature
+      a(href=`/users/${user.id}`): img(src=`${user.profilePicture}`)
+
+
 mixin likesAndComments(meme)
   .likes-and-comments-section
     .like-bubble.hidden(id=`bubble-${meme.id}`)
@@ -11,3 +17,5 @@ mixin likesAndComments(meme)
       .comments
         img(class='commentButton' id=`comment-${meme.id}` src='/images/chat-bubble-white.png')
         p(id=`commentCount-${meme.id}`)= `${meme.Comments.length}`
+      .comments-modal.hidden
+  
