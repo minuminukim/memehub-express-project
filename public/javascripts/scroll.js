@@ -1,20 +1,17 @@
 export const docScroll = () =>{
 
-    window.addEventListener('scroll', (event) => {
+    window.addEventListener('scroll', (e) => {
         let nav = document.querySelector("nav.landing-nav")
         let color = 'white';
         let originalColor = '#ffc017'
 
-        let elementTarget = document.querySelector(".landing-header-main")
+        let eTarget = document.querySelector(".landing-header-main")
 
-        if (scrollY >= elementTarget.offsetTop + elementTarget.offsetHeight){
+        if (scrollY >= eTarget.offsetTop + eTarget.offsetHeight){
             nav.style.background = color;
         }
-        if (scrollY < elementTarget.offsetTop + elementTarget.offsetHeight) {
+        if (scrollY < eTarget.offsetTop + eTarget.offsetHeight) {
             nav.style.background = originalColor;
         }
     });
 }
-
-
-//landing-header-main
