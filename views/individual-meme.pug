@@ -23,11 +23,7 @@ block content
             div.user-bio-description
               p= `${meme.User.biography}`
             div
-              if isFollowing
-                +followButton(meme.userId, currentUserId, "Following", profileFollowId, "unfollow-button", "side-button")
-              else
-                +followButton(meme.userId, currentUserId, "Follow", profileFollowId, "follow-button", "side-button")
-
+              +followButton(meme.userId, currentUserId, isFollowing ? "Following" : "Follow", profileFollowId, isFollowing ? "unfollow-button" : "follow-button", "side-button")
         div.user-followings-details
           p.user-followings-header= `${meme.User.firstName}  ${meme.User.lastName} Follows`
           .user-followings-container

@@ -13,6 +13,7 @@ mixin trendingMeme(rank, memeId, meme, logo, userId, username, headline, date)
     div
       a(href=`/memes/${memeId}`): img.trending-meme(src=meme)
       div.end-of-trending
+
 mixin bestMeme(logo, username, meme, memeId, userId, headline, date, caption = null)
   .best-meme
     a(href=`/users/${userId}`): img.meme-block-user-logo(src=logo)
@@ -24,39 +25,39 @@ mixin bestMeme(logo, username, meme, memeId, userId, headline, date, caption = n
 
 mixin memeBlock(logo, username, meme, memeId, userId, headline, date, caption = null)
   div.user-feed
-   .meme-block
-     .meme-signature
-       a(href=`/users/${userId}`): img.meme-block-user-logo(src=logo)
-       a.user-link(href=`/users/${userId}`) @#{username}
-     div.title-left
-       h2: a.meme-title(href=`/memes/${memeId}`) #{headline}
-     div.caption-left
-       h3.meme-caption #{caption}
-     a(href=`/memes/${memeId}`): img.meme-image(src=meme)
-     div.dev-spacing
-     div.date-left
-       p.meme-date= `${date.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})}`
-     div.dev-spacing
-     hr.bottom-meme-page
-     div.bottom-of-page
+    .meme-block
+      .meme-signature
+        a(href=`/users/${userId}`): img.meme-block-user-logo(src=logo)
+        a.user-link(href=`/users/${userId}`) @#{username}
+      div.title-left
+        h2: a.meme-title(href=`/memes/${memeId}`) #{headline}
+      div.caption-left
+        h3.meme-caption #{caption}
+      a(href=`/memes/${memeId}`): img.meme-image(src=meme)
+      div.dev-spacing
+      div.date-left
+        p.meme-date= `${date.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})}`
+      div.dev-spacing
+      hr.bottom-meme-page
+      div.bottom-of-page
 
 mixin memeBlockLoggedOut(logo, username, meme, memeId, userId, headline, date, caption = null)
   div.user-feed
-   .meme-block
-     .meme-signature
-       a(href='/users/sign-in'): img.meme-block-user-logo(src=logo)
-       a.user-link(href='/users/sign-in') @#{username}
-     div.title-left
-       h2: a.meme-title(href='/users/sign-in') #{headline}
-     div.caption-left
-       h3.meme-caption #{caption}
-     a(href='/users/sign-in'): img.meme-image(src=meme)
-     div.dev-spacing
-     div.date-left
-       p.meme-date Posted on #{date}
-     div.dev-spacing
-     hr.bottom-meme-page
-     div.bottom-of-page
+    .meme-block
+      .meme-signature
+        a(href='/users/sign-in'): img.meme-block-user-logo(src=logo)
+        a.user-link(href='/users/sign-in') @#{username}
+      div.title-left
+        h2: a.meme-title(href='/users/sign-in') #{headline}
+      div.caption-left
+        h3.meme-caption #{caption}
+      a(href='/users/sign-in'): img.meme-image(src=meme)
+      div.dev-spacing
+      div.date-left
+        p.meme-date Posted on #{date}
+      div.dev-spacing
+      hr.bottom-meme-page
+      div.bottom-of-page
 
 mixin trendingMemeLoggedOut(rank, memeId, meme, logo, userId, username, headline, date)
   .trending-meme

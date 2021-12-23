@@ -9,7 +9,6 @@ append head
   link(rel="stylesheet" href="/stylesheets/user-follows.css")
   //- add page specific js
 
-//- TODO: replace header with user-profile header
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, count)
   .root
@@ -19,7 +18,4 @@ block content
       if followers
           each follower in followers
             .follow-block
-              if follower.isMutual
-                +followBlock(follower, currentUserId, "Following", follower.followId, "unfollow-button")
-              else
-                +followBlock(follower, currentUserId, "Follow", follower.followId, "follow-button")
+              +followBlock(follower, currentUserId, follower.isMutual ? "Following" : "Follow", follower.followId, follower.isMutual ? "unfollow-button" : "follow-button")

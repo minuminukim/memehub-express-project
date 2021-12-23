@@ -15,11 +15,8 @@ block content
     .follows-container
       .follows-title-container
         h2.following-count #{count} Following
-        p.following-caption Ordered by most recently followed
+        //- p.following-caption Ordered by most recently followed
       if followings
         each following in followings
           .follow-block
-            if following.isMutual
-              +followBlock(following, currentUserId, "Following", following.followId, "unfollow-button")
-            else
-              +followBlock(following, currentUserId, "Follow", following.followId, "follow-button")
+            +followBlock(following, currentUserId, following.isMutual ? "Following" : "Follow", following.followId, following.isMutual ? "unfollow-button" : "follow-button")
