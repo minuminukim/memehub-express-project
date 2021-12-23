@@ -28,6 +28,15 @@
   font-weight: bolder;
 }
 
+img.footer-logo {
+  width: auto;
+  height: 25px;
+  padding: 1px 7px 1px 0;
+  filter: invert(1);
+  position: relative;
+  top: 3px;
+}
+
 .footer-content {
   align-self: center;
 }
