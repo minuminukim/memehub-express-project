@@ -46,84 +46,6 @@ router.post(
   })
 );
 
-router.delete(
-  "/:id(\\d+)",
-  requireAuth,
-  asyncHandler(async (req, res) => {
-    const commentId = parseInt(req.params.id, 10);
-    const comment = await db.Comment.findByPk(commentId);
-
-    if (comment) {
-      await comment.destroy();
-      res.status(204).json({ message: "You have deleted your comment." });
-    } else {
-      res.status(404).json({ message: "Comment does not exist." });
-    }
-    // try {
-    //   const commentId = parseInt(req.body.commentId, 10);
-    //   console.log("commentIds", commentId);
-    //   const comment = await db.Comment.findByPk(commentId);
-    //   console.log("commentz", comment);
-    //   await comment.destroy();
-    //   res.json({ message: "Your comment was deleted successfully!" });
-    // } catch (e) {
-    //   console.log(e);
-    // }
-  })
-);
-
-// router.post(
-//   "/edit",
-//   asyncHandler(async (req, res) => {
-//     // }));
-//     // try{
-
-// router.post("/edit", asyncHandler(async (req, res) => {
-
-// // }));
-// // =======
-//   // try{
-
-//     // const memeId = parseInt(req.body.memeId, 10);
-//     //const comments = await db.Comment.findAll({
-//     //  where: {
-//     //    memeId: memeId,
-//     //  }
-//     //});
-//     //res.json({comments });
-//     // }
-//     // catch(e){
-//     //   console.log(e);
-//     // }
-//   })
-// );
-
-// router.post(
-//   "/edit",
-//   asyncHandler(async (req, res) => {
-//     // }));
-//     // try{
-
-// router.post("/edit", asyncHandler(async (req, res) => {
-
-// // }));
-// // =======
-//   // try{
-
-//     // const memeId = parseInt(req.body.memeId, 10);
-//     //const comments = await db.Comment.findAll({
-//     //  where: {
-//     //    memeId: memeId,
-//     //  }
-//     //});
-//     //res.json({comments });
-//     // }
-//     // catch(e){
-//     //   console.log(e);
-//     // }
-//   })
-// );
-
 router.put(
   "/:id(\\d+)",
   requireAuth,
@@ -151,6 +73,22 @@ router.put(
       res.json({ comment });
     } else {
       next(commentNotFoundError(commentId));
+    }
+  })
+);
+
+router.delete(
+  "/:id(\\d+)",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const commentId = parseInt(req.params.id, 10);
+    const comment = await db.Comment.findByPk(commentId);
+
+    if (comment) {
+      await comment.destroy();
+      res.status(204).json({ message: "You have deleted your comment." });
+    } else {
+      res.status(404).json({ message: "Comment does not exist." });
     }
   })
 );

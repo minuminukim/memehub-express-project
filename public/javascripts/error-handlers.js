@@ -17,11 +17,12 @@ export const handleErrors = async (e) => {
       errors.forEach((err) => {
         errorsHTML.push(
           `<div class="error">
-            ${message}
+            ${err}
           </div>
           `
         );
       });
+      
       errorsContainer.innerHTML = errorsHTML.join("");
     }
   }
@@ -39,4 +40,3 @@ export const isResponseOk = (response) => {
 
   return true;
 };
-

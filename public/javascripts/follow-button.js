@@ -1,4 +1,4 @@
-import { handleErrors, isResponseOk } from "./error-handlers.js";
+  import { handleErrors, isResponseOk } from "./error-handlers.js";
 
 export const addFollowButtonListeners = () => {
   const followButtons = [...document.querySelectorAll(".follow-button")];

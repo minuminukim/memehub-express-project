@@ -127,7 +127,7 @@ router.get(
           model: Meme,
           include: [
             { model: Comment, include: [{ model: User }] },
-            { model: Like },
+            { model: Like, include: { model: Meme } },
           ],
         },
         { model: User, as: "followers" },
@@ -136,17 +136,15 @@ router.get(
     });
 
     const memes = profileUser.Memes;
-
-    // Follow logic
     const currentUserId = getUserId(req);
 
     // check if memes are liked by current user and append key-value pairs
     for (const meme of memes) {
       meme.liked = false;
       meme.likeId = 0;
-      
-      const likes = meme.Likes;
 
+      const likes = meme.Likes;
+      console.log(JSON.stringify(likes, null, 2));
       for (const like of likes) {
         if (like.userId === currentUserId);
         meme.likeId = like.id;
@@ -154,7 +152,7 @@ router.get(
         break;
       }
     }
-    // const isLiked = Like.findOne({where: {userId: currentUserId, memeId: meme}})
+
     const {
       isCurrentUser,
       numberOfFollowers,
@@ -393,7 +391,6 @@ router.get(
         followId,
       };
     });
-
 
     res.render("following", {
       followings,

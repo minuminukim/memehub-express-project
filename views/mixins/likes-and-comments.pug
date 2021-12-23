@@ -26,7 +26,7 @@ mixin likesAndComments(meme)
         .arrow
     .likes-and-comments
       .likes
-        img(id=`like-${meme.id}` class=`likeButton` like=`like-${meme.likeId}` src = meme.liked ? '/images/happy-emote-filled.png' : '/images/happy-emote.png')
+        img(id=`like-${meme.id}` class=`likeButton` like= meme.liked ? `like-${meme.likeId}` : "like-0" src = meme.liked ? '/images/happy-emote-filled.png' : '/images/happy-emote.png')
         p(id=`likeCount-${meme.id}`)= `${meme.Likes.length}`
       .comments
         img(class='commentButton' id=`comment-${meme.id}` src='/images/chat-bubble-white.png')
