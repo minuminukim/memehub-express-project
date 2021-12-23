@@ -8,7 +8,7 @@ mixin commentBlock(user, comment)
     +userSignature(user, comment)
     .comment-body-container
       p.comment-body #{comment.body}
-    .comment-buttons
+    .comment-buttons(id=`buttons-${comment.memeId}`)
       if comment.userId === locals.user.id
         button(id=`edit-${comment.id}` class="edit-button") Edit
         button(id=`delete-${comment.id}` class="delete-button") Delete

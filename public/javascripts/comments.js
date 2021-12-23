@@ -47,6 +47,10 @@ const addCommentButtonListener = (button) => {
       const { comment } = data;
       const { User } = comment;
 
+      const commentCount = document.getElementById(`commentCount-${memeId}`);
+      let count = parseInt(commentCount.innerText, 10);
+      commentCount.innerText = count += 1;
+
       const newComment = document.createElement("li");
       newComment.classList.add("comment-block");
       newComment.id = `commentBlock-${comment.id}`;
@@ -65,17 +69,21 @@ const addCommentButtonListener = (button) => {
 
       const buttonsContainer = document.createElement("div");
       buttonsContainer.classList.add(".comment-buttons");
+      buttonsContainer.id = `buttons-${memeId}`;
 
       const editButton = document.createElement("button");
       editButton.id = `edit-${comment.id}`;
       editButton.classList.add("edit-button");
+      editButton.setAttribute("");
       editButton.innerText = "Edit";
+      addEditButtonListener(editButton);
       buttonsContainer.appendChild(editButton);
 
       const deleteButton = document.createElement("button");
       deleteButton.id = `delete-${comment.id}`;
       deleteButton.classList.add("delete-button");
       deleteButton.innerText = "Delete";
+      addDeleteButtonListener(deleteButton);
       buttonsContainer.appendChild(deleteButton);
 
       newComment.appendChild(buttonsContainer);
@@ -89,9 +97,40 @@ const addCommentButtonListener = (button) => {
   });
 };
 
+const addDeleteButtonListener = (button) => {
+  button.addEventListener("click", async (e) => {
+    const commentId = button.id.split("-")[1];
+
+    try {
+      const res = await fetch(`/api/comments/${commentId}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        throw res;
+      }
+
+      const block = document.getElementById(`commentBlock-${commentId}`);
+      const memeId = block.parentNode.id.split("-")[1];
+
+      const commentCount = document.getElementById(`commentCount-${memeId}`);
+      let count = parseInt(commentCount.innerText, 10);
+      commentCount.innerText = count -= 1;
+
+      block.parentNode.remove();
+    } catch (e) {
+      console.log(e);
+    }
+  });
+};
+const addEditButtonListener = (button) => {};
+
 window.addEventListener("DOMContentLoaded", () => {
   toggleModal();
 
   const postButtons = document.querySelectorAll(".respond-button");
   postButtons.forEach((button) => addCommentButtonListener(button));
+
+  const deleteButtons = document.querySelectorAll(".delete-button");
+  deleteButtons.forEach((button) => addDeleteButtonListener(button));
 });
