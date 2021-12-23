@@ -38,8 +38,11 @@ router.post(
     comment = await db.Comment.findByPk(comment.id, {
       include: db.User,
     });
-
-    res.json({ comment });
+    if (comment) {
+      res.status(200).json({ comment });
+    } else {
+      res.status(400).json({ message: "Please try again." });
+    }
   })
 );
 

@@ -1,3 +1,5 @@
+import { handleErrors, isResponseOk } from "./error-handlers.js";
+
 const toggleModal = () => {
   const buttons = document.querySelectorAll(".commentButton");
   for (const button of buttons) {
@@ -39,9 +41,7 @@ const addCommentButtonListener = (button) => {
         },
       });
 
-      if (!res.ok) {
-        throw res;
-      }
+      if (!isResponseOk(res)) return;
 
       const data = await res.json();
       const { comment } = data;
@@ -51,12 +51,16 @@ const addCommentButtonListener = (button) => {
       let count = parseInt(commentCount.innerText, 10);
       commentCount.innerText = count += 1;
 
-      const newComment = renderNewComment(comment, User, memeId);
+      const newComment = renderNewComment(comment, memeId);
+      const userSignature = document.querySelector(`.user-${User.id}`).cloneNode(true);
+      newComment.prepend(userSignature);
       const commentBox = document.getElementById(`commentBox-${memeId}`);
       commentBox.prepend(newComment);
       content.value = "";
+      
+      return comment;
     } catch (e) {
-      console.log(e);
+      handleErrors(e);
     }
   });
 };
@@ -71,9 +75,7 @@ const addDeleteButtonListener = (button) => {
         method: "DELETE",
       });
 
-      if (!res.ok) {
-        throw res;
-      }
+      if (!isResponseOk(res)) return;
 
       const block = document.getElementById(`commentBlock-${commentId}`);
       const memeId = block.parentNode.id.split("-")[1];
@@ -83,8 +85,9 @@ const addDeleteButtonListener = (button) => {
       commentCount.innerText = count -= 1;
 
       block.parentNode.removeChild(block);
+      return res;
     } catch (e) {
-      console.log(e);
+      handleErrors(e);
     }
   });
 };
@@ -122,30 +125,29 @@ const addEditButtonListener = (button) => {
           body: JSON.stringify({ body: newBody }),
         });
 
-        if (!res.ok) {
-          throw res;
-        }
+        if (!isResponseOk(res)) return;
 
         const { comment } = await res.json();
+        console.log(comment);
         const { User } = comment;
-        const updated = renderNewComment(comment, User, memeId);
+
+        const userSignature = document.querySelector(`.user-${User.id}`).cloneNode(true);
+        const updated = renderNewComment(comment, memeId);
+        updated.prepend(userSignature);
 
         block.parentNode.replaceChild(updated, block);
+        return comment;
       } catch (e) {
-        console.log(e);
+        handleErrors(e);
       }
     });
   });
 };
 
-const renderNewComment = (comment, User, memeId) => {
+const renderNewComment = (comment, memeId) => {
   const newComment = document.createElement("li");
   newComment.classList.add("comment-block");
   newComment.id = `commentBlock-${comment.id}`;
-
-  const userSignature = document.querySelector(`.user-${User.id}`);
-  console.log(userSignature);
-  newComment.appendChild(userSignature);
 
   const commentBodyContainer = document.createElement("div");
   commentBodyContainer.classList.add("comment-body-container");
@@ -177,8 +179,6 @@ const renderNewComment = (comment, User, memeId) => {
 
   newComment.appendChild(buttonsContainer);
 
-  const commentBox = document.getElementById(`commentBox-${memeId}`);
-  commentBox.prepend(newComment);
   return newComment;
 };
 

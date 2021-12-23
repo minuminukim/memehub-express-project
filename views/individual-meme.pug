@@ -6,7 +6,6 @@ include ./mixins/likes-and-comments.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/user-page.css")
-  link(rel="stylesheet" href="/stylesheets/components/comment-section.css")
   link(rel="stylesheet" href="/stylesheets/components/likes-and-comments.css")
   script(src="/javascripts/comment.js" type="module" defer)
   script(src="/javascripts/likes.js" type='module' defer)
@@ -44,6 +43,7 @@ block content
 
       img.user-meme(src=`${meme.link}` alt='meme')
       +likesAndComments(meme)
+      +commentsModal(meme, currentUserId)
       //- div.likes-and-comments
       //- div.likes
       //-   p(id=`likeCount-${meme.id}` role='button')= `Likes: ${likes}`

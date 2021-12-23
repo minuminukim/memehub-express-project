@@ -2,14 +2,10 @@ const express = require("express");
 
 const router = express.Router();
 const commentRouter = require("./comments.js");
-const followsRouter = require("./follows.js");
+const likesRouter = require("./likes.js");
 
 // mount subpaths
 router.use("/comments", commentRouter);
-router.use("/follows", followsRouter);
-
-router.get("/", (req, res) => {
-  res.json({ message: "Hello, world" });
-});
+router.use("/likes", likesRouter);
 
 module.exports = router;
