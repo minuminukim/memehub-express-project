@@ -78,7 +78,7 @@ div.userPosts {
 }
 
 img.user-profile-pic {
-  max-height: 150px;
+  height: auto;
   max-width: 200px;
 }
 
