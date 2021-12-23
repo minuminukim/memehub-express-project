@@ -1,20 +1,9 @@
-extends layout.pug
-
-include utils.pug
-
-append head
-  link(rel="stylesheet" href="/stylesheets/components/sign-form.css")
-
-  script(src="/javascripts/demo-user.js" type="module" defer)
+extends sign-up.pug
+include ./mixins/form-utils.pug
 
 block content
-  nav.form-nav
-    .nav-logo-container
-      a(href="/"): img.nav-logo(src="/images/medium-logo-cropped.png")
-      .nav-title-container
-        h1.nav-title: a(href="/") MemeHub
-  .root
-    +validationErrorSummary(errors)
+  +validationErrorSummary(errors)
+  main
     form(action='/users/sign-in' method='post' id='sign-in-form')
       .form-header
         h2 Welcome back.
@@ -29,4 +18,3 @@ block content
       .form-links
         p No account?
         a(href='/users/new') Create one
-block foot

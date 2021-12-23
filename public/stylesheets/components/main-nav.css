@@ -1,4 +1,69 @@
 .main-nav {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  padding: 25px 0;
+  height: 80px;
+  width: 100vw;
+  justify-content: space-between;
+  box-shadow: 0 0 20px #f2f2f2;
+  background-color: #fff;
+}
+
+.main-nav-left {
+  grid-column: 2 / 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 25px;
+  height: fit-content;
+  width: fit-content;
+}
+
+.main-nav-left a {
+  height: 25px;
+}
+
+img.nav-logo {
+  width: auto;
+  height: 25px;
+  padding: 1px 7px 1px 0;
+}
+
+a.nav-title {
+  font-family: "Playfair Display", serif;
+  color: #292929;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.main-nav-right {
+  grid-column: 11 / 12;
+  justify-self: end;
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-search {
+  padding-right: 0.5rem;
+}
+
+.dropdown-button,
+.dropdown-img-button {
+  border: 0;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  background-color: none;
+  cursor: pointer;
+}
+
+/* .main-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,4 +89,4 @@
   outline: none;
   overflow: hidden;
   background-repeat: no-repeat;
-}
+} */

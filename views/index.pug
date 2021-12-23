@@ -5,34 +5,31 @@ include ./mixins/recommended.pug
 
 append head
   //- add page specific styles by appending to the head
-  link(rel="stylesheet" href="/stylesheets/main-styles.css")
-  link(rel="stylesheet" href="/stylesheets/components/home.css")
-  link(rel="stylesheet" href="/stylesheets/components/feed-block.css")
-  link(rel="stylesheet" href="/stylesheets/components/follow-button.css")
-  link(rel="stylesheet" href="/stylesheets/components/recommended-followers.css")
+  link(rel="stylesheet" href="/stylesheets/home.css")
   //- add page specific js
-  script(src="/javascripts/index.js" type="module" defer)
+  script(src="/javascripts/home.js" type="module")
 
 block content
   .root
-    .feed-container
-      .feed-toggles
-        .feed-toggles-left
-          a(href="/you") Following
-        .feed-toggles-right
-          a(href="/hot") Hot
-          a(href="/trending") Trending
-          a(href="/recent") Recent
-      .feed-memes-loggedIn
-        each meme in feedMemes
-          +memeBlock(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
+    .left-container
+      .feed-container
+        .feed-toggles
+          .feed-toggle
+            a(href="/you" class="following") Following
+          .feed-toggle
+            a(href="/hot" class="hot") Hot
+          .feed-toggle
+            a(href="/trending" class="trending") Trending
+          .feed-toggle
+            a(href="/recent" class="recent") Recent
+        .feed-memes-container
+          .feed-memes
+            each meme in feedMemes
+              +memeBlock(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, "Dec 8", meme.caption)
     .right-container
       .recommended-follows-container
-        div.stick-container
-          .recommended-title-container
-            h3.recommended-title Who to follow
-            div.dev-spacing
-          .recommended-blocks-container
-            each dev in developers
-              div.dev-spacing
-                +recommended(dev, currentUserId)
+        .recommended-title-container
+          h2.recommended-title Who to follow
+        .recommended-blocks-container
+          each dev in developers
+            +recommended(dev, currentUserId)

@@ -21,9 +21,9 @@ html {
 }
 
 
-/* header {
-  background-color: rgb(182, 219, 253);
-} */
+header {
+  padding-bottom: 80px;
+}
 
 button {
   cursor: pointer;

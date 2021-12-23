@@ -1,6 +1,9 @@
 extends layout.pug
 
-include utils.pug
+include ./mixins/form-utils.pug
+
+append head
+  link(rel='stylesheet' href='/stylesheets/components/search-page')
 
 block content
   .spacing-more

@@ -1,11 +1,12 @@
 header
-  nav.main-nav
-    div.nav-logo
-      a.nav-logo(href="/") MemeHub
-    div.nav-content
-      div.nav-content
-        a.nav-search(href="/search") Search
-      div.nav-content
+  .main-nav
+    .main-nav-left
+        a(href="/"): img.nav-logo(src="/images/medium-logo-cropped.png")
+        a.nav-title(href="/") MemeHub
+    .main-nav-right
+      .nav-content
+        a.nav-search(href="/search"): img.nav-search(src="/images/search-icon.png")
+      .nav-content
         button.dropdown-button: img.dropdown-img-button(src=`${user.profilePicture}`)
         if locals.authenticated
           include dropdown.pug
