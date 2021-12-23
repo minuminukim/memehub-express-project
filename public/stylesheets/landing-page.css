@@ -8,8 +8,10 @@
 }
 
 .nav-left {
-  justify-content: flex-start;
+  display: inline-flex;
+  justify-content: center;
   align-self: center;
+  align-items: center;
   font-weight: bolder;
 }
 .nav-right {
@@ -98,6 +100,8 @@ div.landing-hr {
   width: 100vw;
   background-color: #ffc017;
   border-bottom: black solid 1px;
+  transition-property: transform background;
+  transition-duration: .4s;
 }
 
 div.header-main-spacing {
@@ -121,7 +125,7 @@ div.header-main-spacing {
 
 .nav-title a {
   font-family: "Playfair Display", serif;
-  color: #292929;
+  color: black;
   text-decoration: none;
   font-size: 30px;
   font-weight: bolder;
