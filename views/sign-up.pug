@@ -2,25 +2,33 @@ extends layout.pug
 include utils.pug
 
 append head
-  link(rel="stylesheet" href="/stylesheets/components/sign-up.css")
+  link(rel="stylesheet" href="/stylesheets/components/sign-form.css")
+  link(rel="stylesheet" href="/stylesheets/components/errors.css")
 
 block content
+  nav.form-nav
+    .nav-logo-container
+      a(href="/"): img.nav-logo(src="/images/medium-logo-cropped.png")
+      .nav-title-container
+        h1.nav-title: a(href="/") MemeHub
   +validationErrorSummary(errors)
-  .sign-up-root
-    h2.sign-up-title Join Memehub.
-    form(action='/users/new' method='post' class='sign-up-form')
+  .root
+    form(action='/users/new' method='post' id='sign-up-form')
+      .form-header
+        h2 Join Memehub.
+        p Enter your information to create an account.
       input(type='hidden' name='_csrf' value=csrfToken)
-      +field('User Name', 'username', user.username)
-      +field('First Name', 'firstName', user.firstName)
-      +field('Last Name', 'lastName', user.lastName)
-      +field('Email Address', 'email', user.email)
-      +field('Password', 'password', user.password, 'password')
-      +field('Confirm Password', 'confirmPassword', '', 'password')
-      div(class='sign-up-buttons')
-        button(type='submit' class='register-button') Register
-        form(action='/users/sign-in' method='post')
-          button(type='submit' class='demo-button') Try Demo
-        a(href='/' class='cancel-button') Cancel
-      div.sign-up-links
+      .form-fields
+        +field('Username', 'username', user.username)
+        +field('First name', 'firstName', user.firstName)
+        +field('Last name', 'lastName', user.lastName)
+        +field('Your email', 'email', user.email, 'text')
+        +field('Password', 'password', user.password, 'password')
+        +field('Confirm Password', 'confirmPassword', '', 'password')
+      .form-buttons
+        button(type='submit' class='register-button') Continue
+        button(onclick="location.href='/users/sign-in/" class='demo-button') Try Demo
+      .form-links
           p Already have an account?
           p: a(href='/users/sign-in') Sign in
+block foot

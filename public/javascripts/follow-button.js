@@ -1,4 +1,6 @@
-export const addFollowButtonEvents = () => {
+import { handleErrors, isResponseOk } from "./error-handlers.js";
+
+export const addFollowButtonListeners = () => {
   const followButtons = [...document.querySelectorAll(".follow-button")];
   const unfollowButtons = [...document.querySelectorAll(".unfollow-button")];
 
@@ -28,31 +30,28 @@ export const follow = async (e) => {
       body: JSON.stringify({ userId, followerId, followId }),
     });
 
-    if (response.status === 401) {
-      window.location.href = "/log-in";
-      return;
-    }
-
-    if (!response.ok) {
-      throw response;
-    }
+    // helper checks if 401 and if !response.ok
+    if (!isResponseOk(response)) return;
 
     const { newFollow } = await response.json();
+    const isHeaderOrSide = isNavButton(button);
 
-    resetButton(button, newFollow.id);
-    updateCount("follow", userId);
-    // const path = window.location.href.toString().trim().split("/");
-    // const shouldUpdate = path.includes(userId.toString());
+    if (isHeaderOrSide) {
+      handleSideAndHeaderFollows(button, newFollow.id);
+    } else {
+      resetButton(button, newFollow.id);
+    }
 
-    // if (shouldUpdate) {
-    //   const followCount = document.querySelector(".follow-count");
-    //   const [count, text] = followCount.innerText.trim().split(" ");
-    //   followCount.innerText = `${parseInt(count) + 1} ${text}`;
-    // }
+    const data = { button, userId, followerId, followId, newFollow };
+    const resource = checkResource();
+    if (shouldUpdateCount(data, resource, isHeaderOrSide)) {
+      const followerOrFollowing = checkButton(data, resource);
+      updateCounts(followerOrFollowing, "follow");
+    }
 
     return newFollow;
   } catch (error) {
-    return Promise.reject(error);
+    handleErrors(error);
   }
 };
 
@@ -61,41 +60,49 @@ export const unfollow = async (e) => {
   const button = e.target;
   const userId = parseInt(button.getAttribute("user"), 10);
   const followerId = parseInt(button.getAttribute("follower"), 10);
-  const followId = parseInt(button.getAttribute("follow", 10));
+  const followId = button.getAttribute("follow", 10);
 
   try {
-    const response = await fetch(`/users/${followerId}/following`, {
+    const response = await fetch(`/users/${followerId}/following/${userId}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, followerId, followId }),
     });
 
-    if (response.status === 401) {
-      window.location.href = "/users/sign-in";
-      return;
+    if (!isResponseOk(response)) return;
+
+    const isHeaderOrSide = isNavButton(button);
+    if (isHeaderOrSide) {
+      handleSideAndHeaderFollows(button, "0");
+    } else {
+      resetButton(button, "0");
     }
 
-    if (!response.ok) {
-      throw response;
+    const data = { button, userId, followerId, followId };
+    const resource = checkResource();
+
+    if (shouldUpdateCount(data, resource, isHeaderOrSide)) {
+      const followerOrFollowing = checkButton(data, resource);
+      updateCounts(followerOrFollowing, "unfollow");
     }
-
-    resetButton(button, "0");
-    // const shouldUpdate = document.querySelectorAll(".follow-count").length > 0;
-    // if (shouldUpdate) updatePage("unfollow");
-    updateCount("unfollow", userId);
-    // const path = window.location.href.toString().trim().split("/");
-    // const shouldUpdate = path.includes(userId.toString());
-
-    // if (shouldUpdate) {
-    //   const followCount = document.querySelector(".follow-count");
-    //   const [count, text] = followCount.innerText.trim().split(" ");
-    //   followCount.innerText = `${parseInt(count) - 1} ${text}`;
-    // }
-    const { message } = await response.json();
-    return Promise.resolve(message);
+    return response;
   } catch (error) {
-    return Promise.reject(error);
+    handleErrors(error);
   }
+};
+
+const checkResource = () => {
+  // check if single or collection and return both
+  const path = window.location.href.toString().trim().split("/");
+  return path.slice(-2);
+};
+
+const isNavButton = (button) => {
+  if (button.classList.contains("header-button")) {
+    return "header";
+  } else if (button.classList.contains("side-button")) {
+    return "side";
+  }
+
+  return false;
 };
 
 export const resetButton = (button, followId) => {
@@ -116,15 +123,40 @@ export const resetButton = (button, followId) => {
   }
 };
 
-const updateCount = (action, userId) => {
-  const followCounts = document.querySelectorAll(".follow-count");
-  const path = window.location.href.toString().trim().split("/");
+const shouldUpdateCount = (data, resource, isHeaderOrSide) => {
+  const followerId = data.followerId.toString();
+  const followerCounts = document.querySelectorAll(".follower-count");
+  const followingCounts = document.querySelectorAll(".following-count");
 
-  if (!followCounts.length || !path.includes(userId.toString())) {
-    return;
+  const pageBelongsToCurrentUser = resource.includes(followerId);
+  // if nothing to update or on /:id/following and profile doesnt belong to current user
+  if (!followerCounts.length && !followingCounts.length) {
+    return false;
+  } else if (resource.includes("following")) {
+    if (!isHeaderOrSide && !pageBelongsToCurrentUser) {
+      return false;
+    }
+  } else if (resource.includes("followers") && !isHeaderOrSide) {
+    return false;
   }
 
-  followCounts.forEach((el) => {
+  return true;
+};
+
+const checkButton = (data, resource) => {
+  const followerId = data.followerId.toString();
+  const followerCounts = document.querySelectorAll(".follower-count");
+  const followingCounts = document.querySelectorAll(".following-count");
+
+  if (resource[0] === followerId) {
+    return followingCounts;
+  } else {
+    return followerCounts;
+  }
+};
+
+const updateCounts = (counts, action) => {
+  counts.forEach((el) => {
     const [count, text] = el.innerText.toString().trim().split(" ");
     const int = parseInt(count);
 
@@ -134,4 +166,22 @@ const updateCount = (action, userId) => {
       el.innerText = `${int - 1} ${text}`;
     }
   });
+};
+
+const handleSideAndHeaderFollows = (button, followId) => {
+  const classList = button.classList;
+
+  if (classList.contains("header-button")) {
+    const side = document.querySelector(".side-button");
+    if (side) {
+      resetButton(side, followId);
+    }
+    resetButton(button, followId);
+  } else {
+    const header = document.querySelector(".header-button");
+    if (header) {
+      resetButton(header, followId);
+    }
+    resetButton(button, followId);
+  }
 };

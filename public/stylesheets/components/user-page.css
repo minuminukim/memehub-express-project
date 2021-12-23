@@ -78,8 +78,8 @@ div.userPosts {
 }
 
 img.user-profile-pic {
-  height: 150px;
-  width: 200px;
+  max-height: 150px;
+  max-width: 200px;
 }
 
 div.user-page-details {
