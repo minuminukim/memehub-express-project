@@ -5,11 +5,16 @@ export const docScroll = () =>{
         let color = 'white';
         let originalColor = '#ffc017'
 
-        if (scrollY >= 500){
+        let elementTarget = document.querySelector(".landing-header-main")
+
+        if (scrollY >= elementTarget.offsetTop + elementTarget.offsetHeight){
             nav.style.background = color;
         }
-        if (scrollY < 500) {
+        if (scrollY < elementTarget.offsetTop + elementTarget.offsetHeight) {
             nav.style.background = originalColor;
         }
     });
 }
+
+
+//landing-header-main
