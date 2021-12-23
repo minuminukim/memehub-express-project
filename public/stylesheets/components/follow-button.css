@@ -1,7 +1,7 @@
 .follow-button,
 .unfollow-button {
-  background-color: #848583;
-  color: #fff;
+  /* background-color: #848583;
+  color: #fff; */
   font-size: 14px;
   font-weight: 400;
   padding: 10px 18px;
@@ -9,9 +9,52 @@
   border: 0;
   height: 2.5rem;
   cursor: pointer;
+  width: fit-content;
 }
 
-.follow-button:hover,
+.follow-button {
+  background-color: #1a8917;
+  color: #fff;
+}
+
+.unfollow-button {
+  background-color: #fff;
+  border: 1px solid #1a8917;
+  color: #1a8917;
+}
+
+.follow-button:hover {
+  background-color: #157813;
+}
+
+.unfollow-button:hover {
+  border: 1px solid #136111;
+  color: #136111;
+}
+
+/* .follow-button:hover,
 .unfollow-button:hover {
   background-color: rgba(0, 0, 0, 0.55);
+} */
+/*
+.follow-side,
+.follow-header {
+  background-color: #1a8917;
 }
+
+.follow-side:hover,
+.follow-header:hover {
+  background-color: #157813;
+}
+
+.unfollow-side,
+.unfollow-header {
+  background-color: #fff;
+  border: 1px solid #1a8917;
+  color: #1a8917;
+}
+
+.unfollow-side:hover,
+.unfollow-header:hover {
+  border: 1px solid #157813;
+} */

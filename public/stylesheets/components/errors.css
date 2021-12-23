@@ -1,0 +1,12 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 730px;
+}
+
+.error-message {
+  font-size: 14px;
+  color: #c94a4a;
+}

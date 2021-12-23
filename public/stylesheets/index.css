@@ -7,6 +7,8 @@ html {
   position: relative;
   padding-bottom: 5rem;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 *,
@@ -20,7 +22,7 @@ html {
 
 
 header {
-  background-color: rgb(182, 219, 253);
+  padding-bottom: 80px;
 }
 
 button {

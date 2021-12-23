@@ -8,6 +8,8 @@ const { loginUser, logoutUser, requireAuth } = require("../auth");
 const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
+const { followNotFoundError } = require("../validators/follow-validators");
+
 const {
   checkFollow,
   getFollow,
@@ -416,6 +418,8 @@ router.post(
     if (!follow) {
       const newFollow = await Follow.create({ userId, followerId });
       res.json({ newFollow });
+    } else if (userId === followerId) {
+      res.status(400).json({ message: "You cannot follow yourself." });
     } else {
       res.status(400).json({ message: "You are already following this user." });
     }
@@ -423,18 +427,19 @@ router.post(
 );
 
 router.delete(
-  "/:id(\\d+)/following",
+  "/:id(\\d+)/following/:userId(\\d+)",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const { userId, followerId, followId } = req.body;
-    const follow = await Follow.findByPk(parseInt(followId, 10));
+    const userId = parseInt(req.params.userId, 10);
+    const followerId = parseInt(req.params.id, 10);
+    const follow = await Follow.findOne({ where: { userId, followerId } });
+    console.log(follow);
+
     if (follow) {
       await follow.destroy();
-      res
-        .status(204)
-        .json({ message: "You have successfully unfollowed this user." });
+      res.status(204).json({ message: "You have unfollowed this user." });
     } else {
-      res.status(404).json({ message: "Follow does not exist" });
+      res.status(404).json({ message: "Follow does not exist." });
     }
   })
 );

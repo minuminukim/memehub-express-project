@@ -1,0 +1,155 @@
+html,
+body {
+  height: 100%;
+}
+
+main {
+  height: 100%;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-nav {
+  display: flex;
+  border: 1px solid green;
+  width: 100vw;
+  padding: 25px;
+  padding-left: 50px;
+  height: 80px;
+}
+
+.nav-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+}
+
+.nav-title-container {
+  height: 25px;
+  line-height: 20px;
+}
+
+.nav-logo {
+  width: auto;
+  height: 25px;
+  align-self: flex-end;
+  padding: 1px 7px 1px 0;
+}
+
+.nav-title a {
+  font-family: "Playfair Display", serif;
+  color: #292929;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+#sign-in-form,
+#sign-up-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  height: 100%;
+  border: 1px solid orange;
+  padding: 44px 56px;
+}
+
+.form-header,
+.form-fields,
+.field,
+.form-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #292929;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+
+.form-header {
+  max-width: 300px;
+}
+
+.form-header h2 {
+  text-align: center;
+  font-family: Georgia, Cambria, "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 400;
+  color: #080808;
+  padding-bottom: 30px;
+}
+
+.form-header p {
+  line-height: 24px;
+}
+
+.form-fields {
+  padding-top: 30px;
+}
+
+.field {
+  min-height: 60px;
+}
+
+.field label {
+  font-size: 13px;
+  padding-bottom: 12px;
+}
+
+input {
+  border: 0;
+  border-bottom: 1px solid #848583;
+  text-align: center;
+  min-width: 270px;
+  min-height: 30px;
+  color: #292929;
+  font-size: 16px;
+}
+
+input:hover {
+  border-color: #292929;
+}
+
+input:focus {
+  outline: none;
+  border-color: #292929;
+}
+
+.form-buttons button {
+  background-color: #191919;
+  color: #fff;
+  border: 1px solid #848583;
+  font-size: 14px;
+  border-radius: 20px;
+  height: 2.2rem;
+  min-width: 230px;
+  text-align: center;
+}
+
+.demo-button {
+  margin-top: 12px;
+}
+
+.form-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #292929;
+}
+.form-links a {
+  text-decoration: none;
+  color: #1a8917;
+  font-weight: bold;
+}
+
+.form-links p {
+  padding-right: 2px;
+}
