@@ -1,4 +1,4 @@
-import { handleErrors, isResponseOk } from "./error-handlers.js";
+  import { handleErrors, isResponseOk } from "./error-handlers.js";
 
 export const addFollowButtonListeners = () => {
   const followButtons = [...document.querySelectorAll(".follow-button")];
@@ -90,7 +90,6 @@ export const unfollow = async (e) => {
 };
 
 const checkResource = () => {
-  // check if single or collection and return both
   const path = window.location.href.toString().trim().split("/");
   return path.slice(-2);
 };
@@ -129,6 +128,7 @@ const shouldUpdateCount = (data, resource, isHeaderOrSide) => {
   const followingCounts = document.querySelectorAll(".following-count");
 
   const pageBelongsToCurrentUser = resource.includes(followerId);
+  
   // if nothing to update or on /:id/following and profile doesnt belong to current user
   if (!followerCounts.length && !followingCounts.length) {
     return false;

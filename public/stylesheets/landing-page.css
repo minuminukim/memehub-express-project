@@ -31,6 +31,7 @@ div.right-padding {
 
 .landing-header {
   display: flex;
+  flex-wrap: wrap;
 }
 
 /* img.header {
@@ -40,13 +41,18 @@ div.right-padding {
   border-radius: 5%;
   opacity: 0.85; */
 
-img.header{
+img.header {
   height: 350px;
   width: 600px;
   margin-bottom: 25px;
   border-radius: 7%;
   z-index: 1;
-  opacity: .85;
+  opacity: 0.85;
+  object-fit: cover;
+}
+
+img.nav-logo {
+  color: #292929;
 }
 
 div.right-side-header {
@@ -55,7 +61,7 @@ div.right-side-header {
   align-self: center;
 }
 
-.modal-button{
+.modal-button {
   display: flex;
   overflow: hidden;
   text-align: center;
@@ -101,7 +107,7 @@ div.landing-hr {
   background-color: #ffc017;
   border-bottom: black solid 1px;
   transition-property: transform background;
-  transition-duration: .4s;
+  transition-duration: 0.4s;
 }
 
 div.header-main-spacing {
@@ -125,7 +131,7 @@ div.header-main-spacing {
 
 .nav-title a {
   font-family: "Playfair Display", serif;
-  color: black;
+  color: #292929;
   text-decoration: none;
   font-size: 30px;
   font-weight: bolder;
@@ -134,6 +140,7 @@ div.header-main-spacing {
 .nav-link {
   text-decoration: none;
   font-size: 14px;
+  color: #202020;
 }
 
 .landing-header button {
@@ -157,21 +164,54 @@ div.header-main-spacing {
 .landing-header-main h2 {
   font-family: "Georgia", "Cambria", "Times New Roman", serif;
   font-size: 70px;
+  color: #292929;
 }
 
-/* trending memes */
-.trending-memes {
-  display: flex;
-  flex-wrap: wrap;
+.landing-header-main p {
+  color: #292929;
 }
 
-.trending-meme-block {
-  height: 100%;
-  width: 100%;
-  flex-grow: 1;
-  flex-basis: 30vw;
+.short {
+  display: none;
 }
 
-.trending-meme {
-  height: auto;
+.user-feed .meme-block-user-logo {
+  max-width: 25px;
+  max-height: 25px;
+  margin-right: 12px;
+}
+
+@media screen and (max-width: 1070px) {
+  .landing-header-main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 25px;
+  }
+
+  img.header {
+    height: auto;
+    width: 100%;
+    object-fit: none;
+    display: none;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .long {
+    display: none;
+  }
+
+  .short {
+    display: inline-block;
+  }
+
+  h2.short {
+    font-size: 48px;
+  }
+
+  .landing-header-main {
+    margin: 75px auto 0 auto;
+  }
 }

@@ -1,6 +1,8 @@
 html,
 body {
-  height: 100%;
+  max-height: 100vh;
+  padding: 0;
+  margin: 0;
 }
 
 main {
@@ -69,7 +71,6 @@ main {
   padding-bottom: 30px;
   text-align: center;
 }
-
 
 .form-header {
   max-width: 300px;

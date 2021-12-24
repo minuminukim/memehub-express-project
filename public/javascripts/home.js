@@ -3,6 +3,9 @@ const transformToggleText = () => {
 
   let toggle;
   switch (feed) {
+    case "":
+      toggle = document.querySelector(".following");
+      break;
     case "you":
       toggle = document.querySelector(".following");
       break;

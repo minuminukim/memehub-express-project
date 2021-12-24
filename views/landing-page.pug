@@ -3,6 +3,8 @@ include ./mixins/memes.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/landing-page.css")
+  link(rel="stylesheet" href="/stylesheets/components/trending-memes.css")
+  script(src="/javascripts/scrollexport.js" type="module")
 
 block content
   .landing-root
@@ -19,13 +21,13 @@ block content
           div.right-padding
             div
               button(onclick="location.href='/users/new'") Get Started
-            //- TODO: render demo sign-in
 
       .landing-header-main
         div
-          h2 MemeHub is a place to post, laugh, and connect
+          h2.long MemeHub is a place to post, laugh, and connect
+          h2.short Post, laugh, and connect
           div.header-main-spacing
-            p It's easy and free to post your thinking on any topic and connect with millions of readers.
+            p.landing-caption It's easy and free to post your thinking on any topic and connect with millions of readers.
             div.header-main-spacing
               button.modal-button(onclick="location.href='/users/new'") Start Posting
             div.header-main-spacing
@@ -35,11 +37,12 @@ block content
       div.margin-body
         div.trending-content
           .trending-titles
+            img.trending-logo(src="/images/trending.png")
             h2.trending-title TRENDING ON MEMEHUB
           .trending-memes-container
             each meme in trendingMemes
-              +trendingMemeLoggedOut(`0${i++}`, meme.id, meme.link, meme.User.profilePicture, meme.userId, meme.User.username, meme.headline, meme.updatedAt.toLocaleDateString('en-US'))
+              +trendingMemeLoggedOut(`0${i++}`, meme.id, meme.link, meme.User.profilePicture, meme.userId, meme.User.username, meme.headline, meme.createdAt)
   div.meme-feed-spacing
-      .landing-feed
-        each meme in feedMemes
-          +memeBlockLoggedOut(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, meme.updatedAt.toLocaleDateString('en-US'), meme.caption)
+    .landing-feed
+      each meme in feedMemes
+        +memeBlockLoggedOut(meme.User.profilePicture, meme.User.username, meme.link, meme.id, meme.userId, meme.headline, meme.createdAt, meme.caption)

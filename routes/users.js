@@ -10,7 +10,6 @@ const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
 const getUserId = require("./utils/get-user-id");
 
-
 const {
   checkFollow,
   getFollow,
@@ -127,8 +126,11 @@ router.get(
         {
           model: Meme,
           include: [
-            { model: Comment, include: [{ model: User }] },
-            { model: Like },
+            {
+              model: Comment,
+              include: [{ model: User }],
+            },
+            { model: Like, include: { model: Meme } },
           ],
         },
         { model: User, as: "followers" },
@@ -137,22 +139,22 @@ router.get(
     });
 
     const memes = profileUser.Memes;
-
-    // Follow logic
     const currentUserId = getUserId(req);
 
     // check if memes are liked by current user and append key-value pairs
     for (const meme of memes) {
       meme.liked = false;
-      const likes = meme.Likes;
+      meme.likeId = 0;
 
+      const likes = meme.Likes;
       for (const like of likes) {
         if (like.userId === currentUserId);
+        meme.likeId = like.id;
         meme.liked = true;
         break;
       }
     }
-    // const isLiked = Like.findOne({where: {userId: currentUserId, memeId: meme}})
+
     const {
       isCurrentUser,
       numberOfFollowers,
@@ -175,7 +177,7 @@ router.get(
   })
 );
 
-/*****************************About Page*************************/
+/**********************About Page*************************/
 router.get(
   "/:id(\\d+)/about",
   asyncHandler(async (req, res) => {
@@ -288,7 +290,7 @@ router.post(
 router.get(
   "/:id(\\d+)/followers",
   asyncHandler(async (req, res) => {
-    // find user and their followers
+    const currentUserId = getUserId(req);
     const profileId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(profileId, {
       include: [
@@ -301,9 +303,9 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    const currentUserId = getUserId(req);
     let isFollowing = false;
     let profileFollowId = 0;
+
     const followers = profileUser.followers.map((follower) => {
       const { id, username, firstName, lastName, biography, profilePicture } =
         follower;
@@ -326,9 +328,9 @@ router.get(
         followId,
       };
     });
-    // then check for intersection with the fetched followers
 
     const isCurrentUser = profileUser.id === currentUserId;
+
     res.render("followers", {
       followers,
       profileUser,
@@ -346,8 +348,9 @@ router.get(
 router.get(
   "/:id(\\d+)/following",
   asyncHandler(async (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    const profileUser = await User.findByPk(id, {
+    const profileUserId = parseInt(req.params.id, 10);
+    const currentUserId = getUserId(req);
+    const profileUser = await User.findByPk(profileUserId, {
       include: [
         {
           model: User,
@@ -362,7 +365,6 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    const currentUserId = getUserId(req);
     const [isFollowing, profileFollowId] = getFollow(
       profileUser.followers,
       currentUserId
@@ -395,6 +397,7 @@ router.get(
     res.render("following", {
       followings,
       profileUser,
+      numberOfFollowers: profileUser.followers.length || 0,
       count: followings.length || 0,
       currentUserId,
       isCurrentUser,
@@ -411,6 +414,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { userId, followerId, followId } = req.body;
     const follow = await Follow.findOne({ where: { userId, followerId } });
+
     if (!follow) {
       const newFollow = await Follow.create({ userId, followerId });
       res.json({ newFollow });
@@ -429,7 +433,6 @@ router.delete(
     const userId = parseInt(req.params.userId, 10);
     const followerId = parseInt(req.params.id, 10);
     const follow = await Follow.findOne({ where: { userId, followerId } });
-    console.log(follow);
 
     if (follow) {
       await follow.destroy();

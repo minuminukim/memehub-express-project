@@ -2,7 +2,7 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 
 const db = require("../db/models");
-const { csrfProtection, asyncHandler, isntLoggedIn } = require("../utils");
+const { csrfProtection, asyncHandler } = require("../utils");
 const memesValidators = require("../validators/meme-validators");
 const { requireAuth } = require("../auth");
 const { getFollowData } = require("./utils/follows-helpers");
@@ -70,7 +70,10 @@ router.get(
             { model: db.User, as: "followings" },
           ],
         },
-        { model: db.Comment, include: [{ model: db.User }] },
+        {
+          model: db.Comment,
+          include: [{ model: db.User }],
+        },
         { model: db.Like },
       ],
     });
@@ -85,8 +88,13 @@ router.get(
       where: { userId: currentUserId, memeId: meme.id },
     });
 
-    if (like) meme.liked = true;
-    else meme.liked = false;
+    meme.liked = false;
+    meme.likeId = 0;
+
+    if (like) {
+      meme.liked = true;
+      meme.likeId = like.id;
+    }
     // follow logic
 
     const {

@@ -7,7 +7,6 @@ include ./mixins/form-utils.pug
 append head
   link(rel="stylesheet" href="/stylesheets/user-page.css")
   link(rel="stylesheet" href="/stylesheets/components/about-page.css")
-  script(src="/javascripts/comment.js" type="module" defer)
 
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)

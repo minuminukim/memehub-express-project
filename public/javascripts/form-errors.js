@@ -44,7 +44,6 @@ const newUserError = () => {
       label.style.color = "#c94a4a";
       input.style.borderBottom = "1px solid #c94a4a";
 
-      // TODO check if div has a sibling for fields w/ more than one message
       const renderedMessage = document.createElement("div");
       renderedMessage.innerText = `${message}`;
       renderedMessage.classList.add("error-message");

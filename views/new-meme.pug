@@ -6,21 +6,17 @@ append head
   link(rel='stylesheet' href='/stylesheets/components/new-meme.css')
 
 block content
-  div.spacing-more
-  p.username= `Draft meme for ${user.dataValues.username}`
   .root-new-meme
-    h1.user-page Meme
-      div.form
-      +validationErrorSummary(errors)
-      form(action='/memes/new' method='post')
-        input(type='hidden' name='_csrf' value=csrfToken)
-        div.spacing
-        +field(null, 'headline', headline, 'text', 'Enter your headline here...')
-        div.spacing
-        +field(null, 'caption', caption, 'text', 'Enter your caption here...')
-        div.spacing
-        +field(null, 'link', link, 'text', 'Enter your link here...')
-        div.post-cancel
-          button.submit-meme-button(type='submit') Post Meme
-          div.spacing-more
-          a.small-font(href='/') Click Here To Cancel
+    +validationErrorSummary(errors)
+    form.new-meme-form(action='/memes/new' method='post')
+      h1.user-page Share a Meme...
+      input(type='hidden' name='_csrf' value=csrfToken)
+      div.spacing
+      +field(null, 'headline', headline, 'textarea', 'Enter your headline here...', 1)
+      div.spacing
+      +field(null, 'caption', caption, 'textarea', 'Enter your caption here...', 1)
+      div.spacing
+      +field(null, 'link', link, 'textarea', 'Enter your link here...', 1)
+      div.post-cancel
+        a.small-font(href='/') Cancel
+        button.submit-meme-button(type='submit') Submit

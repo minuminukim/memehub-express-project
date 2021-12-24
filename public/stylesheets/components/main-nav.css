@@ -62,31 +62,3 @@ a.nav-title {
   background-color: none;
   cursor: pointer;
 }
-
-/* .main-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 60px;
-  padding: 10px 0;
-}
-
-.nav-logo a {
-  font-family: "Playfair Display", serif;
-}
-
-.dropdown-img-button {
-  border-radius: 50%;
-  height: 32px;
-  width: 32px;
-  background-color: none;
-}
-
-.dropdown-button {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  outline: none;
-  overflow: hidden;
-  background-repeat: no-repeat;
-} */

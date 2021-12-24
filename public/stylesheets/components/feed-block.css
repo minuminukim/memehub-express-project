@@ -13,6 +13,11 @@
   padding-bottom: 1em;
 }
 
+.meme-block .meme-image {
+  max-width: 500px;
+  width: 100%;
+}
+
 .meme-signature {
   display: flex;
 }
@@ -36,6 +41,8 @@
 .meme-caption {
   font-size: 16px;
   color: #757575;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 .meme-date {
@@ -64,7 +71,7 @@ div.caption-left {
 }
 
 .meme-image {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   overflow: hidden;
   padding-bottom: 1em;

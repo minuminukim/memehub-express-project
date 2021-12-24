@@ -1,9 +1,8 @@
 const express = require("express");
-const { validationResult } = require("express-validator");
 
-const db = require("../../db/models");
-const { csrfProtection, asyncHandler } = require("../../utils");
-
+const { Like } = require("../../db/models");
+const getUserId = require("../utils/get-user-id");
+const { asyncHandler } = require("../../utils");
 const { requireAuth } = require("../../auth");
 
 const router = express.Router();
@@ -11,33 +10,33 @@ router.post(
   "/",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const likeMeme = await db.Like.findOne({
-      where: {
-        userId: req.session.auth.userId,
-        memeId: req.body.memeId,
-      },
-    });
-    if (!likeMeme) {
-      db.Like.create({
-        userId: req.session.auth.userId,
-        memeId: req.body.memeId,
-      });
-      res.json({ message: "liked" });
+    const userId = getUserId(req);
+    const memeId = parseInt(req.body.memeId, 10);
+    const like = await Like.findOne({ where: { userId, memeId } });
+
+    if (!like) {
+      const newLike = await Like.create({ userId, memeId });
+      res.status(200).json({ newLike });
     } else {
-      likeMeme.destroy();
-      res.json({ message: "unliked" });
+      res.status(400).json({ message: "Bad request." });
     }
   })
 );
 
-router.use((req, res, next) => {
-  console.log("zx");
-  next();
-});
+router.delete(
+  "/:id(\\d+)",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const likeId = parseInt(req.params.id, 10);
+    const like = await Like.findByPk(likeId);
 
-// if a like does not exist
-// build a like
-// if a like exists
-// destroy a like
+    if (like) {
+      await like.destroy();
+      res.status(204).json({ message: "You have unliked this post." });
+    } else {
+      res.status(404).json({ message: "Like does not exist" });
+    }
+  })
+);
 
 module.exports = router;
