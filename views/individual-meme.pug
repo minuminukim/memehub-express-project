@@ -39,7 +39,7 @@ block content
         img.user-meme(src=`${meme.link}` alt='meme')
         +likesAndComments(meme)
         +commentsModal(meme, currentUserId)
-        p.posted-on= `Posted on: ${dateFormat}`
+        p.posted-on= `${meme.updatedAt.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})}`
         hr.bottom-meme-page
         if currentUserId === meme.userId
           div.edit-delete

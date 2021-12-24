@@ -1,27 +1,49 @@
 div.userpage-header {
   display: flex;
-  width: 100vw;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
-  padding-top: 17px;
-  padding-bottom: 17px;
-  margin: 25px;
+  width: 100vw;
+  min-height: 115px;
+  padding: 25px 18px;
+  flex-wrap: wrap;
 }
 
 a.userpage-header-link {
   text-decoration: none;
-  color: gray;
+  color: #757575;
 }
 
 a.userpage-header-link:hover {
   text-decoration: none;
-  color: black;
+  color: #191919;
 }
 
 a.user-title {
-  font-weight: bolder;
-  font-size: 30px;
+  color: #191919;
+  font-weight: 500;
+  font-size: 27px;
   text-decoration: none;
+  grid-column: 2 / 4;
+}
+
+img.nav-logo {
+  width: auto;
+  height: 25px;
+  padding: 1px 7px 1px 0;
+}
+
+.nav-search {
+  padding-right: 0.5rem;
+}
+
+.dropdown-button,
+.dropdown-img-button {
+  border: 0;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  background-color: none;
+  cursor: pointer;
 }
 
 div.users-followers-details {
@@ -36,19 +58,19 @@ img.user-meme {
 }
 
 a.user-page {
-  color: black;
-  font-weight: bolder;
+  color: #292929;
+  font-weight: 500;
   text-decoration: none;
   font-size: 2rem;
 }
 
 h1.user-page {
-  color: black;
-  font-weight: bolder;
+  color: #292929;
+  font-weight: 500;
 }
 
 h1.user-title a {
-  color: black;
+  color: #292929;
   font-weight: bold;
   font-size: 27px;
   text-decoration: none;
@@ -57,6 +79,7 @@ h1.user-title a {
 h2.user-page {
   padding-top: 5px;
   font-size: 20px;
+  color: #202020;
 }
 
 hr.user-page {
@@ -66,7 +89,6 @@ hr.user-page {
   margin-right: auto;
   background-color: rgb(201, 201, 201);
   border: 0 none;
-  margin-top: 20px;
 }
 
 div.userPosts {
@@ -97,10 +119,8 @@ div.profile-name-bar {
   display: flex;
   flex-direction: column;
   position: sticky;
-  top: 33vh;
+  top: 33%;
   z-index: 1;
-  /* position: fixed;
-  z-index: 100; */
 }
 
 div.user-bio-description {
@@ -175,6 +195,7 @@ hr.edit-delete {
 p.posted-on {
   padding: 20px 0;
   font-size: 14px;
+  color: #757575;
 }
 
 hr.bottom {
@@ -242,4 +263,37 @@ div.delete-meme {
   display: flex;
   align-items: center;
   padding-bottom: 8px;
+}
+
+@media screen and (max-width: 1100px) {
+  div.userPosts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    padding: 2rem;
+  }
+
+  .fixed-position {
+    display: none;
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  img.user-meme {
+    width: 100%;
+  }
+
+  h2.user-page {
+    display: none;
+  }
+
+  p.posted-on {
+    display: inline-block;
+  }
+
+  div.userPosts {
+    padding: 1.2rem;
+  }
 }

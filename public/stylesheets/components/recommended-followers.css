@@ -100,6 +100,7 @@ div.recommended-bio {
   align-items: center;
   max-height: 400px;
   max-width: 360px;
+  position: sticky;
   top: 33vh;
   z-index: 1;
 }

@@ -18,13 +18,11 @@
   border-right: 1px solid #e6e6e6;
   max-width: 750px;
   width: 100%;
-  position: relative;
 }
 
 .right-container {
   padding-top: 2rem;
   display: flex;
-  position: relative;
 }
 
 /* MAIN FEED */
