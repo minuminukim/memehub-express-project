@@ -110,24 +110,21 @@ div.landing-hr {
   transition-duration: 0.4s;
 }
 
+
+
 div.header-main-spacing {
   margin-top: 25px;
 }
 
 .landing-header-main {
-  padding-top: 40px;
+  padding-top: 33px;
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
   margin-top: 75px;
   margin-left: 100px;
   margin-right: 50px;
 }
 
-.landing-header-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
 
 .nav-title a {
   font-family: "Playfair Display", serif;
@@ -173,6 +170,10 @@ div.header-main-spacing {
 
 .short {
   display: none;
+}
+
+h2.long{
+  width: 600px
 }
 
 .user-feed .meme-block-user-logo {
