@@ -1,10 +1,6 @@
 extends sign-up.pug
 include ./mixins/form-utils.pug
 
-append head
-  //- link(rel="stylesheet" href="/stylesheets/components/sign-form.css")
-  //- script(link="/javascripts/form-errors.js" type="module")
-  script(src="/javascripts/demo-user.js" type="module")
 block content
   +validationErrorSummary(errors)
   main

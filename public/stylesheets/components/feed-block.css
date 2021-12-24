@@ -64,7 +64,7 @@ div.caption-left {
 }
 
 .meme-image {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   overflow: hidden;
   padding-bottom: 1em;
