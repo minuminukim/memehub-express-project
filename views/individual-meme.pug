@@ -32,7 +32,6 @@ block content
                 a(href=`/users/${following.id}`): img(src=`${following.profilePicture}`)
                 a.followings-link(href=`/users/${following.id}`)= `@${following.username}`
             a.see-all(href=`/users/${meme.User.id}/following`) See all
-
     div.user-feed
       ul
         h1.user-page= `${meme.headline}`
