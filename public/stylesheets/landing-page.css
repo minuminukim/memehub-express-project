@@ -83,6 +83,7 @@ div.right-side-header {
 div.meme-feed-spacing {
   border-top: solid lightgray 1px;
   margin-top: 25px;
+  width: 100vw;
 }
 
 div.margin-body {
@@ -93,6 +94,7 @@ div.margin-body {
 
 div.landing-hr {
   border-top: solid black 1px;
+  width: 100vw;
 }
 
 .landing-nav {
