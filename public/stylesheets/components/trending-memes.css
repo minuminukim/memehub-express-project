@@ -95,7 +95,8 @@ div.trending-memes{
 
 img.trending-meme{
     height: 250px;
-    width:250px;
+    width: 250px;
+    object-fit: cover;
     border-radius: 3%;
 }
 
