@@ -177,7 +177,7 @@ router.get(
   })
 );
 
-/*****************************About Page*************************/
+/**********************About Page*************************/
 router.get(
   "/:id(\\d+)/about",
   asyncHandler(async (req, res) => {
@@ -348,8 +348,9 @@ router.get(
 router.get(
   "/:id(\\d+)/following",
   asyncHandler(async (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    const profileUser = await User.findByPk(id, {
+    const profileUserId = parseInt(req.params.id, 10);
+    const currentUserId = getUserId(req);
+    const profileUser = await User.findByPk(profileUserId, {
       include: [
         {
           model: User,
@@ -369,7 +370,6 @@ router.get(
       currentUserId
     );
 
-    const currentUserId = getUserId(req);
     const isCurrentUser = currentUserId === profileUser.id;
 
     // find mutual relationship here, where current user also follows
