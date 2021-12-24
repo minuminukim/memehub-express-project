@@ -23,7 +23,7 @@ block content
               button(onclick="location.href='/users/new'") Get Started
 
       .landing-header-main
-        div
+        div.media-screen
           h2.long MemeHub is a place to post, laugh, and connect
           h2.short Post, laugh, and connect
           div.header-main-spacing
@@ -35,10 +35,14 @@ block content
           img.header(src="https://i.ibb.co/TYPs2CK/Screenshot-2021-12-19-212747.png")
     div.landing-hr
       div.margin-body
+        .trending-titles
+          div.trending-items
+            div.width
+              img.trending-logo(src="/images/trending.png")
+              h2.trending-title TRENDING ON MEMEHUB
+            div.width
         div.trending-content
-          .trending-titles
-            img.trending-logo(src="/images/trending.png")
-            h2.trending-title TRENDING ON MEMEHUB
+          div
           .trending-memes-container
             each meme in trendingMemes
               +trendingMemeLoggedOut(`0${i++}`, meme.id, meme.link, meme.User.profilePicture, meme.userId, meme.User.username, meme.headline, meme.createdAt)
