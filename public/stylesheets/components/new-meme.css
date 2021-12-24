@@ -25,7 +25,7 @@ h1.user-page {
   padding-bottom: 2rem;
 }
 
-form {
+.new-meme-form {
   display: flex;
   flex-direction: column;
   min-width: 600px;
@@ -34,7 +34,7 @@ form {
   padding: 2rem;
 }
 
-textarea {
+.new-meme-form textarea {
   border: 0;
   min-width: 270px;
   min-height: 75px;
@@ -46,7 +46,7 @@ textarea {
   padding-bottom: 2rem;
 }
 
-textarea:focus {
+.new-meme-form textarea:focus {
   outline: none;
 }
 
@@ -89,7 +89,7 @@ textarea:focus {
 }
 
 @media screen and (max-width: 700px) {
-  form {
+  .new-meme-form {
     width: 90%;
     height: 90%;
   }

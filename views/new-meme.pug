@@ -8,7 +8,7 @@ append head
 block content
   .root-new-meme
       +validationErrorSummary(errors)
-      form(action='/memes/new' method='post')
+      form.new-meme-form(action='/memes/new' method='post')
         h1.user-page Share a Meme...
         input(type='hidden' name='_csrf' value=csrfToken)
         div.spacing
