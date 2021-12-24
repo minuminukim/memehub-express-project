@@ -32,7 +32,7 @@ router.post('/', asyncHandler(async (req, res) =>{
     }
     })
 
-    console.log(findMeme)
+    console.log(findMeme >= 1)
     res.render('search-page', {
         title: "Search",
         findMeme,
