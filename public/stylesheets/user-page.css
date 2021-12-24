@@ -130,7 +130,7 @@ div.profile-name-bar {
   display: flex;
   flex-direction: column;
   position: sticky;
-  top: 33%;
+  top: 15%;
   z-index: 1;
 }
 
