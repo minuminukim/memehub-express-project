@@ -73,7 +73,7 @@ div.right-side-header {
 }
 
 .trending-memes-container {
-  margin-top: 25px;
+  margin-top: 16px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
