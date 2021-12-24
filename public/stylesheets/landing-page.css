@@ -175,6 +175,12 @@ div.header-main-spacing {
   display: none;
 }
 
+.user-feed .meme-block-user-logo {
+  max-width: 25px;
+  max-height: 25px;
+  margin-right: 12px;
+}
+
 @media screen and (max-width: 1070px) {
   .landing-header-main {
     display: flex;
