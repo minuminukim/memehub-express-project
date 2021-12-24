@@ -4,9 +4,7 @@ include ./mixins/memes.pug
 include ./mixins/recommended.pug
 
 append head
-  //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/home.css")
-  //- add page specific js
   script(src="/javascripts/home.js" type="module")
 
 block content

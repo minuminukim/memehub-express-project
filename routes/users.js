@@ -290,7 +290,7 @@ router.post(
 router.get(
   "/:id(\\d+)/followers",
   asyncHandler(async (req, res) => {
-    // find user and their followers
+    const currentUserId = getUserId(req);
     const profileId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(profileId, {
       include: [
@@ -303,9 +303,9 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    const currentUserId = getUserId(req);
     let isFollowing = false;
     let profileFollowId = 0;
+
     const followers = profileUser.followers.map((follower) => {
       const { id, username, firstName, lastName, biography, profilePicture } =
         follower;
@@ -328,9 +328,9 @@ router.get(
         followId,
       };
     });
-    // then check for intersection with the fetched followers
 
     const isCurrentUser = profileUser.id === currentUserId;
+
     res.render("followers", {
       followers,
       profileUser,
@@ -364,12 +364,12 @@ router.get(
       order: [["id", "DESC"]],
     });
 
-    const currentUserId = getUserId(req);
     const [isFollowing, profileFollowId] = getFollow(
       profileUser.followers,
       currentUserId
     );
 
+    const currentUserId = getUserId(req);
     const isCurrentUser = currentUserId === profileUser.id;
 
     // find mutual relationship here, where current user also follows
@@ -414,6 +414,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { userId, followerId, followId } = req.body;
     const follow = await Follow.findOne({ where: { userId, followerId } });
+
     if (!follow) {
       const newFollow = await Follow.create({ userId, followerId });
       res.json({ newFollow });
@@ -432,7 +433,6 @@ router.delete(
     const userId = parseInt(req.params.userId, 10);
     const followerId = parseInt(req.params.id, 10);
     const follow = await Follow.findOne({ where: { userId, followerId } });
-    console.log(follow);
 
     if (follow) {
       await follow.destroy();

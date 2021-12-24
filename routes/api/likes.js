@@ -1,10 +1,8 @@
 const express = require("express");
-const { validationResult } = require("express-validator");
 
 const { Like } = require("../../db/models");
 const getUserId = require("../utils/get-user-id");
-const { csrfProtection, asyncHandler } = require("../../utils");
-
+const { asyncHandler } = require("../../utils");
 const { requireAuth } = require("../../auth");
 
 const router = express.Router();

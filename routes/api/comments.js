@@ -1,40 +1,16 @@
 const express = require("express");
 
 const { Comment, User } = require("../../db/models");
-const {
-  csrfProtection,
-  asyncHandler,
-  handleValidationErrors,
-} = require("../../utils");
+const { asyncHandler } = require("../../utils");
 
+const getUserId = require("../utils/get-user-id");
 const { requireAuth } = require("../../auth");
 const {
   commentValidators,
   commentNotFoundError,
 } = require("../../validators/comment-validators");
-const getUserId = require("../utils/get-user-id");
 
 const router = express.Router();
-
-// const commentNotFoundError = (commentId) => {
-//   const error = new Error({
-//     title: "Comment not found.",
-//     message: `Comment with the id of ${commentId} could not be found.`,
-//     status: 404,
-//   });
-
-//   return error;
-// };
-
-const emptyCommentError = () => {
-  const error = new Error({
-    title: "Empty comment.",
-    message: "Comment field cannot be empty.",
-    status: 400,
-  });
-
-  return error;
-};
 
 router.post(
   "/",

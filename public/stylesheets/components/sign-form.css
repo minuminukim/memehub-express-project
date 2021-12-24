@@ -72,7 +72,6 @@ main {
   text-align: center;
 }
 
-
 .form-header {
   max-width: 300px;
 }
@@ -153,5 +152,3 @@ input:focus {
 .form-links p {
   padding-right: 2px;
 }
-
-

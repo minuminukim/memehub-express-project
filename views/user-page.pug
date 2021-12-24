@@ -25,9 +25,7 @@ block content
                 p= `${profileUser.biography}`
               div
                 if isFollowing
-                  +followButton(profileUser.id, currentUserId, "Following", profileFollowId, "unfollow-button", "side-button")
-                else
-                  +followButton(profileUser.id, currentUserId, "Follow", profileFollowId, "follow-button", "side-button")
+                  +followButton(profileUser.id, currentUserId, isFollowing ? "Following" : "Follow", profileFollowId, isFollowing ? "unfollow-button" : "follow-button", "side-button")
           div.user-followings-details
             p.user-followings-header= `${profileUser.firstName}  ${profileUser.lastName} Follows`
             .user-followings-container
@@ -48,5 +46,3 @@ block content
           p.posted-on= `${meme.updatedAt.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})}`
             hr.bottom
           div.end-of-post
-//- TODO: ensure comment and like features are working.
-//- Add any additional styles to the page

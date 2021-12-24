@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { User, Meme, Comment, Like, Follow } = require("../db/models");
+const { User, Meme, Comment, Like } = require("../db/models");
 const { requireAuth } = require("../auth");
 const { asyncHandler } = require("../utils");
 const { memesByComments, memesByLikes } = require("./utils/meme-sorts");
@@ -27,7 +27,6 @@ router.get(
     // fetch memes by likes
     const feedMemes = memes.sort((a, b) => memesByLikes(a, b)).slice(0, 20);
 
-    /********** RECOMMENDED FOLLOWERS (the developers) *************/
     // Helper that queries for users & their followers, then maps relevant data
     const developers = await fetchDevelopers(currentUserId);
 

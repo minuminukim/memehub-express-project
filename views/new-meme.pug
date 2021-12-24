@@ -7,16 +7,16 @@ append head
 
 block content
   .root-new-meme
-      +validationErrorSummary(errors)
-      form.new-meme-form(action='/memes/new' method='post')
-        h1.user-page Share a Meme...
-        input(type='hidden' name='_csrf' value=csrfToken)
-        div.spacing
-        +field(null, 'headline', headline, 'textarea', 'Enter your headline here...', 1)
-        div.spacing
-        +field(null, 'caption', caption, 'textarea', 'Enter your caption here...', 1)
-        div.spacing
-        +field(null, 'link', link, 'textarea', 'Enter your link here...', 1)
-        div.post-cancel
-          a.small-font(href='/') Cancel
-          button.submit-meme-button(type='submit') Submit
+    +validationErrorSummary(errors)
+    form.new-meme-form(action='/memes/new' method='post')
+      h1.user-page Share a Meme...
+      input(type='hidden' name='_csrf' value=csrfToken)
+      div.spacing
+      +field(null, 'headline', headline, 'textarea', 'Enter your headline here...', 1)
+      div.spacing
+      +field(null, 'caption', caption, 'textarea', 'Enter your caption here...', 1)
+      div.spacing
+      +field(null, 'link', link, 'textarea', 'Enter your link here...', 1)
+      div.post-cancel
+        a.small-font(href='/') Cancel
+        button.submit-meme-button(type='submit') Submit

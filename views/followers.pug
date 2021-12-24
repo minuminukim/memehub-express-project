@@ -4,10 +4,8 @@ include ./mixins/follows.pug
 include ./mixins/userpage-header.pug
 
 append head
-  //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/user-page.css")
   link(rel="stylesheet" href="/stylesheets/user-follows.css")
-  //- add page specific js
 
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, count)
@@ -16,6 +14,6 @@ block content
       .follows-title-container
         h2.follower-count #{count} Follower(s)
       if followers
-          each follower in followers
-            .follow-block
-              +followBlock(follower, currentUserId, follower.isMutual ? "Following" : "Follow", follower.followId, follower.isMutual ? "unfollow-button" : "follow-button")
+        each follower in followers
+          .follow-block
+            +followBlock(follower, currentUserId, follower.isMutual ? "Following" : "Follow", follower.followId, follower.isMutual ? "unfollow-button" : "follow-button")

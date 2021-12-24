@@ -9,15 +9,12 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const { sessionSecret } = require("./config");
 const { restoreUser } = require("./auth");
 const { sequelize } = require("./db/models");
+
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const memesRouter = require("./routes/memes");
 const searchRouter = require("./routes/search");
-const commentRouter = require("./routes/api/comments.js");
 const apiRouter = require("./routes/api");
-// const followsRouter = require("./routes/follows");
-const likesRouter = require("./routes/api/likes");
-
 
 const app = express();
 
@@ -47,18 +44,11 @@ app.use(
 store.sync();
 
 app.use(restoreUser);
-app.use("/api/comments", commentRouter);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/memes", memesRouter);
 app.use("/search", searchRouter);
-// app.use((req,res,next)=>{
-//   console.log("helloz");
-//   next();
-// })
 app.use("/api", apiRouter);
-// app.use("/follows", followsRouter);
-app.use("/api/likes", likesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
