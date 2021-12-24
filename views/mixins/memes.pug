@@ -54,7 +54,7 @@ mixin memeBlockLoggedOut(logo, username, meme, memeId, userId, headline, date, c
       a(href='/users/sign-in'): img.meme-image(src=meme)
       div.dev-spacing
       div.date-left
-        p.meme-date Posted on #{date}
+        p.meme-date= `${date.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})}`
       div.dev-spacing
       hr.bottom-meme-page
       div.bottom-of-page
@@ -70,7 +70,7 @@ mixin trendingMemeLoggedOut(rank, memeId, meme, logo, userId, username, headline
       div.trending-title
         a.trending-title-headline(href='/users/sign-in') #{headline}
       div.trending-title
-        p.trending-date #{date}
+        p.trending-date= `${date.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})}`
     div
       a(href='/users/sign-in'): img.trending-meme(src=meme)
       div.end-of-trending
