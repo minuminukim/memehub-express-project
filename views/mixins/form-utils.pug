@@ -7,23 +7,10 @@ mixin validationErrorSummary(errors)
         each error in errors
           li(class='error-message')= error
 
-mixin field(labelText, fieldName, fieldValue, fieldType = 'text', placeholder = null)
+mixin field(labelText, fieldName, fieldValue, fieldType = 'text', placeholder = null, rows='5')
   div(class=null).field
     label(for=fieldName)= labelText
     if fieldType === 'textarea'
-      textarea(id=fieldName name=fieldName class='form-control' rows='5')= fieldValue
+      textarea(id=fieldName name=fieldName class='form-control' rows=rows placeholder=placeholder)= fieldValue
     else
       input(type=fieldType id=fieldName name=fieldName value=fieldValue placeholder=placeholder class=null)
-
-mixin userCard(logo, profile, username, bio, followers, userId)
-  .user-card-container
-    .user-card
-      .user-card-top
-        img.user-logo(src=logo)
-        a.user-link(href=profile) @#{username}
-      .user-card-middle
-        p.user-bio #{bio}
-      .user-card-bottom
-        #{followers} followers
-        form(action=`/api/${userId}/follows` method="post")
-          button(class="follow-button" type="submit") Follow

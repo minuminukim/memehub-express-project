@@ -3,7 +3,7 @@ div.userpage-header {
   justify-content: space-around;
   align-items: center;
   width: 100vw;
-  min-height: 115px;
+  max-height: 100px;
   padding: 25px 18px;
   flex-wrap: wrap;
 }
@@ -24,6 +24,16 @@ a.user-title {
   font-size: 27px;
   text-decoration: none;
   grid-column: 2 / 4;
+}
+
+.user-feed,
+.meme-container {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 img.nav-logo {
@@ -54,7 +64,8 @@ div.users-followers-details {
 img.user-meme {
   padding-top: 10px;
   height: auto;
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
 }
 
 a.user-page {
@@ -283,6 +294,7 @@ div.delete-meme {
 @media screen and (max-width: 700px) {
   img.user-meme {
     width: 100%;
+    max-width: 100%;
   }
 
   h2.user-page {
@@ -295,5 +307,15 @@ div.delete-meme {
 
   div.userPosts {
     padding: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 499px) {
+  a.following-link {
+    display: none;
+  }
+
+  a.about-link {
+    display: none;
   }
 }

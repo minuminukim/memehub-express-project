@@ -33,7 +33,7 @@ block content
                 a.followings-link(href=`/users/${following.id}`)= `@${following.username}`
             a.see-all(href=`/users/${meme.User.id}/following`) See all
     div.user-feed
-      ul
+      .meme-container
         h1.user-page= `${meme.headline}`
         h2.user-page= `${meme.caption}`
         img.user-meme(src=`${meme.link}` alt='meme')

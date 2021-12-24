@@ -31,6 +31,7 @@ div.right-padding {
 
 .landing-header {
   display: flex;
+  flex-wrap: wrap;
 }
 
 /* img.header {
@@ -47,6 +48,7 @@ img.header {
   border-radius: 7%;
   z-index: 1;
   opacity: 0.85;
+  object-fit: cover;
 }
 
 img.nav-logo {
@@ -173,6 +175,23 @@ div.header-main-spacing {
   display: none;
 }
 
+@media screen and (max-width: 1070px) {
+  .landing-header-main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 25px;
+  }
+
+  img.header {
+    height: auto;
+    width: 100%;
+    object-fit: none;
+    display: none;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .long {
     display: none;
@@ -182,5 +201,11 @@ div.header-main-spacing {
     display: inline-block;
   }
 
-  
+  h2.short {
+    font-size: 48px;
+  }
+
+  .landing-header-main {
+    margin: 75px auto 0 auto;
+  }
 }

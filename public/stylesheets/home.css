@@ -59,6 +59,10 @@
   border-bottom: 1px solid #e6e6e6;
 }
 
+.feed-memes:last-child {
+  border-bottom: 0;
+}
+
 @media (max-width: 900px) {
   .root {
     display: flex;
@@ -83,6 +87,7 @@
   .left-container {
     margin: 0;
     padding: 0;
+    padding-top: 2rem;
     max-width: 90vw;
     border-right: 0;
   }
@@ -93,9 +98,5 @@
 
   .feed-memes a {
     max-width: 90vw;
-  }
-
-  .feed-toggles {
-    justify-content: center;
   }
 }
