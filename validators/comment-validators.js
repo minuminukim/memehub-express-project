@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 const commentValidators = [
   check("body")
     .exists({ checkFalsy: true })
-    .withMessage("Comment does not exist."),
+    .withMessage("Comment cannot be empty."),
 ];
 
 const commentNotFoundError = (commentId) => {

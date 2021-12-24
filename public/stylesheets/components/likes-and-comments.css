@@ -144,13 +144,18 @@
   cursor: pointer;
 }
 
-.comment-form {
+.comment-form,
+.edit-form {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 200px;
   padding: 12px 12px;
   box-shadow: 0 0 5px 3px #f2f2f2;
+}
+
+.comment-hidden {
+  display: none;
 }
 
 .user-signature {
@@ -184,24 +189,24 @@
   padding: 12px 0;
 }
 
+.comment-error::placeholder {
+  color: #c94a4a;
+}
+
 ::placeholder {
   color: lightgray;
 }
 
-textarea,
-input {
+textarea {
   height: 100px;
   width: 100%;
   padding-bottom: 80px;
   border: 0;
-}
-
-textarea {
   resize: none;
 }
 
 textarea:focus,
-input:focus {
+.edit-form textarea:focus {
   outline: none;
 }
 
@@ -243,18 +248,23 @@ input:focus {
 }
 
 .comments-container {
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   z-index: 3;
   height: 100%;
   padding: 25px;
-  overflow: hidden;
+  overflow-y: scroll;
   width: 100%;
 }
 
 .comment-block {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 350px;
+  height: fit-content;
   padding: 25px 0;
   border-bottom: 1px solid #e6e6e6;
 }
@@ -262,11 +272,13 @@ input:focus {
 .comment-block p {
   color: #292929;
   font-size: 14px;
+  overflow-wrap: break-word;
+  line-height: 20px;
 }
 
 .comment-body-container {
   padding: 12px 0;
-  max-width: 350px;
+  flex-grow: 1;
 }
 
 .comment-buttons {
@@ -287,4 +299,16 @@ input:focus {
 
 .comment-buttons button:hover {
   font-weight: 500;
+}
+
+@media screen and (max-width: 700px) {
+  .comments-modal {
+    width: 100vw;
+    margin-top: 2em;
+  }
+
+  .comments-container,
+  .comment-block {
+    max-width: 100%;
+  }
 }

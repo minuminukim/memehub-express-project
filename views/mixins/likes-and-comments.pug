@@ -46,5 +46,5 @@ mixin commentsModal(meme, currentUserId)
           button.respond-button(id=`respond-${meme.id}`) Respond
     .comments-container
       ul.comment-box(id=`commentBox-${meme.id}`)
-        each comment in meme.Comments
+        each comment in meme.Comments.reverse()
           +commentBlock(comment.User, comment, currentUserId)

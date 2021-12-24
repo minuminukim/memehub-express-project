@@ -126,7 +126,10 @@ router.get(
         {
           model: Meme,
           include: [
-            { model: Comment, include: [{ model: User }] },
+            {
+              model: Comment,
+              include: [{ model: User }],
+            },
             { model: Like, include: { model: Meme } },
           ],
         },
@@ -144,7 +147,6 @@ router.get(
       meme.likeId = 0;
 
       const likes = meme.Likes;
-      console.log(JSON.stringify(likes, null, 2));
       for (const like of likes) {
         if (like.userId === currentUserId);
         meme.likeId = like.id;

@@ -1,4 +1,8 @@
-import { handleErrors, isResponseOk } from "./error-handlers.js";
+import {
+  handleErrors,
+  handleCommentError,
+  isResponseOk,
+} from "./error-handlers.js";
 
 const toggleModal = () => {
   const buttons = document.querySelectorAll(".commentButton");
@@ -27,25 +31,24 @@ const toggleModal = () => {
 const addCommentButtonListener = (button) => {
   button.addEventListener("click", async (e) => {
     const memeId = e.target.id.split("-")[1];
-    const content = document.getElementById(`content-${memeId}`);
-    const contentValue = content.value;
-
-    const body = { contentValue, memeId };
+    const field = document.getElementById(`content-${memeId}`);
+    const content = field.value ? field.value : "";
 
     try {
       const res = await fetch("/api/comments", {
         method: "POST",
-        body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ body: content, memeId }),
       });
 
-      if (!isResponseOk(res)) return;
+      if (!res.ok) {
+        throw res;
+      }
 
       const data = await res.json();
       const { comment } = data;
-      const { User } = comment;
 
       const commentCount = document.getElementById(`commentCount-${memeId}`);
       let count = parseInt(commentCount.innerText, 10);
@@ -53,16 +56,18 @@ const addCommentButtonListener = (button) => {
 
       const newComment = renderNewComment(comment, memeId);
       const userSignature = document
-        .querySelector(`.user-${User.id}`)
+        .querySelector(`.user-${comment.userId}`)
         .cloneNode(true);
       newComment.prepend(userSignature);
       const commentBox = document.getElementById(`commentBox-${memeId}`);
       commentBox.prepend(newComment);
-      content.value = "";
 
+      field.value = "";
+      field.setAttribute("placeholder", "What are your thoughts?");
+      field.classList.remove("comment-error");
       return comment;
     } catch (e) {
-      handleErrors(e);
+      handleCommentError(e);
     }
   });
 };
@@ -97,14 +102,14 @@ const addDeleteButtonListener = (button) => {
 const addEditButtonListener = (button) => {
   button.addEventListener("click", (e) => {
     const commentId = button.id.split("-")[1];
-    const block = document.getElementById(`commentBlock-${commentId}`);
-    const memeId = block.parentNode.id.split("-")[1];
-
+    const oldComment = document.getElementById(`commentBlock-${commentId}`);
+    const memeId = oldComment.parentNode.id.split("-")[1];
     const body = document.getElementById(`body-${commentId}`);
+
     const editForm = `
-      <div class="comment-form" id="editForm-${memeId}">
+      <div class="edit-form" id="editForm-${memeId}">
         <div class="input-container">
-          <input value=${body.innerText} id="editInput-${commentId}">
+          <textarea class="edit-content" id="editInput-${commentId}">${body.innerText}</textarea>
         </div>
         <div class="input-buttons">
           <button class="update-button" id="update-${memeId}">Update</button>
@@ -112,13 +117,10 @@ const addEditButtonListener = (button) => {
       </div>
     `;
 
-    block.innerHTML = editForm;
-
+    oldComment.innerHTML = editForm;
     const updateButton = document.getElementById(`update-${memeId}`);
-
     updateButton.addEventListener("click", async (e) => {
       const newBody = document.getElementById(`editInput-${commentId}`).value;
-      console.log(newBody);
 
       try {
         const res = await fetch(`/api/comments/${commentId}`, {
@@ -127,22 +129,23 @@ const addEditButtonListener = (button) => {
           body: JSON.stringify({ body: newBody }),
         });
 
-        if (!isResponseOk(res)) return;
+        if (!res.ok) {
+          throw res;
+        }
 
         const { comment } = await res.json();
-        console.log(comment);
-        const { User } = comment;
+        const updated = renderNewComment(comment, memeId);
 
         const userSignature = document
-          .querySelector(`.user-${User.id}`)
+          .querySelector(`.user-${comment.userId}`)
           .cloneNode(true);
-        const updated = renderNewComment(comment, memeId);
-        updated.prepend(userSignature);
 
-        block.parentNode.replaceChild(updated, block);
+        updated.prepend(userSignature);
+        oldComment.parentNode.replaceChild(updated, oldComment);
+
         return comment;
-      } catch (e) {
-        handleErrors(e);
+      } catch (err) {
+        handleCommentError(err);
       }
     });
   });
@@ -164,7 +167,7 @@ const renderNewComment = (comment, memeId) => {
   newComment.appendChild(commentBodyContainer);
 
   const buttonsContainer = document.createElement("div");
-  buttonsContainer.classList.add(".comment-buttons");
+  buttonsContainer.classList.add("comment-buttons");
   buttonsContainer.id = `buttons-${memeId}`;
 
   const editButton = document.createElement("button");

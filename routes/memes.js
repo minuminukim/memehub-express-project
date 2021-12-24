@@ -70,7 +70,10 @@ router.get(
             { model: db.User, as: "followings" },
           ],
         },
-        { model: db.Comment, include: [{ model: db.User }] },
+        {
+          model: db.Comment,
+          include: [{ model: db.User }],
+        },
         { model: db.Like },
       ],
     });

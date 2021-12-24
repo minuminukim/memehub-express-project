@@ -1,6 +1,6 @@
-export const handleErrors = async (e) => {
-  if (e.status >= 400 && e.status < 600) {
-    const errorJSON = await e.json();
+export const handleErrors = async (err) => {
+  if (err.status >= 400 && e.status < 600) {
+    const errorJSON = await err.json();
     const errorsContainer = document.createElement("div");
     errorsContainer.classList.add("errors-container");
 
@@ -22,7 +22,7 @@ export const handleErrors = async (e) => {
           `
         );
       });
-      
+
       errorsContainer.innerHTML = errorsHTML.join("");
     }
   }
@@ -39,4 +39,24 @@ export const isResponseOk = (response) => {
   }
 
   return true;
+};
+
+export const handleCommentError = async (err) => {
+  if (err.status >= 400 && err.status < 600) {
+    const errorJSON = await err.json();
+    const { message } = errorJSON;
+
+    if (message) {
+      const editField = document.querySelector(".edit-content");
+      const field = document.querySelector(".content");
+
+      if (editField) {
+        editField.setAttribute("placeholder", message);
+        editField.classList.add("comment-error");
+      } else {
+        field.setAttribute("placeholder", message);
+        field.classList.add("comment-error");
+      }
+    }
+  }
 };

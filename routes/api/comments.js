@@ -1,6 +1,6 @@
 const express = require("express");
 
-const db = require("../../db/models");
+const { Comment, User } = require("../../db/models");
 const {
   csrfProtection,
   asyncHandler,
@@ -12,6 +12,7 @@ const {
   commentValidators,
   commentNotFoundError,
 } = require("../../validators/comment-validators");
+const getUserId = require("../utils/get-user-id");
 
 const router = express.Router();
 
@@ -25,23 +26,35 @@ const router = express.Router();
 //   return error;
 // };
 
+const emptyCommentError = () => {
+  const error = new Error({
+    title: "Empty comment.",
+    message: "Comment field cannot be empty.",
+    status: 400,
+  });
+
+  return error;
+};
+
 router.post(
   "/",
+  requireAuth,
   commentValidators,
   asyncHandler(async (req, res) => {
-    let comment = await db.Comment.create({
-      body: req.body.contentValue,
-      userId: req.session.auth.userId,
-      memeId: req.body.memeId,
-    });
+    const userId = getUserId(req);
+    const memeId = parseInt(req.body.memeId, 10);
+    const body = req.body.body;
 
-    comment = await db.Comment.findByPk(comment.id, {
-      include: db.User,
-    });
-    if (comment) {
+    if (body.length) {
+      const comment = await Comment.create({
+        body,
+        userId,
+        memeId,
+      });
+
       res.status(200).json({ comment });
     } else {
-      res.status(400).json({ message: "Please try again." });
+      res.status(400).json({ message: "Comment cannot be empty." });
     }
   })
 );
@@ -50,12 +63,11 @@ router.put(
   "/:id(\\d+)",
   requireAuth,
   commentValidators,
-  handleValidationErrors,
   asyncHandler(async (req, res, next) => {
     const commentId = parseInt(req.params.id, 10);
-    const comment = await db.Comment.findOne({
+    const comment = await Comment.findOne({
       where: { id: commentId },
-      include: db.User,
+      include: User,
     });
 
     if (comment.userId !== req.session.auth.userId) {
@@ -68,9 +80,15 @@ router.put(
       throw error;
     }
 
+    const body = req.body.body;
+
     if (comment) {
-      await comment.update({ body: req.body.body });
-      res.json({ comment });
+      if (body.length) {
+        await comment.update({ body });
+        res.json({ comment });
+      } else {
+        res.status(400).json({ message: "Comment cannot be empty." });
+      }
     } else {
       next(commentNotFoundError(commentId));
     }
@@ -82,7 +100,7 @@ router.delete(
   requireAuth,
   asyncHandler(async (req, res) => {
     const commentId = parseInt(req.params.id, 10);
-    const comment = await db.Comment.findByPk(commentId);
+    const comment = await Comment.findByPk(commentId);
 
     if (comment) {
       await comment.destroy();
