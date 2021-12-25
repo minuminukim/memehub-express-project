@@ -1,6 +1,8 @@
 extends layout.pug
 
 include ./mixins/form-utils.pug
+include ./mixins/user-feed-meme.pug
+include ./mixins/memes.pug
 
 append head
   link(rel='stylesheet' href='/stylesheets/components/search-page')
@@ -30,13 +32,14 @@ block content
       div.search-meme-feed
         ul
           each meme in findMeme
-            h1.user-page(href=`/memes/${meme.id}`)= `${meme.headline}`
-            div.spacing-more
-            h2.user-page= `${meme.caption}`
-            div.spacing-more
-            a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.link}` alt='meme')
-            p.posted-on= `Posted on ${meme.updatedAt.toLocaleDateString("en-US")}`
-            div.spacing-more
-            hr.bottom
-            div.end-of-post
-            div.spacing-more
+            +memeBlock(meme)
+            //- h1.user-page(href=`/memes/${meme.id}`)= `${meme.headline}`
+            //- div.spacing-more
+            //- h2.user-page= `${meme.caption}`
+            //- div.spacing-more
+            //- a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.link}` alt='meme')
+            //- p.posted-on= `Posted on ${meme.updatedAt.toLocaleDateString("en-US")}`
+            //- div.spacing-more
+            //- hr.bottom
+            //- div.end-of-post
+            //- div.spacing-more
