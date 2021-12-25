@@ -6,7 +6,7 @@ include ./mixins/form-utils.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/user-page.css")
-  link(rel="stylesheet" href="/stylesheets/components/new-meme.css")
+  link(rel="stylesheet" href="/stylesheets/components/post-and-edit-form.css")
 
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
