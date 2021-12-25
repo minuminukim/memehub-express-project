@@ -13,7 +13,7 @@ block content
   if isCurrentUser
     .root-new-meme
       +validationErrorSummary(errors)
-      form.new-meme-form(action=`/users/${profileUser.id}/edit` method='post')
+      form.new-meme-form(action=`/users/${profileUser.id}/about/edit` method='post')
         h1.user-page Edit Your Profile...
         input(type='hidden' name='_csrf' value=csrfToken)
         div.spacing
@@ -22,5 +22,5 @@ block content
         +field("Profile Picture: ", 'profilePicture', profileUser.profilePicture, 'textarea')
         div.spacing
         div.post-cancel
-          a.small-font(href=`/users/${profileUser.id}`) Cancel
+          a.small-font(href=`/users/${profileUser.id}/about`) Cancel
           button.edit-meme-button(type='submit') Update Profile
