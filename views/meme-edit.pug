@@ -2,21 +2,21 @@ extends layout.pug
 
 include ./mixins/form-utils.pug
 
+append head
+  link(rel='stylesheet' href='/stylesheets/components/new-meme.css')
+
 block content
-  div.spacing-more
   .root-new-meme
-    h1.user-page Edit Your Meme
-      div.form
-      +validationErrorSummary(errors)
-      form(action=`/memes/${meme.id}/edit` method='post')
-        input(type='hidden' name='_csrf' value=csrfToken)
-        div.spacing
-        +field('Headline: ', 'headline', meme.headline)
-        div.spacing
-        +field('Caption: ', 'caption', meme.caption)
-        div.spacing
-        +field('Link: ', 'link', meme.link)
-        div.post-cancel
-          button.submit-meme-button(type='submit') Update Meme
-          div.spacing-more
-          a.small-font(href=`/memes/${meme.id}`) Cancel
+    +validationErrorSummary(errors)
+    form.new-meme-form(action=`/memes/${meme.id}/edit` method='post')
+      h1.user-page Edit Your Meme...
+      input(type='hidden' name='_csrf' value=csrfToken)
+      div.spacing
+      +field(null, 'headline', meme.headline, 'textarea', 'Enter your headline here..')
+      div.spacing
+      +field(null, 'caption', meme.caption, 'textarea', 'Enter your caption here..')
+      div.spacing
+      +field(null, 'link', meme.link, 'textarea', 'Enter your link here..')
+      div.post-cancel
+        a.small-font(href=`/memes/${meme.id}`) Cancel
+        button.edit-meme-button(type='submit') Update Meme

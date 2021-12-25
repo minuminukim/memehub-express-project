@@ -73,7 +73,7 @@ div.right-side-header {
 }
 
 .trending-memes-container {
-  margin-top: 25px;
+  margin-top: 16px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -83,6 +83,7 @@ div.right-side-header {
 div.meme-feed-spacing {
   border-top: solid lightgray 1px;
   margin-top: 25px;
+  width: 100vw;
 }
 
 div.margin-body {
@@ -93,6 +94,7 @@ div.margin-body {
 
 div.landing-hr {
   border-top: solid black 1px;
+  width: 100vw;
 }
 
 .landing-nav {
@@ -110,24 +112,21 @@ div.landing-hr {
   transition-duration: 0.4s;
 }
 
+
+
 div.header-main-spacing {
   margin-top: 25px;
 }
 
 .landing-header-main {
-  padding-top: 40px;
+  padding-top: 33px;
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
   margin-top: 75px;
   margin-left: 100px;
   margin-right: 50px;
 }
 
-.landing-header-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
 
 .nav-title a {
   font-family: "Playfair Display", serif;
@@ -173,6 +172,10 @@ div.header-main-spacing {
 
 .short {
   display: none;
+}
+
+h2.long{
+  width: 600px
 }
 
 .user-feed .meme-block-user-logo {

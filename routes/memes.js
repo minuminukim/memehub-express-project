@@ -178,36 +178,51 @@ router.post(
   })
 );
 
-router.get(
-  "/:id(\\d+)/delete",
-  csrfProtection,
-  requireAuth,
-  asyncHandler(async (req, res) => {
-    const memeId = parseInt(req.params.id, 10);
-    const meme = await db.Meme.findByPk(memeId, { include: [db.User] });
+// router.get(
+//   "/:id(\\d+)/delete",
+//   csrfProtection,
+//   requireAuth,
+//   asyncHandler(async (req, res) => {
+//     const memeId = parseInt(req.params.id, 10);
+//     const meme = await db.Meme.findByPk(memeId, { include: [db.User] });
 
-    if (meme.User.id !== req.session.auth.userId) {
-      const err = new Error("Unauthorized");
-      err.status = 401;
-      err.message = "You are not authorized to delete this meme.";
-      err.title = "Unauthorized";
-      throw err;
-    }
+//     if (meme.User.id !== req.session.auth.userId) {
+//       const err = new Error("Unauthorized");
+//       err.status = 401;
+//       err.message = "You are not authorized to delete this meme.";
+//       err.title = "Unauthorized";
+//       throw err;
+//     }
 
-    res.render("meme-delete", {
-      title: "Delete Meme",
-      meme,
-      csrfToken: req.csrfToken(),
-    });
-  })
-);
+//     res.render("meme-delete", {
+//       title: "Delete Meme",
+//       meme,
+//       csrfToken: req.csrfToken(),
+//     });
+//   })
+// );
 
 router.post(
   "/:id(\\d+)/delete",
-  csrfProtection,
   asyncHandler(async (req, res) => {
     const memeId = parseInt(req.params.id, 10);
     const meme = await db.Meme.findByPk(memeId);
+    const likes = await db.Like.findAll({
+      where: {memeId: memeId}
+    })
+    const comments = await db.Comment.findAll({
+      where: {memeId: memeId}
+    })
+
+    for (let i = 0; i < comments.length; i++){
+      await comments[i].destroy();
+    }
+
+    for (let i = 0; i < likes.length; i++){
+      await likes[i].destroy();
+    }
+
+
     await meme.destroy();
     res.redirect(`/`);
   })

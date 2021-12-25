@@ -88,6 +88,22 @@ h1.user-page {
   background-color: #157813;
 }
 
+.edit-meme-button {
+  background-color: #1a8917;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 20px;
+  height: 2rem;
+  min-width: 110px;
+  text-align: center;
+  line-height: 2rem;
+  border: 0;
+}
+
+.edit-meme-button:hover {
+  background-color: #157813;
+}
+
 @media screen and (max-width: 700px) {
   .new-meme-form {
     width: 90%;
