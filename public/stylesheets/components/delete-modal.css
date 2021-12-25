@@ -45,8 +45,9 @@ div.modal-spacing{
     transform: scale(1.0);
     transition: visibility 0s linear 0.1s, opacity 0.3s 0.1s, transform 0.3s;
 }
-s
-.close-modal-button{
+
+
+a.close-modal-button {
     margin-left: 25px;
     background-color: gray;
     color: white;
@@ -60,7 +61,7 @@ s
     cursor: pointer;
 }
 
-.close-modal-button:hover {
+a.close-modal-button:hover {
     background-color: black;
   }
 
