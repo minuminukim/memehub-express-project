@@ -34,13 +34,6 @@ div.right-padding {
   flex-wrap: wrap;
 }
 
-/* img.header {
-  height: 300px;
-  width: 500px;
-  margin-bottom: 25px;
-  border-radius: 5%;
-  opacity: 0.85; */
-
 img.header {
   height: 350px;
   width: 600px;
@@ -112,8 +105,6 @@ div.landing-hr {
   transition-duration: 0.4s;
 }
 
-
-
 div.header-main-spacing {
   margin-top: 25px;
 }
@@ -126,7 +117,6 @@ div.header-main-spacing {
   margin-left: 100px;
   margin-right: 50px;
 }
-
 
 .nav-title a {
   font-family: "Playfair Display", serif;
@@ -174,13 +164,13 @@ div.header-main-spacing {
   display: none;
 }
 
-h2.long{
-  width: 600px
+h2.long {
+  width: 600px;
 }
 
 .user-feed .meme-block-user-logo {
-  max-width: 25px;
-  max-height: 25px;
+  width: 25px;
+  height: 25px;
   margin-right: 12px;
 }
 
