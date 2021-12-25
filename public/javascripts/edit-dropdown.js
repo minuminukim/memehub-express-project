@@ -6,8 +6,8 @@ function showEditDeleteModal() {
   editDeleteModal.classList.toggle("show-edit-delete");
 }
 
-function windowOnClick(event) {
-    if (event.target === editDeleteModal) {
+function windowOnClick(e) {
+    if (e.target === editDeleteModal) {
       showEditDeleteModal();
     }
 }
