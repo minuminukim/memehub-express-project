@@ -21,6 +21,6 @@ block content
       div.about-page-edit-link
         if isCurrentUser
           div.edit-delete
-            a(href=`/users/${profileUser.id}/about/edit`) Edit Your Profile
+            a(href=`/users/${profileUser.id}/about/edit`): button.modal-edit-delete-button Edit Profile
     div.about-page-user-picture
       img.user-profile-pic(src=`${profileUser.profilePicture}`)
