@@ -214,10 +214,6 @@ router.post(
       where: {memeId: memeId}
     })
 
-    console.log(likes);
-    console.log(comments);
-    console.log(meme)
-
     for (let i = 0; i < comments.length; i++){
       await comments[i].destroy();
     }
