@@ -7,33 +7,20 @@ include ./mixins/form-utils.pug
 append head
   link(rel="stylesheet" href="/stylesheets/user-page.css")
   link(rel="stylesheet" href="/stylesheets/components/about-page.css")
+  link(rel='stylesheet' href='/stylesheets/components/new-meme.css')
 
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   if isCurrentUser
-    hr.user-page
-    div.about-page-edit-form
-      h1.user-page Edit Your About Page
-        div.form
-        +validationErrorSummary(errors)
-        form(action=`/users/${profileUser.id}/about/edit` method='post')
-          input(type='hidden' name='_csrf' value=csrfToken)
-          div.spacing
-          +field('Biography: ', 'biography', profileUser.biography)
-          div.spacing
-          +field('Profile Picture: ', 'profilePicture', profileUser.profilePicture)
-          div.post-cancel
-            button.submit-meme-button(type='submit') Update About
-            div.spacing-more
-            a.small-font(href=`/users/${profileUser.id}/about`) Cancel
-    div.about-page-content
-      div.about-page-user-detail
-        h1.about-page-spacing= `About ${profileUser.username}`
-        p.about-page-spacing= `${profileUser.biography}`
-        hr.user-page
-        div.about-page-follows
-          a.userpage-header-link(href=`/users/${userId}/followers` alt='followers')= "Followers"
-          a.userpage-header-link(href= `/users/${userId}/following` alt='following')= "Following"
-        div.about-page-edit-link
-      div.about-page-user-picture
-        img.user-profile-pic(src=`${profileUser.profilePicture}`)
+    .root-new-meme
+      +validationErrorSummary(errors)
+      form.new-meme-form(action=`/users/${profileUser.id}/edit` method='post')
+        h1.user-page Edit Your Profile...
+        input(type='hidden' name='_csrf' value=csrfToken)
+        div.spacing
+        +field("Biography: ", 'biography', profileUser.biography, 'textarea')
+        div.spacing
+        +field("Profile Picture: ", 'profilePicture', profileUser.profilePicture, 'textarea')
+        div.spacing
+        div.post-cancel
+          a.small-font(href=`/users/${profileUser.id}`) Cancel
+          button.edit-meme-button(type='submit') Update Profile
