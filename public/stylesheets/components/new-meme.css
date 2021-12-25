@@ -6,13 +6,14 @@ body {
   margin: 0;
 }
 
-.root-new-meme {
+.root-new-meme,
+.root-about-page-edit {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 90%;
   color: #b3b3b1;
   padding: 75px;
   padding-top: 0;
@@ -25,7 +26,8 @@ h1.user-page {
   padding-bottom: 2rem;
 }
 
-.new-meme-form {
+.new-meme-form,
+.edit-about-form {
   display: flex;
   flex-direction: column;
   min-width: 600px;
@@ -34,7 +36,8 @@ h1.user-page {
   padding: 2rem;
 }
 
-.new-meme-form textarea {
+.new-meme-form textarea,
+.edit-about-form textarea {
   border: 0;
   min-width: 270px;
   min-height: 75px;
@@ -46,7 +49,8 @@ h1.user-page {
   padding-bottom: 2rem;
 }
 
-.new-meme-form textarea:focus {
+.new-meme-form textarea:focus,
+.edit-about-form textarea:focus {
   outline: none;
 }
 
@@ -105,7 +109,8 @@ h1.user-page {
 }
 
 @media screen and (max-width: 700px) {
-  .new-meme-form {
+  .new-meme-form,
+  .edit-about-form {
     width: 90%;
     height: 90%;
   }
