@@ -204,7 +204,6 @@ router.get(
 
 router.post(
   "/:id(\\d+)/delete",
-  csrfProtection,
   asyncHandler(async (req, res) => {
     const memeId = parseInt(req.params.id, 10);
     const meme = await db.Meme.findByPk(memeId);

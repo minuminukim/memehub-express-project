@@ -3,12 +3,14 @@ extends layout.pug
 include ./mixins/follows.pug
 include ./mixins/userpage-header.pug
 include ./mixins/likes-and-comments.pug
+include ./mixins/form-utils.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/user-page.css")
   link(rel="stylesheet" href="/stylesheets/components/likes-and-comments.css")
   script(src="/javascripts/comments.js" type="module" defer)
   script(src="/javascripts/likes.js" type='module' defer)
+  script(src="/javascripts/edit-dropdown.js" defer)
 
 block content
   +userpageHeader(meme.User.username, meme.userId, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
@@ -43,6 +45,17 @@ block content
         hr.bottom-meme-page
         if currentUserId === meme.userId
           div.edit-delete
-            a(href=`/memes/${meme.id}/edit`) Edit Your Meme
-            a(href=`/memes/${meme.id}/delete`) Delete Your Meme
+            a(href=`/memes/${meme.id}/edit`): button.modal-edit-delete-button Edit Meme
+            button.trigger.modal-edit-delete-button Delete Meme
+            div.modal-edit-delete
+              div.edit-delete-modal-content
+                div.modal-items
+                  h1 Delete Meme
+                  div.modal-spacing
+                  h2 Are you sure you want to delete this meme?
+                  div.modal-spacing
+                  div.modal-delete-cancel
+                    form(action=`/memes/${meme.id}/delete` method='post')
+                      button.modal-delete-button(type='submit') Delete Meme
+                    a.close-modal-button Cancel
         div.bottom-of-page
