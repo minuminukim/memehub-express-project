@@ -1,0 +1,23 @@
+include follows.pug
+
+mixin userSide(profileUser, isFollowing, currentUserId, profileFollowId, followings)
+  div.fixed-position
+    img.user-profile-pic(src=`${profileUser.profilePicture}`)
+    div.user-page-details
+      div.profile-name-bar
+        p.user-profile-name-bar= `${profileUser.firstName} ${profileUser.lastName}`
+        div.user-bio-description
+          p= `${profileUser.biography}`
+        .user-links
+          +followButton(profileUser.id, currentUserId, isFollowing ? "Following" : "Follow", profileFollowId, isFollowing ? "unfollow-button" : "follow-button", "side-button")
+          .social-links
+            a.github-logo(href=`${profileUser.github}`): img(src="/images/github.png" class="github-logo")
+            a.linked-logo(href=`${profileUser.linkedIn}`): img(src="/images/linkedin.png" class="linked-logo")
+    div.user-followings-details
+      p.user-followings-header= `${profileUser.firstName}  ${profileUser.lastName} Follows`
+      .user-followings-container
+        each following in followings.slice(0, 5)
+          .following-block
+            a(href=`/users/${following.id}`): img(src=`${following.profilePicture}`)
+            a.followings-link(href=`/users/${following.id}`)= `@${following.username}`
+        a.see-all(href=`/users/${profileUser.id}/following`) See all

@@ -82,6 +82,7 @@ const toggleLikeBubble = (button) => {
 
 window.addEventListener("DOMContentLoaded", () => {
   const likeButtons = document.querySelectorAll(".likeButton");
+  
   likeButtons.forEach((button) => {
     toggleLikeBubble(button);
     const like = button.getAttribute("like").split("-")[1];

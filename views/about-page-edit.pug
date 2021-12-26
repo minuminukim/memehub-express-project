@@ -5,22 +5,20 @@ include ./mixins/userpage-header.pug
 include ./mixins/form-utils.pug
 
 append head
-  link(rel="stylesheet" href="/stylesheets/user-page.css")
-  link(rel="stylesheet" href="/stylesheets/components/about-page.css")
-  link(rel='stylesheet' href='/stylesheets/components/new-meme.css')
+  link(rel="stylesheet" href="/stylesheets/components/user-header.css")
+  link(rel="stylesheet" href="/stylesheets/components/post-and-edit-form.css")
 
 block content
   if isCurrentUser
-    .root-new-meme
+    .root
       +validationErrorSummary(errors)
-      form.new-meme-form(action=`/users/${profileUser.id}/about/edit` method='post')
-        h1.user-page Edit Your Profile...
+      form(action=`/users/${profileUser.id}/about/edit` method='post' class='edit-about-form')
+        h1.form-title Edit Your About Page
         input(type='hidden' name='_csrf' value=csrfToken)
         div.spacing
-        +field("Biography: ", 'biography', profileUser.biography, 'textarea')
+        +field('Biography', 'biography', profileUser.biography, 'textarea', null, 2)
         div.spacing
-        +field("Profile Picture: ", 'profilePicture', profileUser.profilePicture, 'textarea')
-        div.spacing
+        +field('Profile Picture', 'profilePicture', profileUser.profilePicture, 'textarea', null, 2)
         div.post-cancel
-          a.small-font(href=`/users/${profileUser.id}/about`) Cancel
-          button.edit-meme-button(type='submit') Update Profile
+          a.cancel-button(href=`/users/${profileUser.id}/about`) Cancel
+          button.submit-button(type='submit') Update

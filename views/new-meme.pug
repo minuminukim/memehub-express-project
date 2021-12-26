@@ -3,13 +3,14 @@ extends layout.pug
 include ./mixins/form-utils.pug
 
 append head
-  link(rel='stylesheet' href='/stylesheets/components/new-meme.css')
+  link(rel='stylesheet' href='/stylesheets/components/post-and-edit-form.css')
+  script(src="/javascripts/meme-error.js" type="module")
 
 block content
-  .root-new-meme
+  .root
     +validationErrorSummary(errors)
     form.new-meme-form(action='/memes/new' method='post')
-      h1.user-page Share a Meme...
+      h1.form-title Share a Meme...
       input(type='hidden' name='_csrf' value=csrfToken)
       div.spacing
       +field(null, 'headline', headline, 'textarea', 'Enter your headline here...', 1)
@@ -18,5 +19,5 @@ block content
       div.spacing
       +field(null, 'link', link, 'textarea', 'Enter your link here...', 1)
       div.post-cancel
-        a.small-font(href='/') Cancel
-        button.submit-meme-button(type='submit') Submit
+        a.cancel-button(href='/') Cancel
+        button.submit-button(type='submit') Submit

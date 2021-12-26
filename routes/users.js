@@ -9,6 +9,7 @@ const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
 const getUserId = require("./utils/get-user-id");
+const addSocialLinksToDeveloper = require("./utils/social-links");
 
 const {
   checkFollow,
@@ -155,6 +156,9 @@ router.get(
       }
     }
 
+    // helper function that appends social media links to user object if one of the devs
+    addSocialLinksToDeveloper(profileUser);
+
     const {
       isCurrentUser,
       numberOfFollowers,
@@ -196,6 +200,8 @@ router.get(
       followId: profileFollowId,
     } = getFollowData(profileUser, currentUserId);
 
+    addSocialLinksToDeveloper(profileUser);
+
     res.render("about-page", {
       title: "User",
       profileUser,
@@ -220,23 +226,13 @@ router.get(
       include: { model: User, as: "followers" },
     });
 
-    // Follow logic
     const currentUserId = getUserId(req);
-
-    const {
-      isCurrentUser,
-      numberOfFollowers,
-      isFollowing,
-      followId: profileFollowId,
-    } = getFollowData(profileUser, currentUserId);
+    const isCurrentUser = userId === currentUserId;
 
     res.render("about-page-edit", {
       title: "User",
       profileUser,
       isCurrentUser,
-      isFollowing,
-      profileFollowId,
-      numberOfFollowers,
       csrfToken: req.csrfToken(),
     });
   })
@@ -339,7 +335,6 @@ router.get(
       isCurrentUser,
       isFollowing,
       profileFollowId,
-      count: followers.length || 0,
     });
   })
 );
@@ -412,14 +407,16 @@ router.post(
   "/:id(\\d+)/following",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const { userId, followerId, followId } = req.body;
+    const { userId, followerId } = req.body;
     const follow = await Follow.findOne({ where: { userId, followerId } });
 
     if (!follow) {
-      const newFollow = await Follow.create({ userId, followerId });
-      res.json({ newFollow });
-    } else if (userId === followerId) {
-      res.status(400).json({ message: "You cannot follow yourself." });
+      if (userId === followerId) {
+        res.status(400).json({ message: "You cannot follow yourself." });
+      } else {
+        const newFollow = await Follow.create({ userId, followerId });
+        res.json({ newFollow });
+      }
     } else {
       res.status(400).json({ message: "You are already following this user." });
     }

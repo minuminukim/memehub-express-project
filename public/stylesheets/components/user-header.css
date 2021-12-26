@@ -1,0 +1,28 @@
+div.userpage-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  max-height: 100px;
+  padding: 25px 18px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+a.userpage-header-link {
+  text-decoration: none;
+  color: #757575;
+}
+
+a.userpage-header-link:hover {
+  text-decoration: none;
+  color: #191919;
+}
+
+a.user-title {
+  color: #191919;
+  font-weight: 500;
+  font-size: 27px;
+  text-decoration: none;
+  grid-column: 2 / 4;
+}

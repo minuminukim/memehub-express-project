@@ -1,0 +1,129 @@
+html,
+body {
+  height: 90%;
+  max-height: 90%;
+  padding: 0;
+  margin: 0;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90%;
+  color: #b3b3b1;
+  padding: 75px;
+  padding-top: 0;
+}
+
+h1.form-title {
+  font-family: "Georgia", "Cambria", "Times New Roman", serif;
+  font-size: 42px;
+  color: #292929;
+  padding-bottom: 2rem;
+}
+
+.new-meme-form,
+.edit-about-form,
+.edit-meme-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+  min-height: 400px;
+  box-shadow: 0 0 10px 5px #f2f2f2;
+  padding: 2rem;
+}
+
+.new-meme-form textarea,
+.edit-about-form textarea,
+.edit-meme-form textarea {
+  border: 0;
+  min-width: 270px;
+  min-height: 75px;
+  color: #292929;
+  font-size: 20px;
+  width: 100%;
+  height: auto;
+  resize: none;
+  padding-bottom: 2rem;
+}
+
+.new-meme-form textarea:focus,
+.edit-about-form textarea:focus,
+.edit-meme-form textarea:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #b3b3b1;
+  font-size: 20px;
+  text-align: left;
+  font-family: "Georgia", "Cambria", "Times New Roman", serif;
+}
+
+.error-message::placeholder {
+  color: #c94a4a;
+}
+
+.error-container {
+  display: none;
+}
+
+.cancel-button {
+  font-size: 16px;
+  text-decoration: none;
+  padding-right: 12px;
+}
+
+.cancel-button:hover {
+  color: #292929;
+}
+
+.post-cancel {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+}
+
+.submit-button {
+  background-color: #1a8917;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 20px;
+  height: 2rem;
+  min-width: 80px;
+  text-align: center;
+  line-height: 2rem;
+  border: 0;
+}
+
+.submit-button:hover {
+  background-color: #157813;
+}
+
+.edit-meme-button {
+  background-color: #1a8917;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 20px;
+  height: 2rem;
+  min-width: 110px;
+  text-align: center;
+  line-height: 2rem;
+  border: 0;
+}
+
+.edit-meme-button:hover {
+  background-color: #157813;
+}
+
+@media screen and (max-width: 700px) {
+  .new-meme-form,
+  .edit-about-form {
+    height: 90%;
+    min-width: auto;
+    width: auto;
+  }
+}

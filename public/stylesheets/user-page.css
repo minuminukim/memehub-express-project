@@ -1,31 +1,3 @@
-div.userpage-header {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100vw;
-  max-height: 100px;
-  padding: 25px 18px;
-  flex-wrap: wrap;
-}
-
-a.userpage-header-link {
-  text-decoration: none;
-  color: #757575;
-}
-
-a.userpage-header-link:hover {
-  text-decoration: none;
-  color: #191919;
-}
-
-a.user-title {
-  color: #191919;
-  font-weight: 500;
-  font-size: 27px;
-  text-decoration: none;
-  grid-column: 2 / 4;
-}
-
 .user-feed,
 .meme-container {
   max-width: 500px;
@@ -36,29 +8,9 @@ a.user-title {
   height: 100%;
 }
 
-img.nav-logo {
-  width: auto;
-  height: 25px;
-  padding: 1px 7px 1px 0;
-}
-
-.nav-search {
-  padding-right: 0.5rem;
-}
-
-.dropdown-button,
-.dropdown-img-button {
-  border: 0;
-  border-radius: 50%;
-  height: 32px;
-  width: 32px;
-  background-color: none;
-  cursor: pointer;
-}
-
-div.users-followers-details {
-  margin-top: 17px;
-  margin-bottom: 10px;
+.user-feed-block {
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 20px;
 }
 
 img.user-meme {
@@ -69,10 +21,10 @@ img.user-meme {
 }
 
 a.user-page {
+  font-size: 22px;
+  font-weight: bold;
   color: #292929;
-  font-weight: 500;
   text-decoration: none;
-  font-size: 2rem;
 }
 
 h1.user-page {
@@ -88,9 +40,11 @@ h1.user-title a {
 }
 
 h2.user-page {
-  padding-top: 5px;
-  font-size: 20px;
-  color: #202020;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #757575;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 hr.user-page {
@@ -124,6 +78,25 @@ div.user-page-details {
 
 div.profile-name-bar {
   width: 200px;
+}
+
+.user-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  width: 70px;
+  padding-left: 5px;
+}
+
+.github-logo, .linked-logo {
+  height: 35px;
+  width: 35px;
+  margin-right: 5px;
 }
 
 .fixed-position {
@@ -162,18 +135,9 @@ div.user-feed {
   grid-column: 2 / 3;
 }
 
-.feed-memes-loggedIn {
-  border-right: solid rgb(201, 201, 201) 1px;
-  margin-right: 50px;
-}
-
 div.user-info {
   display: flex;
   justify-content: flex-start;
-}
-
-div.end-of-post {
-  padding-top: 50px;
 }
 
 div.likes-and-comments {
@@ -188,51 +152,16 @@ div.like-count {
   padding-left: 10px;
 }
 
-div.user-comment {
-  display: flex;
-  justify-content: flex-end;
-}
-
 div.edit-delete {
   display: flex;
   justify-content: space-between;
-  padding-top: 20px;
-}
-
-hr.edit-delete {
-  margin-top: 40px;
+  margin-bottom: 2rem;
 }
 
 p.posted-on {
   padding: 20px 0;
   font-size: 14px;
   color: #757575;
-}
-
-hr.bottom {
-  margin-top: 5px;
-  width: 100%;
-  height: 1px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: rgb(201, 201, 201);
-  border: 0 nones;
-}
-
-hr.bottom.meme-page {
-  margin-top: 5px;
-  margin-bottom: 15px;
-  width: 100%;
-  height: 1px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: rgb(201, 201, 201);
-  border: 0 nones;
-  border: 1px solid #e6e6e6;
-}
-
-div.bottom-of-page {
-  margin-bottom: 40px;
 }
 
 div.delete-meme {
@@ -307,6 +236,22 @@ div.delete-meme {
 
   div.userPosts {
     padding: 1.2rem;
+    height: 100%;
+  }
+
+  .meme-container {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+  }
+
+  .meme-container .end-of-post {
+    padding: 0;
   }
 }
 

@@ -4,15 +4,15 @@ include ./mixins/follows.pug
 include ./mixins/userpage-header.pug
 
 append head
-  link(rel="stylesheet" href="/stylesheets/user-page.css")
+  link(rel="stylesheet" href="/stylesheets/components/user-header.css")
   link(rel="stylesheet" href="/stylesheets/user-follows.css")
 
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   .root
+    .follows-title-container
+      h2.following-count #{count} Following
     .follows-container
-      .follows-title-container
-        h2.following-count #{count} Following
       if followings
         each following in followings
           .follow-block

@@ -3,9 +3,9 @@ const newUserError = () => {
 
   errorList.forEach((error) => {
     const message = error.innerText;
-
     let label;
     let input;
+
     switch (message) {
       case "Please enter your Username.":
         label = document.querySelector(`label[for="username"]`);
