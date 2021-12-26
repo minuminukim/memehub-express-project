@@ -155,6 +155,7 @@ div.like-count {
 div.edit-delete {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 p.posted-on {
