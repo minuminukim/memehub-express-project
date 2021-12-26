@@ -7,6 +7,7 @@ const memesValidators = require("../validators/meme-validators");
 const { requireAuth } = require("../auth");
 const { getFollowData } = require("./utils/follows-helpers");
 const getUserId = require("./utils/get-user-id");
+const addSocialLinksToDeveloper = require("./utils/social-links");
 
 const router = express.Router();
 
@@ -95,8 +96,8 @@ router.get(
       meme.liked = true;
       meme.likeId = like.id;
     }
-    // follow logic
 
+    // follow logic
     const {
       isCurrentUser,
       numberOfFollowers,
@@ -104,6 +105,8 @@ router.get(
       followId: profileFollowId,
       followings,
     } = getFollowData(meme.User, currentUserId);
+
+    addSocialLinksToDeveloper(meme.User);
 
     res.render("individual-meme", {
       title: "Meme",
@@ -208,20 +211,19 @@ router.post(
     const memeId = parseInt(req.params.id, 10);
     const meme = await db.Meme.findByPk(memeId);
     const likes = await db.Like.findAll({
-      where: {memeId: memeId}
-    })
+      where: { memeId: memeId },
+    });
     const comments = await db.Comment.findAll({
-      where: {memeId: memeId}
-    })
+      where: { memeId: memeId },
+    });
 
-    for (let i = 0; i < comments.length; i++){
+    for (let i = 0; i < comments.length; i++) {
       await comments[i].destroy();
     }
 
-    for (let i = 0; i < likes.length; i++){
+    for (let i = 0; i < likes.length; i++) {
       await likes[i].destroy();
     }
-
 
     await meme.destroy();
     res.redirect(`/`);

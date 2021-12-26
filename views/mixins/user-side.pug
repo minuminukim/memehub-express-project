@@ -8,8 +8,11 @@ mixin userSide(profileUser, isFollowing, currentUserId, profileFollowId, followi
         p.user-profile-name-bar= `${profileUser.firstName} ${profileUser.lastName}'s Info`
         div.user-bio-description
           p= `${profileUser.biography}`
-        div
+        .user-links
           +followButton(profileUser.id, currentUserId, isFollowing ? "Following" : "Follow", profileFollowId, isFollowing ? "unfollow-button" : "follow-button", "side-button")
+          .social-links
+            a.github-logo(href=`${profileUser.github}`): img(src="/images/github.png" class="github-logo")
+            a.linked-logo(href=`${profileUser.linkedIn}`): img(src="/images/linkedin.png" class="linked-logo")
     div.user-followings-details
       p.user-followings-header= `${profileUser.firstName}  ${profileUser.lastName} Follows`
       .user-followings-container

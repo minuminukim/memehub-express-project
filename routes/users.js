@@ -9,6 +9,7 @@ const userValidators = require("../validators/user-validators");
 const loginValidators = require("../validators/login-validators");
 const aboutValidators = require("../validators/about-validators");
 const getUserId = require("./utils/get-user-id");
+const addSocialLinksToDeveloper = require("./utils/social-links");
 
 const {
   checkFollow,
@@ -155,6 +156,9 @@ router.get(
       }
     }
 
+    // helper function that appends social media links to user object if one of the devs
+    addSocialLinksToDeveloper(profileUser);
+
     const {
       isCurrentUser,
       numberOfFollowers,
@@ -195,6 +199,8 @@ router.get(
       isFollowing,
       followId: profileFollowId,
     } = getFollowData(profileUser, currentUserId);
+
+    addSocialLinksToDeveloper(profileUser);
 
     res.render("about-page", {
       title: "User",
