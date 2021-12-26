@@ -4,6 +4,7 @@ body {
   max-height: 90%;
   padding: 0;
   margin: 0;
+  border: 1px solid lime;
 }
 
 .root {
@@ -16,6 +17,7 @@ body {
   color: #b3b3b1;
   padding: 75px;
   padding-top: 0;
+  border: 1px solid orange;
 }
 
 h1.form-title {
@@ -73,6 +75,7 @@ h1.form-title {
 .post-cancel {
   display: flex;
   align-items: center;
+  align-self: flex-end;
 }
 
 .submit-button {
@@ -110,7 +113,8 @@ h1.form-title {
 @media screen and (max-width: 700px) {
   .new-meme-form,
   .edit-about-form {
-    width: 90%;
     height: 90%;
+    min-width: auto;
+    width: auto;
   }
 }
