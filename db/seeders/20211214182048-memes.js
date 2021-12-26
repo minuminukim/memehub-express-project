@@ -7,7 +7,7 @@ module.exports = {
       [
         {
           userId: 1,
-          headline: "Wrong Database Selected",
+          headline: "Wrong Database",
           caption: "(83884099 rows affected)",
           link: "https://i.ibb.co/WzSQX8c/iwrong-database-selected-memes-72310500b53bd781-bb89705469b127d4.jpg",
           createdAt: new Date(),
