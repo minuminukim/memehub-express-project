@@ -4,7 +4,7 @@ include ./mixins/form-utils.pug
 block content
   +validationErrorSummary(errors)
   main
-    form(action='/users/sign-in' method='post' id='sign-in-form')
+    form(action='/users/sign-in' method='post' id='sign-in-form' name="signIn")
       .form-header
         h2 Welcome back.
         p Enter the email address and password associated with your account, and we'll send you on your way.
