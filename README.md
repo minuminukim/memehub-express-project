@@ -3,7 +3,7 @@
 
 Visit our [wiki](https://github.com/minuminukim/memehub-express-project/wiki/MemeHub) for more information.
 
-![MemeHub homepage](/public/images/documentation/memehub-homepage.png)
+<img src="./public/images/documentation/memehub-homepage.png" alt="MemeHub homepage">
 
 ## Live Link
 [MemeHub](http://memehub-medium-clone.herokuapp.com/)
