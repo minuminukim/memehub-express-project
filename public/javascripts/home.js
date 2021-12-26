@@ -1,7 +1,7 @@
 const transformToggleText = () => {
   const feed = window.location.href.toString().trim().split("/").pop();
-
   let toggle;
+  
   switch (feed) {
     case "":
       toggle = document.querySelector(".hot");

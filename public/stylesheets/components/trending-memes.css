@@ -101,7 +101,6 @@ h2.trending-title {
   display: flex;
   justify-content: flex-start;
   font-weight: bold;
-  /* margin-left: 60px; */
   align-self: center;
   color: #292929;
   padding-left: 8px;

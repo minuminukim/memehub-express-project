@@ -1,4 +1,4 @@
-  import { handleErrors, isResponseOk } from "./error-handlers.js";
+import { handleErrors, isResponseOk } from "./error-handlers.js";
 
 export const addFollowButtonListeners = () => {
   const followButtons = [...document.querySelectorAll(".follow-button")];
@@ -36,14 +36,12 @@ export const follow = async (e) => {
     const { newFollow } = await response.json();
     const isHeaderOrSide = isNavButton(button);
 
-    if (isHeaderOrSide) {
-      handleSideAndHeaderFollows(button, newFollow.id);
-    } else {
-      resetButton(button, newFollow.id);
-    }
+    if (isHeaderOrSide) handleSideAndHeaderFollows(button, newFollow.id);
+    else resetButton(button, newFollow.id);
 
     const data = { button, userId, followerId, followId, newFollow };
     const resource = checkResource();
+
     if (shouldUpdateCount(data, resource, isHeaderOrSide)) {
       const followerOrFollowing = checkButton(data, resource);
       updateCounts(followerOrFollowing, "follow");
@@ -57,6 +55,7 @@ export const follow = async (e) => {
 
 export const unfollow = async (e) => {
   e.preventDefault();
+
   const button = e.target;
   const userId = parseInt(button.getAttribute("user"), 10);
   const followerId = parseInt(button.getAttribute("follower"), 10);
@@ -70,11 +69,9 @@ export const unfollow = async (e) => {
     if (!isResponseOk(response)) return;
 
     const isHeaderOrSide = isNavButton(button);
-    if (isHeaderOrSide) {
-      handleSideAndHeaderFollows(button, "0");
-    } else {
-      resetButton(button, "0");
-    }
+
+    if (isHeaderOrSide) handleSideAndHeaderFollows(button, "0");
+    else resetButton(button, "0");
 
     const data = { button, userId, followerId, followId };
     const resource = checkResource();
@@ -83,6 +80,7 @@ export const unfollow = async (e) => {
       const followerOrFollowing = checkButton(data, resource);
       updateCounts(followerOrFollowing, "unfollow");
     }
+
     return response;
   } catch (error) {
     handleErrors(error);
@@ -95,13 +93,9 @@ const checkResource = () => {
 };
 
 const isNavButton = (button) => {
-  if (button.classList.contains("header-button")) {
-    return "header";
-  } else if (button.classList.contains("side-button")) {
-    return "side";
-  }
-
-  return false;
+  if (button.classList.contains("header-button")) return "header";
+  else if (button.classList.contains("side-button")) return "side";
+  else return false;
 };
 
 export const resetButton = (button, followId) => {
@@ -126,9 +120,8 @@ const shouldUpdateCount = (data, resource, isHeaderOrSide) => {
   const followerId = data.followerId.toString();
   const followerCounts = document.querySelectorAll(".follower-count");
   const followingCounts = document.querySelectorAll(".following-count");
-
   const pageBelongsToCurrentUser = resource.includes(followerId);
-  
+
   // if nothing to update or on /:id/following and profile doesnt belong to current user
   if (!followerCounts.length && !followingCounts.length) {
     return false;
@@ -148,11 +141,8 @@ const checkButton = (data, resource) => {
   const followerCounts = document.querySelectorAll(".follower-count");
   const followingCounts = document.querySelectorAll(".following-count");
 
-  if (resource[0] === followerId) {
-    return followingCounts;
-  } else {
-    return followerCounts;
-  }
+  if (resource[0] === followerId) return followingCounts;
+  else return followerCounts;
 };
 
 const updateCounts = (counts, action) => {
@@ -160,11 +150,8 @@ const updateCounts = (counts, action) => {
     const [count, text] = el.innerText.toString().trim().split(" ");
     const int = parseInt(count);
 
-    if (action === "follow") {
-      el.innerText = `${int + 1} ${text}`;
-    } else {
-      el.innerText = `${int - 1} ${text}`;
-    }
+    if (action === "follow") el.innerText = `${int + 1} ${text}`;
+    else el.innerText = `${int - 1} ${text}`;
   });
 };
 
