@@ -12,15 +12,15 @@ block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   div.about-page-content
     div.about-page-user-detail
-      h1.about-page-spacing= `About ${profileUser.firstName} ${profileUser.lastName}`
+      h1.about-page-spacing= `${profileUser.firstName} ${profileUser.lastName}`
       p.about-page-spacing= `${profileUser.biography}`
       hr.user-page
       div.about-page-follows
         a.userpage-header-link(href=`/users/${profileUser.id}/followers` alt='followers')= "Followers"
         a.userpage-header-link(href= `/users/${profileUser.id}/following` alt='following')= "Following"
-      .social-links
-        a.github-logo(href=`${profileUser.github}`): img(src="/images/github.png" class="github-logo")
-        a.linked-logo(href=`${profileUser.linkedIn}`): img(src="/images/linkedin.png" class="linked-logo")
+        .social-links
+          a.github-logo(href=`${profileUser.github}`): img(src="/images/github.png" class="github-logo")
+          a.linked-logo(href=`${profileUser.linkedIn}`): img(src="/images/linkedin.png" class="linked-logo")
       div.about-page-edit-link
         if isCurrentUser
           div.edit-delete
