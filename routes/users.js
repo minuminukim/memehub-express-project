@@ -329,7 +329,6 @@ router.get(
       isCurrentUser,
       isFollowing,
       profileFollowId,
-      count: followers.length || 0,
     });
   })
 );
