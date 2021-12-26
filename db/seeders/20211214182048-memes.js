@@ -169,7 +169,7 @@ module.exports = {
           userId: 1,
           headline: "* { background-color: teal }",
           caption: "That should do the job",
-          link: "https://i.ibb.co/nzx00bx/ll7f77rl7d871.jpg",
+          link: "https://i.ibb.co/9w12WbJ/2p0feb7k7o781.jpg",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
