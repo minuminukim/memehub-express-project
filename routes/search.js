@@ -1,5 +1,5 @@
 const express = require("express");
-const { Meme } = require("../db/models");
+const { Meme, User } = require("../db/models");
 const { asyncHandler } = require("../utils");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
@@ -28,6 +28,7 @@ router.post(
           },
         },
       },
+      include: User,
     });
 
     console.log(findMeme >= 1);

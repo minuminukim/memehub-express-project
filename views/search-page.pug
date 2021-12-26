@@ -5,41 +5,27 @@ include ./mixins/user-feed-meme.pug
 include ./mixins/memes.pug
 
 append head
-  link(rel='stylesheet' href='/stylesheets/components/search-page')
+  link(rel='stylesheet' href='/stylesheets/components/search-page.css')
+  link(rel='stylesheet' href='/stylesheets/components/feed-block.css')
 
 block content
-  .spacing-more
-  p.username Find a meme by a keyword in the headline or caption
-  .root-new-meme
-    h1.user-page Search
-      div.form
-      +validationErrorSummary(errors)
-      form(action='/search' method='post')
+  .root
+    +validationErrorSummary(errors)
+    form(action='/search' method='post' class='search-form')
+      .form-header
+        h1.form-title Search
+      .form-fields
         input(type='hidden' name='_csrf' value=csrfToken)
-        div.spacing
-        +field(null, 'search', search, 'text', 'Enter keywords here...')
-        div.post-cancel
-          button.submit-meme-button(type='submit') Search
-          div.spacing-more
-          a.small-font(href='/') Click Here To Cancel
-          div.spacing-more
-  if search
-    hr.bottom
-    if findMeme.length === 0
-      .root-new-meme
-        h1 We couldn't find any posts.
-    .root-new-meme
-      div.search-meme-feed
-        ul
+        +field(null, 'search', search, 'text', 'Find a meme by a keyword in the headline or caption...')
+      .post-cancel
+        button.submit-button(type='submit') Search
+        a.cancel-button(href='/') Cancel
+    if search
+      hr.bottom
+      if findMeme.length === 0
+        .search-meme-feed
+          h1 We couldn't find any posts.
+      else
+        .search-meme-feed
           each meme in findMeme
             +memeBlock(meme)
-            //- h1.user-page(href=`/memes/${meme.id}`)= `${meme.headline}`
-            //- div.spacing-more
-            //- h2.user-page= `${meme.caption}`
-            //- div.spacing-more
-            //- a(href=`/memes/${meme.id}`): img.user-meme(src=`${meme.link}` alt='meme')
-            //- p.posted-on= `Posted on ${meme.updatedAt.toLocaleDateString("en-US")}`
-            //- div.spacing-more
-            //- hr.bottom
-            //- div.end-of-post
-            //- div.spacing-more

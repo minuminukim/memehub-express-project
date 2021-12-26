@@ -12,15 +12,15 @@ block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   if isCurrentUser
     hr.user-page
-    div.root-about-page-edit
+    .root
       +validationErrorSummary(errors)
       form(action=`/users/${profileUser.id}/about/edit` method='post' class='edit-about-form')
-        h1.user-page Edit Your About Page
+        h1.form-title Edit Your About Page
         input(type='hidden' name='_csrf' value=csrfToken)
         div.spacing
         +field('Biography', 'biography', profileUser.biography, 'textarea', null, 2)
         div.spacing
         +field('Profile Picture', 'profilePicture', profileUser.profilePicture, 'textarea', null, 2)
         div.post-cancel
-          a.small-font(href=`/users/${profileUser.id}/about`) Cancel
-          button.submit-meme-button(type='submit') Update
+          a.cancel-button(href=`/users/${profileUser.id}/about`) Cancel
+          button.submit-button(type='submit') Update

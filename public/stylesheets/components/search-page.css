@@ -1,5 +1,100 @@
-div.search-meme-feed {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 75px;
+  color: #b3b3b1;
+}
+
+.form-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: fit-content;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  box-shadow: 0 0 10px 5px #f2f2f2;
+  padding: 2rem;
+}
+
+h1.form-title {
+  font-family: "Georgia", "Cambria", "Times New Roman", serif;
+  font-size: 20px;
+  color: #292929;
+  font-weight: 600;
+}
+
+.search-form input {
+  border: 0;
+  min-width: 270px;
+  min-height: 75px;
+  color: #292929;
+  font-size: 14px;
+  width: 100%;
+  height: auto;
+  resize: none;
+  padding-bottom: 12px;
+}
+
+.search-form input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #b3b3b1;
+  font-size: 14px;
+  text-align: left;
+  font-family: "Georgia", "Cambria", "Times New Roman", serif;
+}
+
+.post-cancel {
+  align-self: flex-end;
+}
+
+.submit-button {
+  background-color: #1a8917;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 20px;
+  height: 2rem;
+  min-width: 80px;
+  text-align: center;
+  line-height: 2rem;
+  border: 0;
+}
+
+.submit-button:hover {
+  background-color: #157813;
+}
+
+.cancel-button {
+  font-size: 14px;
+  text-decoration: none;
+  padding-left: 12px;
+}
+
+.cancel-button:hover {
+  color: #292929;
+}
+
+.search-meme-feed {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.search-meme-feed .meme-block {
+  padding: 1rem;
 }

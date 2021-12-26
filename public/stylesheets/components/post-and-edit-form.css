@@ -6,8 +6,7 @@ body {
   margin: 0;
 }
 
-.root-new-meme,
-.root-about-page-edit {
+.root {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,7 +18,7 @@ body {
   padding-top: 0;
 }
 
-h1.user-page {
+h1.form-title {
   font-family: "Georgia", "Cambria", "Times New Roman", serif;
   font-size: 42px;
   color: #292929;
@@ -61,13 +60,13 @@ h1.user-page {
   font-family: "Georgia", "Cambria", "Times New Roman", serif;
 }
 
-.small-font {
+.cancel-button {
   font-size: 16px;
   text-decoration: none;
   padding-right: 12px;
 }
 
-.small-font:hover {
+.cancel-button:hover {
   color: #292929;
 }
 
@@ -76,7 +75,7 @@ h1.user-page {
   align-items: center;
 }
 
-.submit-meme-button {
+.submit-button {
   background-color: #1a8917;
   color: #fff;
   font-size: 14px;
@@ -88,7 +87,7 @@ h1.user-page {
   border: 0;
 }
 
-.submit-meme-button:hover {
+.submit-button:hover {
   background-color: #157813;
 }
 
@@ -115,89 +114,3 @@ h1.user-page {
     height: 90%;
   }
 }
-
-/* .field-no-outline {
-  outline: none;
-  margin-top: 10px;
-  font-size: 20px;
-}
-
-.field-no-outline:focus {
-  outline: none;
-}
-
-input.remove-text-box:focus {
-  outline: none;
-} */
-
-/* .head-color {
-  color: gray;
-  font-weight: bolder;
-  padding-bottom: 10px;
-  font-size: 40px;
-}
-
-div.signinup {
-  margin-right: 100px;
-  padding-left: 100px;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: space-between;
-} */
-
-/* div.post-cancel {
-  padding-top: 15px;
-}
-
-.spacing {
-  padding-bottom: 3px;
-}
-
-.spacing-more {
-  padding-top: 15px;
-} */
-
-/* .submit-meme-button {
-  background-image: linear-gradient(#f7f8fa, #e7e9ec);
-  border-color: #adb1b8 #a2a6ac #8d9096;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3px;
-  box-shadow: rgba(255, 255, 255, 0.6) 0 1px 0 inset;
-  box-sizing: border-box;
-  color: #0f1111;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Amazon Ember", Arial, sans-serif;
-  font-size: 14px;
-  height: 29px;
-  font-size: 13px;
-  outline: 0;
-  overflow: hidden;
-  padding: 0 11px;
-  text-align: center;
-  text-decoration: none;
-  text-overflow: ellipsis;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-}
-
-.submit-meme-button:active {
-  border-bottom-color: #a2a6ac;
-}
-
-.submit-meme-button:active:hover {
-  border-bottom-color: #a2a6ac;
-}
-
-.submit-meme-button:hover {
-  border-color: #a2a6ac #979aa1 #82858a;
-}
-
-.submit-meme-button:focus {
-  border-color: #5bb6f3;
-  box-shadow: rgba(42, 184, 240, 0.5) 0 0 3px 2px;
-  outline: 0;
-} */
