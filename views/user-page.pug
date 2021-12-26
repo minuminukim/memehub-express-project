@@ -8,17 +8,17 @@ include ./mixins/user-side.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/user-page.css")
+  link(rel="stylesheet" href="/stylesheets/components/user-header.css")
   link(rel="stylesheet" href="/stylesheets/components/likes-and-comments.css")
   script(src="/javascripts/comments.js" type="module")
   script(src="/javascripts/likes.js" type='module' defer)
 
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
-  hr.user-page
+  //- hr.user-page
   div.userPosts
     div.user-page-content
       +userSide(profileUser, isFollowing, currentUserId, profileFollowId, followings)
     div.user-feed
-      ul
-        each meme in memes
-          +userFeedMeme(meme)
+      each meme in memes
+        +userFeedMeme(meme)

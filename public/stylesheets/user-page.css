@@ -1,4 +1,4 @@
-div.userpage-header {
+/* div.userpage-header {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -6,6 +6,7 @@ div.userpage-header {
   max-height: 100px;
   padding: 25px 18px;
   flex-wrap: wrap;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 a.userpage-header-link {
@@ -24,7 +25,7 @@ a.user-title {
   font-size: 27px;
   text-decoration: none;
   grid-column: 2 / 4;
-}
+} */
 
 .user-feed,
 .meme-container {
@@ -34,26 +35,12 @@ a.user-title {
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  border: 1px solid green;
 }
 
-img.nav-logo {
-  width: auto;
-  height: 25px;
-  padding: 1px 7px 1px 0;
-}
-
-.nav-search {
-  padding-right: 0.5rem;
-}
-
-.dropdown-button,
-.dropdown-img-button {
-  border: 0;
-  border-radius: 50%;
-  height: 32px;
-  width: 32px;
-  background-color: none;
-  cursor: pointer;
+.user-feed-block {
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 20px;
 }
 
 div.users-followers-details {
@@ -174,10 +161,6 @@ div.user-info {
   justify-content: flex-start;
 }
 
-div.end-of-post {
-  padding-top: 50px;
-}
-
 div.likes-and-comments {
   display: flex;
   justify-content: flex-start;
@@ -193,43 +176,12 @@ div.like-count {
 div.edit-delete {
   display: flex;
   justify-content: space-between;
-  padding-top: 20px;
-}
-
-hr.edit-delete {
-  margin-top: 40px;
 }
 
 p.posted-on {
   padding: 20px 0;
   font-size: 14px;
   color: #757575;
-}
-
-hr.bottom {
-  margin-top: 5px;
-  width: 100%;
-  height: 1px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: rgb(201, 201, 201);
-  border: 0 nones;
-}
-
-hr.bottom.meme-page {
-  margin-top: 5px;
-  margin-bottom: 15px;
-  width: 100%;
-  height: 1px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: rgb(201, 201, 201);
-  border: 0 nones;
-  border: 1px solid #e6e6e6;
-}
-
-div.bottom-of-page {
-  margin-bottom: 40px;
 }
 
 div.delete-meme {
@@ -304,6 +256,7 @@ div.delete-meme {
 
   div.userPosts {
     padding: 1.2rem;
+    height: 100%;
   }
 
   .meme-container {
