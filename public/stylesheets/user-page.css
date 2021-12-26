@@ -69,10 +69,10 @@ img.user-meme {
 }
 
 a.user-page {
+  font-size: 22px;
+  font-weight: bold;
   color: #292929;
-  font-weight: 500;
   text-decoration: none;
-  font-size: 2rem;
 }
 
 h1.user-page {
@@ -89,8 +89,10 @@ h1.user-title a {
 
 h2.user-page {
   padding-top: 5px;
-  font-size: 20px;
-  color: #202020;
+  font-size: 16px;
+  color: #757575;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 hr.user-page {
@@ -186,11 +188,6 @@ div.likes-and-comments {
 
 div.like-count {
   padding-left: 10px;
-}
-
-div.user-comment {
-  display: flex;
-  justify-content: flex-end;
 }
 
 div.edit-delete {
@@ -317,6 +314,11 @@ div.delete-meme {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-self: center;
+  }
+
+  .meme-container .end-of-post {
+    padding: 0;
   }
 }
 

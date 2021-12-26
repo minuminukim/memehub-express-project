@@ -23,13 +23,6 @@ block content
     div.user-feed
       .meme-container
         +userFeedMeme(meme)
-        //- h1.user-page= `${meme.headline}`
-        //- h2.user-page= `${meme.caption}`
-        //- img.user-meme(src=`${meme.link}` alt='meme')
-        //- +likesAndComments(meme)
-        //- +commentsModal(meme, currentUserId)
-        //- p.posted-on= `${meme.updatedAt.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})}`
-        //- hr.bottom-meme-page
         if currentUserId === meme.userId
           div.edit-delete
             a(href=`/memes/${meme.id}/edit`): button.modal-edit-delete-button Edit Meme
