@@ -4,6 +4,7 @@ include ./mixins/follows.pug
 include ./mixins/userpage-header.pug
 include ./mixins/likes-and-comments.pug
 include ./mixins/form-utils.pug
+include ./mixins/user-side.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/user-page.css")
@@ -17,23 +18,7 @@ block content
   hr.user-page
   div.userPosts
     div.user-page-content
-      div.fixed-position
-        img.user-profile-pic(src=`${meme.User.profilePicture}`)
-        div.user-page-details
-          div.profile-name-bar
-            p.user-profile-name-bar= `${meme.User.username}'s Info`
-            div.user-bio-description
-              p= `${meme.User.biography}`
-            div
-              +followButton(meme.userId, currentUserId, isFollowing ? "Following" : "Follow", profileFollowId, isFollowing ? "unfollow-button" : "follow-button", "side-button")
-        div.user-followings-details
-          p.user-followings-header= `${meme.User.firstName}  ${meme.User.lastName} Follows`
-          .user-followings-container
-            each following in followings.slice(0, 5)
-              .following-block
-                a(href=`/users/${following.id}`): img(src=`${following.profilePicture}`)
-                a.followings-link(href=`/users/${following.id}`)= `@${following.username}`
-            a.see-all(href=`/users/${meme.User.id}/following`) See all
+      +userSide(meme.User, isFollowing, currentUserId, profileFollowId, followings)
     div.user-feed
       .meme-container
         h1.user-page= `${meme.headline}`

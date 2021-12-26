@@ -1,6 +1,6 @@
 mixin userpageHeader(profileUsername, profileId, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   .userpage-header
-    a.user-title(href=`/users/${profileId}`)= `${profileUsername}`
+    a.user-title(href=`/users/${profileId}`)= `@${profileUsername}`
     a.userpage-header-link(href=`/users/${profileId}/followers` alt='followers' class="follower-count")= `${numberOfFollowers} Followers`
     a.userpage-header-link(href= `/users/${profileId}/following` alt='following' class="following-link")= "Following"
     a.userpage-header-link(href=`/users/${profileId}/about` class="about-link")= "About"
