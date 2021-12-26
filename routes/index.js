@@ -30,8 +30,9 @@ router.get(
     // Helper that queries for users & their followers, then maps relevant data
     const developers = await fetchDevelopers(currentUserId);
 
+    // if user isn't logged in, render landing page, else redirect them to router.get("/following")
     // If user logged in, render landing-page, else render index
-    return res.render(currentUserId === null ? "landing-page" : "index", {
+    return res.render("landing-page", {
       title: "Memehub",
       trendingMemes,
       feedMemes,
@@ -98,6 +99,7 @@ router.get(
     const feedMemes = memes.sort((a, b) => memesByComments(a, b));
 
     const developers = await fetchDevelopers(currentUserId);
+
     res.render("index", {
       title: "Memehub",
       feedMemes,
@@ -134,7 +136,7 @@ router.get(
     const resolved = await Promise.all(promises);
     const feedMemes = resolved.flat();
 
-    res.render("index", {
+    return res.render("index", {
       title: "Memehub",
       feedMemes,
       developers,

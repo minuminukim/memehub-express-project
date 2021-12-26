@@ -92,9 +92,10 @@ router.post(
 
         if (isPassword) {
           loginUser(req, res, user);
-          return res.redirect("/");
+          return res.redirect("/you");
         }
       }
+
       errors.push("Sign In failed for the provided email and password");
     } else {
       errors = validatorErrors.array().map((error) => error.msg);
