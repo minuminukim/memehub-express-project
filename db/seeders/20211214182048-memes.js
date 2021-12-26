@@ -137,7 +137,7 @@ module.exports = {
           userId: 2,
           headline: "Map 🤝 Reduce",
           caption: "Yolemmegetabaconeggandcheese",
-          link: "https://i.ibb.co/tC0kxZP/60d33bf3a2121cc74f72a286-0-AEnn-ZYBAYzm-SXzy-Gaopjv-EGKKO1y-Fqf-z-MXq-FTAT6v-UDf-XVPRif-I3-J8o-Bj-ZU.png",
+          link: "https://i.ibb.co/ZcG2fC6/map-reduce-sandwich.png",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
