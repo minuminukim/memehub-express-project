@@ -3,13 +3,13 @@ extends layout.pug
 include ./mixins/form-utils.pug
 
 append head
-  link(rel='stylesheet' href='/stylesheets/components/new-meme.css')
+  link(rel='stylesheet' href='/stylesheets/components/post-and-edit-form.css')
 
 block content
-  .root-new-meme
+  .root
     +validationErrorSummary(errors)
-    form.new-meme-form(action=`/memes/${meme.id}/edit` method='post')
-      h1.user-page Edit Your Meme...
+    form.edit-meme-form(action=`/memes/${meme.id}/edit` method='post')
+      h1.form-title Edit Your Meme...
       input(type='hidden' name='_csrf' value=csrfToken)
       div.spacing
       +field(null, 'headline', meme.headline, 'textarea', 'Enter your headline here..')
@@ -18,5 +18,5 @@ block content
       div.spacing
       +field(null, 'link', meme.link, 'textarea', 'Enter your link here..')
       div.post-cancel
-        a.small-font(href=`/memes/${meme.id}`) Cancel
+        a.cancel-button(href=`/memes/${meme.id}`) Cancel
         button.edit-meme-button(type='submit') Update Meme

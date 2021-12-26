@@ -4,7 +4,6 @@ body {
   max-height: 90%;
   padding: 0;
   margin: 0;
-  border: 1px solid lime;
 }
 
 .root {
@@ -17,7 +16,6 @@ body {
   color: #b3b3b1;
   padding: 75px;
   padding-top: 0;
-  border: 1px solid orange;
 }
 
 h1.form-title {
@@ -28,7 +26,8 @@ h1.form-title {
 }
 
 .new-meme-form,
-.edit-about-form {
+.edit-about-form,
+.edit-meme-form {
   display: flex;
   flex-direction: column;
   min-width: 600px;
@@ -38,7 +37,8 @@ h1.form-title {
 }
 
 .new-meme-form textarea,
-.edit-about-form textarea {
+.edit-about-form textarea,
+.edit-meme-form textarea {
   border: 0;
   min-width: 270px;
   min-height: 75px;
@@ -51,7 +51,8 @@ h1.form-title {
 }
 
 .new-meme-form textarea:focus,
-.edit-about-form textarea:focus {
+.edit-about-form textarea:focus,
+.edit-meme-form textarea:focus {
   outline: none;
 }
 
