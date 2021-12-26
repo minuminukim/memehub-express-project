@@ -63,6 +63,14 @@ h1.form-title {
   font-family: "Georgia", "Cambria", "Times New Roman", serif;
 }
 
+.error-message::placeholder {
+  color: #c94a4a;
+}
+
+.error-container {
+  display: none;
+}
+
 .cancel-button {
   font-size: 16px;
   text-decoration: none;

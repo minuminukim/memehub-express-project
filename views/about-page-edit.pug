@@ -9,7 +9,6 @@ append head
   link(rel="stylesheet" href="/stylesheets/components/post-and-edit-form.css")
 
 block content
-  +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   if isCurrentUser
     .root
       +validationErrorSummary(errors)

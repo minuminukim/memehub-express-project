@@ -220,23 +220,13 @@ router.get(
       include: { model: User, as: "followers" },
     });
 
-    // Follow logic
     const currentUserId = getUserId(req);
-
-    const {
-      isCurrentUser,
-      numberOfFollowers,
-      isFollowing,
-      followId: profileFollowId,
-    } = getFollowData(profileUser, currentUserId);
+    const isCurrentUser = userId === currentUserId;
 
     res.render("about-page-edit", {
       title: "User",
       profileUser,
       isCurrentUser,
-      isFollowing,
-      profileFollowId,
-      numberOfFollowers,
       csrfToken: req.csrfToken(),
     });
   })
