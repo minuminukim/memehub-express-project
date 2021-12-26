@@ -5,7 +5,7 @@ mixin userSide(profileUser, isFollowing, currentUserId, profileFollowId, followi
     img.user-profile-pic(src=`${profileUser.profilePicture}`)
     div.user-page-details
       div.profile-name-bar
-        p.user-profile-name-bar= `${profileUser.firstName} ${profileUser.lastName}'s Info`
+        p.user-profile-name-bar= `${profileUser.firstName} ${profileUser.lastName}`
         div.user-bio-description
           p= `${profileUser.biography}`
         .user-links
