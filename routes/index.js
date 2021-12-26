@@ -113,7 +113,6 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const currentUserId = getUserId(req);
-    console.log(currentUserId);
     const developers = await fetchDevelopers(currentUserId);
 
     // Fetch user & their following memes

@@ -1,12 +1,13 @@
 const express = require("express");
+const Sequelize = require("sequelize");
 const { Meme, User } = require("../db/models");
 const { asyncHandler } = require("../utils");
-const Sequelize = require("sequelize");
+const { requireAuth } = require("../auth");
 const Op = Sequelize.Op;
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", requireAuth, (req, res) => {
   res.render("search-page", {
     title: "Search",
   });
@@ -14,6 +15,7 @@ router.get("/", (req, res) => {
 
 router.post(
   "/",
+  requireAuth,
   asyncHandler(async (req, res) => {
     const { search } = req.body;
 
@@ -31,7 +33,6 @@ router.post(
       include: User,
     });
 
-    console.log(findMeme >= 1);
     res.render("search-page", {
       title: "Search",
       findMeme,

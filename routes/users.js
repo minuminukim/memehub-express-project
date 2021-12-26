@@ -120,6 +120,7 @@ router.post("/sign-out", (req, res) => {
 /** GET PROFILE PAGE */
 router.get(
   "/:id(\\d+)",
+  requireAuth,
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId, {
@@ -184,6 +185,7 @@ router.get(
 /**********************About Page*************************/
 router.get(
   "/:id(\\d+)/about",
+  requireAuth,
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const profileUser = await User.findByPk(userId, {
@@ -285,6 +287,7 @@ router.post(
 // GET followers by userId
 router.get(
   "/:id(\\d+)/followers",
+  requireAuth,
   asyncHandler(async (req, res) => {
     const currentUserId = getUserId(req);
     const profileId = parseInt(req.params.id, 10);
@@ -342,6 +345,7 @@ router.get(
 // GET following by userId
 router.get(
   "/:id(\\d+)/following",
+  requireAuth,
   asyncHandler(async (req, res) => {
     const profileUserId = parseInt(req.params.id, 10);
     const currentUserId = getUserId(req);
