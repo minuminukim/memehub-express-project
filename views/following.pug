@@ -10,9 +10,9 @@ append head
 block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   .root
+    .follows-title-container
+      h2.following-count #{count} Following
     .follows-container
-      .follows-title-container
-        h2.following-count #{count} Following
       if followings
         each following in followings
           .follow-block

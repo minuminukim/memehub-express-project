@@ -12,7 +12,7 @@ block content
   +userpageHeader(profileUser.username, profileUser.id, isCurrentUser, isFollowing, currentUserId, profileFollowId, numberOfFollowers)
   div.about-page-content
     div.about-page-user-detail
-      h1.about-page-spacing= `About ${profileUser.username}`
+      h1.about-page-spacing= `About ${profileUser.firstName} ${profileUser.lastName}`
       p.about-page-spacing= `${profileUser.biography}`
       hr.user-page
       div.about-page-follows
