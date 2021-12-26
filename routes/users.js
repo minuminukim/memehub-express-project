@@ -402,14 +402,16 @@ router.post(
   "/:id(\\d+)/following",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const { userId, followerId, followId } = req.body;
+    const { userId, followerId } = req.body;
     const follow = await Follow.findOne({ where: { userId, followerId } });
 
     if (!follow) {
-      const newFollow = await Follow.create({ userId, followerId });
-      res.json({ newFollow });
-    } else if (userId === followerId) {
-      res.status(400).json({ message: "You cannot follow yourself." });
+      if (userId === followerId) {
+        res.status(400).json({ message: "You cannot follow yourself." });
+      } else {
+        const newFollow = await Follow.create({ userId, followerId });
+        res.json({ newFollow });
+      }
     } else {
       res.status(400).json({ message: "You are already following this user." });
     }
