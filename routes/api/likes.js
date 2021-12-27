@@ -10,7 +10,7 @@ router.post(
   "/",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const userId = getUserId(req);
+    const userId = parseInt(req.body.userId, 10);
     const memeId = parseInt(req.body.memeId, 10);
     const like = await Like.findOne({ where: { userId, memeId } });
 

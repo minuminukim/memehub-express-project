@@ -3,12 +3,13 @@ import { handleErrors, isResponseOk } from "./error-handlers.js";
 const postLike = async (e) => {
   const button = e.target;
   const memeId = e.target.id.split("-")[1];
+  const userId = button.getAttribute("user").split("-")[1];
 
   try {
     const res = await fetch("/api/likes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ memeId }),
+      body: JSON.stringify({ memeId, userId }),
     });
 
     if (!isResponseOk(res)) {
@@ -82,7 +83,7 @@ const toggleLikeBubble = (button) => {
 
 window.addEventListener("DOMContentLoaded", () => {
   const likeButtons = document.querySelectorAll(".likeButton");
-  
+
   likeButtons.forEach((button) => {
     toggleLikeBubble(button);
     const like = button.getAttribute("like").split("-")[1];
