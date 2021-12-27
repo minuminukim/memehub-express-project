@@ -65,6 +65,7 @@ const addCommentButtonListener = (button) => {
       field.value = "";
       field.setAttribute("placeholder", "What are your thoughts?");
       field.classList.remove("comment-error");
+
       return comment;
     } catch (e) {
       handleCommentError(e);
@@ -75,7 +76,6 @@ const addCommentButtonListener = (button) => {
 const addDeleteButtonListener = (button) => {
   button.addEventListener("click", async (e) => {
     const commentId = button.id.split("-")[1];
-    console.log(commentId);
 
     try {
       const res = await fetch(`/api/comments/${commentId}`, {
