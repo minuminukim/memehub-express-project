@@ -151,10 +151,11 @@ router.get(
 
       const likes = meme.Likes;
       for (const like of likes) {
-        if (like.userId === currentUserId);
-        meme.likeId = like.id;
-        meme.liked = true;
-        break;
+        if (like.userId === currentUserId) {
+          meme.likeId = like.id;
+          meme.liked = true;
+          break;
+        }
       }
     }
 
