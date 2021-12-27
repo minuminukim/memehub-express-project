@@ -8,4 +8,10 @@ module.exports = {
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
   },
+  passwords: {
+    david: process.env.DAVID_PASSWORD,
+    will: process.env.WILL_PASSWORD,
+    anthony: process.env.ANTHONY_PASSWORD,
+    minu: process.env.MINU_PASSWORD,
+  }
 };
