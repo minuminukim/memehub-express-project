@@ -12,7 +12,7 @@ const addSocialLinksToDeveloper = (developer) => {
       break;
     case "anthonyadams":
       developer.github = "https://github.com/awadams198";
-      developer.linkedIn = "#"
+      developer.linkedIn = "https://www.linkedin.com/in/anthony-adams-a4221a228/"
       break;
     case "minukim":
       developer.github = "https://github.com/minuminukim";
